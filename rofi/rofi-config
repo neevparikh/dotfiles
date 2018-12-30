@@ -1,6 +1,6 @@
 rofi.theme: /usr/share/rofi/themes/solarized.rasi
 rofi.font: DejaVu Sans Mono 15
-rofi.width: 50
+rofi.width: 30
 rofi.lines: 3
 rofi.columns: 1
 rofi.hide-scrollbar: true
