@@ -28,8 +28,6 @@ gaps outer -5
 #exec --no-startup-id xautolock -time 5 -locker 'i3lock -c 002b36'
 bindsym $mod+Pause exec --no-startup-id i3lock-next "" "Inconsolata" 12
 
-# runs feh 
-exec_always --no-startup-id /usr/bin/feh --bg-scale '/usr/share/backgrounds/solarized_arch.png'
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -175,19 +173,17 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-set $bg-color            #002b36
-set $inactive-bg-color   #2f343f
-set $text-color          #f3f4f5
-set $inactive-text-color #676e7d
-set $urgent-bg-color     #e53935
-set $indicator-color     #a0a0a0
 
-# set window colors
-#                       border             background         text                 indicator
-client.focused          $bg-color          $bg-color          $text-color          $indicator-color
-client.unfocused        $inactive-bg-color $inactive-bg-color $inactive-text-color $indicator-color
-client.focused_inactive $inactive-bg-color $inactive-bg-color $inactive-text-color $indicator-color
-client.urgent           $urgent-bg-color   $urgent-bg-color   $text-color          $indicator-color
+# use j4-make-config
+
+# class                 border  backgr. text    indicator
+client.focused          #3c3836 #32302f #fabd2f #fabd2f
+client.focused_inactive #3c3836 #504945 #d5c4a1 #504945
+client.unfocused        #3c3836 #504945 #d5c4a1 #504945
+client.urgent           #7c6f64 #fabd2f #3c3836 #fabd2f
+
+# $i3-background
+exec_always --no-startup-id xsetroot -solid '#3c3836'
 
 
 # Start i3bar to display a workspace bar (plus the system information i3status
@@ -197,15 +193,16 @@ bar {
     position top 
     status_command i3status
     font pango:monospace 9
-
-	colors {
-        background $bg-color
-        separator #757575
-        #                  border             background         text
-        focused_workspace  $bg-color          $bg-color          $text-color
-        inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
-        urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
-    }
+	
+colors {
+	background #32302f
+	statusline #d5c4a1
+	separator #32302f 
+	focused_workspace #32302f #32302f #fabd2f
+	active_workspace #32302f #32302f #d5c4a1
+	inactive_workspace #3c3836 #3c3836 #d5c4a1
+	urgent_workspace   #7c6f64 #fabd2f #3c3836
+}
 }
 # bindsym $mod+b bar mode toggle
 

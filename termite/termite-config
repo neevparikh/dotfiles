@@ -98,8 +98,8 @@ color21 = #ebdbb2
 
 [hints]
 font = "Meslo for Powerline" 12
-#foreground = #dcdccc
-#background = #3f3f3f
+foreground = #fbf1c7
+background = rgba(29, 32, 33)
 #active_foreground = #e68080
 #active_background = #3f3f3f
 #padding = 2
