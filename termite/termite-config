@@ -2,7 +2,7 @@
 #allow_bold = true
 #audible_bell = false
 #bold_is_bright = true
-#clickable_url = true
+clickable_url = true
 #dynamic_title = true
 font = Inconsolata 14
 #fullscreen = true
@@ -38,59 +38,66 @@ cursor_shape = ibeam
 # "off", "left" or "right"
 scrollbar = off
 
-
 [colors]
-# Base16 Solarized Dark
-# Author: Ethan Schoonover (modified by aramisgithub)
+# Base16 Gruvbox dark, hard
+# Author: Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)
 
-foreground          = #93a1a1
-foreground_bold     = #eee8d5
-cursor              = #eee8d5
-cursor_foreground   = #002b36
-background          = rgba(0, 43, 54, 0.85)
+
+# foreground          = #d5c4a1
+# foreground_bold     = #ebdbb2
+# cursor              = #ebdbb2
+# cursor_foreground   = #1d2021
+# background          = rgba(29, 32, 33)
+
+# higher contrast
+foreground          = #ebdbb2 
+foreground_bold     = #fbf1c7
+cursor              = #fbf1c7
+cursor_foreground   = #1d2021
+background          = rgba(29, 32, 33)
 
 # 16 color space
 
 # Black, Gray, Silver, White
-color0  = #002b36
-color8  = #657b83
-color7  = #93a1a1
-color15 = #fdf6e3
+color0  = #1d2021
+color8  = #665c54
+color7  = #d5c4a1
+color15 = #fbf1c7
 
 # Red
-color1  = #dc322f
-color9  = #dc322f
+color1  = #fb4934
+color9  = #fb4934
 
 # Green
-color2  = #859900
-color10 = #859900
+color2  = #b8bb26
+color10 = #b8bb26
 
 # Yellow
-color3  = #b58900
-color11 = #b58900
+color3  = #fabd2f
+color11 = #fabd2f
 
 # Blue
-color4  = #268bd2
-color12 = #268bd2
+color4  = #83a598
+color12 = #83a598
 
 # Purple
-color5  = #6c71c4
-color13 = #6c71c4
+color5  = #d3869b
+color13 = #d3869b
 
 # Teal
-color6  = #2aa198
-color14 = #2aa198
+color6  = #8ec07c
+color14 = #8ec07c
 
 # Extra colors
-color16 = #cb4b16
-color17 = #d33682
-color18 = #073642
-color19 = #586e75
-color20 = #839496
-color21 = #eee8d5
+color16 = #fe8019
+color17 = #d65d0e
+color18 = #3c3836
+color19 = #504945
+color20 = #bdae93
+color21 = #ebdbb2
 
 [hints]
-#font = Monospace 12
+font = "Meslo for Powerline" 12
 #foreground = #dcdccc
 #background = #3f3f3f
 #active_foreground = #e68080

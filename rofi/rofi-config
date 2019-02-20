@@ -1,4 +1,4 @@
-rofi.theme: /usr/share/rofi/themes/solarized.rasi
+rofi.theme: /usr/share/rofi/themes/gruvbox-dark-hard.rasi
 rofi.font: DejaVu Sans Mono 15
 rofi.width: 30
 rofi.lines: 3

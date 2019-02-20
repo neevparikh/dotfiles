@@ -58,13 +58,11 @@ bindsym $mod+Shift+q kill
 # start rofi (program launcher)
 bindsym $mod+space exec rofi -show run -display-run "" -kb-cancel Super_L+space
 
-
-
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -73,10 +71,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -85,7 +83,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+b split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -98,7 +96,7 @@ bindsym Control+Print exec gnome-screenshot -i
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+Shift+s layout stacking
-bindsym $mod+Shift+w layout tabbed
+bindsym $mod+Shift+t layout tabbed
 bindsym $mod+Shift+e layout toggle split
 
 # toggle tiling / floating
@@ -157,16 +155,16 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym h resize shrink width 5 px or 5 ppt
+        bindsym j resize grow height 5 px or 5 ppt
+        bindsym k resize shrink height 5 px or 5 ppt
+        bindsym l resize grow width 5 px or 5 ppt
 
         # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym Left resize shrink width 5 px or 5 ppt
+        bindsym Down resize grow height 5 px or 5 ppt
+        bindsym Up resize shrink height 5 px or 5 ppt
+        bindsym Right resize grow width 5 px or 5 ppt
 
         # back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"
@@ -244,22 +242,21 @@ bindsym XF86AudioPause exec mocp --toggle-pause
 bindsym XF86AudioStop exec mocp --togle-pause
 bindsym XF86AudioNext exec mocp --next
 bindsym XF86AudioPrev exec mocp --previous
-
 bindsym $mod+F5 exec mocp --toggle-pause
 bindsym $mod+F6 exec mocp --stop
 bindsym $mod+F7 exec mocp --previous
 bindsym $mod+F8 exec mocp --next
 
-# App shortcuts
-bindsym $mod+w exec "/usr/bin/chromium"
-bindsym $mod+n exec "/usr/bin/thunar"
 
 # Redirect sound to headphones
 bindsym $mod+m exec "/usr/local/bin/switch-audio-port"
 
 # Autostart apps
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id "compton -cC"
+exec --no-startup-id "compton -CG"
 exec --no-startup-id nm-applet
-exec --no-startup-id "nitrogen --restore"
+exec --no-startup-id "source /home/neev/.fehbg" 
+# exec --no-startup-id "google-drive-ocamlfuse /home/neev/Gdrive"
+# exec --no-startup-id "gcsf mount /home/neev/gdrive -s personal &!"
 exec --no-startup-id "sleep 2s"
+exec --no-startup-id "blueberry-tray"
