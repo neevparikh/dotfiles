@@ -26,7 +26,6 @@ gaps outer -5
 
 # locking stuff
 #exec --no-startup-id xautolock -time 5 -locker 'i3lock -c 002b36'
-bindsym $mod+Pause exec --no-startup-id i3lock-next "" "Inconsolata" 12
 
 
 # Before i3 v4.8, we used to recommend this one as the default:
@@ -121,6 +120,9 @@ bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
 
+bindsym $mod+Shift+less move workspace to output right
+bindsym $mod+Shift+greater move workspace to output left
+
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
 bindsym $mod+Shift+2 move container to workspace 2
@@ -143,7 +145,9 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+z exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # lock
-bindsym $mod+Shift+x exec i3lock --color 475263
+bindsym $mod+Shift+x exec i3lock-next "" "Inconsolata" 18
+ 
+
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -172,7 +176,8 @@ mode "resize" {
 
 
 bindsym $mod+r mode "resize"
-
+bindsym $mod+Shift+d exec "mons -e right && xrandr --output DP1 --scale 2x2 && source /home/neev/.fehbg && setxbkmap -option caps:escape"
+bindsym $mod+Shift+m exec "xrandr --output DP1 --off"
 
 # use j4-make-config
 
@@ -193,7 +198,7 @@ bar {
     position top 
     status_command i3status
     font pango:monospace 9
-	
+	tray_output eDP1
 colors {
 	background #32302f
 	statusline #d5c4a1
@@ -250,10 +255,12 @@ bindsym $mod+m exec "/usr/local/bin/switch-audio-port"
 
 # Autostart apps
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id "compton -CG"
+exec --no-startup-id "compton -C"
 exec --no-startup-id nm-applet
 exec --no-startup-id "source /home/neev/.fehbg" 
 # exec --no-startup-id "google-drive-ocamlfuse /home/neev/Gdrive"
 # exec --no-startup-id "gcsf mount /home/neev/gdrive -s personal &!"
 exec --no-startup-id "sleep 2s"
 exec --no-startup-id "blueberry-tray"
+exec "xss-lock -- i3lock-next '' 'Inconsolata' 18 & "
+exec "setxkbmap -option caps:escape"

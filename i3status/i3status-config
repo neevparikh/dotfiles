@@ -44,7 +44,7 @@ wireless wlp4s0 {
 #}
 
 battery 0 {
-    format = "%percentage %remaining"
+    format = "%status %percentage %remaining"
     format_down = ""
     last_full_capacity = true
     integer_battery_capacity = true
