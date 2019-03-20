@@ -24,7 +24,7 @@ cp /home/neev/.zshrc $PWD/zsh/zshrc
 cp /home/neev/.oh-my-zsh/custom/themes/gruvbox.zsh-theme $PWD/zsh/gruvbox.zsh-theme
 
 # libinput 
-cp /usr/share/X11/xorg.conf.d/40-libinput.conf $PWD/libinput/:libinput.conf
+cp /usr/share/X11/xorg.conf.d/40-libinput.conf $PWD/libinput/libinput.conf
 
 # feh
 cp /home/neev/.fehbg $PWD/feh/fehbg
