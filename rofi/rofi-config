@@ -4,7 +4,6 @@ rofi.width: 30
 rofi.lines: 3
 rofi.columns: 1
 rofi.hide-scrollbar: true
-rofi.dpi: 190
 rofi.location: 0
 rofi.eh: 1
 rofi.seperator-style: solid

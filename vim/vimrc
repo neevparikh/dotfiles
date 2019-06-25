@@ -8,7 +8,7 @@
 
 " This line should not be removed as it ensures that various options are
 " properly set to work with the Vim-related packages.
-runtime! archlinux.vim
+" runtime! archlinux.vim
 
 " If you prefer the old-style vim functionalty, add 'runtime! vimrc_example.vim'
 " Or better yet, read /usr/share/vim/vim80/vimrc_example.vim or the vim manual
@@ -19,7 +19,20 @@ runtime! archlinux.vim
 
 " :set virtualedit=onemore
 
-" #### RAW VIM - NO PLUGINS ####
+
+set clipboard=unnamedplus
+
+" Plugins
+call plug#begin('~/.local/share/nvim/plugged')
+
+" Gruvbox
+Plug 'morhetz/gruvbox' 
+
+" Vimtex
+Plug 'lervag/vimtex'
+
+
+call plug#end()
 
 " Remapping
 let mapleader=","

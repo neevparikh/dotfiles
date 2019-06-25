@@ -9,12 +9,12 @@
 window {
     background-color: @background;
     border:           0;
-    padding:          40;
+    padding:          20;
 }
 
 mainbox {
     border:  0;
-    padding: 40;
+    padding: 20;
 }
 
 message {
