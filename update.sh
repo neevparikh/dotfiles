@@ -31,3 +31,10 @@ cp /home/neev/.fehbg $PWD/feh/fehbg
 
 # vim
 cp /home/neev/.vimrc $PWD/vim/vimrc
+
+# nvim
+cp /home/neev/.config/nvim/init.vim $PWD/nvim/init.vim
+cp /home/neev/.config/nvim/coc-settings.json $PWD/nvim/coc-settings.json
+
+# compton
+cp /home/neev/.config/compton.conf $PWD/compton/compton.conf
