@@ -1,0 +1,15 @@
+# Insert your preferred key mappings here.
+
+# unmap all keys to be remapped
+unmap J
+unmap K
+unmap L
+unmap H
+
+# remapping H and L to be more sensible
+map H previousTab
+map L nextTab
+
+# remapping J K to be more sensible
+map K goBack
+map J goForward
