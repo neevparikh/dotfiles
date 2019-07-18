@@ -1,7 +1,7 @@
 # Use Ubuntu as a base
 FROM ubuntu:18.04
 
-# Install necessary packages
+# Install necessary packages and set locale
 RUN apt -qq update && apt -qq install -y \
     git \
     sudo \
@@ -10,14 +10,12 @@ RUN apt -qq update && apt -qq install -y \
     zsh \
     tmux \
     fonts-powerline \
-    curl
+    curl && \
+    locale-gen en_US.UTF-8
 
-# Set locale
-RUN locale-gen en_US.UTF-8
 
-# Add user neev
-RUN useradd -p dockerneev@1010 -m neev && \
-    usermod -aG sudo neev
+# Add user 
+RUN useradd -p "$(openssl passwd -1 docker@1010)" -m neev -s /bin/zsh -g root -G sudo 
 
 # Install fd for fzf
 RUN curl -o fd.deb -sL https://github.com/sharkdp/fd/releases/download/v7.3.0/fd-musl_7.3.0_amd64.deb && \
@@ -35,8 +33,7 @@ WORKDIR "/home/neev/"
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
-ENV TERM xterm
-ENV ZSH_THEME gruvbox  
+ENV TERM xterm-256color
 
 # Install vim-plug
 RUN curl -fsLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
