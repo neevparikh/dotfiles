@@ -93,6 +93,7 @@ plugins=(
   git
   colored-man-pages
   extract
+  zsh-autosuggestions
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -345,7 +346,7 @@ alias ${gprefix}wX='git rm -rf'
 
 
 # External plugins
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+# source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
