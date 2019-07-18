@@ -2,12 +2,18 @@
 FROM ubuntu:18.04
 
 # Install necessary packages
-RUN apt update && apt install -y \
+RUN apt -qq update && apt -qq install -y \
     git \
+    sudo \
+    locales \
     neovim \
     zsh \
     tmux \
+    fonts-powerline \
     curl
+
+# Set locale
+RUN locale-gen en_US.UTF-8
 
 # Add user neev
 RUN useradd -p dockerneev@1010 -m neev && \
