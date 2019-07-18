@@ -6,10 +6,10 @@ RUN apt update && apt install -y \
     git \
     neovim \
     zsh \
-    curl \
+    curl
 
 # Install fd for fzf
-RUN wget -q -O fd.deb https://github.com/sharkdp/fd/releases/download/v7.3.0/fd-musl_7.3.0_amd64.deb && \
+RUN curl -o fd.deb -sL https://github.com/sharkdp/fd/releases/download/v7.3.0/fd-musl_7.3.0_amd64.deb && \
     dpkg -i fd.deb && \ 
     rm fd.deb
 
@@ -24,4 +24,13 @@ RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh
 RUN git clone https://github.com/neevparikh/dotfiles
 
 # Setup neovim 
+RUN mkdir -p ~/.config/nvim/ && \
+    cp ./dotfiles/nvim/init.vim ~/.config/nvim/init.vim && \
+    nvim --headless +PlugInstall +qa 
+
 # Setup zsh
+RUN mkdir -p ~/.oh-my-zsh/custom/themes && \
+    cp ./dotfiles/zsh/gruvbox.zsh-theme ~/.oh-my-zsh/custom/themes/gruvbox.zsh-theme && \
+    cp ./dotfiles/zsh/zshrc ~/.zshrc
+
+CMD /bin/zsh
