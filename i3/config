@@ -19,11 +19,6 @@ font pango:monospace 9
 # hide_edge_borders both
 for_window [class="^.*"] border pixel 0
 
-# gaps
-gaps inner 8
-gaps outer -5
-
-
 # locking stuff
 #exec --no-startup-id xautolock -time 5 -locker 'i3lock -c 002b36'
 
@@ -39,7 +34,7 @@ gaps outer -5
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec st
+bindsym $mod+Return exec gnome-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill

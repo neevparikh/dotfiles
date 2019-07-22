@@ -20,7 +20,7 @@
 " :set virtualedit=onemore
 
 
-set clipboard=unnamedplus
+set clipboard+=unnamedplus
 
 " Plugins
 call plug#begin('~/.local/share/nvim/plugged')
@@ -110,8 +110,12 @@ set splitbelow
 set splitright
 set foldmethod=expr
 
+" Start terminal in insert mode
+autocmd BufEnter term://* startinsert
+autocmd BufWinEnter,WinEnter term://* startinsert
+
 " Fzf
-let g:fzf_layout = { 'right': '~30%' }
+let g:fzf_layout = { 'right': '~35%' }
 
 " Searching related
 " set incsearch
@@ -131,7 +135,7 @@ let g:startify_bookmarks = [
 let g:startify_commands = [
           \ {'t': 'terminal'},
           \ {'b': 'Buffers'},
-          \ {'f': 'Files'}]
+          \ {'f': 'FZF ~'}]
 
 let g:startify_custom_header = ""
     let g:startify_lists = [

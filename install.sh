@@ -2,7 +2,7 @@
 
 # Configure variables
 USER=neev
-HOME_DIR=/home/$USER
+HOME=/home/$USER
 VERSION=$(lsb_release -rs)
 
 # All the stuff to install
@@ -14,8 +14,8 @@ apt-get install -yqq \
 	neovim > /dev/null
 
 # Only if not headless
-# echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt-get/sources.list.d/google-chrome.list
-# curl -sL https://dl.google.com/linux/linux_signing_key.pub | apt-get-key add && apt-get update -yqq 
+echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt-get/sources.list.d/google-chrome.list
+curl -sL https://dl.google.com/linux/linux_signing_key.pub | apt-get-key add && apt-get update -yqq 
 apt-get install -yqq \
 	google-chrome-stable \
 	i3 \
@@ -25,11 +25,15 @@ apt-get install -yqq \
 	fonts-powerline > /dev/null
 
 # Create the required directory structure
-mkdir -p $HOME_DIR/repos/
-mkdir -p $HOME_DIR/.config/rofi/
-mkdir -p $HOME_DIR/.config/nvim/
-mkdir -p $HOME_DIR/.config/i3/
-mkdir -p $HOME_DIR/.config/i3status/
+sudo -u neev \
+    && mkdir -p $HOME/repos/ \
+    && mkdir -p $HOME/.config/rofi/ \
+    && mkdir -p $HOME/.config/nvim/ \
+    && mkdir -p $HOME/.config/i3/ \
+    && mkdir -p $HOME/.config/i3status/ \
+
+# Install node for coc
+curl -sL install-node.now.sh/lts | bash -s -- --yes > /dev/null
 
 # Set some env var
 export LANG=en_US.UTF-8
@@ -38,12 +42,12 @@ export LC_ALL=en_US.UTF-8
 export TERM=xterm-256color
 
 # Install vim-plug
-curl -fsLo $HOME_DIR/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+sudo -u neev /usr/bin/curl -fsLo $HOME/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim > /dev/null
 
 # Install oh-my-zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" "" --unattended
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" "" --unattended > /dev/null
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions > /dev/null
 
 # Installing fd for fzf 
 if [[ ${VERSION:0:2} -ge "19" ]]
@@ -54,17 +58,19 @@ else
 fi
 
 # Clone repo and symlinks
-cd $HOME_DIR/repos/ && git clone https://github.com/neevparikh/dotfiles/
-ln -sfn nvim/init.vim $HOME_DIR/.config/nvim/init.vim
-ln -sfn i3/config $HOME_DIR/.config/i3/config
-ln -sfn i3status/config $HOME_DIR/.config/i3status/config
-ln -sfn rofi/config $HOME_DIR/.config/rofi/config
-ln -sfn rofi/themes /usr/share/rofi/themes
-ln -sfn zsh/.zshrc $HOME_DIR/.zshrc
-ln -sfn zsh/.gruvbox.zsh-theme $HOME_DIR/.oh-my-zsh/custom/themes/gruvbox.zsh-theme
-ln -sfn wallpaper/* /usr/share/backgrounds/
-ln -sfn feh/.fehbg $HOME_DIR/.fehbg
-cd $HOME_DIR
+cd $HOME/repos/ && git clone https://github.com/neevparikh/dotfiles/
+sudo -u neev ln -sfn $HOME/repos/dotfiles/nvim/init.vim $HOME/.config/nvim/init.vim \
+    && ln -sfn $HOME/repos/dotfiles/i3/config $HOME/.config/i3/config \
+    && ln -sfn $HOME/repos/dotfiles/i3status/config $HOME/.config/i3status/config \ 
+    && ln -sfn $HOME/repos/dotfiles/rofi/config $HOME/.config/rofi/config \
+    && ln -sfn $HOME/repos/dotfiles/zsh/.zshrc $HOME/.zshrc \
+    && cp $HOME/repos/dotfiles/zsh/.gruvbox.zsh-theme $HOME/.oh-my-zsh/custom/themes/gruvbox.zsh-theme \
+    && ln -sfn $HOME/repos/dotfiles/feh/.fehbg $HOME/.fehbg
+
+# To be done as root
+ln -sfn $HOME/repos/dotfiles/rofi/themes/gruvbox-* /usr/share/rofi/
+ln -sfn $HOME/repos/dotfiles/wallpaper/* /usr/share/backgrounds/
+cd $HOME
 
 # Setup neovim 
-sudo -u neev "nvim --headless +PlugInstall +qa"
+sudo -u neev /usr/bin/nvim --headless +PlugInstall +qa
