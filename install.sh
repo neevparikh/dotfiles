@@ -64,11 +64,15 @@ ln -sfn nvim/init.vim $HOME_DIR/.config/nvim/init.vim
 ln -sfn i3/config $HOME_DIR/.config/i3/config
 ln -sfn i3status/config $HOME_DIR/.config/i3status/config
 ln -sfn rofi/config $HOME_DIR/.config/rofi/config
-ln -sfn rofi/themes /usr/share/rofi/themes
-ln -sfn zsh/.zshrc $HOME_DIR/.zshrc
-ln -sfn zsh/.gruvbox.zsh-theme $HOME_DIR/.oh-my-zsh/custom/themes/gruvbox.zsh-theme
-ln -sfn wallpaper/* /usr/share/backgrounds/
 ln -sfn feh/.fehbg $HOME_DIR/.fehbg
+ln -sfn zsh/.zshrc $HOME_DIR/.zshrc
+
+# Will need to be copied
+sudo -u neev cp zsh/.gruvbox.zsh-theme $HOME_DIR/.oh-my-zsh/custom/themes/gruvbox.zsh-theme
+
+# To be run as root
+ln -sfn rofi/themes /usr/share/rofi/themes
+ln -sfn wallpaper/* /usr/share/backgrounds/
 cd $HOME_DIR
 
 # Setup neovim 
