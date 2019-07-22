@@ -13,6 +13,10 @@ apt-get install -yqq \
 	curl \
 	neovim > /dev/null
 
+# Install node for coc
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash - \
+    && apt-get install -yqq nodejs
+
 # Only if not headless
 echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt-get/sources.list.d/google-chrome.list
 curl -sL https://dl.google.com/linux/linux_signing_key.pub | apt-get-key add && apt-get update -yqq 
@@ -50,6 +54,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions > /dev/null
 
 # Installing fd for fzf 
+de
 if [[ ${VERSION:0:2} -ge "19" ]]
 then
 	apt-get install -yqq fd-find
@@ -59,17 +64,19 @@ fi
 
 # Clone repo and symlinks
 cd $HOME/repos/ && git clone https://github.com/neevparikh/dotfiles/
-sudo -u neev ln -sfn $HOME/repos/dotfiles/nvim/init.vim $HOME/.config/nvim/init.vim \
-    && ln -sfn $HOME/repos/dotfiles/i3/config $HOME/.config/i3/config \
-    && ln -sfn $HOME/repos/dotfiles/i3status/config $HOME/.config/i3status/config \ 
-    && ln -sfn $HOME/repos/dotfiles/rofi/config $HOME/.config/rofi/config \
-    && ln -sfn $HOME/repos/dotfiles/zsh/.zshrc $HOME/.zshrc \
-    && cp $HOME/repos/dotfiles/zsh/.gruvbox.zsh-theme $HOME/.oh-my-zsh/custom/themes/gruvbox.zsh-theme \
-    && ln -sfn $HOME/repos/dotfiles/feh/.fehbg $HOME/.fehbg
+ln -sfn nvim/init.vim $HOME/.config/nvim/init.vim
+ln -sfn i3/config $HOME/.config/i3/config
+ln -sfn i3status/config $HOME/.config/i3status/config
+ln -sfn rofi/config $HOME/.config/rofi/config
+ln -sfn feh/.fehbg $HOME/.fehbg
+ln -sfn zsh/.zshrc $HOME/.zshrc
 
-# To be done as root
-ln -sfn $HOME/repos/dotfiles/rofi/themes/gruvbox-* /usr/share/rofi/
-ln -sfn $HOME/repos/dotfiles/wallpaper/* /usr/share/backgrounds/
+# Will need to be copied
+sudo -u neev cp zsh/.gruvbox.zsh-theme $HOME/.oh-my-zsh/custom/themes/gruvbox.zsh-theme
+
+# To be run as root
+ln -sfn rofi/themes /usr/share/rofi/themes
+ln -sfn wallpaper/* /usr/share/backgrounds/
 cd $HOME
 
 # Setup neovim 
