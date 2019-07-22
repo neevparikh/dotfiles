@@ -1,9 +1,14 @@
 # Use Ubuntu as a base
-FROM ubuntu:18.04
+FROM nvidia/cuda:10.1-devel-ubuntu18.04
 
-# Install necessary packages and set locale
+USER root
+
 RUN apt -qq update && apt -qq install -y \
     git \
+    software-properties-common \
+    python3-dev \
+    python3-venv \
+    python3-pip \
     sudo \
     locales \
     neovim \
@@ -30,10 +35,11 @@ USER neev
 WORKDIR "/home/neev/"
 
 # Good idea to run, extensions might need
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
-ENV TERM xterm-256color
+ENV SHELL=/bin/zsh
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US:en
+ENV LC_ALL=en_US.UTF-8
+ENV TERM=xterm-256color
 
 # Install vim-plug
 RUN curl -fsLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
@@ -51,7 +57,7 @@ RUN mkdir -p /home/neev/.config/nvim/ && \
     cp ./dotfiles/nvim/init.vim /home/neev/.config/nvim/init.vim && \
     nvim --headless +PlugInstall +qa 
 
-# Setup tmux
+# Setup tmux *?*
 
 # Setup zsh
 RUN mkdir -p /home/neev/.oh-my-zsh/custom/themes && \
