@@ -13,6 +13,10 @@ apt-get install -yqq \
 	curl \
 	neovim > /dev/null
 
+# Install node for coc
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash - \
+    && apt-get install -yqq nodejs
+
 # Only if not headless
 # echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt-get/sources.list.d/google-chrome.list
 # curl -sL https://dl.google.com/linux/linux_signing_key.pub | apt-get-key add && apt-get update -yqq 
@@ -46,6 +50,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
 # Installing fd for fzf 
+de
 if [[ ${VERSION:0:2} -ge "19" ]]
 then
 	apt-get install -yqq fd-find

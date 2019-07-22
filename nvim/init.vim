@@ -20,7 +20,7 @@
 " :set virtualedit=onemore
 
 
-set clipboard=unnamedplus
+set clipboard+=unnamedplus
 
 " Plugins
 call plug#begin('~/.local/share/nvim/plugged')
@@ -68,6 +68,8 @@ nmap <space>s <cmd>source %<cr>
 tnoremap <M-space> <C-\><C-n>
 nmap <M-w> <C-w>
 nnoremap <M-space> :Startify<CR>
+nnoremap <M-b> :Buffers<CR>
+nnoremap <M-f> :Files ~<CR>
 
 " Theme related
 set termguicolors
@@ -111,7 +113,35 @@ set splitright
 set foldmethod=expr
 
 " Fzf
-let g:fzf_layout = { 'right': '~30%' }
+let $FZF_DEFAULT_OPTS = '--layout=reverse'
+let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+
+function! FloatingFZF()
+  let buf = nvim_create_buf(v:false, v:true)
+  call setbufvar(buf, '&signcolumn', 'no')
+
+  let height = &lines - 15
+  let width = float2nr(&columns - (&columns * 2 / 10))
+  let row = float2nr((&lines - height) /2)
+  let col = float2nr((&columns - width) / 2)
+
+  let opts = {
+        \ 'relative': 'editor',
+        \ 'row': row,
+        \ 'col': col,
+        \ 'width': width,
+        \ 'height': height
+        \ }
+
+  call nvim_open_win(buf, v:true, opts)
+  setlocal
+        \ buftype=nofile
+        \ nobuflisted
+        \ bufhidden=hide
+        \ nonumber
+        \ norelativenumber
+        \ signcolumn=no
+endfunction
 
 " Searching related
 " set incsearch
@@ -131,7 +161,7 @@ let g:startify_bookmarks = [
 let g:startify_commands = [
           \ {'t': 'terminal'},
           \ {'b': 'Buffers'},
-          \ {'f': 'Files'}]
+          \ {'f': 'Files ~'}]
 
 let g:startify_custom_header = ""
     let g:startify_lists = [

@@ -13,15 +13,15 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:monospace 9
+font pango:Inconsolata for Powerline, PowerlineSymbols 10
 
 # thin borders
-# hide_edge_borders both
+hide_edge_borders both
 for_window [class="^.*"] border pixel 0
 
 # gaps
-gaps inner 8
-gaps outer -5
+# gaps inner 8
+# gaps outer -5
 
 
 # locking stuff
@@ -39,7 +39,7 @@ gaps outer -5
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec st
+bindsym $mod+Return exec termite
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -120,16 +120,16 @@ bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
 
-bindsym $mod+Control+1 workspace 11
-bindsym $mod+Control+2 workspace 12
-bindsym $mod+Control+3 workspace 13
-bindsym $mod+Control+4 workspace 14
-bindsym $mod+Control+5 workspace 15
-bindsym $mod+Control+6 workspace 16
-bindsym $mod+Control+7 workspace 17
-bindsym $mod+Control+8 workspace 18
-bindsym $mod+Control+9 workspace 19
-bindsym $mod+Control+0 workspace 20
+bindsym Mod1+1 workspace 11
+bindsym Mod1+2 workspace 12
+bindsym Mod1+3 workspace 13
+bindsym Mod1+4 workspace 14
+bindsym Mod1+5 workspace 15
+bindsym Mod1+6 workspace 16
+bindsym Mod1+7 workspace 17
+bindsym Mod1+8 workspace 18
+bindsym Mod1+9 workspace 19
+bindsym Mod1+0 workspace 20
 
 bindsym $mod+Shift+less move workspace to output right
 bindsym $mod+Shift+greater move workspace to output left
@@ -146,16 +146,16 @@ bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
-bindsym $mod+Shift+Control+1 move container to workspace 11
-bindsym $mod+Shift+Control+2 move container to workspace 12
-bindsym $mod+Shift+Control+3 move container to workspace 13
-bindsym $mod+Shift+Control+4 move container to workspace 14
-bindsym $mod+Shift+Control+5 move container to workspace 15
-bindsym $mod+Shift+Control+6 move container to workspace 16
-bindsym $mod+Shift+Control+7 move container to workspace 17
-bindsym $mod+Shift+Control+8 move container to workspace 18
-bindsym $mod+Shift+Control+9 move container to workspace 19
-bindsym $mod+Shift+Control+0 move container to workspace 20
+bindsym Mod1+Shift+1 move container to workspace 11
+bindsym Mod1+Shift+2 move container to workspace 12
+bindsym Mod1+Shift+3 move container to workspace 13
+bindsym Mod1+Shift+4 move container to workspace 14
+bindsym Mod1+Shift+5 move container to workspace 15
+bindsym Mod1+Shift+6 move container to workspace 16
+bindsym Mod1+Shift+7 move container to workspace 17
+bindsym Mod1+Shift+8 move container to workspace 18
+bindsym Mod1+Shift+9 move container to workspace 19
+bindsym Mod1+Shift+0 move container to workspace 20
 
 bindsym Mod1+Tab workspace back_and_forth
 bindsym Mod1+l workspace next
@@ -205,8 +205,8 @@ mode "resize" {
 
 
 bindsym $mod+r mode "resize"
-bindsym $mod+Shift+d exec "mons -e right && xrandr --output DP1 --scale 2x2 && source /home/neev/.fehbg && setxbkmap -option caps:escape"
-bindsym $mod+Shift+m exec "xrandr --output DP1 --off"
+bindsym $mod+Shift+m exec "xrandr --output HDMI-1 --off --output eDP-1 --auto && xinput --map-to-output $(xinput list --id-only 'ELAN Touchscreen') eDP-1 && source /home/neev/.fehbg"
+bindsym $mod+Shift+d exec "xrandr --fb 2560x2880 --output eDP-1 --mode 2560x1440 --pos 0x1440 --output HDMI-1 --pos 0x0 --mode 1920x1080 --scale 1.3333333x1.3333333 && xinput --map-to-output $(xinput list --id-only 'ELAN Touchscreen') eDP-1 && source /home/neev/.fehbg"
 
 # use j4-make-config
 
@@ -226,8 +226,7 @@ bar {
     # mode hide
     position top 
     status_command i3status
-    font pango:monospace 9
-	tray_output eDP1
+	tray_output primary
 colors {
 	background #32302f
 	statusline #d5c4a1
@@ -241,8 +240,7 @@ colors {
 # bindsym $mod+b bar mode toggle
 
 # floating windows
-for_window [class="Pavucontrol"] floating enable
-for_window [class="Kalu"] floating enable
+for_window [class="feh"] floating enable
 
 ## Multimedia Keys
 
@@ -284,10 +282,5 @@ bindsym $mod+m exec "/usr/local/bin/switch-audio-port"
 
 # Autostart apps
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id "compton"
+exec --no-startup-id "compton --config ~/.config/compton.conf -b"
 exec --no-startup-id nm-applet
-# exec --no-startup-id "google-drive-ocamlfuse /home/neev/Gdrive"
-# exec --no-startup-id "gcsf mount /home/neev/gdrive -s personal &!"
-exec --no-startup-id "source /home/neev/.fehbg"
-exec --no-startup-id "xss-lock -- /usr/bin/betterlockscreen -t 'Neev Parikh' -b 0.1 -l dim &"
-exec --no-startup-id "sleep 2s"
