@@ -1,8 +1,10 @@
 # Use Ubuntu as a base
 FROM nparikh27/devbox:base
 
+USER neev
+
 # Python installs
-RUN pip3 install \
+RUN pip3 install --user \
     tensorboardX \
     tqdm \
     opencv-python \

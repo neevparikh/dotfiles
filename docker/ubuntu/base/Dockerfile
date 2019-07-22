@@ -3,12 +3,11 @@ FROM nvidia/cuda:10.1-devel-ubuntu18.04
 
 USER root
 
-RUN apt -qq update && apt -qq install -y \
+RUN apt-get -qq update && apt-get -qq install -y \
     git \
     software-properties-common \
     python3-dev \
     python3-venv \
-    python3-pip \
     sudo \
     locales \
     neovim \
@@ -17,7 +16,6 @@ RUN apt -qq update && apt -qq install -y \
     fonts-powerline \
     curl && \
     locale-gen en_US.UTF-8
-
 
 # Add user 
 RUN useradd -p "$(openssl passwd -1 docker@1010)" -m neev -s /bin/zsh -g root -G sudo 
@@ -41,6 +39,9 @@ ENV LANGUAGE=en_US:en
 ENV LC_ALL=en_US.UTF-8
 ENV TERM=xterm-256color
 
+RUN curl -sL "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py" \
+    && python3 get-pip.py --user
+
 # Install vim-plug
 RUN curl -fsLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -62,10 +63,12 @@ RUN mkdir -p /home/neev/.config/nvim/ && \
 # Setup zsh
 RUN mkdir -p /home/neev/.oh-my-zsh/custom/themes && \
     cp ./dotfiles/zsh/gruvbox.zsh-theme /home/neev/.oh-my-zsh/custom/themes/gruvbox.zsh-theme && \
-    cp ./dotfiles/zsh/zshrc ~/.zshrc
+    cp ./dotfiles/zsh/.zshrc ~/.zshrc
 
 # Clean up things
 RUN rm -rf ./dotfiles/ 
+
+ENV PATH=/home/neev/.local/bin/:$PATH
  
 # Start shell
 CMD zsh
