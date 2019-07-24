@@ -33,8 +33,9 @@ if [ -d "$HOME/.fzf" ] ; then
 
     a="--color=bg+:$color01,spinner:$color0C,hl:$color0D "
     b="--color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C "
-    c="--color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D --ansi"
-    export FZF_DEFAULT_OPTS="$a$b$c"
+    c="--color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D --ansi "
+    d="--reverse"
+    export FZF_DEFAULT_OPTS="$a$b$c$d"
 fi
 
 # Set list of themes to pick from when loading at random
