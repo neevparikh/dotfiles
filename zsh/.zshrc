@@ -3,6 +3,7 @@ export PATH=/opt/android-studio/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/neev/.oh-my-zsh"
+export GTK_THEME="Adwaita:dark"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -12,7 +13,7 @@ ZSH_THEME="gruvbox"
 SOLARIZED_THEME="dark"
 
 if [ -d "$HOME/.fzf" ] ; then
-    export FZF_DEFAULT_COMMAND="fd --color=always --follow --hidden --exclude .git"
+    export FZF_DEFAULT_COMMAND="fdfind --color=always --follow --hidden --no-ignore"
 
     color00='#282828'
     color01='#3c3836'
@@ -171,7 +172,8 @@ alias lla='ls -la'
 alias tlmgr='tllocalmgr'
 alias svim='sudoedit'
 alias vim='nvim'
-alias y='yay'
+alias lgout='i3-msg exit'
+alias fd='fdfind'
 alias py='python'
 
 local gprefix
