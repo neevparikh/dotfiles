@@ -12,7 +12,7 @@ ZSH_THEME="gruvbox"
 SOLARIZED_THEME="dark"
 
 if [ -d "$HOME/.fzf" ] ; then
-    export FZF_DEFAULT_COMMAND="fd --color=always --follow --hidden --exclude .git"
+    export FZF_DEFAULT_COMMAND="fd --color=always --follow --hidden --no-ignore"
 
     color00='#282828'
     color01='#3c3836'
