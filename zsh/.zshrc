@@ -1,6 +1,8 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=/opt/android-studio/bin:$PATH
 
+VERSION=$(lsb_release -rs)
+
 # Path to your oh-my-zsh installation.
 export ZSH="/home/neev/.oh-my-zsh"
 export GTK_THEME="Adwaita:dark"
@@ -12,8 +14,15 @@ export GTK_THEME="Adwaita:dark"
 ZSH_THEME="gruvbox"
 SOLARIZED_THEME="dark"
 
+if [[ ${VERSION:0:2} -ge "19" ]]
+then
+    FD_CMD="fdfind"
+else
+    FD_CMD="fd"
+fi
+
 if [ -d "$HOME/.fzf" ] ; then
-    export FZF_DEFAULT_COMMAND="fdfind --color=always --follow --hidden --no-ignore"
+    export FZF_DEFAULT_COMMAND="$FD_CMD --color=always --follow --hidden --no-ignore"
 
     color00='#282828'
     color01='#3c3836'
@@ -34,8 +43,9 @@ if [ -d "$HOME/.fzf" ] ; then
 
     a="--color=bg+:$color01,spinner:$color0C,hl:$color0D "
     b="--color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C "
-    c="--color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D --ansi"
-    export FZF_DEFAULT_OPTS="$a$b$c"
+    c="--color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D --ansi "
+    d="--reverse"
+    export FZF_DEFAULT_OPTS="$a$b$c$d"
 fi
 
 # Set list of themes to pick from when loading at random
