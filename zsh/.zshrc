@@ -22,7 +22,7 @@ else
 fi
 
 if [ -d "$HOME/.fzf" ] ; then
-    export FZF_DEFAULT_COMMAND="$FD_CMD --color=always --follow --hidden --no-ignore"
+    export FZF_DEFAULT_COMMAND="$FD_CMD --color=always --follow --hidden --no-ignore --exclude .git"
 
     color00='#282828'
     color01='#3c3836'
