@@ -166,7 +166,7 @@ let g:startify_bookmarks = [
 let g:startify_commands = [
           \ {'t': 'terminal'},
           \ {'b': 'Buffers'},
-          \ {'f': 'Files ~'}]
+          \ {'f': 'Files'}]
 
 let g:startify_custom_header = ""
     let g:startify_lists = [
