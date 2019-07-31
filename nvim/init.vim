@@ -61,6 +61,7 @@ let g:lightline.active = {
             \           [ 'readonly', 'filename', 'modified', 'cocstatus' ] ]}
 
 let g:lightline.component_function = {'cocstatus': 'coc#status'}
+autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
 " Remapping
 let mapleader=','
@@ -69,7 +70,7 @@ tnoremap <M-space> <C-\><C-n>
 nmap <M-w> <C-w>
 nnoremap <M-space> :Startify<CR>
 nnoremap <M-b> :Buffers<CR>
-nnoremap <M-f> :Files ~<CR>
+nnoremap <M-f> :Files<CR>
 
 " Theme related
 set termguicolors
@@ -98,6 +99,7 @@ set cursorline
 filetype plugin on
 filetype indent on
 set wildmenu
+set hidden
 set wildmode=longest,list,full
 set showmatch
 set wildignore+=*/.git/*,*/.hg/*,/*/.svn/*,*/.DS_Store
@@ -113,8 +115,8 @@ set splitright
 set foldmethod=expr
 
 " Start terminal in insert mode
-autocmd BufEnter term://* startinsert
-autocmd BufWinEnter,WinEnter term://* startinsert
+" autocmd BufEnter term://* startinsert
+" autocmd BufWinEnter,WinEnter term://* startinsert
 
 " Fzf
 let g:fzf_layout = { 'window': 'call FloatingFZF()' }
