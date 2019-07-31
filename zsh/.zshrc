@@ -1,6 +1,8 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=/opt/android-studio/bin:$PATH
 
+VERSION=$(lsb_release -rs)
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -11,8 +13,15 @@ export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="gruvbox"
 SOLARIZED_THEME="dark"
 
+if [[ ${VERSION:0:2} -ge "19" ]]
+then
+    FD_CMD="fdfind"
+else
+    FD_CMD="fd"
+fi
+
 if [ -d "$HOME/.fzf" ] ; then
-    export FZF_DEFAULT_COMMAND="fd --color=always --follow --hidden --no-ignore --exclude .git"
+    export FZF_DEFAULT_COMMAND="$FD_CMD --color=always --follow --hidden --no-ignore --exclude .git"
 
     color00='#282828'
     color01='#3c3836'
@@ -171,7 +180,8 @@ alias lla='ls -la'
 alias tlmgr='tllocalmgr'
 alias svim='sudoedit'
 alias vim='nvim'
-alias y='yay'
+alias lgout='i3-msg exit'
+alias fd='fdfind'
 alias py='python'
 
 local gprefix

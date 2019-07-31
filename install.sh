@@ -54,7 +54,6 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions > /dev/null
 
 # Installing fd for fzf 
-de
 if [[ ${VERSION:0:2} -ge "19" ]]
 then
 	apt-get install -yqq fd-find
