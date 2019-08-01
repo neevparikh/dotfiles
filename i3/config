@@ -277,6 +277,6 @@ bindsym $mod+m exec "/usr/local/bin/switch-audio-port"
 
 # Autostart apps
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec "source /home/neev/.fehbg"
 exec --no-startup-id "compton --config ~/.config/compton.conf -b"
+exec "source /home/neev/.fehbg"
 exec --no-startup-id nm-applet
