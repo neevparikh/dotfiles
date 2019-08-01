@@ -1,2 +1,2 @@
 #!/bin/sh
-feh --bg-scale '/usr/share/backgrounds/gruv4.png' 
+'feh' '--bg-scale' '/usr/share/backgrounds/gruv4.png' 

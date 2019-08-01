@@ -6,16 +6,25 @@ USER root
 RUN apt-get -qq update && apt-get -qq install -y \
     git \
     software-properties-common \
+    build-essential \
+    cmake \
     python3-dev \
     python3-venv \
+    python3-pip \
+    unzip \
     sudo \
     locales \
-    neovim \
     zsh \
     tmux \
     fonts-powerline \
     curl && \
     locale-gen en_US.UTF-8
+
+RUN sudo add-apt-repository ppa:neovim-ppa/unstable -y \
+    && apt-get -yqq install neovim \
+    && pip3 install \
+        neovim-remote \
+        pynvim
 
 # Add user 
 RUN useradd -p "$(openssl passwd -1 docker@1010)" -m neev -s /bin/zsh -g root -G sudo 
@@ -38,9 +47,6 @@ ENV LANG=en_US.UTF-8
 ENV LANGUAGE=en_US:en
 ENV LC_ALL=en_US.UTF-8
 ENV TERM=xterm-256color
-
-RUN curl -sL "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py" \
-    && python3 get-pip.py --user
 
 # Install vim-plug
 RUN curl -fsLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \

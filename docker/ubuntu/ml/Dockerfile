@@ -9,7 +9,7 @@ RUN pip3 install --user \
     tqdm \
     opencv-python \
     numpy \
-    tensorflow \
+    tensorflow-gpu \
     torch \
     torchvision \
     scipy 

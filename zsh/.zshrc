@@ -4,8 +4,7 @@ export PATH=/opt/android-studio/bin:$PATH
 VERSION=$(lsb_release -rs)
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/neev/.oh-my-zsh"
-export GTK_THEME="Adwaita:dark"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -111,9 +110,8 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-DEFAULT_USER=neev
 
-export PATH="/home/neev/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -346,6 +344,7 @@ alias ${gprefix}tx='git tag --delete'
 
 # Working tree (w)
 alias ${gprefix}ws='git status --short'
+alias ${gprefix}d='git diff'
 alias ${gprefix}wS='git status'
 alias ${gprefix}wd='git diff --no-ext-diff'
 alias ${gprefix}wD='git diff --no-ext-diff --word-diff'
@@ -360,6 +359,7 @@ alias ${gprefix}wX='git rm -rf'
 # External plugins
 # source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export TERM="xterm-256color"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PATH=~/.npm-global/bin:/home/neev/.yarn/bin:/home/neev/.config/yarn/global/node_modules/.bin:/home/neev/.local/bin:/opt/android-studio/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/neev/.fzf/bin
