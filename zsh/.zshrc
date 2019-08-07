@@ -362,3 +362,4 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export TERM="xterm-256color"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export PATH=~/.npm-global/bin:/home/neev/.yarn/bin:/home/neev/.config/yarn/global/node_modules/.bin:/home/neev/.local/bin:/opt/android-studio/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/neev/.fzf/bin
