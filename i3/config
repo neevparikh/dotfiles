@@ -153,8 +153,6 @@ bindsym Mod1+Shift+9 move container to workspace 19
 bindsym Mod1+Shift+0 move container to workspace 20
 
 bindsym Mod1+Tab workspace back_and_forth
-bindsym Mod1+l workspace next
-bindsym Mod1+h workspace prev
 
 bindsym Mod1+Shift+l move container to workspace next
 bindsym Mod1+Shift+h move container to workspace prev

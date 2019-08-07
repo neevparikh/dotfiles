@@ -63,6 +63,10 @@ let g:lightline.active = {
 let g:lightline.component_function = {'cocstatus': 'coc#status'}
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
+
+" UltiSnips
+" let g:UltiSnipsUsePythonVersion = 3
+
 " Remapping
 let mapleader=','
 nmap <space>s <cmd>source %<cr> 
@@ -71,6 +75,7 @@ nmap <M-w> <C-w>
 nnoremap <M-space> :Startify<CR>
 nnoremap <M-b> :Buffers<CR>
 nnoremap <M-f> :Files<CR>
+nnoremap <M-F> :Files ../<CR>
 
 " Theme related
 set termguicolors
