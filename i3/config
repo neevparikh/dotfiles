@@ -154,8 +154,6 @@ bindsym Mod1+Shift+0 move container to workspace 20
 
 bindsym Mod1+Tab workspace back_and_forth
 
-bindsym Mod1+Shift+l move container to workspace next
-bindsym Mod1+Shift+h move container to workspace prev
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -198,8 +196,8 @@ mode "resize" {
 
 
 bindsym $mod+r mode "resize"
-bindsym $mod+Shift+m exec "xrandr --output HDMI-1 --off --output eDP-1 --auto && xinput --map-to-output $(xinput list --id-only 'ELAN Touchscreen') eDP-1 && source /home/neev/.fehbg"
-bindsym $mod+Shift+d exec "xrandr --fb 2560x2880 --output eDP-1 --mode 2560x1440 --pos 0x1440 --output HDMI-1 --pos 0x0 --mode 1920x1080 --scale 1.3333333x1.3333333 && xinput --map-to-output $(xinput list --id-only 'ELAN Touchscreen') eDP-1 && source /home/neev/.fehbg"
+bindsym $mod+Shift+m exec "xrandr --output HDMI2 --off --output eDP1 --auto && source $HOME/.fehbg"
+bindsym $mod+Shift+d exec "xrandr --fb 1920x2160 --output eDP1 --mode 1920x1080 --pos 0x1080 --output HDMI2 --pos 0x0 --mode 1920x1080 && source $HOME/.fehbg"
 
 # use j4-make-config
 

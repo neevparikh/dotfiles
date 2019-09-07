@@ -29,7 +29,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
-Plug 'morhetz/gruvbox' 
+Plug 'gruvbox-community/gruvbox' 
 Plug 'lervag/vimtex'
 Plug 'honza/vim-snippets'
 Plug 'itchyny/lightline.vim'
@@ -42,6 +42,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 Plug 'mhinz/vim-startify'
 Plug 'tpope/vim-fugitive'
+Plug 'neevparikh/lightline-gruvbox.vim'
 
 call plug#end()
 
@@ -55,14 +56,15 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
 
 " Lightline 
-let g:lightline = {'colorscheme': 'gruvbox'}
+let g:lightline = {}
+let g:lightline.colorscheme = 'gruvbox'
 let g:lightline.active = {
             \ 'left': [ [ 'mode', 'paste' ],
             \           [ 'readonly', 'filename', 'modified', 'cocstatus' ] ]}
 
 let g:lightline.component_function = {'cocstatus': 'coc#status'}
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
-
+set noshowmode
 
 " UltiSnips
 " let g:UltiSnipsUsePythonVersion = 3
@@ -76,6 +78,38 @@ nnoremap <M-space> :Startify<CR>
 nnoremap <M-b> :Buffers<CR>
 nnoremap <M-f> :Files<CR>
 nnoremap <M-F> :Files ../<CR>
+nnoremap <M-c> :call SwitchColorScheme()<CR>
+
+
+function! SetColors()
+    let g:lightline.colorscheme = substitute(substitute(g:colors_name, '-', '_', 'g'), '256.*', '', '') . 
+                \ (g:colors_name ==# 'solarized' ? '_' . &background : '')
+    if exists("*LightlineGruvboxSetColors")
+        call LightlineGruvboxSetColors()
+    endif
+    call lightline#init()
+    call lightline#colorscheme()
+    call lightline#update()
+
+    if &background == 'dark'
+        hi GruvboxBgMed	ctermfg=234 guifg=#282828
+    else
+        hi GruvboxBgMed	ctermfg=229 guifg=#ebdbb2
+    endif
+
+    " Customize fzf colors to match your color scheme
+    let g:fzf_colors.bg = ['fg', 'GruvboxBgMed']
+endfunction
+
+augroup ResetColorscheme 
+    autocmd!
+    autocmd ColorScheme * call SetColors() 
+augroup end
+
+
+function! SwitchColorScheme()
+    let &background= ( &background == "dark"? "light" : "dark" )
+endfunction
 
 " Theme related
 set termguicolors
@@ -83,6 +117,7 @@ set background=dark
 let g:gruvbox_contrast_dark = "hard"
 colorscheme gruvbox
 syntax enable
+call SetColors()
 
 " Tab and Spaces related
 set tabstop=4
@@ -120,11 +155,10 @@ set splitright
 set foldmethod=expr
 
 " Start terminal in insert mode
-" autocmd BufEnter term://* startinsert
-" autocmd BufWinEnter,WinEnter term://* startinsert
 
 " Fzf
 let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+ 
 
 function! FloatingFZF()
   let buf = nvim_create_buf(v:false, v:true)
