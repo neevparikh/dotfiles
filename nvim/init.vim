@@ -25,9 +25,6 @@ set clipboard+=unnamedplus
 " Plugins
 call plug#begin('~/.local/share/nvim/plugged')
 
-" Deoplete
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'gruvbox-community/gruvbox' 
 Plug 'lervag/vimtex'
@@ -77,9 +74,13 @@ nmap <M-w> <C-w>
 nnoremap <M-space> :Startify<CR>
 nnoremap <M-b> :Buffers<CR>
 nnoremap <M-f> :Files<CR>
+nnoremap <M-t> :terminal<CR>
 nnoremap <M-F> :Files ../<CR>
 nnoremap <M-c> :call SwitchColorScheme()<CR>
-
+nmap <M-n> <Plug>(coc-diagnostic-next)<CR>
+nmap <M-p> <Plug>(coc-diagnostic-prev)<CR>
+nmap <space>f <Plug>(coc-format-selected)<CR>
+nmap <space>F <Plug>(coc-format)<CR>
 
 function! SetColors()
     let g:lightline.colorscheme = substitute(substitute(g:colors_name, '-', '_', 'g'), '256.*', '', '') . 
@@ -152,9 +153,15 @@ set showcmd
 set undofile
 set splitbelow
 set splitright
-set foldmethod=expr
+set foldmethod=syntax
+autocmd Filetype <your-filetype> AnyFoldActivate
 
-" Start terminal in insert mode
+let g:vimtex_compiler_progname = 'nvr'
+let g:tex_flavor  = 'latex'
+let g:tex_conceal = ''
+let g:vimtex_fold_manual = 1
+let g:vimtex_latexmk_continuous = 1
+let g:vimtex_view_method = 'zathura'
 
 " Fzf
 let g:fzf_layout = { 'window': 'call FloatingFZF()' }
