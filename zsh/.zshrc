@@ -118,16 +118,23 @@ export PATH="$HOME/.local/bin:$PATH"
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
 
 export EDITOR='nvim'
+#nvim terminal specific settings
+if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
+  alias h='nvr -o'
+  alias v='nvr -O'
+  alias t='nvr --remote-tab'
+  alias e='nvr'
+  export VISUAL='nvr -cc split --remote-wait -c "set bufhidden=delete"'
+  export EDITOR="$VISUAL"
+fi
+
 bindkey -v
 export KEYTIMEOUT=1
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^E" edit-command-line
 
 function zle-keymap-select {
   if [[ ${KEYMAP} == vicmd ]] ||
@@ -204,7 +211,7 @@ alias ${gprefix}bX='git-branch-delete-interactive --force'
 
 # Commit (c)
 alias ${gprefix}c='git commit --verbose'
-alias ${gprefix}ca='git commit --verbose --all'
+alias ${gprefix}ca='git commit --all'
 alias ${gprefix}cm='git commit --message'
 alias ${gprefix}co='git checkout'
 alias ${gprefix}cO='git checkout --patch'
@@ -355,6 +362,9 @@ alias ${gprefix}wC='git clean -d --force'
 alias ${gprefix}wx='git rm -r'
 alias ${gprefix}wX='git rm -rf'
 
+# Changing theme
+alias tgl='xdotool key --clearmodifiers Shift+F10 r 2' 
+alias tgd='xdotool key --clearmodifiers Shift+F10 r 1' 
 
 # External plugins
 # source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh

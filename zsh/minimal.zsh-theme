@@ -1,4 +1,4 @@
-GIT_COLOR="blue"
+GIT_COLOR="red"
 TIME_COLOR="magenta"
 SSH_COLOR="cyan"
 
@@ -23,4 +23,4 @@ remote_host_prompt () {
 }
 
 PROMPT='%2~ »%b '
-RPROMPT='$(git_custom_info) $(remote_host_prompt) ${time}'
+RPROMPT='$(git_custom_info) $(remote_host_prompt)'

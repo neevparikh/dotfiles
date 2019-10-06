@@ -1,28 +1,7 @@
-" All system-wide defaults are set in $VIMRUNTIME/archlinux.vim (usually just
-" /usr/share/vim/vimfiles/archlinux.vim) and sourced by the call to :runtime
-" you can find below.  If you wish to change any of those settings, you should
-" do it in this file (/etc/vimrc), since archlinux.vim will be overwritten
-" everytime an upgrade of the vim packages is performed.  It is recommended to
-" make changes after sourcing archlinux.vim since it alters the value of the
-" 'compatible' option.
-
-" This line should not be removed as it ensures that various options are
-" properly set to work with the Vim-related packages.
-" runtime! archlinux.vim
-
-" If you prefer the old-style vim functionalty, add 'runtime! vimrc_example.vim'
-" Or better yet, read /usr/share/vim/vim80/vimrc_example.vim or the vim manual
-" and configure vim to your own liking!
-
-" do not load defaults if ~/.vimrc is missing
-"let skip_defaults_vim=1
-
-" :set virtualedit=onemore
-
-
 set clipboard+=unnamedplus
 
 " Plugins
+filetype off
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
@@ -34,23 +13,53 @@ Plug 'romainl/vim-cool'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim' 
 Plug 'tmhedberg/SimpylFold'
-Plug 'tommcdo/vim-lion'
+Plug 'tommcdo/vim-lion' 
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 Plug 'mhinz/vim-startify'
 Plug 'tpope/vim-fugitive'
+Plug '/lightline-gruvbox.vim'
 Plug 'neevparikh/lightline-gruvbox.vim'
+Plug 'simnalamburt/vim-mundo'
+Plug 'unblevable/quick-scope'
+Plug 'wellle/targets.vim'
+Plug 'unblevable/quick-scope'
+Plug 'bfredl/nvim-miniyank'
+Plug 'machakann/vim-highlightedyank'
+Plug 'airblade/vim-rooter'
 
 call plug#end()
+filetype indent plugin on
 
 " Vimtex
 let g:vimtex_fold_enabled = 1 
 let g:vimtex_format_enabled = 1
 
+let g:coc_global_extensions = [
+            \ 'coc-snippets', 
+            \ 'coc-vimlsp',
+            \ 'coc-dictionary',
+            \ 'coc-word',
+            \ 'coc-syntax',
+            \ 'coc-git', 
+            \ 'coc-python',
+            \ 'coc-json',
+            \ 'coc-vimtex']
+
 " Autocomplete
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+
+xmap <Tab> <Plug>(coc-snippets-select)
+
+nmap p <Plug>(miniyank-autoput)
+nmap P <Plug>(miniyank-autoPut)
+xmap p <Plug>(miniyank-autoput)
+xmap P <Plug>(miniyank-autoPut)
+
+nmap <space>n <Plug>(miniyank-cycle)
+nmap <space>N <Plug>(miniyank-cycleback)
 
 " Lightline 
 let g:lightline = {}
@@ -58,16 +67,15 @@ let g:lightline.colorscheme = 'gruvbox'
 let g:lightline.active = {
             \ 'left': [ [ 'mode', 'paste' ],
             \           [ 'readonly', 'filename', 'modified', 'cocstatus' ] ]}
-
 let g:lightline.component_function = {'cocstatus': 'coc#status'}
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 set noshowmode
+
 
 " UltiSnips
 " let g:UltiSnipsUsePythonVersion = 3
 
 " Remapping
-let mapleader=','
 nmap <space>s <cmd>source %<cr> 
 tnoremap <M-space> <C-\><C-n>
 nmap <M-w> <C-w>
@@ -77,10 +85,13 @@ nnoremap <M-f> :Files<CR>
 nnoremap <M-t> :terminal<CR>
 nnoremap <M-F> :Files ../<CR>
 nnoremap <M-c> :call SwitchColorScheme()<CR>
-nmap <M-n> <Plug>(coc-diagnostic-next)<CR>
-nmap <M-p> <Plug>(coc-diagnostic-prev)<CR>
-nmap <space>f <Plug>(coc-format-selected)<CR>
-nmap <space>F <Plug>(coc-format)<CR>
+nmap <M-n> <Plug>(coc-diagnostic-next)
+nmap <M-p> <Plug>(coc-diagnostic-prev)
+nmap <space>f <Plug>(coc-format-selected)
+nmap <space>F <Plug>(coc-format)
+nmap <space>d <Plug>(coc-definition)
+nnoremap <K> :call doHover()<CR>
+xnoremap <K> :call doHover()<CR>
 
 function! SetColors()
     let g:lightline.colorscheme = substitute(substitute(g:colors_name, '-', '_', 'g'), '256.*', '', '') . 
@@ -91,6 +102,7 @@ function! SetColors()
     call lightline#init()
     call lightline#colorscheme()
     call lightline#update()
+    syntax enable
 
     if &background == 'dark'
         hi GruvboxBgMed	ctermfg=234 guifg=#282828
@@ -117,15 +129,16 @@ set termguicolors
 set background=dark
 let g:gruvbox_contrast_dark = "hard"
 colorscheme gruvbox
-syntax enable
 call SetColors()
+set pumblend=15
+set winblend=15
 
 " Tab and Spaces related
 set tabstop=4
 set shiftwidth=4
+set textwidth=0
 set softtabstop=4
 set expandtab
-set ai
 set foldlevel=99
 
 " UI related
@@ -135,21 +148,19 @@ augroup numbertoggle
   autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
   autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber number
 augroup END
+au TermOpen * setlocal listchars= nonumber norelativenumber
 
+set inccommand=nosplit
 set cursorline
-filetype plugin on
-filetype indent on
 set wildmenu
 set hidden
 set wildmode=longest,list,full
-set showmatch
-set wildignore+=*/.git/*,*/.hg/*,/*/.svn/*,*/.DS_Store
-set ruler
 set cmdheight=1
+set ignorecase
 set smartcase
 set lazyredraw
 set wrap
-set showcmd
+set colorcolumn=100
 set undofile
 set splitbelow
 set splitright
@@ -190,14 +201,14 @@ function! FloatingFZF()
         \ nobuflisted
         \ bufhidden=hide
         \ nonumber
+        \ winblend=0
+        \ pumblend=0
         \ norelativenumber
         \ signcolumn=no
 endfunction
 
-" Searching related
-" set incsearch
-" set hlsearch
-nnoremap <leader><space> :nohlsearch<CR>
+set conceallevel=1
+let g:tex_conceal='admgs'
 
 " move among buffers with CTRL
 nnoremap <C-h> :bnext<CR>
