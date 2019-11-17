@@ -87,7 +87,7 @@ nnoremap <M-b> :Buffers<CR>
 nnoremap <M-f> :Files<CR>
 nnoremap <M-t> :terminal<CR>
 nnoremap <M-F> :Files ../<CR>
-nnoremap <M-c> :call SwitchColorScheme()<CR>
+nnoremap <M-s> :call SwitchColorScheme()<CR>
 
 nmap <M-n> <Plug>(coc-diagnostic-next)
 nmap <M-p> <Plug>(coc-diagnostic-prev)
