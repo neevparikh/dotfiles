@@ -185,7 +185,7 @@ alias la='ls -a'
 alias ll='ls -l'
 alias lla='ls -la'
 alias tlmgr='tllocalmgr'
-alias svim='sudoedit'
+alias sv='sudoedit'
 alias vim='nvim'
 alias lgout='i3-msg exit'
 alias fd='fdfind'
@@ -366,6 +366,8 @@ alias ${gprefix}wX='git rm -rf'
 alias tgl='xdotool key --clearmodifiers Shift+F10 r 2' 
 alias tgd='xdotool key --clearmodifiers Shift+F10 r 1' 
 
+alias calc='insect'
+
 # External plugins
 # source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
@@ -373,3 +375,5 @@ export TERM="xterm-256color"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PATH=~/.npm-global/bin:/home/neev/.yarn/bin:/home/neev/.config/yarn/global/node_modules/.bin:/home/neev/.local/bin:/opt/android-studio/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/neev/.fzf/bin
+
+eval $(thefuck --alias)

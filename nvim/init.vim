@@ -35,6 +35,9 @@ filetype indent plugin on
 let g:vimtex_fold_enabled = 1 
 let g:vimtex_format_enabled = 1
 
+let g:rooter_manual_only = 1
+let g:rooter_silent_chdir = 1
+
 let g:coc_global_extensions = [
             \ 'coc-snippets', 
             \ 'coc-vimlsp',
@@ -85,13 +88,23 @@ nnoremap <M-f> :Files<CR>
 nnoremap <M-t> :terminal<CR>
 nnoremap <M-F> :Files ../<CR>
 nnoremap <M-c> :call SwitchColorScheme()<CR>
+
 nmap <M-n> <Plug>(coc-diagnostic-next)
 nmap <M-p> <Plug>(coc-diagnostic-prev)
 nmap <space>f <Plug>(coc-format-selected)
 nmap <space>F <Plug>(coc-format)
+nmap <space>D <Plug>(coc-declaration)
 nmap <space>d <Plug>(coc-definition)
-nnoremap <K> :call doHover()<CR>
-xnoremap <K> :call doHover()<CR>
+nmap <space>d <Plug>(coc-definition)
+nmap <space>i <Plug>(coc-implementation)
+nmap <space>u <Plug>(coc-references)
+nmap <space>e <Plug>(coc-rename)
+nmap <space>c <Plug>(coc-fix-current)
+
+nnoremap <silent> <space>K <Cmd>call CocAction('doHover')<CR>
+xnoremap <silent> <space>K <Cmd>call CocAction('doHover')<CR>
+nnoremap <silent> <K> :call doHover()<CR>
+xnoremap <silent> <K> :call doHover()<CR>
 
 function! SetColors()
     let g:lightline.colorscheme = substitute(substitute(g:colors_name, '-', '_', 'g'), '256.*', '', '') . 
@@ -122,12 +135,16 @@ augroup end
 
 function! SwitchColorScheme()
     let &background= ( &background == "dark"? "light" : "dark" )
+    let profile_num= &background == "dark"? 1 : 2
+    call system(printf('xdotool key --clearmodifiers Shift+F10 r %d', 
+                \ profile_num))
 endfunction
 
 " Theme related
 set termguicolors
 set background=dark
 let g:gruvbox_contrast_dark = "hard"
+let g:gruvbox_contrast_light = "soft"
 colorscheme gruvbox
 call SetColors()
 set pumblend=15
@@ -160,7 +177,7 @@ set ignorecase
 set smartcase
 set lazyredraw
 set wrap
-set colorcolumn=100
+set colorcolumn=80
 set undofile
 set splitbelow
 set splitright
@@ -173,6 +190,9 @@ let g:tex_conceal = ''
 let g:vimtex_fold_manual = 1
 let g:vimtex_latexmk_continuous = 1
 let g:vimtex_view_method = 'zathura'
+
+let g:termdebug_wide = 1
+packadd termdebug
 
 " Fzf
 let g:fzf_layout = { 'window': 'call FloatingFZF()' }
