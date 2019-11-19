@@ -1,6 +1,4 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=/opt/android-studio/bin:$PATH
-
 VERSION=$(lsb_release -rs)
 
 # Path to your oh-my-zsh installation.
@@ -12,40 +10,6 @@ export ZSH="$HOME/.oh-my-zsh"
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="minimal"
 GRUVBOX_THEME="dark"
-
-if [[ ${VERSION:0:2} -ge "19" ]]
-then
-    FD_CMD="fdfind"
-else
-    FD_CMD="fd"
-fi
-
-if [ -d "$HOME/.fzf" ] ; then
-    export FZF_DEFAULT_COMMAND="$FD_CMD --color=always --follow --hidden --no-ignore --exclude .git"
-
-    color00='#282828'
-    color01='#3c3836'
-    color02='#504945'
-    color03='#665c54'
-    color04='#bdae93'
-    color05='#d5c4a1'
-    color06='#ebdbb2'
-    color07='#fbf1c7'
-    color08='#fb4934'
-    color09='#fe8019'
-    color0A='#fabd2f'
-    color0B='#b8bb26'
-    color0C='#8ec07c'
-    color0D='#83a598'
-    color0E='#d3869b'
-    color0F='#d65d0e'
-
-    a="--color=bg+:$color01,spinner:$color0C,hl:$color0D "
-    b="--color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C "
-    c="--color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D --ansi "
-    d="--reverse"
-    export FZF_DEFAULT_OPTS="$a$b$c$d"
-fi
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -120,6 +84,7 @@ export PATH="$HOME/.local/bin:$PATH"
 
 
 export EDITOR='nvim'
+export VISUAL='nvim'
 #nvim terminal specific settings
 if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
   alias h='nvr -o'
@@ -188,7 +153,7 @@ alias tlmgr='tllocalmgr'
 alias sv='sudoedit'
 alias vim='nvim'
 alias lgout='i3-msg exit'
-alias fd='fdfind'
+alias -g fd='fdfind'
 alias py='python'
 
 local gprefix
@@ -365,15 +330,15 @@ alias ${gprefix}wX='git rm -rf'
 # Changing theme
 alias tgl='xdotool key --clearmodifiers Shift+F10 r 2' 
 alias tgd='xdotool key --clearmodifiers Shift+F10 r 1' 
-
 alias calc='insect'
+alias agi='sudo apt install'
+alias agu='sudo apt upgrade'
+alias agd='sudo apt update'
+alias aga='sudo apt autoremove'
 
 # External plugins
 # source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-export TERM="xterm-256color"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export PATH=~/.npm-global/bin:/home/neev/.yarn/bin:/home/neev/.config/yarn/global/node_modules/.bin:/home/neev/.local/bin:/opt/android-studio/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/neev/.fzf/bin
 
 eval $(thefuck --alias)

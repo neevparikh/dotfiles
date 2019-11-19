@@ -79,15 +79,28 @@ set noshowmode
 " let g:UltiSnipsUsePythonVersion = 3
 
 " Remapping
+
+map Y y$
+nnoremap U <C-r>
 nmap <space>s <cmd>source %<cr> 
 tnoremap <M-space> <C-\><C-n>
-nmap <M-w> <C-w>
-nnoremap <M-space> :Startify<CR>
-nnoremap <M-b> :Buffers<CR>
-nnoremap <M-f> :Files<CR>
-nnoremap <M-t> :terminal<CR>
-nnoremap <M-F> :Files ../<CR>
-nnoremap <M-s> :call SwitchColorScheme()<CR>
+nnoremap <M-c> :call SwitchColorScheme()<CR>
+
+noremap <up>    <C-W>+
+noremap <down>  <C-W>-
+noremap <left>  3<C-W>>
+noremap <right> 3<C-W><
+nnoremap zJ zczjzo
+nnoremap zK zczkzo
+nnoremap gV `[v`]
+nnoremap <M-=> <C-W>=
+nnoremap <M--> <C-W>_
+nnoremap <M-\> <C-W>|
+nnoremap <M-H> <C-W>H
+nnoremap <M-J> <C-W>J
+nnoremap <M-K> <C-W>K
+nnoremap <M-L> <C-W>L
+
 
 nmap <M-n> <Plug>(coc-diagnostic-next)
 nmap <M-p> <Plug>(coc-diagnostic-prev)
@@ -106,6 +119,106 @@ xnoremap <silent> <space>K <Cmd>call CocAction('doHover')<CR>
 nnoremap <silent> <K> :call doHover()<CR>
 xnoremap <silent> <K> :call doHover()<CR>
 
+xnoremap @ :<c-u>call ExecuteMacroOverVisualRange()<cr>
+
+function! ExecuteMacroOverVisualRange()
+  echo "@".getcmdline()
+  execute ":'<,'>normal!  @".nr2char(getchar())
+endfunction
+
+" When . repeats g@, repeat the last macro.
+function! AtRepeat(_)
+    " If no count is supplied use the one saved in s:atcount.
+    " Otherwise save the new count in s:atcount, so it will be
+    " applied to repeats.
+    let s:atcount = v:count ? v:count : s:atcount
+    " feedkeys() rather than :normal allows finishing in Insert
+    " mode, should the macro do that. @@ is remapped, so 'opfunc'
+    " will be correct, even if the macro changes it.
+    call feedkeys(s:atcount.'@@')
+endfunction
+
+function! CleanNoNameEmptyBuffers()
+  let buffers = filter(range(1, bufnr('$')), 'buflisted(v:val) && '.
+        \ 'empty(bufname(v:val)) && bufwinnr(v:val) < 0 && ' .
+        \ '(getbufline(v:val, 1, "$") == [""])')
+  if !empty(buffers)
+    exe 'bd '.join(buffers, ' ')
+  endif
+endfunction
+
+augroup CleanBuffers
+  autocmd!
+  autocmd BufLeave * call CleanNoNameEmptyBuffers()
+augroup END
+
+function! AtSetRepeat(_)
+    set opfunc=AtRepeat
+endfunction
+
+" Called by g@ being invoked directly for the first time. Sets
+" 'opfunc' ready for repeats with . by calling AtSetRepeat().
+function! AtInit()
+    " Make sure setting 'opfunc' happens here, after initial playback
+    " of the macro recording, in case 'opfunc' is set there.
+    set opfunc=AtSetRepeat
+    return 'g@l'
+endfunction
+
+" Enable calling a function within the mapping for @
+nnoremap <expr> <plug>@init AtInit()
+" A macro could, albeit unusually, end in Insert mode.
+inoremap <expr> <plug>@init "\<c-o>".AtInit()
+xnoremap <expr> <plug>@init AtInit()
+
+function! AtReg()
+    let s:atcount = v:count1
+    let c = nr2char(getchar())
+    return '@'.c."\<plug>@init"
+endfunction
+
+nmap <expr> @ AtReg()
+
+function! QRepeat(_)
+    call feedkeys('@'.s:qreg)
+endfunction
+
+function! QSetRepeat(_)
+    set opfunc=QRepeat
+endfunction
+
+function! QStop()
+    set opfunc=QSetRepeat
+    return 'g@l'
+endfunction
+
+nnoremap <expr> <plug>qstop QStop()
+inoremap <expr> <plug>qstop "\<c-o>".QStop()
+
+let s:qrec = 0
+function! QStart()
+    if s:qrec == 1
+        let s:qrec = 0
+        return "q\<plug>qstop"
+    endif
+    let s:qreg = nr2char(getchar())
+    if s:qreg =~# '[0-9a-zA-Z"]'
+        let s:qrec = 1
+    endif
+    return 'q'.s:qreg
+endfunction
+
+nmap <expr> q QStart()
+
+inoremap <c-f> <c-g>u<Esc>[s1z=`]a<c-g>u
+
+function! FixSpellingMistake() abort
+  let orig_spell_pos = getcurpos()
+  normal! [s1z=
+  call setpos('.', orig_spell_pos)
+endfunction
+
+nnoremap <c-f> <Cmd>call FixSpellingMistake()<cr>
 function! SetColors()
     let g:lightline.colorscheme = substitute(substitute(g:colors_name, '-', '_', 'g'), '256.*', '', '') . 
                 \ (g:colors_name ==# 'solarized' ? '_' . &background : '')
@@ -118,9 +231,11 @@ function! SetColors()
     syntax enable
 
     if &background == 'dark'
-        hi GruvboxBgMed	ctermfg=234 guifg=#282828
+        highlight GruvboxBgMed	ctermfg=234 guifg=#282828
+        highlight Pmenu ctermfg=223 ctermbg=239 guifg=#ebdbb2 guibg=#282828
     else
-        hi GruvboxBgMed	ctermfg=229 guifg=#ebdbb2
+        highlight GruvboxBgMed	ctermfg=229 guifg=#ebdbb2
+        highlight Pmenu ctermfg=223 ctermbg=239 guifg=#282828 guibg=#ebdbb2
     endif
 
     " Customize fzf colors to match your color scheme
@@ -129,9 +244,71 @@ endfunction
 
 augroup ResetColorscheme 
     autocmd!
-    autocmd ColorScheme * call SetColors() 
+   autocmd ColorScheme * call SetColors() 
 augroup end
 
+
+function! MapWinCmd(key, command, ...)
+  if a:0 && a:1
+    let suffix = ""
+  else
+    let suffix = "<cr>"
+  endif
+
+  "silent?
+  execute "nnoremap <space>h".a:key." :<c-u>aboveleft vnew <bar>".
+        \ a:command.suffix
+  execute "nnoremap <space>j".a:key." :<c-u>belowright new <bar>".
+        \ a:command.suffix
+  execute "nnoremap <space>k".a:key." :<c-u>aboveleft new <bar>".
+        \ a:command.suffix
+  execute "nnoremap <space>l".a:key." :<c-u>belowright vnew <bar>".
+        \ a:command.suffix
+  " execute "nnoremap <space>;".a:key." :<c-u>call FloatingFullscreen()<cr>:".
+  "       \ a:command.suffix
+  execute "nnoremap <space>.".a:key." :<c-u>tabnew <bar>".
+        \ a:command.suffix
+  execute "nnoremap <space>,".a:key." :<c-u>".
+        \ a:command.suffix
+  execute "nnoremap <space>H".a:key." :<c-u>topleft vnew <bar>".
+        \ a:command.suffix
+  execute "nnoremap <space>J".a:key." :<c-u>botright new <bar>".
+        \ a:command.suffix
+  execute "nnoremap <space>K".a:key." :<c-u>topleft new <bar>".
+        \ a:command.suffix
+  execute "nnoremap <space>L".a:key." :<c-u>botright vnew <bar>".
+        \ a:command.suffix
+endfunction
+
+call MapWinCmd("t", "terminal")
+call MapWinCmd("e", " e ", 1)
+call MapWinCmd("w", "enew <bar> setlocal bufhidden=hide nobuflisted " .
+      \ "buftype=nofile")
+call MapWinCmd("f", "Files")
+call MapWinCmd("F", "Files ", 1)
+call MapWinCmd("b", "Buffers")
+call MapWinCmd("g", "GFiles")
+call MapWinCmd("G", "GFiles ", 1)
+call MapWinCmd("r", "RgPreviewHidden ", 1)
+call MapWinCmd("R", "RgPreviewHidden")
+call MapWinCmd(";r", "RgPreview ", 1)
+call MapWinCmd(";R", "RgPreview")
+call MapWinCmd("c", "normal! \<c-o>")
+call MapWinCmd("s", "Startify")
+
+nnoremap <M-l> <C-w>l
+nnoremap <M-h> <C-w>h
+nnoremap <M-k> <C-w>k
+nnoremap <M-j> <C-w>j
+
+inoremap <c-f> <c-g>u<Esc>[s1z=`]a<c-g>u
+function! FixSpellingMistake() abort
+  let orig_spell_pos = getcurpos()
+  normal! [s1z=
+  call setpos('.', orig_spell_pos)
+endfunction
+
+nnoremap <c-f> <Cmd>call FixSpellingMistake()<cr>
 
 function! SwitchColorScheme()
     let &background= ( &background == "dark"? "light" : "dark" )
@@ -148,7 +325,7 @@ let g:gruvbox_contrast_light = "soft"
 colorscheme gruvbox
 call SetColors()
 set pumblend=15
-set winblend=15
+" set winblend=15
 
 " Tab and Spaces related
 set tabstop=4
@@ -157,6 +334,7 @@ set textwidth=0
 set softtabstop=4
 set expandtab
 set foldlevel=99
+let g:xml_syntax_folding=1
 
 " UI related
 set number relativenumber
@@ -198,6 +376,26 @@ packadd termdebug
 let g:fzf_layout = { 'window': 'call FloatingFZF()' }
  
 
+function! RgPreview(args, extra_args)
+call fzf#vim#grep("rg --column --line-number --no-heading " .
+      \ "--color=always --smart-case " . a:extra_args . " " .
+      \ shellescape(a:args), 1, {'options' : 
+      \ fzf#vim#with_preview('right:50%').options + 
+      \ ['--bind', 'alt-e:execute-silent(remote_tab_open_grep {} &)']})
+endfunction
+
+function! RgPreviewHidden(args, extra_args)
+call RgPreview(a:args, '--hidden --glob "!.git/*" ' . a:extra_args)
+endfunction
+
+command! -nargs=* RgPreview call RgPreview(<q-args>, '')
+command! -nargs=* RgPreviewHidden call RgPreviewHidden(<q-args>, '')
+
+
+" Files with preview
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
 function! FloatingFZF()
   let buf = nvim_create_buf(v:false, v:true)
   call setbufvar(buf, '&signcolumn', 'no')
@@ -226,6 +424,7 @@ function! FloatingFZF()
         \ norelativenumber
         \ signcolumn=no
 endfunction
+
 
 set conceallevel=1
 let g:tex_conceal='admgs'
