@@ -52,7 +52,7 @@ bindsym $mod+Shift+q kill
 bindsym $mod+o exec floating_gt fzf_launch
 bindsym $mod+space exec floating_gt fzf_open
 bindsym $mod+w exec web_browser
-bindsym $mod+grave exec toggle-touchpad
+bindsym $mod+grave exec toggle_trackpoint
 
 # change focus
 bindsym $mod+h focus left
@@ -171,7 +171,7 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+z exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # lock
-bindsym $mod+Shift+x exec betterlockscreen -t 'Neev Parikh' -b 0.1 -l dim
+# bindsym $mod+Shift+x exec betterlockscreen -t 'Neev Parikh' -b 0.1 -l dim
  
 
 
@@ -202,8 +202,8 @@ mode "resize" {
 
 
 bindsym $mod+r mode "resize"
-bindsym $mod+Shift+m exec "xrandr --output VIRTUAL1 --off --output eDP1 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output DP1 --off --output HDMI2 --off --output HDMI1 --off --output DP2 --off"
-bindsym $mod+Shift+d exec "xrandr --output VIRTUAL1 --off --output eDP1 --primary --mode 1920x1080 --pos 0x1080 --rotate normal --output DP1 --off --output HDMI2 --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI1 --off --output DP2 --off"
+bindsym $mod+Shift+m exec "xrandr --output eDP1 --output HDMI2 --off"
+bindsym $mod+Shift+d exec "xrandr --output eDP1 --output HDMI2 --auto --above eDP1"
 
 # use j4-make-config
 

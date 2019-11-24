@@ -1,0 +1,3 @@
+#! /usr/bin/env bash
+
+GNOME_TERMINAL_SCREEN="" gnome-terminal --class "gnome-terminal-server" --geometry 80x24 -- nvim $@

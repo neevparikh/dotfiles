@@ -75,7 +75,6 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 
-export PATH="$HOME/.local/bin:$PATH"
 
 # export MANPATH="/usr/local/man:$MANPATH"
 

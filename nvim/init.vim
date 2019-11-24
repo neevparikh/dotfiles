@@ -93,13 +93,13 @@ noremap <right> 3<C-W><
 nnoremap zJ zczjzo
 nnoremap zK zczkzo
 nnoremap gV `[v`]
-nnoremap <M-=> <C-W>=
-nnoremap <M--> <C-W>_
-nnoremap <M-\> <C-W>|
-nnoremap <M-H> <C-W>H
-nnoremap <M-J> <C-W>J
-nnoremap <M-K> <C-W>K
-nnoremap <M-L> <C-W>L
+nnoremap <M-=> <C-w>=
+nnoremap <M--> <C-w>_
+nnoremap <M-\> <C-w>|
+nnoremap <M-H> <C-w>H
+nnoremap <M-J> <C-w>J
+nnoremap <M-K> <C-w>K
+nnoremap <M-L> <C-w>L
 
 
 nmap <M-n> <Plug>(coc-diagnostic-next)
@@ -219,6 +219,7 @@ function! FixSpellingMistake() abort
 endfunction
 
 nnoremap <c-f> <Cmd>call FixSpellingMistake()<cr>
+
 function! SetColors()
     let g:lightline.colorscheme = substitute(substitute(g:colors_name, '-', '_', 'g'), '256.*', '', '') . 
                 \ (g:colors_name ==# 'solarized' ? '_' . &background : '')
@@ -348,6 +349,7 @@ au TermOpen * setlocal listchars= nonumber norelativenumber
 set inccommand=nosplit
 set cursorline
 set wildmenu
+set autochdir 
 set hidden
 set wildmode=longest,list,full
 set cmdheight=1

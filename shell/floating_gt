@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+if !(class=$(xprop -id $(xprop -root 32x '\t$0' _NET_ACTIVE_WINDOW | cut -f 2) WM_CLASS | grep -o "gt_floating" )); then
+    gnome-terminal --class "gt_floating" --geometry 130x20 -- $@
+fi

@@ -1,0 +1,9 @@
+.git 
+*.pyc
+__pycache__
+python[0-9].*
+node_modules
+envs_python
+google-chrome
+pprof
+.cache
