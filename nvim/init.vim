@@ -111,7 +111,8 @@ nmap <space>d <Plug>(coc-definition)
 nmap <space>d <Plug>(coc-definition)
 nmap <space>i <Plug>(coc-implementation)
 nmap <space>u <Plug>(coc-references)
-nmap <space>e <Plug>(coc-rename)
+nmap <space>re <Plug>(coc-refactor)
+nmap <space>rn <Plug>(coc-rename)
 nmap <space>c <Plug>(coc-fix-current)
 
 nnoremap <silent> <space>K <Cmd>call CocAction('doHover')<CR>
@@ -267,9 +268,9 @@ function! MapWinCmd(key, command, ...)
         \ a:command.suffix
   " execute "nnoremap <space>;".a:key." :<c-u>call FloatingFullscreen()<cr>:".
   "       \ a:command.suffix
-  execute "nnoremap <space>.".a:key." :<c-u>tabnew <bar>".
+  execute "nnoremap <space>,".a:key." :<c-u>tabnew <bar>".
         \ a:command.suffix
-  execute "nnoremap <space>,".a:key." :<c-u>".
+  execute "nnoremap <space>.".a:key." :<c-u>".
         \ a:command.suffix
   execute "nnoremap <space>H".a:key." :<c-u>topleft vnew <bar>".
         \ a:command.suffix

@@ -7,3 +7,9 @@ envs_python
 google-chrome
 pprof
 .cache
+.steam
+.npm
+coc-*
+chromium
+applications
+.rustup

@@ -17,6 +17,7 @@ general {
 }
 
 order += "volume master"
+order += "cpu_usage 0"
 #order += "disk /"
 #order += "disk /data"
 #order += "disk /home"
@@ -27,12 +28,11 @@ order += "volume master"
 #order += "ethernet enp5s0"
 order += "battery 0"
 #order += "cpu_temperature 0"
-#order += "cpu_usage 0"
 #order += "load"
 order += "tztime local"
 order += "time"
 
-wireless wlp4s0 {
+wireless wlan0 {
     format_up = "%quality  %essid %ip"
     format_down = ""
 }
@@ -44,17 +44,17 @@ wireless wlp4s0 {
 #}
 
 battery 0 {
-    format = "%status %percentage %remaining"
+    format = " %status %percentage %remaining "
     format_down = ""
     last_full_capacity = true
     integer_battery_capacity = true
     low_threshold = 11
     threshold_type = percentage
     hide_seconds = true
-    status_chr = " "
-    status_bat = " "
-    status_unk = " "
-    status_full = " "
+    status_chr = ""
+    status_bat = ""
+    status_unk = ""
+    status_full = ""
 }
 
 run_watch DHCP {
@@ -67,11 +67,11 @@ run_watch VPN {
 
 #%Y-%m-%d %H:%M:%S'
 tztime local {
-    format = "%b %d %Y"
+    format = " %b %d %Y "
 }
 
 time {
-    format = "%I:%M %p"
+    format = " %I:%M %p "
 }
 
 load {
@@ -79,7 +79,7 @@ load {
 }
 
 cpu_usage {
-    format = " %usage"
+    format = " CPU %usage "
 }
 
 cpu_temperature 0 {
@@ -108,7 +108,7 @@ disk "/" {
 #}
 
 volume master {
-    format = "%volume"
+    format = " %volume "
     format_muted = " "
     device = "default"
     mixer = "Master"

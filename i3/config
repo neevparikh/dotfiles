@@ -13,7 +13,7 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Meslo LG L for Powerline 9
+font pango:Meslo LG M DZ 9
 
 # thin borders
 hide_edge_borders both
@@ -35,7 +35,7 @@ for_window [class="^gt_floating$"] floating enable
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec gnome-terminal
+bindsym $mod+Return exec st
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -51,8 +51,8 @@ bindsym $mod+Shift+q kill
 # start rofi (program launcher)
 bindsym $mod+o exec floating_gt fzf_launch
 bindsym $mod+space exec floating_gt fzf_open
-bindsym $mod+w exec web_browser
-bindsym $mod+grave exec toggle_trackpoint
+bindsym $mod+w exec chromium
+bindsym $mod+grave exec toggle_trackpad
 
 # change focus
 bindsym $mod+h focus left
@@ -227,7 +227,7 @@ bar {
 colors {
 	background #32302f
 	statusline #d5c4a1
-	separator #32302f 
+	separator #3c3836 
 	focused_workspace #32302f #32302f #fabd2f
 	active_workspace #32302f #32302f #d5c4a1
 	inactive_workspace #3c3836 #3c3836 #d5c4a1
@@ -275,10 +275,12 @@ bindsym $mod+F8 exec mocp --next
 
 
 # Redirect sound to headphones
-bindsym $mod+m exec "/usr/local/bin/switch-audio-port"
+# bindsym $mod+m exec "/usr/local/bin/switch-audio-port"
+
+exec "source /home/neev/.fehbg"
 
 # Autostart apps
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id "compton --config ~/.config/compton.conf -b"
-exec "source /home/neev/.fehbg"
+exec --no-startup-id "picom"
+exec --no-startup-id "light-locker --late-locking --no-lock-on-suspend"
+exec --no-startup-id setxkbmap -option "caps:swapescape"
 exec --no-startup-id nm-applet
