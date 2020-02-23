@@ -293,5 +293,12 @@ alias agd='sudo apt update'
 alias aga='sudo apt autoremove'
 alias se='sudoedit'
 alias re='reboot'
+alias cnr='./compile.sh && ./run.sh'
+
+# Aliases for cargo 
+alias cgo='cargo'
+alias cgr='cargo run'
+alias cgb='cargo build'
+alias cgc='cargo check'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

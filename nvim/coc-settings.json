@@ -4,14 +4,14 @@
     "python.jediEnabled": false,
     "python.linting.pylintUseMinimalCheckers": false,
     "python.formatting.provider": "yapf",
+    "python.venvFolders": ["envs"],
     "python.linting.enabled": true,
     "python.linting.pylintEnabled": true,
-    "python.linting.pylintPath": "~/.local/bin/pylint",
-    "python.linting.pylintArgs": [ "--disable=C,R" ],
+    "python.linting.pylintArgs": [
+        "--disable=C,R"
+    ],
     "diagnostic.displayByAle": false,
     "coc.preferences.colorSupport": true,
-    "highlight.colors.enable": false,
-    "highlight.document.enable": true,
     "git.addedSign.hlGroup": "GitGutterAdd",
     "git.changedSign.hlGroup": "GitGutterChange",
     "git.removedSign.hlGroup": "GitGutterDelete",
@@ -90,11 +90,24 @@
                 }
             }
         },
+        "golang": {
+            "command": "gopls",
+            "rootPatterns": [
+                "go.mod"
+            ],
+            "filetypes": [
+                "go"
+            ]
+        },
         "haskell": {
             "command": "hie-wrapper",
+            "args": [
+                "--lsp"
+            ],
             "rootPatterns": [
-                ".stack.yaml",
-                "cabal.config",
+                "*.cabal",
+                "stack.yaml",
+                "cabal.project",
                 "package.yaml"
             ],
             "filetypes": [
@@ -102,11 +115,9 @@
                 "lhs",
                 "haskell"
             ],
-            "initializationOptions": {},
-            "settings": {
+            "initializationOptions": {
                 "languageServerHaskell": {
-                    "hlintOn": false,
-                    "maxNumberOfProblems": 10,
+                    "hlintOn": true,
                     "completionSnippetsOn": true
                 }
             }

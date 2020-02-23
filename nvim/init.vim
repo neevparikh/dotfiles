@@ -6,6 +6,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'gruvbox-community/gruvbox' 
+Plug 'lifepillar/vim-solarized8.vim'
 Plug 'lervag/vimtex'
 Plug 'honza/vim-snippets'
 Plug 'itchyny/lightline.vim'
@@ -95,7 +96,7 @@ nnoremap zK zczkzo
 nnoremap gV `[v`]
 nnoremap <M-=> <C-w>=
 nnoremap <M--> <C-w>_
-nnoremap <M-\> <C-w>|
+nnoremap <M-\> <C-w><bar>
 nnoremap <M-H> <C-w>H
 nnoremap <M-J> <C-w>J
 nnoremap <M-K> <C-w>K
@@ -304,6 +305,9 @@ nnoremap <M-k> <C-w>k
 nnoremap <M-j> <C-w>j
 
 inoremap <c-f> <c-g>u<Esc>[s1z=`]a<c-g>u
+
+autocmd FileType markdown setlocal spell
+
 function! FixSpellingMistake() abort
   let orig_spell_pos = getcurpos()
   normal! [s1z=
@@ -371,6 +375,11 @@ let g:tex_conceal = ''
 let g:vimtex_fold_manual = 1
 let g:vimtex_latexmk_continuous = 1
 let g:vimtex_view_method = 'zathura'
+
+augroup vimtex_config
+    au!
+    au User VimtexEventQuit call vimtex#compiler#clean(0)
+augroup END
 
 let g:termdebug_wide = 1
 packadd termdebug

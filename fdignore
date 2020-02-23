@@ -11,5 +11,8 @@ pprof
 .npm
 coc-*
 chromium
-applications
 .rustup
+.nvm 
+.cargo
+Steam
+.steam
