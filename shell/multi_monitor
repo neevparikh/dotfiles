@@ -1,0 +1,31 @@
+#! /usr/bin/env bash
+
+E_BADARGS=65
+
+if [ $# -ne 1 ]
+then
+    echo "wrong argument, pass on of -s, -d, -dt, -m, -mo"
+    exit $e_badargs
+fi
+
+outputs=( $(xrandr | awk '!/dis/ && !/(eDP1)/ && /connected/ {print $1}' | xargs) ) 
+
+if [ $1 == '-s' ]
+then
+    xrandr --output eDP1 --auto --output ${outputs[1]} --off --output ${outputs[0]} --off
+elif [ $1 == '-d' ] 
+then 
+    xrandr --output eDP1 --off --output ${outputs[1]} --auto --output ${outputs[0]} --auto --left-of ${outputs[1]}
+elif [ $1 == '-dt' ] 
+then 
+    xrandr --output eDP1 --auto --output ${outputs[1]} --auto --above eDP1
+elif [ $1 == '-m' ] 
+then 
+    xrandr --output eDP1 --auto --output ${outputs[1]} --auto --same-as eDP1
+elif [ $1 == '-mo' ] 
+then 
+    xrandr --output eDP1 --off --output ${outputs[1]} --auto
+else
+    echo "wrong argument, pass one of -s, -d, -dt, -m, -mo"
+    exit $e_badargs
+fi
