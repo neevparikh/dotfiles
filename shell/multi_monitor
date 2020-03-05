@@ -9,7 +9,8 @@ then
 fi
 
 outputs=( $(xrandr | awk '!/dis/ && !/(eDP1)/ && /connected/ {print $1}' | xargs) ) 
-
+echo ${outputs[0]}
+echo ${outputs[1]}
 if [ $1 == '-s' ]
 then
     xrandr --output eDP1 --auto --output ${outputs[1]} --off --output ${outputs[0]} --off
