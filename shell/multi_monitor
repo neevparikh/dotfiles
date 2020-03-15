@@ -1,32 +1,75 @@
-#! /usr/bin/env bash
+#!/usr/bin/env python3
+import argparse
+import subprocess
+import sys
+import os
+import time
 
-E_BADARGS=65
+def parse_args():
+    # Parse input arguments
+    # Use --help to see a pretty description of the arguments
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
-if [ $# -ne 1 ]
-then
-    echo "wrong argument, pass on of -s, -d, -dt, -m, -mo"
-    exit $e_badargs
-fi
+    parser.add_argument(
+        '--mode',
+        help='Monitor configuration',
+        choices=['single', 'double', 'double_top', 'mirror', 'monitor_only'],
+        type=str,
+        required=True)
+    parser.add_argument('--i3-move',
+                        help='Move the workspaces',
+                        action='store_true',
+                        default=False,
+                        required=False)
+    return parser.parse_args()
 
-outputs=( $(xrandr | awk '!/dis/ && !/(eDP1)/ && /connected/ {print $1}' | xargs) ) 
-echo ${outputs[0]}
-echo ${outputs[1]}
-if [ $1 == '-s' ]
-then
-    xrandr --output eDP1 --auto --output ${outputs[1]} --off --output ${outputs[0]} --off
-elif [ $1 == '-d' ] 
-then 
-    xrandr --output eDP1 --off --output ${outputs[1]} --auto --output ${outputs[0]} --auto --left-of ${outputs[1]}
-elif [ $1 == '-dt' ] 
-then 
-    xrandr --output eDP1 --auto --output ${outputs[1]} --auto --above eDP1
-elif [ $1 == '-m' ] 
-then 
-    xrandr --output eDP1 --auto --output ${outputs[1]} --auto --same-as eDP1
-elif [ $1 == '-mo' ] 
-then 
-    xrandr --output eDP1 --off --output ${outputs[1]} --auto
-else
-    echo "wrong argument, pass one of -s, -d, -dt, -m, -mo"
-    exit $e_badargs
-fi
+
+if __name__ == "__main__":
+    args = parse_args()
+
+    # Parse outputs from xrandr
+    outputs = subprocess.check_output(
+        "xrandr | awk '!/dis/ && !/(eDP1)/ && /connected/ {print $1}'",
+        shell=True).decode('utf-8').split("\n")[:2]
+
+    # TODO Move to i3ipc lib
+    # FIXME (Design debt 2020 baby)
+    output_0 = outputs[0]
+    output_1 = outputs[1]
+    print(outputs)
+    if args.mode == 'single':
+        subprocess.call(
+            f"xrandr --output eDP1 --auto --output {output_1} --off --output {output_0} --off",
+            shell=True)
+    elif args.mode == 'double':
+        subprocess.call(
+            f"xrandr --output eDP1 --off --output {output_1} --auto --output {output_0} --auto --left-of {output_1}",
+            shell=True)
+        if args.i3_move:
+            # Restart because the monitors changed
+            subprocess.call("i3-msg restart", shell=True)
+            time.sleep(0.1) 
+            # Move the workspaces to the outputs
+            for i in range(11):
+                subprocess.call(
+                    f"i3-msg [workspace={i}] move workspace to output {output_0}",
+                    shell=True)
+            for i in range(11, 21):
+                subprocess.call(
+                    f"i3-msg [workspace={i}] move workspace to output {output_1}",
+                    shell=True)
+    elif args.mode == 'double_top':
+        subprocess.call(
+            f"xrandr --output eDP1 --auto --output {output_1} --auto --above eDP1",
+            shell=True)
+    elif args.mode == 'mirror':
+        subprocess.call(
+            f"xrandr --output eDP1 --auto --output {output_1} --auto --same-as eDP1",
+            shell=True)
+    elif args.mode == 'monitor_only':
+        subprocess.call(
+            f"xrandr --output eDP1 --off --output {output_1} --auto",
+            shell=True)
+    else:
+        sys.exit(os.EX_USAGE)

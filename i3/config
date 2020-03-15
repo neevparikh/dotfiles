@@ -20,6 +20,7 @@ font pango:Meslo LG M DZ 9
 hide_edge_borders both
 for_window [class="^.*"] border pixel 0
 for_window [class="^gt_floating$"] floating enable
+for_window [class="Pavucontrol"] floating enable
 
 # locking stuff
 #exec --no-startup-id xautolock -time 5 -locker 'i3lock -c 002b36'
@@ -108,6 +109,31 @@ bindsym $mod+a focus parent
 # focus the child container
 bindsym $mod+d focus child
 
+
+# workspaces on monitors 
+
+workspace 1 output primary HDMI1 DP1 HDMI2
+workspace 2 output primary HDMI1 DP1 HDMI2
+workspace 3 output primary HDMI1 DP1 HDMI2
+workspace 4 output primary HDMI1 DP1 HDMI2
+workspace 5 output primary HDMI1 DP1 HDMI2
+workspace 6 output primary HDMI1 DP1 HDMI2
+workspace 7 output primary HDMI1 DP1 HDMI2
+workspace 8 output primary HDMI1 DP1 HDMI2
+workspace 9 output primary HDMI1 DP1 HDMI2
+workspace 10 output primary HDMI1 DP1 HDMI2
+
+workspace 11 output HDMI2 primary HDMI1 DP1
+workspace 12 output HDMI2 primary HDMI1 DP1
+workspace 13 output HDMI2 primary HDMI1 DP1
+workspace 14 output HDMI2 primary HDMI1 DP1
+workspace 15 output HDMI2 primary HDMI1 DP1
+workspace 16 output HDMI2 primary HDMI1 DP1
+workspace 17 output HDMI2 primary HDMI1 DP1
+workspace 18 output HDMI2 primary HDMI1 DP1
+workspace 19 output HDMI2 primary HDMI1 DP1
+workspace 20 output HDMI2 primary HDMI1 DP1
+
 # switch to workspace
 bindsym $mod+1 workspace 1
 bindsym $mod+2 workspace 2
@@ -159,7 +185,7 @@ bindsym $mod_oth+Shift+8 move container to workspace 18
 bindsym $mod_oth+Shift+9 move container to workspace 19
 bindsym $mod_oth+Shift+0 move container to workspace 20
 
-bindsym $mod_oth+Tab workspace back_and_forth
+bindsym $mod+Tab workspace back_and_forth
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
@@ -199,10 +225,11 @@ mode "resize" {
 
 
 bindsym $mod+r mode "resize"
-bindsym $mod+Shift+s exec "xrandr --output eDP1 --output HDMI2 --off"
-bindsym $mod+Shift+d exec "xrandr --output eDP1 --output HDMI2 --auto --above eDP1"
-bindsym $mod+Shift+m exec "xrandr --output eDP1 --output HDMI2 --auto --same-as eDP1"
-bindsym $mod+Shift+c exec "xrandr --output eDP1 --off --output HDMI2 --auto"
+bindsym $mod+Shift+s exec     "multi_monitor --mode single"
+bindsym $mod+Shift+d exec     "multi_monitor --mode double --i3-move"
+bindsym $mod_oth+Shift+d exec "multi_monitor --mode double_top"
+bindsym $mod+Shift+m exec     "multi_monitor --mode mirror"
+bindsym $mod+Shift+c exec     "multi_monitor --mode monitor_only"
 
 # use j4-make-config
 
@@ -223,6 +250,8 @@ bar {
     position top 
     status_command i3status
 	tray_output primary
+	tray_output HDMI2
+	tray_output HDMI1
 colors {
 	background #32302f
 	statusline #d5c4a1
@@ -268,6 +297,7 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 
+bindsym $mod+$mod_oth+space exec "setxkbmap -option 'caps:swapescape' && setxkbmap -option 'altwin:swap_lalt_lwin' && setxkbmap -option 'altwin:menu_win'"
 # Redirect sound to headphones
 # bindsym $mod+m exec "/usr/local/bin/switch-audio-port"
 
@@ -276,5 +306,6 @@ exec "source /home/neev/.fehbg"
 # Autostart apps
 exec --no-startup-id "picom"
 exec --no-startup-id "light-locker --late-locking --no-lock-on-suspend"
-exec --no-startup-id setxkbmap -option "caps:swapescape"
+exec --no-startup-id "setxkbmap -option 'caps:swapescape'"
+exec --no-startup-id "setxkbmap -option 'altwin:swap_lalt_lwin'"
 exec --no-startup-id nm-applet

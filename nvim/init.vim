@@ -91,6 +91,7 @@ noremap <up>    <C-W>+
 noremap <down>  <C-W>-
 noremap <left>  3<C-W>>
 noremap <right> 3<C-W><
+xnoremap p pgvy
 nnoremap zJ zczjzo
 nnoremap zK zczkzo
 nnoremap gV `[v`]
@@ -241,6 +242,8 @@ function! SetColors()
         highlight Pmenu ctermfg=223 ctermbg=239 guifg=#282828 guibg=#ebdbb2
     endif
 
+    let g:gruvbox_contrast_light = "soft"
+    let g:gruvbox_contrast_dark = "hard"
     " Customize fzf colors to match your color scheme
     let g:fzf_colors.bg = ['fg', 'GruvboxBgMed']
 endfunction
@@ -326,9 +329,9 @@ endfunction
 " Theme related
 set termguicolors
 set background=dark
-let g:gruvbox_contrast_dark = "hard"
-let g:gruvbox_contrast_light = "soft"
 colorscheme gruvbox
+let g:gruvbox_contrast_light = "soft"
+let g:gruvbox_contrast_dark = "hard"
 call SetColors()
 set pumblend=15
 " set winblend=15

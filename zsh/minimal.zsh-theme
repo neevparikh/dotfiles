@@ -1,5 +1,5 @@
-GIT_COLOR="red"
-TIME_COLOR="magenta"
+GIT_COLOR="magenta"
+TIME_COLOR="red"
 SSH_COLOR="cyan"
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$reset_color%}%{$fg[$GIT_COLOR]%}["

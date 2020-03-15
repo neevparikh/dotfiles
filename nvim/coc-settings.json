@@ -4,6 +4,7 @@
     "python.jediEnabled": false,
     "python.linting.pylintUseMinimalCheckers": false,
     "python.formatting.provider": "yapf",
+    "python.formatting.yapfPath" : "~/.local/bin/yapf",
     "python.venvFolders": ["envs"],
     "python.linting.enabled": true,
     "python.linting.pylintEnabled": true,
@@ -122,5 +123,6 @@
                 }
             }
         }
-    }
+    },
+    "java.format.settings.url": "/home/neev/.config/coc/extensions/node_modules/redhat.java/eclipse-formatter.xml"
 }
