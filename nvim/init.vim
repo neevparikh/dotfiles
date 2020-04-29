@@ -6,7 +6,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'gruvbox-community/gruvbox' 
-Plug 'lifepillar/vim-solarized8.vim'
 Plug 'lervag/vimtex'
 Plug 'honza/vim-snippets'
 Plug 'itchyny/lightline.vim'
@@ -28,6 +27,7 @@ Plug 'unblevable/quick-scope'
 Plug 'bfredl/nvim-miniyank'
 Plug 'machakann/vim-highlightedyank'
 Plug 'airblade/vim-rooter'
+Plug 'chrisbra/Colorizer'
 
 call plug#end()
 filetype indent plugin on
@@ -64,16 +64,6 @@ xmap P <Plug>(miniyank-autoPut)
 
 nmap <space>n <Plug>(miniyank-cycle)
 nmap <space>N <Plug>(miniyank-cycleback)
-
-" Lightline 
-let g:lightline = {}
-let g:lightline.colorscheme = 'gruvbox'
-let g:lightline.active = {
-            \ 'left': [ [ 'mode', 'paste' ],
-            \           [ 'readonly', 'filename', 'modified', 'cocstatus' ] ]}
-let g:lightline.component_function = {'cocstatus': 'coc#status'}
-autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
-set noshowmode
 
 
 " UltiSnips
@@ -224,8 +214,6 @@ endfunction
 nnoremap <c-f> <Cmd>call FixSpellingMistake()<cr>
 
 function! SetColors()
-    let g:lightline.colorscheme = substitute(substitute(g:colors_name, '-', '_', 'g'), '256.*', '', '') . 
-                \ (g:colors_name ==# 'solarized' ? '_' . &background : '')
     if exists("*LightlineGruvboxSetColors")
         call LightlineGruvboxSetColors()
     endif
@@ -242,7 +230,7 @@ function! SetColors()
         highlight Pmenu ctermfg=223 ctermbg=239 guifg=#282828 guibg=#ebdbb2
     endif
 
-    let g:gruvbox_contrast_light = "soft"
+    let g:gruvbox_contrast_light = "medium"
     let g:gruvbox_contrast_dark = "hard"
     " Customize fzf colors to match your color scheme
     let g:fzf_colors.bg = ['fg', 'GruvboxBgMed']
@@ -321,20 +309,33 @@ nnoremap <c-f> <Cmd>call FixSpellingMistake()<cr>
 
 function! SwitchColorScheme()
     let &background= ( &background == "dark"? "light" : "dark" )
-    let profile_num= &background == "dark"? 1 : 2
-    call system(printf('xdotool key --clearmodifiers Shift+F10 r %d', 
-                \ profile_num))
+    let command= &background == "dark"? "toggle_theme --dark" : "toggle_theme --light"
+    call system(command)
+    let $THEME=system("cat $HOME/.config/theme.yml")
 endfunction
 
 " Theme related
 set termguicolors
-set background=dark
+let &background= ( system("cat $HOME/.config/theme.yml") =~ "light"? "light" : "dark" )
 colorscheme gruvbox
-let g:gruvbox_contrast_light = "soft"
+let g:gruvbox_contrast_light = "medium"
 let g:gruvbox_contrast_dark = "hard"
-call SetColors()
 set pumblend=15
 " set winblend=15
+
+
+" Lightline 
+let g:lightline = {}
+let g:lightline.active = {
+            \ 'left': [ [ 'mode', 'paste' ],
+            \           [ 'readonly', 'filename', 'modified', 'cocstatus' ] ]}
+let g:lightline.component_function = {'cocstatus': 'coc#status'}
+autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+
+let g:lightline.colorscheme = 'gruvbox'
+set noshowmode
+
+call SetColors()
 
 " Tab and Spaces related
 set tabstop=4

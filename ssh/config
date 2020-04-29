@@ -1,0 +1,19 @@
+# Lab Machines
+Host cake
+    User neev
+    HostName 138.16.161.139 
+    IdentityFile ~/.ssh/id_rsa
+
+# Brown CS 
+Host csdept
+    User nparikh5 
+    HostName pk-ssh.cs.brown.edu
+    IdentityFile ~/.ssh/id_rsa
+    RequestTTY force
+    RemoteCommand host=bletchley
+
+# Brown CCV
+Host brownccv
+    User nparikh5 
+    HostName ssh.ccv.brown.edu
+    IdentityFile ~/.ssh/id_rsa

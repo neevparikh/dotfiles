@@ -43,6 +43,7 @@ for dump in ~/.zcompdump(N.mh+24); do
     # Install plugins if there are plugins that have not been installed
     compinit
 done
+autoload -Uz compinit
 compinit -C
 
 
@@ -100,7 +101,10 @@ add-zsh-hook preexec make_beam
 bindkey -M viins ${terminfo[kdch1]} delete-char	# Del key
 bindkey "^?" backward-delete-char
 
-#
+if [[ $HOME/.config/theme.yml ]]; then
+    export THEME=$(cat $HOME/.config/theme.yml)
+fi 
+
 # Aliases
 alias la='ls -a'
 alias ll='ls -l'
@@ -190,14 +194,15 @@ alias ${gprefix}ix='git rm --cached -r'
 alias ${gprefix}iX='git rm --cached -rf'
 
 # Log (l)
-alias ${gprefix}l='git log --topo-order --pretty=format:"${_git_log_medium_format}"'
-alias ${gprefix}ls='git log --topo-order --stat --pretty=format:"${_git_log_medium_format}"'
-alias ${gprefix}ld='git log --topo-order --stat --patch --full-diff --pretty=format:"${_git_log_medium_format}"'
-alias ${gprefix}lo='git log --topo-order --pretty=format:"${_git_log_oneline_format}"'
-alias ${gprefix}lO='git log --topo-order --pretty=format:"${_git_log_oneline_medium_format}"'
-alias ${gprefix}lg='git log --topo-order --all --graph --pretty=format:"${_git_log_oneline_format}"'
-alias ${gprefix}lG='git log --topo-order --all --graph --pretty=format:"${_git_log_oneline_medium_format}"'
-alias ${gprefix}lv='git log --topo-order --show-signature --pretty=format:"${_git_log_medium_format}"'
+pretty_format='oneline'
+alias ${gprefix}l='git log --decorate --pretty="${pretty_format}"'
+alias ${gprefix}ls='git log --decorate --stat --pretty="${pretty_format}"'
+alias ${gprefix}ld='git log --decorate --stat --patch --full-diff --pretty="${pretty_format}"'
+alias ${gprefix}lo='git log --decorate --pretty="${pretty_format}"'
+alias ${gprefix}lO='git log --decorate --pretty="${pretty_format}"'
+alias ${gprefix}lg='git log --decorate --all --remotes --graph --oneline'
+alias ${gprefix}lG='git log --decorate --all --remotes --graph --pretty=short'
+alias ${gprefix}lv='git log --decorate --show-signature --pretty="${pretty_format}"'
 alias ${gprefix}lc='git shortlog --summary --numbered'
 alias ${gprefix}lr='git reflog'
 
@@ -300,5 +305,13 @@ alias cgo='cargo'
 alias cgr='cargo run'
 alias cgb='cargo build'
 alias cgc='cargo check'
+
+# App wrappers
+alias -g spo='spotify &; disown; exit'
+alias -g slk='slack &; disown; exit'
+
+# Theme switch
+alias -g lt="toggle_theme --light"
+alias -g dt="toggle_theme --dark"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

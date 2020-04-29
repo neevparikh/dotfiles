@@ -8,6 +8,7 @@
     "python.venvFolders": ["envs"],
     "python.linting.enabled": true,
     "python.linting.pylintEnabled": true,
+    "python.linting.pylintPath": "pylint",
     "python.linting.pylintArgs": [
         "--disable=C,R"
     ],

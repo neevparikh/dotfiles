@@ -5,6 +5,7 @@ import sys
 import os
 import time
 
+
 def parse_args():
     # Parse input arguments
     # Use --help to see a pretty description of the arguments
@@ -38,18 +39,27 @@ if __name__ == "__main__":
     output_0 = outputs[0]
     output_1 = outputs[1]
     print(outputs)
+    if output_1 == '':
+        output_1 = output_0
     if args.mode == 'single':
         subprocess.call(
             f"xrandr --output eDP1 --auto --output {output_1} --off --output {output_0} --off",
             shell=True)
+        subprocess.call(f"setup_commands --scale", shell=True)
     elif args.mode == 'double':
         subprocess.call(
-            f"xrandr --output eDP1 --off --output {output_1} --auto --output {output_0} --auto --left-of {output_1}",
+            f"xrandr --output eDP1 --off --output {output_0} --auto --output {output_1} --auto --right-of {output_0}",
+            shell=True)
+        subprocess.call(
+            "sed -i 's/size: 9/size: 12/' $HOME/.config/alacritty/alacritty.yml",
+            shell=True)
+        subprocess.call(
+            "source ~/.fehbg",
             shell=True)
         if args.i3_move:
             # Restart because the monitors changed
             subprocess.call("i3-msg restart", shell=True)
-            time.sleep(0.1) 
+            time.sleep(0.1)
             # Move the workspaces to the outputs
             for i in range(11):
                 subprocess.call(

@@ -51,6 +51,14 @@ if [ -d "$HOME/.mujoco/mujoco200" ]; then #{{{2
   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/neev/.mujoco/mujoco200/bin
 fi
 
+if [ -d "$HOME/.mujoco/mjpro150" ]; then #{{{2
+  PATH="$HOME/.local/bin:$PATH"
+  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/neev/.mujoco/mjpro150/bin
+fi
+
+if [ -d "$HOME/.local/bin/toggle_theme" ]; then #{{{2
+     $HOME/.local/bin/toggle_theme --dark
+fi
 
 if command -v javac >/dev/null 2>&1; then
   JAVA_HOME="$(dirname "$(dirname "$(readlink -f "$(command -v javac)")")")"
@@ -67,12 +75,12 @@ elif hash vim 2>/dev/null; then
 elif hash vi 2>/dev/null; then
   export VISUAL=vi
 fi
+
+
 export EDITOR="$VISUAL"
 export SUDO_EDITOR="editor"
 a="-e SC1090 -e 2001 -e SC2016 -e SC2139 -e SC2164"
 export SHELLCHECK_OPTS="$a"
-
-export PROFILE_SOURCED=1
 
 if [ -d "$HOME/.fzf" ]; then #{{{1
   gruvbox_fg_1='#ebdbb2'
@@ -111,6 +119,8 @@ if [ -d "$HOME/.fzf" ]; then #{{{1
   PATH="$HOME/.fzf/bin/:$PATH"
 fi
 
+
+export PROFILE_SOURCED=1
 
 #}}}
 
