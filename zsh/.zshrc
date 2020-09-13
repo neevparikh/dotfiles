@@ -47,6 +47,7 @@ autoload -Uz compinit
 compinit -C
 
 
+setopt extendedglob
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -287,10 +288,6 @@ alias ${gprefix}wC='git clean -d --force'
 alias ${gprefix}wx='git rm -r'
 alias ${gprefix}wX='git rm -rf'
 
-# Changing theme
-alias tgl='xdotool key --clearmodifiers Shift+F10 r 2' 
-alias tgd='xdotool key --clearmodifiers Shift+F10 r 1' 
-
 alias calc='insect'
 alias agi='sudo apt install'
 alias agu='sudo apt upgrade'
@@ -307,10 +304,11 @@ alias cgb='cargo build'
 alias cgc='cargo check'
 
 # App wrappers
-alias -g spo='spotify &; disown; exit'
-alias -g slk='slack &; disown; exit'
+alias -g spo='hires_wrapper spotify_wrapper &; disown; exit'
+alias -g slk='hires_wrapper slack &; disown; exit'
+alias -g gcs='hires_wrapper google-chrome-stable &; disown; exit'
 
-# Theme switch
+# Changing theme
 alias -g lt="toggle_theme --light"
 alias -g dt="toggle_theme --dark"
 

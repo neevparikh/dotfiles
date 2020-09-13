@@ -4,7 +4,7 @@ set clipboard+=unnamedplus
 filetype off
 call plug#begin('~/.local/share/nvim/plugged')
 
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'gruvbox-community/gruvbox' 
 Plug 'lervag/vimtex'
 Plug 'honza/vim-snippets'
@@ -355,6 +355,8 @@ augroup numbertoggle
 augroup END
 au TermOpen * setlocal listchars= nonumber norelativenumber
 
+autocmd FileType text setlocal textwidth=100
+
 set inccommand=nosplit
 set cursorline
 set wildmenu
@@ -366,7 +368,7 @@ set ignorecase
 set smartcase
 set lazyredraw
 set wrap
-set colorcolumn=80
+set colorcolumn=100
 set undofile
 set splitbelow
 set splitright

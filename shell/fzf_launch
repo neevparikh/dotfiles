@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
 if selection=$(compgen -c | sort | uniq | fzf); then
-  nohup "$selection" &>/dev/null &
+  nohup "hires_wrapper" "$selection" &>/dev/null &
   sleep 0.1
 fi

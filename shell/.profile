@@ -65,6 +65,9 @@ if command -v javac >/dev/null 2>&1; then
   export JAVA_HOME
 fi
 
+if command -v firefox >/dev/null 2>&1; then
+  export MOZ_USE_XINPUT2=1
+fi
 
 
 #generic environment vars {{{1
@@ -76,6 +79,9 @@ elif hash vi 2>/dev/null; then
   export VISUAL=vi
 fi
 
+# GDK 
+export GDK_SCALE=2
+export GDK_DPI_SCALE=0.5
 
 export EDITOR="$VISUAL"
 export SUDO_EDITOR="editor"

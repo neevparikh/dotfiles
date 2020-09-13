@@ -4,7 +4,7 @@ set selection-clipboard         "clipboard"
 
 # set recolor-keephue             "true"
 set recolor-reverse-video       "false"
-set recolor                     "true"
+set recolor                     "false"
 
 # Solarized light
 #

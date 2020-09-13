@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-firefox &
+hires_wrapper firefox &
 disown

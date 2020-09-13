@@ -38,7 +38,7 @@ for_window [class="Blueman-manager"] floating enable
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec alacritty 
+bindsym $mod+Return exec hires_wrapper alacritty 
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -91,7 +91,7 @@ bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
 
 # screenshots
-bindsym Control+Print exec gnome-screenshot -i
+bindsym Control+Print exec hires_wrapper gnome-screenshot -i
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
@@ -299,13 +299,12 @@ bindsym XF86AudioPrev exec playerctl previous
 
 
 bindsym $mod+$mod_oth+space exec setup_commands 
-bindsym $mod+p exec pavucontrol
+bindsym $mod+p exec hires_wrapper pavucontrol
 
 exec "source /home/neev/.fehbg"
 
 # Autostart apps
+exec --no-startup-id switch_res --to-hires
 exec --no-startup-id picom
-# exec --no-startup-id "light-locker --late-locking --no-lock-on-suspend"
-exec --no-startup-id nm-applet
-exec --no-startup-id blueman-applet
-exec --no-startup-id setup_commands --scale
+exec --no-startup-id hires_wrapper nm-applet
+exec --no-startup-id hires_wrapper blueman-applet

@@ -4,13 +4,18 @@ Host cake
     HostName 138.16.161.139 
     IdentityFile ~/.ssh/id_rsa
 
+Host carrot
+    User neev
+    HostName 138.16.161.187
+    IdentityFile ~/.ssh/id_rsa
+
 # Brown CS 
-Host csdept
+Host browncs 
     User nparikh5 
     HostName pk-ssh.cs.brown.edu
     IdentityFile ~/.ssh/id_rsa
     RequestTTY force
-    RemoteCommand host=bletchley
+    RemoteCommand zsh --login
 
 # Brown CCV
 Host brownccv

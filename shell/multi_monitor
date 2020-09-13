@@ -34,6 +34,9 @@ if __name__ == "__main__":
         "xrandr | awk '!/dis/ && !/(eDP1)/ && /connected/ {print $1}'",
         shell=True).decode('utf-8').split("\n")[:2]
 
+    if outputs == ['']:
+        outputs = ['DP1', 'DP2']
+
     # TODO Move to i3ipc lib
     # FIXME (Design debt 2020 baby)
     output_0 = outputs[0]
@@ -45,14 +48,14 @@ if __name__ == "__main__":
         subprocess.call(
             f"xrandr --output eDP1 --auto --output {output_1} --off --output {output_0} --off",
             shell=True)
-        subprocess.call(f"setup_commands --scale", shell=True)
+        subprocess.call(f"source switch_res --to-hires", shell=True)
     elif args.mode == 'double':
         subprocess.call(
             f"xrandr --output eDP1 --off --output {output_0} --auto --output {output_1} --auto --right-of {output_0}",
             shell=True)
         subprocess.call(
-            "sed -i 's/size: 9/size: 12/' $HOME/.config/alacritty/alacritty.yml",
-            shell=True)
+            "source switch_res --to-lowres",
+            shell=True)  
         subprocess.call(
             "source ~/.fehbg",
             shell=True)
