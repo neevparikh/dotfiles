@@ -3,9 +3,11 @@
 if [[ $@ = "--dark" ]] 
 then
     sed -i "s/colors: \*gruvbox_light/colors: \*gruvbox_dark/" $HOME/.config/alacritty/alacritty.yml
+    ln -sf $HOME/.config/zathura/zathura_dark $HOME/.config/zathura/zathurarc
     echo 'dark' > $HOME/.config/theme.yml
 elif [[ $@ = "--light" ]] 
 then
     sed -i "s/colors: \*gruvbox_dark/colors: \*gruvbox_light/" $HOME/.config/alacritty/alacritty.yml
+    ln -sf $HOME/.config/zathura/zathura_light $HOME/.config/zathura/zathurarc
     echo 'light' > $HOME/.config/theme.yml
 fi 

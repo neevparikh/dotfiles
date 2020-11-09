@@ -18,6 +18,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 Plug 'mhinz/vim-startify'
 Plug 'tpope/vim-fugitive'
+Plug 'christoomey/vim-conflicted'
 Plug '/lightline-gruvbox.vim'
 Plug 'neevparikh/lightline-gruvbox.vim'
 Plug 'simnalamburt/vim-mundo'
@@ -35,6 +36,7 @@ filetype indent plugin on
 " Vimtex
 let g:vimtex_fold_enabled = 1 
 let g:vimtex_format_enabled = 1
+let g:vimtex_quickfix_open_on_warning = 0
 
 let g:rooter_manual_only = 1
 let g:rooter_silent_chdir = 1
@@ -51,11 +53,22 @@ let g:coc_global_extensions = [
             \ 'coc-vimtex']
 
 " Autocomplete
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+" inoremap <expr> <Tab> pumvisible() ? \"\<C-n>" : \"\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? \"\<C-p>" : \"\<S-Tab>"
+" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : \"\<C-g>u\<CR>"
 
-xmap <Tab> <Plug>(coc-snippets-select)
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
 
 nmap p <Plug>(miniyank-autoput)
 nmap P <Plug>(miniyank-autoPut)
@@ -65,12 +78,10 @@ xmap P <Plug>(miniyank-autoPut)
 nmap <space>n <Plug>(miniyank-cycle)
 nmap <space>N <Plug>(miniyank-cycleback)
 
-
-" UltiSnips
-" let g:UltiSnipsUsePythonVersion = 3
+" Vim-Fugitive
+nnoremap <space>gd :Gvdiffsplit!<CR>
 
 " Remapping
-
 map Y y$
 nnoremap U <C-r>
 nmap <space>s <cmd>source %<cr> 
@@ -106,6 +117,8 @@ nmap <space>u <Plug>(coc-references)
 nmap <space>re <Plug>(coc-refactor)
 nmap <space>rn <Plug>(coc-rename)
 nmap <space>c <Plug>(coc-fix-current)
+xnoremap <space>x <Plug>(coc-convert-snippet)
+vmap <space>j <Plug>(coc-snippets-select)
 
 nnoremap <silent> <space>K <Cmd>call CocAction('doHover')<CR>
 xnoremap <silent> <space>K <Cmd>call CocAction('doHover')<CR>
@@ -328,8 +341,9 @@ set pumblend=15
 let g:lightline = {}
 let g:lightline.active = {
             \ 'left': [ [ 'mode', 'paste' ],
-            \           [ 'readonly', 'filename', 'modified', 'cocstatus' ] ]}
+            \           [ 'readonly', 'filename', 'modified', 'cocstatus', 'conflictstatus'] ]}
 let g:lightline.component_function = {'cocstatus': 'coc#status'}
+let g:lightline.component_function = {'conflictstatus': 'ConflictedVersion'}
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
 let g:lightline.colorscheme = 'gruvbox'
@@ -355,7 +369,7 @@ augroup numbertoggle
 augroup END
 au TermOpen * setlocal listchars= nonumber norelativenumber
 
-autocmd FileType text setlocal textwidth=100
+autocmd FileType markdown setlocal textwidth=100
 
 set inccommand=nosplit
 set cursorline

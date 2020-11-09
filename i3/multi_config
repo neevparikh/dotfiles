@@ -119,27 +119,57 @@ workspace 20 output DP2 primary HDMI1
 
 # switch to workspace
 
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
+bindsym $mod+1 workspace 11; workspace 1
+bindsym $mod+2 workspace 12; workspace 2
+bindsym $mod+3 workspace 13; workspace 3
+bindsym $mod+4 workspace 14; workspace 4
+bindsym $mod+5 workspace 15; workspace 5
+bindsym $mod+6 workspace 16; workspace 6
+bindsym $mod+7 workspace 17; workspace 7
+bindsym $mod+8 workspace 18; workspace 8
+bindsym $mod+9 workspace 19; workspace 9
+bindsym $mod+0 workspace 20; workspace 10
 
-bindsym $mod_oth+1 workspace 11
-bindsym $mod_oth+2 workspace 12
-bindsym $mod_oth+3 workspace 13
-bindsym $mod_oth+4 workspace 14
-bindsym $mod_oth+5 workspace 15
-bindsym $mod_oth+6 workspace 16
-bindsym $mod_oth+7 workspace 17
-bindsym $mod_oth+8 workspace 18
-bindsym $mod_oth+9 workspace 19
-bindsym $mod_oth+0 workspace 20
+bindsym $mod_oth+1 workspace 1; workspace 11
+bindsym $mod_oth+2 workspace 2; workspace 12
+bindsym $mod_oth+3 workspace 3; workspace 13
+bindsym $mod_oth+4 workspace 4; workspace 14
+bindsym $mod_oth+5 workspace 5; workspace 15
+bindsym $mod_oth+6 workspace 6; workspace 16
+bindsym $mod_oth+7 workspace 7; workspace 17
+bindsym $mod_oth+8 workspace 8; workspace 18
+bindsym $mod_oth+9 workspace 9; workspace 19
+bindsym $mod_oth+0 workspace 10; workspace 20
+
+mode "un" {
+
+    bindsym $mod+1 workspace 1
+    bindsym $mod+2 workspace 2
+    bindsym $mod+3 workspace 3
+    bindsym $mod+4 workspace 4
+    bindsym $mod+5 workspace 5
+    bindsym $mod+6 workspace 6
+    bindsym $mod+7 workspace 7
+    bindsym $mod+8 workspace 8
+    bindsym $mod+9 workspace 9
+    bindsym $mod+0 workspace 10
+
+    bindsym $mod_oth+1 workspace 11
+    bindsym $mod_oth+2 workspace 12
+    bindsym $mod_oth+3 workspace 13
+    bindsym $mod_oth+4 workspace 14
+    bindsym $mod_oth+5 workspace 15
+    bindsym $mod_oth+6 workspace 16
+    bindsym $mod_oth+7 workspace 17
+    bindsym $mod_oth+8 workspace 18
+    bindsym $mod_oth+9 workspace 19
+    bindsym $mod_oth+0 workspace 20
+    
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+$mod_oth+l mode "un"
+
 
 bindsym $mod+Shift+less move workspace to output right
 bindsym $mod+Shift+greater move workspace to output left

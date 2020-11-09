@@ -9,15 +9,13 @@ import time
 def parse_args():
     # Parse input arguments
     # Use --help to see a pretty description of the arguments
-    parser = argparse.ArgumentParser(
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
-    parser.add_argument(
-        '--mode',
-        help='Monitor configuration',
-        choices=['single', 'double', 'double_top', 'mirror', 'monitor_only'],
-        type=str,
-        required=True)
+    parser.add_argument('--mode',
+                        help='Monitor configuration',
+                        choices=['single', 'double', 'double_top', 'mirror', 'monitor_only'],
+                        type=str,
+                        required=True)
     parser.add_argument('--i3-move',
                         help='Move the workspaces',
                         action='store_true',
@@ -48,41 +46,40 @@ if __name__ == "__main__":
         subprocess.call(
             f"xrandr --output eDP1 --auto --output {output_1} --off --output {output_0} --off",
             shell=True)
+        os.remove(os.path.expanduser('~/.config/i3/config'))
+        os.symlink(os.path.expanduser('~/.config/i3/single_config'),
+                   os.path.expanduser('~/.config/i3/config'))
+        subprocess.call("i3-msg reload", shell=True)
         subprocess.call(f"source switch_res --to-hires", shell=True)
+        subprocess.call(f"source restart_scaled_apps", shell=True)
     elif args.mode == 'double':
         subprocess.call(
             f"xrandr --output eDP1 --off --output {output_0} --auto --output {output_1} --auto --right-of {output_0}",
             shell=True)
-        subprocess.call(
-            "source switch_res --to-lowres",
-            shell=True)  
-        subprocess.call(
-            "source ~/.fehbg",
-            shell=True)
+        subprocess.call("source switch_res --to-lowres", shell=True)
+        subprocess.call(f"source restart_scaled_apps", shell=True)
+        subprocess.call("source ~/.fehbg", shell=True)
         if args.i3_move:
             # Restart because the monitors changed
+            os.remove(os.path.expanduser('~/.config/i3/config'))
+            os.symlink(os.path.expanduser('~/.config/i3/multi_config'),
+                       os.path.expanduser('~/.config/i3/config'))
             subprocess.call("i3-msg restart", shell=True)
             time.sleep(0.1)
             # Move the workspaces to the outputs
             for i in range(11):
-                subprocess.call(
-                    f"i3-msg [workspace={i}] move workspace to output {output_0}",
-                    shell=True)
+                subprocess.call(f"i3-msg [workspace={i}] move workspace to output {output_0}",
+                                shell=True)
             for i in range(11, 21):
-                subprocess.call(
-                    f"i3-msg [workspace={i}] move workspace to output {output_1}",
-                    shell=True)
+                subprocess.call(f"i3-msg [workspace={i}] move workspace to output {output_1}",
+                                shell=True)
     elif args.mode == 'double_top':
-        subprocess.call(
-            f"xrandr --output eDP1 --auto --output {output_1} --auto --above eDP1",
-            shell=True)
+        subprocess.call(f"xrandr --output eDP1 --auto --output {output_1} --auto --above eDP1",
+                        shell=True)
     elif args.mode == 'mirror':
-        subprocess.call(
-            f"xrandr --output eDP1 --auto --output {output_1} --auto --same-as eDP1",
-            shell=True)
+        subprocess.call(f"xrandr --output eDP1 --auto --output {output_1} --auto --same-as eDP1",
+                        shell=True)
     elif args.mode == 'monitor_only':
-        subprocess.call(
-            f"xrandr --output eDP1 --off --output {output_1} --auto",
-            shell=True)
+        subprocess.call(f"xrandr --output eDP1 --off --output {output_1} --auto", shell=True)
     else:
         sys.exit(os.EX_USAGE)

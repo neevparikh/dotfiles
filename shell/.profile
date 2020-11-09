@@ -46,6 +46,11 @@ if [ -d "$HOME/.local/bin" ]; then #{{{2
   PATH="$HOME/.local/bin:$PATH"
 fi
 
+if [ -d "$HOME/.mujoco/mujoco200_linux" ]; then #{{{2
+  PATH="$HOME/.local/bin:$PATH"
+  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/neev/.mujoco/mujoco200_linux/bin
+fi
+
 if [ -d "$HOME/.mujoco/mujoco200" ]; then #{{{2
   PATH="$HOME/.local/bin:$PATH"
   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/neev/.mujoco/mujoco200/bin

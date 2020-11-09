@@ -304,7 +304,7 @@ alias cgb='cargo build'
 alias cgc='cargo check'
 
 # App wrappers
-alias -g spo='hires_wrapper spotify_wrapper &; disown; exit'
+alias -g spo='hires_wrapper spotify &; disown; exit'
 alias -g slk='hires_wrapper slack &; disown; exit'
 alias -g gcs='hires_wrapper google-chrome-stable &; disown; exit'
 

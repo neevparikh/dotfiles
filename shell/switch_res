@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-pkill zoom; pkill slack; pkill spotify; pkill nm-applet; pkill blueman-applet; pkill onboard;
 if [[ $@ = "--to-lowres" ]] 
 then
     xrandr --output eDP1 --dpi 96
@@ -9,7 +8,8 @@ then
     sed -i "s/Xcursor.size: 48/Xcursor.size: 24/" $HOME/.Xresources
     xrdb -merge $HOME/.Xresources
     sed -i "s/GDK_SCALE=2 GDK_DPI_SCALE=0.5/GDK_SCALE=1 GDK_DPI_SCALE=1/" $HOME/.local/bin/hires_wrapper
-    sed -i "s/factor=2/factor=1/" $HOME/.local/bin/spotify_wrapper
+    sed -i "s/factor=2/factor=1/" $HOME/.local/bin/spotify
+    sed -i "s/hidpi 1/hidpi 0/" $HOME/.local/bin/stella
 elif [[ $@ = "--to-hires" ]] 
 then
     xrandr --output eDP1 --dpi 192
@@ -18,13 +18,6 @@ then
     sed -i "s/Xcursor.size: 24/Xcursor.size: 48/" $HOME/.Xresources
     xrdb -merge $HOME/.Xresources
     sed -i "s/GDK_SCALE=1 GDK_DPI_SCALE=1/GDK_SCALE=2 GDK_DPI_SCALE=0.5/" $HOME/.local/bin/hires_wrapper
-    sed -i "s/factor=1/factor=2/" $HOME/.local/bin/spotify_wrapper
+    sed -i "s/factor=1/factor=2/" $HOME/.local/bin/spotify
+    sed -i "s/hidpi=0/hidpi 1/" $HOME/.local/bin/stella
 fi 
-hires_wrapper zoom &
-hires_wrapper slack &
-hires_wrapper spotify_wrapper &
-hires_wrapper nm-applet &
-hires_wrapper blueman-applet &
-i3-msg restart
-onboard &
-source $HOME/.fehbg
