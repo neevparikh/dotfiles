@@ -28,7 +28,7 @@ for_window [class="Spotify"] move to workspace 20
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec hires_wrapper alacritty 
+bindsym $mod+Return exec alacritty 
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -95,27 +95,27 @@ bindsym $mod+d focus child
 
 # workspaces on monitors 
 
-workspace 1 output DP1 primary DP2 HDMI1
-workspace 2 output DP1 primary DP2 HDMI1
-workspace 3 output DP1 primary DP2 HDMI1
-workspace 4 output DP1 primary DP2 HDMI1
-workspace 5 output DP1 primary DP2 HDMI1
-workspace 6 output DP1 primary DP2 HDMI1
-workspace 7 output DP1 primary DP2 HDMI1
-workspace 8 output DP1 primary DP2 HDMI1
-workspace 9 output DP1 primary DP2 HDMI1
-workspace 10 output DP1 primary DP2 HDMI1
+workspace 1 output DP1 DP-1 DP-1-1 primary DP2 DP-1-2 DP-2 HDMI1 HDMI-1 HDMI-1-1
+workspace 2 output DP1 DP-1 DP-1-1 primary DP2 DP-1-2 DP-2 HDMI1 HDMI-1 HDMI-1-1
+workspace 3 output DP1 DP-1 DP-1-1 primary DP2 DP-1-2 DP-2 HDMI1 HDMI-1 HDMI-1-1
+workspace 4 output DP1 DP-1 DP-1-1 primary DP2 DP-1-2 DP-2 HDMI1 HDMI-1 HDMI-1-1
+workspace 5 output DP1 DP-1 DP-1-1 primary DP2 DP-1-2 DP-2 HDMI1 HDMI-1 HDMI-1-1
+workspace 6 output DP1 DP-1 DP-1-1 primary DP2 DP-1-2 DP-2 HDMI1 HDMI-1 HDMI-1-1
+workspace 7 output DP1 DP-1 DP-1-1 primary DP2 DP-1-2 DP-2 HDMI1 HDMI-1 HDMI-1-1
+workspace 8 output DP1 DP-1 DP-1-1 primary DP2 DP-1-2 DP-2 HDMI1 HDMI-1 HDMI-1-1
+workspace 9 output DP1 DP-1 DP-1-1 primary DP2 DP-1-2 DP-2 HDMI1 HDMI-1 HDMI-1-1
+workspace 10 output DP1 DP-1 DP-1-1 primary DP2 DP-1-2 DP-2 HDMI1 HDMI-1 HDMI-1-1
 
-workspace 11 output DP2 primary HDMI1
-workspace 12 output DP2 primary HDMI1
-workspace 13 output DP2 primary HDMI1
-workspace 14 output DP2 primary HDMI1
-workspace 15 output DP2 primary HDMI1
-workspace 16 output DP2 primary HDMI1
-workspace 17 output DP2 primary HDMI1
-workspace 18 output DP2 primary HDMI1
-workspace 19 output DP2 primary HDMI1
-workspace 20 output DP2 primary HDMI1
+workspace 11 output DP2 DP-2 DP-1-2 primary HDMI1 HDMI-1 HDMI-1-1
+workspace 12 output DP2 DP-2 DP-1-2 primary HDMI1 HDMI-1 HDMI-1-1
+workspace 13 output DP2 DP-2 DP-1-2 primary HDMI1 HDMI-1 HDMI-1-1
+workspace 14 output DP2 DP-2 DP-1-2 primary HDMI1 HDMI-1 HDMI-1-1
+workspace 15 output DP2 DP-2 DP-1-2 primary HDMI1 HDMI-1 HDMI-1-1
+workspace 16 output DP2 DP-2 DP-1-2 primary HDMI1 HDMI-1 HDMI-1-1
+workspace 17 output DP2 DP-2 DP-1-2 primary HDMI1 HDMI-1 HDMI-1-1
+workspace 18 output DP2 DP-2 DP-1-2 primary HDMI1 HDMI-1 HDMI-1-1
+workspace 19 output DP2 DP-2 DP-1-2 primary HDMI1 HDMI-1 HDMI-1-1
+workspace 20 output DP2 DP-2 DP-1-2 primary HDMI1 HDMI-1 HDMI-1-1
 
 # switch to workspace
 
@@ -232,7 +232,7 @@ exec_always --no-startup-id xsetroot -solid '#1d2021'
 bar {
     # mode hide
     position top 
-    status_command i3status
+    status_command py3status -c ~/.config/i3status/config
 	tray_output primary
 	tray_output DP2
 	tray_output DP1
@@ -251,8 +251,8 @@ colors {
 
 
 # Screen brightness control
-bindsym XF86MonBrightnessUp exec xbacklight -inc 10 
-bindsym XF86MonBrightnessDown exec xbacklight -dec 10
+bindsym XF86MonBrightnessUp exec blight set +5%
+bindsym XF86MonBrightnessDown exec blight set -5%
 
 
 # volume
@@ -289,7 +289,7 @@ exec sleep 0.2
 exec --no-startup-id hires_wrapper /usr/bin/dunst
 exec --no-startup-id setup_commands
 exec sleep 1
-exec --no-startup-id hires_wrapper nm-applet
 exec --no-startup-id hires_wrapper blueman-applet
 exec --no-startup-id hires_wrapper blueman-tray
 exec --no-startup-id hires_wrapper nm-applet
+exec --no-startup-id hires_wrapper optimus-manager-qt

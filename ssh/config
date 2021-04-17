@@ -22,3 +22,9 @@ Host brownccv
     User nparikh5 
     HostName ssh.ccv.brown.edu
     IdentityFile ~/.ssh/id_rsa
+
+# Brown CCV Data Transfer
+Host transferccv
+    User nparikh5 
+    HostName transfer.ccv.brown.edu
+    IdentityFile ~/.ssh/id_rsa

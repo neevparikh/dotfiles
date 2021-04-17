@@ -63,7 +63,7 @@ if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
   alias v='nvr -O'
   alias t='nvr --remote-tab'
   alias e='nvr'
-  export VISUAL='nvr -cc split --remote-wait -c "set bufhidden=delete"'
+  export VISUAL='nvr -cc split --remote-wait-silent -c "set bufhidden=delete"'
   export EDITOR="$VISUAL"
 fi
 
@@ -311,5 +311,8 @@ alias -g gcs='hires_wrapper google-chrome-stable &; disown; exit'
 # Changing theme
 alias -g lt="toggle_theme --light"
 alias -g dt="toggle_theme --dark"
+
+alias o='xdg-open'
+alias e='nvr -cc split --remote-wait-silent -c "set bufhidden=delete"'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

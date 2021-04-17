@@ -16,8 +16,9 @@ general {
     color_bad = '#e89393'
 }
 
+order += "backlight"
 order += "volume master"
-order += "cpu_usage 0"
+order += "cpu_usage"
 #order += "disk /"
 #order += "disk /data"
 #order += "disk /home"
@@ -42,6 +43,11 @@ wireless wlan0 {
 #    format_up = "%ip (%speed)"
 #    format_down = ""
 #}
+
+backlight {
+    format = " ☀ {level}% "
+    cache_timeout = 0.1
+}
 
 battery 0 {
     format = " %status %percentage %remaining "
@@ -108,8 +114,8 @@ disk "/" {
 #}
 
 volume master {
-    format = " %volume "
-    format_muted = " "
+    format = " 🔊 %volume "
+    format_muted = "🔇"
     device = "default"
     mixer = "Master"
     mixer_idx = 0

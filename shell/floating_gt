@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
 if !(class=$(xprop -id $(xprop -root 32x '\t$0' _NET_ACTIVE_WINDOW | cut -f 2) WM_CLASS | grep -o "gt_floating" )); then
-    alacritty --title "gt_floating" --config-file $HOME/.config/alacritty/alacritty_dark.yml --class "gt_floating" --dimensions 130 25 --command "$@"
+    alacritty --title "gt_floating" --config-file $HOME/.config/alacritty/alacritty_dark.yml --class "gt_floating" --option window.dimensions.columns=130 window.dimensions.lines=25 --command "$@"
 fi

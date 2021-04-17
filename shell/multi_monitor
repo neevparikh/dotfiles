@@ -44,7 +44,7 @@ if __name__ == "__main__":
         output_1 = output_0
     if args.mode == 'single':
         subprocess.call(
-            f"xrandr --output eDP1 --auto --output {output_1} --off --output {output_0} --off",
+            f"xrandr --output eDP1 --primary --auto --output {output_1} --off --output {output_0} --off",
             shell=True)
         os.remove(os.path.expanduser('~/.config/i3/config'))
         os.symlink(os.path.expanduser('~/.config/i3/single_config'),
@@ -74,8 +74,8 @@ if __name__ == "__main__":
                 subprocess.call(f"i3-msg [workspace={i}] move workspace to output {output_1}",
                                 shell=True)
     elif args.mode == 'double_top':
-        subprocess.call(f"xrandr --output eDP1 --auto --output {output_1} --auto --above eDP1",
-                        shell=True)
+        subprocess.call(f"xrandr --output eDP1 --mode 3840x2160 --pos 0x2160 --rotate normal --output {output_1} --primary --mode 1920x1080 --pos 0x0 --rotate normal --scale 2x2",
+                shell=True)
     elif args.mode == 'mirror':
         subprocess.call(f"xrandr --output eDP1 --auto --output {output_1} --auto --same-as eDP1",
                         shell=True)

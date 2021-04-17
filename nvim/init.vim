@@ -158,6 +158,18 @@ augroup CleanBuffers
   autocmd BufLeave * call CleanNoNameEmptyBuffers()
 augroup END
 
+augroup SortTodo
+    autocmd!
+    autocmd BufWrite *.todo call SortAndReset()
+augroup END
+
+function SortAndReset()
+    let curr_pos = getpos('.')
+    call setpos('.', getpos('$'))
+    execute search("+--", 'b') + 1 . ",$ sort"
+    call setpos('.', curr_pos)
+endfunction
+
 function! AtSetRepeat(_)
     set opfunc=AtRepeat
 endfunction
@@ -254,6 +266,16 @@ augroup ResetColorscheme
    autocmd ColorScheme * call SetColors() 
 augroup end
 
+function! OpenWithName()
+    call inputsave()
+    let inp = input('Terminal name: ')
+    call inputrestore()
+    if !empty(inp)
+        call termopen(&shell)
+        execute 'keepalt file' expand('%:p').'/'.inp
+    endif
+endfunction
+
 
 function! MapWinCmd(key, command, ...)
   if a:0 && a:1
@@ -288,6 +310,7 @@ function! MapWinCmd(key, command, ...)
 endfunction
 
 call MapWinCmd("t", "terminal")
+call MapWinCmd("T", "call OpenWithName()")
 call MapWinCmd("e", " e ", 1)
 call MapWinCmd("w", "enew <bar> setlocal bufhidden=hide nobuflisted " .
       \ "buftype=nofile")
@@ -310,7 +333,8 @@ nnoremap <M-j> <C-w>j
 
 inoremap <c-f> <c-g>u<Esc>[s1z=`]a<c-g>u
 
-autocmd FileType markdown setlocal spell
+autocmd FileType markdown,text,rst setlocal spell
+autocmd FileType markdown,text,rst setlocal textwidth=100
 
 function! FixSpellingMistake() abort
   let orig_spell_pos = getcurpos()
@@ -368,8 +392,6 @@ augroup numbertoggle
   autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber number
 augroup END
 au TermOpen * setlocal listchars= nonumber norelativenumber
-
-autocmd FileType markdown setlocal textwidth=100
 
 set inccommand=nosplit
 set cursorline
@@ -469,7 +491,8 @@ let g:startify_bookmarks = [
       \ {'z': '~/.zshrc'}, 
       \ {'v': '~/.config/nvim/init.vim'},
       \ {'w': '~/.config/i3/config'}, 
-      \ {'s': '~/.config/i3status/config'}] 
+      \ {'s': '~/.config/i3status/config'},
+      \ {'d': '~/.todo'}] 
 
 let g:startify_commands = [
           \ {'t': 'terminal'},
