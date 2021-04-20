@@ -2,10 +2,5 @@
 
 setxkbmap -option 'caps:swapescape'
 setxkbmap -option 'altwin:swap_lalt_lwin'
-setxkbmap -option 'altwin:menu_win'
-if [[ $@ = "--scale" ]] 
-then
-    xrandr --output eDP1 --mode 1920x1080
-    sed -i "s/size: 12/size: 9/" $HOME/.config/alacritty/alacritty.yml
-fi 
+# setxkbmap -option 'altwin:menu_win'
 source $HOME/.fehbg

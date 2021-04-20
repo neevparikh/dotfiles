@@ -1,17 +1,29 @@
 #!/bin/sh
-MODE=$(optimus-manager --print-mode)
-MODE=$(echo $MODE | cut -d ' ' -f 5- | xargs echo)
+MODE=$(asusctl graphics -g)
+MODE=$(echo $MODE | cut -d ' ' -f 4- | xargs echo)
 
 if [[ $MODE == "nvidia" ]]; then
-    xrandr \
-        --output DP-1-1 --off \
-        --output DP-1-2 --off \
-        --output eDP-1-1 --primary --mode 3840x2160 --rotate normal \
-        --output HDMI-1-1 --off
+    DP1='DP-1'
+    DP2='DP-2'
+    DP3='DP-3'
+    eDP='eDP-1-0'
+    HDMI='HDMI-A-1-0'
 else
-    xrandr \
-        --output DP-1 --off \
-        --output DP-2 --off \
-        --output eDP-1 --primary --mode 3840x2160 --rotate normal \
-        --output HDMI-1 --off
+    DP1='DP-1'
+    DP2='DP-2'
+    DP3='DP-3'
+    eDP='eDP'
+    HDMI='HDMI-A-1-0'
 fi
+
+
+CMD="xrandr "
+CMD+="--output $eDP --primary --auto "
+CMD+="--output $HDMI --off "
+CMD+="--output $DP1 --off "
+CMD+="--output $DP2 --off "
+CMD+="--output $DP3 --off "
+echo $CMD
+echo "\n"
+
+eval $CMD

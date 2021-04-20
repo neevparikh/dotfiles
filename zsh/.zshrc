@@ -63,7 +63,7 @@ if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
   alias v='nvr -O'
   alias t='nvr --remote-tab'
   alias e='nvr'
-  export VISUAL='nvr -cc split --remote-wait-silent -c "set bufhidden=delete"'
+  export VISUAL='nvr -cc split --remote -c "set bufhidden=delete"'
   export EDITOR="$VISUAL"
 fi
 
@@ -293,7 +293,6 @@ alias agi='sudo apt install'
 alias agu='sudo apt upgrade'
 alias agd='sudo apt update'
 alias aga='sudo apt autoremove'
-alias se='sudoedit'
 alias re='reboot'
 alias cnr='./compile.sh && ./run.sh'
 
@@ -304,15 +303,16 @@ alias cgb='cargo build'
 alias cgc='cargo check'
 
 # App wrappers
-alias -g spo='hires_wrapper spotify &; disown; exit'
-alias -g slk='hires_wrapper slack &; disown; exit'
-alias -g gcs='hires_wrapper google-chrome-stable &; disown; exit'
+alias -g spo='spotify &; disown; exit'
+alias -g slk='slack &; disown; exit'
+alias -g dsc='Discord &; disown; exit'
 
 # Changing theme
 alias -g lt="toggle_theme --light"
 alias -g dt="toggle_theme --dark"
 
 alias o='xdg-open'
-alias e='nvr -cc split --remote-wait-silent -c "set bufhidden=delete"'
+# alias e='nvr -cc split --remote -c "set bufhidden=delete"'
+alias dnf='sudo dnf'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

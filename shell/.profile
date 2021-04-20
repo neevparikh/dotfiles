@@ -85,8 +85,8 @@ elif hash vi 2>/dev/null; then
 fi
 
 # GDK 
-export GDK_SCALE=2
-export GDK_DPI_SCALE=0.5
+export GDK_SCALE=1
+export GDK_DPI_SCALE=1
 
 export EDITOR="$VISUAL"
 export SUDO_EDITOR="editor"
