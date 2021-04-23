@@ -62,8 +62,8 @@ if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
   alias h='nvr -o'
   alias v='nvr -O'
   alias t='nvr --remote-tab'
-  alias e='nvr'
-  export VISUAL='nvr -cc split --remote -c "set bufhidden=delete"'
+  # alias e='nvr'
+  export VISUAL='nvr -cc split --remote-wait -c "set bufhidden=delete"'
   export EDITOR="$VISUAL"
 fi
 
@@ -312,7 +312,7 @@ alias -g lt="toggle_theme --light"
 alias -g dt="toggle_theme --dark"
 
 alias o='xdg-open'
-# alias e='nvr -cc split --remote -c "set bufhidden=delete"'
+alias e='nvr -cc split --remote -c "set bufhidden=delete"'
 alias dnf='sudo dnf'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
