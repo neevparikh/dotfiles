@@ -1,2 +1,2 @@
 #!/bin/sh
-feh --bg-scale '/usr/share/backgrounds/gruv4.png' 
+feh --no-fehbg --bg-scale --no-xinerama /home/neev/pictures/wallpaper/firewatch_dual.png
