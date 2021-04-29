@@ -303,9 +303,9 @@ alias cgb='cargo build'
 alias cgc='cargo check'
 
 # App wrappers
-alias -g spo='spotify &; disown; exit'
-alias -g slk='slack &; disown; exit'
-alias -g dsc='Discord &; disown; exit'
+alias -g spo='spotify &!; exit'
+alias -g slk='slack &!; exit'
+alias -g dsc='Discord &!; exit'
 
 # Changing theme
 alias -g lt="toggle_theme --light"

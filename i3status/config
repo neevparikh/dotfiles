@@ -15,13 +15,14 @@ general {
     color_degraded = '#fe8019'
     color_bad = '#d65d0e'}
 
-order += "backlight"
+# order += "backlight"
 order += "volume master"
 order += "cpu_usage"
-order += "asus_battery_level bat"
-order += "asus_battery_level pow"
-order += "asusctl_info graphics"
-order += "asusctl_info profile"
+order += "battery 0"
+# order += "asus_battery_level bat"
+# order += "asus_battery_level pow"
+# order += "asusctl_info graphics"
+# order += "asusctl_info profile"
 order += "tztime local"
 order += "time"
 
@@ -30,48 +31,63 @@ wireless wlan0 {
     format_down = ""
 }
 
-backlight {
-    format = " ☀ {level}% "
-    cache_timeout = 0.5
-}
+# backlight {
+#     format = " ☀ {level}% "
+#     cache_timeout = 0.5
+# }
 
-asus_battery_level "bat" {
-    battery_id = 0
-    format = " {icon} {percent}% {time_remaining} "
-    measurement_mode = "sys"
-    cache_timeout = 20
-    threshold_degraded = 30
-    threshold_full = 95
+battery 0 {
+    format = " %status %percentage %remaining "
+    format_down = ""
+    last_full_capacity = true
+    integer_battery_capacity = true
+    low_threshold = 11
     threshold_type = percentage
     hide_seconds = true
-    notify_low_level = true
-    blocks = "" # "     "
-    charging_character = ""
+    status_chr = ""
+    status_bat = ""
+    status_unk = ""
+    status_full = ""
 }
 
-asus_battery_level "pow" {
-    battery_id = 0
-    format = " {power}W "
-    measurement_mode = "sys"
-    cache_timeout = 20
-    threshold_degraded = 30
-    threshold_full = 95
-    threshold_type = percentage
-    hide_seconds = true
-    notify_low_level = false
-    blocks = "" # "     "
-    charging_character = ""
-}
 
-asusctl_info "graphics" {
-    cached_until = 60
-    format = " {graphics_mode} {graphics_power} "
-}
+# asus_battery_level "bat" {
+#     battery_id = 0
+#     format = " {icon} {percent}% {time_remaining} "
+#     measurement_mode = "sys"
+#     cache_timeout = 20
+#     threshold_degraded = 30
+#     threshold_full = 95
+#     threshold_type = percentage
+#     hide_seconds = true
+#     notify_low_level = true
+#     blocks = "" # "     "
+#     charging_character = ""
+# }
 
-asusctl_info "profile" {
-    cached_until = 60
-    format = " {profile} "
-}
+# asus_battery_level "pow" {
+#     battery_id = 0
+#     format = " {power}W "
+#     measurement_mode = "sys"
+#     cache_timeout = 20
+#     threshold_degraded = 30
+#     threshold_full = 95
+#     threshold_type = percentage
+#     hide_seconds = true
+#     notify_low_level = false
+#     blocks = "" # "     "
+#     charging_character = ""
+# }
+
+# asusctl_info "graphics" {
+#     cached_until = 60
+#     format = " {graphics_mode} {graphics_power} "
+# }
+
+# asusctl_info "profile" {
+#     cached_until = 60
+#     format = " {profile} "
+# }
 
 run_watch DHCP {
     pidfile = "/var/run/dhclient*.pid"

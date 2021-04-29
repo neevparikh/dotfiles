@@ -20,10 +20,10 @@ fi
 
 
 CMD="xrandr "
-CMD+="--output $DP2 --mode 2560x1440 --pos 2560x0 --rotate right "
-CMD+="--output $HDMI --primary --mode 2560x1440 --pos 0x534 --rotate normal "
-CMD+="--output $eDP --off "
+CMD+="--output $eDP --auto --primary "
+CMD+="--output $HDMI --off "
 CMD+="--output $DP0 --off "
+CMD+="--output $DP2 --off "
 CMD+="--output $DP1 --off "
 CMD+="--output $DP3 --off "
 echo $CMD
