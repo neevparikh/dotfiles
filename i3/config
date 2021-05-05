@@ -79,7 +79,7 @@ bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
 
 # screenshots
-bindsym Control+Print exec hires_wrapper gnome-screenshot -i
+bindsym Control+Print exec gnome-screenshot -i
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
@@ -258,9 +258,9 @@ bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5%
 
-# bindsym XF86Launch1 exec <>
-# bindsym XF86Launch3 exec <>
-# bindsym XF86Launch4 exec <>
+bindsym XF86Launch1 exec 
+bindsym XF86Launch3 exec qhd
+bindsym XF86Launch4 exec edp
 
 bindsym XF86KbdBrightnessUp exec cycle-kbd-backlight up
 bindsym XF86KbdBrightnessDown exec cycle-kbd-backlight down
