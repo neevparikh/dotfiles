@@ -4,7 +4,7 @@ while IFS= read -r line; do
     echo $line
     if [[ $line = "dark" ]] 
     then
-        kitty --override include="~/.config/kitty/themes/gruvbox_dark.conf" --single-instance
+        kitty --override include="~/.config/kitty/themes/gruvbox_dark_hard.conf" --single-instance
     elif [[ $line = "light" ]] 
     then
         kitty --override include="~/.config/kitty/themes/gruvbox_light.conf" --single-instance

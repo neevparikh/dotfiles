@@ -15,7 +15,7 @@ else
     DP2='DP-2'
     DP3='DP-3'
     eDP='eDP'
-    HDMI='HDMI-A-1-0'
+    HDMI='HDMI-A-0'
 fi
 
 
