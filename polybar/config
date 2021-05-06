@@ -56,7 +56,7 @@
     enable-click = true
     enable-scroll = true
 
-    format = <label-state>
+    format = <label-state> <label-mode> 
     format-font = 4
 
     label-focused = "%name%"
@@ -85,16 +85,16 @@
 [module/date]
     type = internal/date
     interval = 5
-    date = " %D"
-    format-prefix =  
+    date = "%D"
+    format-prefix = " "
     format-prefix-foreground = ${colors.foreground-alt}
     label = "%date%" 
 
 [module/time]
     type = internal/date
     interval = 5
-    time = %I:%M %p
-    format-prefix = | 
+    time = "%I:%M %p"
+    format-prefix = "| "
     format-prefix-foreground = ${colors.foreground-alt}
     label = " %time%"
 
@@ -185,7 +185,9 @@
 
     time-format = %H:%M
 
-    format-charging = <animation-charging> <label-charging>
+    format-charging-prefix = " "
+    format-charging-prefix-foreground = ${colors.foreground-alt}
+    format-charging = <label-charging>
 
     format-discharging = <ramp-capacity> <label-discharging>
 
@@ -209,7 +211,7 @@
     animation-charging-3 = 
     animation-charging-4 = 
     animation-charging-foreground = ${colors.foreground-alt}
-    animation-charging-framerate = 750
+    animation-charging-framerate = 3600
 
 ; unused
 

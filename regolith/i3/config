@@ -21,8 +21,9 @@ for_window [class="nm-connection-editor"] floating enable
 for_window [class="Blueman-manager"] floating enable
 for_window [class="feh"] floating enable
 for_window [class="matplotlib"] floating enable
-for_window [class="lxappearance"] floating enable
-for_window [class="1password"] floating enable
+for_window [class="Lxappearance"] floating enable
+for_window [class="Lightdm-settings"] floating enable
+for_window [class="1Password"] floating enable
 for_window [class="Gnome-screenshot"] floating enable
 
 assign [class="Slack"] 10
@@ -202,8 +203,7 @@ bindsym $mod+Tab workspace back_and_forth
 bindsym $mod+Shift+q [con_id="__focused__"] kill
 
 ## Session // Reload i3 Config // <><Shift> c ##
-set_from_resource $i3-wm.binding.reload i3-wm.binding.reload Shift+c
-bindsym $mod+$i3-wm.binding.reload reload
+bindsym $mod+Shift+c reload
 
 ## Session // Refresh Session // <><Ctrl> r ##
 bindsym $mod+Ctrl+r exec --no-startup-id /usr/bin/regolith-look refresh

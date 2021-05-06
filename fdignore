@@ -16,3 +16,9 @@ chromium
 .cargo
 Steam
 .steam
+.gnome
+.oh-my-zsh
+.pki
+.local/share
+**/Local Storage
+.mozilla
