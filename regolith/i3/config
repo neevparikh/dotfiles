@@ -22,6 +22,7 @@ for_window [class="Blueman-manager"] floating enable
 for_window [class="feh"] floating enable
 for_window [class="matplotlib"] floating enable
 for_window [class="lxappearance"] floating enable
+for_window [class="1password"] floating enable
 for_window [class="Gnome-screenshot"] floating enable
 
 assign [class="Slack"] 10
