@@ -1,0 +1,260 @@
+; vim: set filetype=povini foldmethod=indent:
+
+; main 
+
+[colors]
+    background = #32302f
+    background-alt = #504945
+    background-dark-alt = #3c3836
+    foreground = #d5c4a1
+    foreground-alt = #7c6f64
+
+[bar/main_bar]
+    width = 100%
+    height = 28
+    fixed-center = true
+    background = ${colors.background}
+    foreground = ${colors.foreground}
+    line-size = 1
+    line-color = ${colors.foreground}
+    padding-left = 0
+    padding-right = 2
+    module-margin-left = 1
+    module-margin-right = 1
+
+    font-0 = "Meslo LG S DZ:style=Bold:size=10;2"
+    font-4 = "Meslo LG S DZ:style=Regular:size=10;2"
+    font-3 = "Meslo LG S DZ:style=Bold:size=9;2"
+
+    font-1 = "Font Awesome 5 Free:style=Solid:size=11;2"
+    font-2 = "Font Awesome 5 Brands:size=11;"
+
+    modules-left = i3
+    modules-center = date time
+    modules-right = pulseaudio backlight-acpi battery power-use asusctl-graphics-mode asusctl-graphics-power 
+
+    tray-position = right
+    tray-padding = 5
+    tray-background = ${colors.background-dark-alt}
+
+    cursor-click = pointer
+
+[settings]
+    screenchange-reload = true
+
+[global/wm]
+    margin-top = 0
+    margin-bottom = 0
+
+; right
+
+[module/i3]
+    type = internal/i3
+
+    pin-workspaces = true
+    strip-wsnumbers = true
+    enable-click = true
+    enable-scroll = true
+
+    format = <label-state>
+    format-font = 4
+
+    label-focused = "%name%"
+    label-focused-foreground = ${colors.foreground}
+    label-focused-underline = ${colors.foreground}
+    label-focused-background = ${colors.background}
+    label-focused-padding = 1
+
+    label-visible = "%name%"
+    label-visible-foreground = ${colors.foreground}
+    label-visible-underline = ${colors.foreground}
+    label-visible-background = ${colors.background}
+    label-visible-padding = 1
+
+    label-urgent = "%name%"
+    label-urgent-foreground = ${colors.foreground}
+    label-urgent-underline = ${colors.foreground}
+    label-urgent-background = ${colors.background}
+    label-urgent-padding = 1
+
+    label-unfocused = "%name%"
+    label-unfocused-padding = 1
+
+; center
+
+[module/date]
+    type = internal/date
+    interval = 5
+    date = " %D"
+    format-prefix =  
+    format-prefix-foreground = ${colors.foreground-alt}
+    label = "%date%" 
+
+[module/time]
+    type = internal/date
+    interval = 5
+    time = %I:%M %p
+    format-prefix = | 
+    format-prefix-foreground = ${colors.foreground-alt}
+    label = " %time%"
+
+; left 
+
+[module/power-use]
+    type = custom/script
+    exec = awk '{print $1*10^-6 " W"}' /sys/class/power_supply/BAT0/power_now
+    interval = 10
+    format = <label>
+    label = %output%
+
+[module/asusctl-graphics-mode]
+    type = custom/script
+    exec = asusctl graphics -g | cut -d " " -f 4 |  sed 's/\x1B\[[0-9;]\{1,\}[A-Za-z]//g' 
+    interval = 1800
+    format = <label>
+    label = %output%
+
+[module/asusctl-graphics-power]
+    type = custom/script
+    exec = asusctl graphics -p | cut -d " " -f 4 |  sed 's/\x1B\[[0-9;]\{1,\}[A-Za-z]//g' 
+    interval = 60
+    format = <label>
+    label = %output%
+
+[module/xbacklight]
+    type = internal/xbacklight
+
+    format = <label> <bar>
+    label = " "
+    label-foreground = ${colors.foreground-alt}
+
+    bar-width = 10
+    bar-indicator = |
+    bar-indicator-foreground = ${colors.foreground}
+    bar-indicator-font = 2
+    bar-fill = ─
+    bar-fill-font = 2
+    bar-fill-foreground = ${colors.foreground-alt}
+    bar-empty = ─
+    bar-empty-font = 2
+    bar-empty-foreground = ${colors.background-alt}
+
+[module/backlight-acpi]
+    inherit = module/xbacklight
+    type = internal/backlight
+    card = amdgpu_bl0
+
+[module/pulseaudio]
+    type = internal/pulseaudio
+
+    format-volume = <label-volume> <bar-volume>
+    label-volume = 
+    label-volume-foreground = ${colors.foreground-alt}
+
+    label-muted = 
+    label-muted-foreground = ${colors.foreground-alt}
+
+    click-right = pavucontrol
+
+    bar-volume-width = 10
+    bar-volume-foreground-0 = ${colors.foreground-alt}
+    bar-volume-foreground-1 = ${colors.foreground-alt}
+    bar-volume-foreground-2 = ${colors.foreground-alt}
+    bar-volume-foreground-3 = ${colors.foreground-alt}
+    bar-volume-foreground-4 = ${colors.foreground-alt}
+    bar-volume-foreground-5 = ${colors.foreground-alt}
+    bar-volume-foreground-6 = ${colors.foreground-alt}
+    bar-volume-gradient = false
+    bar-volume-indicator = |
+    bar-volume-indicator-font = 2
+    bar-volume-fill = ─
+    bar-volume-fill-font = 2
+    bar-volume-empty = ─
+    bar-volume-empty-font = 2
+    bar-volume-empty-foreground = ${colors.background-alt}
+
+[module/battery]
+    type = internal/battery
+
+    full-at = 99
+
+    battery = BAT0
+    adapter = AC0
+
+    poll-interval = 5
+
+    time-format = %H:%M
+
+    format-charging = <animation-charging> <label-charging>
+
+    format-discharging = <ramp-capacity> <label-discharging>
+
+    label-charging = %percentage%% %time%
+
+    label-discharging = %percentage%% %time%
+
+    label-full = Fully charged
+
+    ramp-capacity-0 = 
+    ramp-capacity-1 = 
+    ramp-capacity-2 = 
+    ramp-capacity-3 = 
+    ramp-capacity-4 = 
+    ramp-capacity-foreground = ${colors.foreground-alt}
+    bar-capacity-width = 10
+
+    animation-charging-0 = 
+    animation-charging-1 = 
+    animation-charging-2 = 
+    animation-charging-3 = 
+    animation-charging-4 = 
+    animation-charging-foreground = ${colors.foreground-alt}
+    animation-charging-framerate = 750
+
+; unused
+
+[module/wlan]
+    type = internal/network
+    interface = wlan0
+    interval = 3.0
+
+    format-connected = <ramp-signal> <label-connected>
+    label-connected = %essid%
+
+    format-disconnected =
+
+    ramp-signal-0 = 
+    ramp-signal-1 = 
+    ramp-signal-2 = 
+    ramp-signal-3 = 
+    ramp-signal-4 = 
+    ramp-signal-foreground = ${colors.foreground-alt}
+
+[module/powermenu]
+    type = custom/menu
+
+    expand-right = true
+
+    format-spacing = 1
+
+    label-open = 
+    label-open-foreground = ${colors.foreground-alt}
+    label-close =  cancel
+    label-close-foreground = ${colors.foreground-alt}
+    label-separator = |
+    label-separator-foreground = ${colors.foreground-alt}
+
+    menu-0-0 = reboot
+    menu-0-0-exec = menu-open-1
+    menu-0-1 = power off
+    menu-0-1-exec = menu-open-2
+
+    menu-1-0 = cancel
+    menu-1-0-exec = menu-open-0
+    menu-1-1 = reboot
+    menu-1-1-exec = reboot
+
+    menu-2-0 = power off
+    menu-2-0-exec = poweroff
+    menu-2-1 = cancel
+    menu-2-1-exec = menu-open-0

@@ -490,8 +490,9 @@ nnoremap <C-l> :bprev<CR>
 let g:startify_bookmarks = [
       \ {'z': '~/.zshrc'}, 
       \ {'v': '~/.config/nvim/init.vim'},
-      \ {'w': '~/.config/i3/config'}, 
-      \ {'s': '~/.config/i3status/config'},
+      \ {'w': '~/.config/regolith/i3/config'}, 
+      \ {'x': '~/.config/regolith/Xresources'}, 
+      \ {'s': '~/.config/regolith/i3xrocks/conf.d'},
       \ {'d': '~/.todo'}] 
 
 let g:startify_commands = [

@@ -313,6 +313,6 @@ alias -g dt="toggle_theme --dark"
 
 alias o='xdg-open'
 alias e='nvr -cc split --remote -c "set bufhidden=delete"'
-alias dnf='sudo dnf'
+alias lsl='ls'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
