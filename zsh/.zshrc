@@ -48,6 +48,7 @@ compinit -C
 
 
 setopt extendedglob
+unsetopt AUTO_CD
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -201,7 +202,7 @@ alias ${gprefix}ls='git log --decorate --stat --pretty="${pretty_format}"'
 alias ${gprefix}ld='git log --decorate --stat --patch --full-diff --pretty="${pretty_format}"'
 alias ${gprefix}lo='git log --decorate --pretty="${pretty_format}"'
 alias ${gprefix}lO='git log --decorate --pretty="${pretty_format}"'
-alias ${gprefix}lg='git log --decorate --all --remotes --graph --oneline'
+alias ${gprefix}lg='git log --decorate --all --remotes --graph --oneline --first-parent'
 alias ${gprefix}lG='git log --decorate --all --remotes --graph --pretty=short'
 alias ${gprefix}lv='git log --decorate --show-signature --pretty="${pretty_format}"'
 alias ${gprefix}lc='git shortlog --summary --numbered'
@@ -314,5 +315,8 @@ alias -g dt="toggle_theme --dark"
 alias o='xdg-open'
 alias e='nvr -cc split --remote -c "set bufhidden=delete"'
 alias lsl='ls'
+alias cna="source $HOME/.miniconda/bin/activate && conda activate"
+alias cnd="conda deactivate && conda deactivate"
+alias ssh='kitty +kitten ssh'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

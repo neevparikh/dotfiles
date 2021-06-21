@@ -22,3 +22,13 @@ Steam
 .local/share
 **/Local Storage
 .mozilla
+.conda
+.zoom
+.miniconda
+envs/
+builds/
+.minecraft/
+.pylint.d/
+.mujoco
+.nuget
+Slack/

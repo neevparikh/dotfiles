@@ -7,6 +7,7 @@ gnome.wallpaper                                     : ~/repos/dotfiles/wallpaper
 rofi.font                                           : Meslo LG M DZ 13
 rofi.icon-theme                                     : Numix-Circle 
 rofi.search.limit                                   : 1000000000000000
+rofi.search.help                                    : false
 
 i3-wm.bar.trayoutput                                : primary
 

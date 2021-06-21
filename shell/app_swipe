@@ -1,0 +1,23 @@
+#! /usr/bin/env python3
+
+import sys
+from subprocess import Popen
+from i3ipc import Connection
+
+i3 = Connection()
+focused_class = i3.get_tree().find_focused().window_class
+
+valid_apps = [
+    "Google-chrome",
+    "Slack",
+    "Org.gnome.Nautilus",
+]
+
+if True and focused_class in valid_apps:
+    direction = sys.argv[1]
+    if direction == "left":
+        Popen("xdotool key Alt_L+Left", shell=True)
+    elif direction == "right":
+        Popen("xdotool key Alt_L+Right", shell=True)
+    else:
+        raise ValueError(direction + " not understood")

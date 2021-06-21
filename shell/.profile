@@ -3,6 +3,10 @@ if [ -d "$HOME/bin" ]; then #{{{2
   PATH="$HOME/bin:$PATH"
 fi
 
+# if [ -d "$HOME/.miniconda/bin" ]; then #{{{2
+#   PATH="$HOME/.miniconda/bin:$PATH"
+# fi
+
 if [ -d "/usr/local/cuda/bin/" ]; then #{{{2
   export PATH="/usr/local/cuda/bin/:$PATH"
 fi

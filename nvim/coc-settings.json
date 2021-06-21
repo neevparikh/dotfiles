@@ -5,6 +5,7 @@
     "python.linting.pylintUseMinimalCheckers": false,
     "python.formatting.provider": "yapf",
     "python.formatting.yapfPath" : "~/.local/bin/yapf",
+    "python.formatting.blackPath" : "~/.local/bin/black",
     "python.venvFolders": ["envs"],
     "python.linting.enabled": true,
     "python.linting.pylintEnabled": true,
@@ -13,6 +14,9 @@
         "--disable=C,R"
     ],
     "diagnostic.displayByAle": false,
+    "coc.preferences.formatOnSaveFiletypes": [
+        "python"
+    ],
     "coc.preferences.colorSupport": true,
     "coc.source.word.filetypes": ["text", "markdown"],
     "git.addedSign.hlGroup": "GitGutterAdd",

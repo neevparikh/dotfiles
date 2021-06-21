@@ -325,6 +325,7 @@ call MapWinCmd(";r", "RgPreview ", 1)
 call MapWinCmd(";R", "RgPreview")
 call MapWinCmd("c", "normal! \<c-o>")
 call MapWinCmd("s", "Startify")
+call MapWinCmd("d", "e ~/.todo")
 
 nnoremap <M-l> <C-w>l
 nnoremap <M-h> <C-w>h
@@ -335,6 +336,8 @@ inoremap <c-f> <c-g>u<Esc>[s1z=`]a<c-g>u
 
 autocmd FileType markdown,text,rst setlocal spell
 autocmd FileType markdown,text,rst setlocal textwidth=100
+
+autocmd BufRead,BufNewFile $HOME/CSM/* setlocal colorcolumn=0 tabstop=2 shiftwidth=2
 
 function! FixSpellingMistake() abort
   let orig_spell_pos = getcurpos()
