@@ -1,0 +1,45 @@
+<monitors version="2">
+  <configuration>
+    <logicalmonitor>
+      <x>2560</x>
+      <y>0</y>
+      <scale>1</scale>
+      <transform>
+        <rotation>right</rotation>
+        <flipped>no</flipped>
+      </transform>
+      <monitor>
+        <monitorspec>
+          <connector>DP-2</connector>
+          <vendor>DEL</vendor>
+          <product>DELL S2721DS</product>
+          <serial>9P4GQ43</serial>
+        </monitorspec>
+        <mode>
+          <width>2560</width>
+          <height>1440</height>
+          <rate>59.950550079345703</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+    <logicalmonitor>
+      <x>0</x>
+      <y>439</y>
+      <scale>1</scale>
+      <primary>yes</primary>
+      <monitor>
+        <monitorspec>
+          <connector>DP-0</connector>
+          <vendor>DEL</vendor>
+          <product>DELL S2721DS</product>
+          <serial>G34GQ43</serial>
+        </monitorspec>
+        <mode>
+          <width>2560</width>
+          <height>1440</height>
+          <rate>59.950550079345703</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+  </configuration>
+</monitors>

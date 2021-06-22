@@ -1,0 +1,15 @@
+config/google-chrome*/
+config/coc/
+config/Slack/
+config/1Password/
+config/dconf/
+config/EOS*
+config/BraveSoftware/
+config/chromium/
+config/evolution/
+config/gnome-control-center/
+config/microsoft-edge-dev/
+config/pulse/
+config/vivaldi*/
+config/ibus/
+config/Unknown Organization/

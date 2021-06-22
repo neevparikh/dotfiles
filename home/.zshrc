@@ -318,5 +318,6 @@ alias lsl='ls'
 alias cna="source $HOME/.miniconda/bin/activate && conda activate"
 alias cnd="conda deactivate && conda deactivate"
 alias ssh='kitty +kitten ssh'
+alias rm='safe-rm'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
