@@ -1,0 +1,23 @@
+[Desktop Entry]
+FullScreen=false
+
+[MainWindow]
+DP-1-0 eDP DP-1-2 Height 2560x1440=1408
+DP-1-0 eDP DP-1-2 Width 2560x1440=1277
+MenuBar=Disabled
+State=AAAA/wAAAAD9AAAAAAAABP0AAAVVAAAABAAAAAQAAAAIAAAACPwAAAACAAAAAgAAAAEAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAAAAAAAgAAAAEAAAAiAGEAbgBuAG8AdABhAHQAaQBvAG4AVABvAG8AbABCAGEAcgAAAAAA/////wAAAAAAAAAA
+ToolBarsMovable=Disabled
+eDP DP-1-2 Height 2560x1440=1408
+eDP DP-1-2 Width 2560x1440=1277
+eDP Height 2560x1440=1436
+eDP Width 2560x1440=1277
+eDP XPosition 2560x1440=1281
+eDP YPosition 2560x1440=2
+
+[Recent Files]
+File1[$e]=$HOME/documents/classes/colt0140/Narayanan_2000_liberation_lentils.pdf
+File2[$e]=$HOME/documents/classes/csci2952M/vc_dim.pdf
+File3[$e]=$HOME/documents/classes/csci1010/hw1.pdf
+Name1[$e]=Narayanan_2000_liberation_lentils.pdf
+Name2[$e]=vc_dim.pdf
+Name3[$e]=hw1.pdf

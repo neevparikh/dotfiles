@@ -22,6 +22,8 @@ Host brownccv
     User nparikh5 
     HostName ssh.ccv.brown.edu
     IdentityFile ~/.ssh/id_rsa
+    # RequestTTY force
+    # RemoteCommand zsh --login
 
 # Brown CCV Data Transfer
 Host transferccv

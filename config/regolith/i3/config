@@ -32,7 +32,6 @@ for_window [class="Gnome-screenshot"] floating enable
 for_window [class="Gnome-tweaks"] floating enable
 
 assign [class="Slack"] 10
-assign [class="Zoom"] 10
 assign [class="Spotify"] 20
 assign [class="discord"] 20
 for_window [class="Spotify"] move to workspace 20
@@ -56,7 +55,7 @@ bindsym $mod+o exec rofi -show find -modi find:/home/neev/.local/share/rofi/find
 ## Launch // Command // <> Space ##
 bindsym $mod+space exec rofi -show run -theme $rofiTheme 
 ## Launch // Application // <><Shift> Space ##
-bindsym $mod+Shift+space exec rofi -show drun -theme $rofiTheme 
+bindsym $mod+Shift+space exec rofi -show drun -theme $rofiTheme -show-icons
 ## Launch // Browser // <><Shift> Space ##
 bindsym $mod+w exec gtk-launch $(xdg-settings get default-web-browser)
 ## Launch // Look Selector // <><Alt> l ##
@@ -382,6 +381,9 @@ exec_always --no-startup-id /usr/share/regolith-compositor/init
 
 # Start Dunst for notifications
 exec --no-startup-id /usr/bin/dunst
+
+# 1Password
+exec --no-startup-id /usr/bin/1password
 
 # Load nm-applet to provide auth dialogs for network access
 exec --no-startup-id nm-applet

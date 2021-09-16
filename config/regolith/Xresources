@@ -2,7 +2,7 @@ i3xrocks.value.font                                 : Meslo LG M DZ 13
 
 gnome.gtk.theme                                     : Yaru-dark
 gnome.icon.theme                                    : Numix-Circle
-gnome.wallpaper                                     : ~/repos/dotfiles/wallpaper/mars.png
+gnome.wallpaper                                     : ~/repos/dotfiles/other/wallpaper/firewatch_dual.png
 
 rofi.font                                           : Meslo LG M DZ 13
 rofi.icon-theme                                     : Numix-Circle 

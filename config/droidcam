@@ -1,0 +1,10 @@
+v4
+ip=192.168.1.75
+port=4748
+audio=0
+video=1
+size=1080x1920
+confirm_close=1
+vertical_flip=1
+horizontal_flip=1
+type=0

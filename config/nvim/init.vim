@@ -412,7 +412,6 @@ set undofile
 set splitbelow
 set splitright
 set foldmethod=syntax
-autocmd Filetype <your-filetype> AnyFoldActivate
 
 let g:vimtex_compiler_progname = 'nvr'
 let g:tex_flavor  = 'latex'

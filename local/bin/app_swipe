@@ -6,7 +6,6 @@ from i3ipc import Connection
 
 i3 = Connection()
 focused_class = i3.get_tree().find_focused().window_class
-
 valid_apps = [
     "Google-chrome",
     "Slack",

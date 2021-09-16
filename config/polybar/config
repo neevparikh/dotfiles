@@ -70,7 +70,7 @@
 
     modules-left = i3
     modules-center = date time
-    modules-right = pulseaudio backlight-acpi battery power-use asusctl-graphics-mode asusctl-graphics-power bluetooth
+    modules-right = pulseaudio backlight-acpi battery power-use asusctl-cpu-profile asusctl-graphics-mode asusctl-graphics-power bluetooth
 
     tray-position = ${env:TRAY_POS:}
     tray-padding = 5
@@ -149,6 +149,12 @@
 [module/asusctl-graphics-power]
     type = custom/script
     exec = asusctl graphics -p | cut -d " " -f 4 |  sed 's/\x1B\[[0-9;]\{1,\}[A-Za-z]//g' 
+    interval = 60
+    format = <label>
+    label = %output%
+[module/asusctl-cpu-profile]
+    type = custom/script
+        exec = asusctl profile -a | cut -d " " -f 3 | sed 's/"//g' 
     interval = 60
     format = <label>
     label = %output%

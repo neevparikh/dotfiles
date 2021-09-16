@@ -1,0 +1,23 @@
+{
+ "restore.stream.Input/Audio.application.name:GNOME Settings": { "volume": 1.000000, "mute": false, "volumes": [ 1.000000, 1.000000 ], "channels": [ "FL", "FR" ] },
+ "restore.stream.Input/Audio.application.name:PulseAudio Volume Control": { "volume": 1.000000, "mute": false, "volumes": [ 1.000000, 1.000000 ], "channels": [ "FL", "FR" ] },
+ "restore.stream.Output/Audio.media.role:Test": { "mute": false, "volumes": [ 1.000000 ], "channels": [ "FL" ] },
+ "restore.stream.Output/Audio.application.name:Chromium": { "volume": 1.000000, "mute": false, "volumes": [ 1.000000 ], "channels": [ "MONO" ], "target-node": "easyeffects_sink" },
+ "restore.stream.Audio/Sink.node.name:alsa_output.pci-0000_07_00.6.pro-output-0": { "volume": 1.000000, "mute": false, "volumes": [ 1.000000, 1.000000, 1.000000, 1.000000 ], "channels": [ "UNK", "UNK", "UNK", "UNK" ] },
+ "restore.stream.Audio/Source.node.name:alsa_input.pci-0000_07_00.6.pro-input-0": { "volume": 1.000000, "mute": false, "volumes": [ 1.000000, 1.000000 ], "channels": [ "UNK", "UNK" ] },
+ "restore.stream.Output/Audio.media.role:Notification": { "volume": 1.000000, "mute": false, "volumes": [ 0.000000, 0.000000 ], "channels": [ "FL", "FR" ] },
+ "restore.stream.Output/Audio.application.name:Google Chrome": { "volume": 1.000000, "mute": false, "volumes": [ 0.999954, 0.999954 ], "channels": [ "FL", "FR" ], "target-node": "easyeffects_sink" },
+ "restore.stream.Input/Audio.application.name:Google Chrome input": { "volume": 1.000000, "mute": false, "volumes": [ 1.000000, 1.000000 ], "channels": [ "FL", "FR" ] },
+ "restore.stream.Input/Audio.application.name:ZOOM VoiceEngine": { "volume": 1.000000, "mute": false, "volumes": [ 1.000000, 1.000000 ], "channels": [ "FL", "FR" ] },
+ "restore.stream.Output/Audio.application.name:ZOOM VoiceEngine": { "volume": 1.000000, "mute": false, "volumes": [ 1.000000, 1.000000 ], "channels": [ "FL", "FR" ] },
+ "restore.stream.Audio/Sink.node.name:zoomcombine": { "volume": 1.000000, "mute": false, "volumes": [ 1.000000, 1.000000 ], "channels": [ "FL", "FR" ] },
+ "restore.stream.Input/Audio.application.name:ZOOM VoiceEngine Loopback": { "volume": 1.000000, "mute": false, "volumes": [ 1.000000, 1.000000 ], "channels": [ "FL", "FR" ] },
+ "restore.stream.Output/Audio.node.name:ZOOM VoiceEngine Loopback": { "volume": 1.000000, "mute": false, "volumes": [ 1.000000, 1.000000 ], "channels": [ "FL", "FR" ] },
+ "restore.stream.Audio/Sink.node.name:easyeffects_sink": { "volume": 1.000000, "mute": false, "volumes": [ 1.000000, 1.000000 ], "channels": [ "FL", "FR" ] },
+ "restore.stream.Audio/Source/Virtual.node.name:easyeffects_source": { "volume": 1.000000, "mute": false, "volumes": [ 1.000000, 1.000000 ], "channels": [ "FL", "FR" ] },
+ "restore.stream.Output/Audio.media.role:tphonon.streamid": { "volume": 1.000000, "mute": false, "volumes": [ 0.976069, 0.976069 ], "channels": [ "FL", "FR" ] },
+ "restore.stream.Input/Audio.application.name:Chromium input": { "volume": 1.000000, "mute": false, "volumes": [ 1.000000, 1.000000 ], "channels": [ "FL", "FR" ] },
+ "restore.stream.Output/Audio.media.role:Music": { "volume": 1.000000, "mute": false, "volumes": [ 0.040733, 0.040733 ], "channels": [ "FL", "FR" ], "target-node": "easyeffects_sink" },
+ "restore.stream.Output/Audio.application.name:python3.7": { "volume": 1.000000, "mute": false, "volumes": [ 1.000000, 1.000000 ], "channels": [ "FL", "FR" ], "target-node": "easyeffects_sink" },
+ "restore.stream.Output/Audio.application.name:Blender": { "volume": 1.000000, "mute": false, "volumes": [ 1.000000, 1.000000 ], "channels": [ "FL", "FR" ], "target-node": "easyeffects_sink" }
+}

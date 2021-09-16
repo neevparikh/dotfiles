@@ -69,6 +69,10 @@ if [ -d "$HOME/.local/bin/toggle_theme" ]; then #{{{2
      $HOME/.local/bin/toggle_theme --dark
 fi
 
+if command -v qt5ct >/dev/null 2>&1; then
+  export QT_QPA_PLATFORMTHEME=qt5ct
+fi
+
 if command -v javac >/dev/null 2>&1; then
   JAVA_HOME="$(dirname "$(dirname "$(readlink -f "$(command -v javac)")")")"
   export JAVA_HOME
@@ -118,6 +122,7 @@ if [ -d "$HOME/.fzf" ]; then #{{{1
   # export FZF_CTRL_R_OPTS="$a"
   # export FZF_CTRL_T_OPTS="$FZF_COMPLETION_OPTS"
 
+  FZF_DEFAULT_OPTS=''
   export FZF_DEFAULT_OPTS
   # FZF_DEFAULT_OPTS+="--layout=reverse --bind 'ctrl-s:select-all+accept,"
   # FZF_DEFAULT_OPTS+="ctrl-j:jump-accept,ctrl-k:jump,ctrl-p:toggle-preview,"

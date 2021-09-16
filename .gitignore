@@ -1,5 +1,4 @@
 config/google-chrome*/
-config/coc/
 config/Slack/
 config/1Password/
 config/dconf/
@@ -13,3 +12,8 @@ config/pulse/
 config/vivaldi*/
 config/ibus/
 config/Unknown Organization/
+config/discord/Cache/
+config/blender/
+config/Code/
+config/GIMP/
+config/session
