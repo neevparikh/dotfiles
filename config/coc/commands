@@ -1,3 +1,5 @@
+python.runLinting
+pyright.restartserver
+snippets.editSnippets
 python.setInterpreter
 pyright.organizeimports
-snippets.editSnippets

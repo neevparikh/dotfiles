@@ -8,8 +8,13 @@ fi
 # fi
 
 if [ -d "/usr/local/cuda/bin/" ]; then #{{{2
-  export PATH="/usr/local/cuda/bin/:$PATH"
+  export PATH="/usr/local/cuda/bin:$PATH"
 fi
+
+if [ -d "/opt/cuda/bin/" ]; then #{{{2
+  export PATH="/opt/cuda/bin:$PATH"
+fi
+
 
 if [ -d "$HOME/scripts" ]; then #{{{2
   export PATH="$HOME/scripts:$PATH"
@@ -51,27 +56,41 @@ if [ -d "$HOME/.local/bin" ]; then #{{{2
 fi
 
 if [ -d "$HOME/.mujoco/mujoco200_linux" ]; then #{{{2
-  PATH="$HOME/.local/bin:$PATH"
   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/neev/.mujoco/mujoco200_linux/bin
 fi
 
 if [ -d "$HOME/.mujoco/mujoco200" ]; then #{{{2
-  PATH="$HOME/.local/bin:$PATH"
   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/neev/.mujoco/mujoco200/bin
 fi
 
 if [ -d "$HOME/.mujoco/mjpro150" ]; then #{{{2
-  PATH="$HOME/.local/bin:$PATH"
   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/neev/.mujoco/mjpro150/bin
 fi
 
+if [ -d "/opt/cuda/extras/CUPTI/lib64" ]; then #{{{2
+  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/cuda/extras/CUPTI/lib64
+fi
+
 if [ -d "$HOME/.local/bin/toggle_theme" ]; then #{{{2
-     $HOME/.local/bin/toggle_theme --dark
+  $HOME/.local/bin/toggle_theme --dark
+fi
+
+if [ -d "/sys/class/backlight" ]; then #{{{2
+  export BACKLIGHT_CARD=$(ls -1 /sys/class/backlight/)
 fi
 
 if command -v qt5ct >/dev/null 2>&1; then
   export QT_QPA_PLATFORMTHEME=qt5ct
 fi
+
+if command -v clang >/dev/null 2>&1; then
+  export CC=clang
+fi
+
+if command -v clang++ >/dev/null 2>&1; then
+  export CXX=clang++
+fi
+
 
 if command -v javac >/dev/null 2>&1; then
   JAVA_HOME="$(dirname "$(dirname "$(readlink -f "$(command -v javac)")")")"

@@ -18,7 +18,14 @@ Host browncs
     RemoteCommand zsh --login
 
 # Brown CCV
-Host brownccv
+Host ccv
+    User nparikh5 
+    HostName sshvpn.ccv.brown.edu
+    IdentityFile ~/.ssh/id_rsa
+    # RequestTTY force
+    # RemoteCommand zsh --login
+
+Host ccv_nvpn
     User nparikh5 
     HostName ssh.ccv.brown.edu
     IdentityFile ~/.ssh/id_rsa

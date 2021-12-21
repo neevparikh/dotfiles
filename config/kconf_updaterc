@@ -1,0 +1,11 @@
+updateInfoAdded=true
+
+[filepicker.upd]
+ctime=1637003554
+done=filepicker-remove-old-previews-entry
+mtime=1636226615
+
+[okular.upd]
+ctime=1637003560
+done=annotation-toolbar,builtin-annotations
+mtime=1635841782

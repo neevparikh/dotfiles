@@ -21,6 +21,7 @@ for_window [class="Pavucontrol"] floating enable
 for_window [class="Nm-connection-editor"] floating enable
 for_window [class="Blueman-manager"] floating enable
 for_window [class="Feh"] floating enable
+for_window [class="feh"] floating enable
 for_window [class="matplotlib"] floating enable
 for_window [class="Matplotlib"] floating enable
 for_window [class="Shotwell"] floating enable
@@ -30,6 +31,8 @@ for_window [class="Lightdm-settings"] floating enable
 for_window [class="1Password"] floating enable
 for_window [class="Gnome-screenshot"] floating enable
 for_window [class="Gnome-tweaks"] floating enable
+
+for_window [title="zoom" class="zoom"] floating enable
 
 assign [class="Slack"] 10
 assign [class="Spotify"] 20
@@ -133,16 +136,16 @@ workspace 8 output primary HDMI-A-1-0 DP-1 DP-2 DP-3
 workspace 9 output primary HDMI-A-1-0 DP-1 DP-2 DP-3
 workspace 10 output primary HDMI-A-1-0 DP-1 DP-2 DP-3
 
-workspace 11 output DP-3 DP-1 DP-2 HDMI-A-1-0 HDMI-A-0 primary 
-workspace 12 output DP-3 DP-1 DP-2 HDMI-A-1-0 HDMI-A-0 primary 
-workspace 13 output DP-3 DP-1 DP-2 HDMI-A-1-0 HDMI-A-0 primary 
-workspace 14 output DP-3 DP-1 DP-2 HDMI-A-1-0 HDMI-A-0 primary 
-workspace 15 output DP-3 DP-1 DP-2 HDMI-A-1-0 HDMI-A-0 primary 
-workspace 16 output DP-3 DP-1 DP-2 HDMI-A-1-0 HDMI-A-0 primary 
-workspace 17 output DP-3 DP-1 DP-2 HDMI-A-1-0 HDMI-A-0 primary 
-workspace 18 output DP-3 DP-1 DP-2 HDMI-A-1-0 HDMI-A-0 primary 
-workspace 19 output DP-3 DP-1 DP-2 HDMI-A-1-0 HDMI-A-0 primary 
-workspace 20 output DP-3 DP-1 DP-2 HDMI-A-1-0 HDMI-A-0 primary 
+workspace 11 output DP-1-0 DP-3 DP-1 DP-2 HDMI-A-1-0 HDMI-A-0 primary 
+workspace 12 output DP-1-0 DP-3 DP-1 DP-2 HDMI-A-1-0 HDMI-A-0 primary 
+workspace 13 output DP-1-0 DP-3 DP-1 DP-2 HDMI-A-1-0 HDMI-A-0 primary 
+workspace 14 output DP-1-0 DP-3 DP-1 DP-2 HDMI-A-1-0 HDMI-A-0 primary 
+workspace 15 output DP-1-0 DP-3 DP-1 DP-2 HDMI-A-1-0 HDMI-A-0 primary 
+workspace 16 output DP-1-0 DP-3 DP-1 DP-2 HDMI-A-1-0 HDMI-A-0 primary 
+workspace 17 output DP-1-0 DP-3 DP-1 DP-2 HDMI-A-1-0 HDMI-A-0 primary 
+workspace 18 output DP-1-0 DP-3 DP-1 DP-2 HDMI-A-1-0 HDMI-A-0 primary 
+workspace 19 output DP-1-0 DP-3 DP-1 DP-2 HDMI-A-1-0 HDMI-A-0 primary 
+workspace 20 output DP-1-0 DP-3 DP-1 DP-2 HDMI-A-1-0 HDMI-A-0 primary 
 
 # switch to workspace
 
@@ -168,8 +171,19 @@ bindsym $alt+8 workspace 18
 bindsym $alt+9 workspace 19
 bindsym $alt+0 workspace 20
 
-bindsym $mod+Shift+less move workspace to output right
-bindsym $mod+Shift+greater move workspace to output left
+bindsym $mod+$alt+1 workspace 21
+bindsym $mod+$alt+2 workspace 22
+bindsym $mod+$alt+3 workspace 23
+bindsym $mod+$alt+4 workspace 24
+bindsym $mod+$alt+5 workspace 25
+bindsym $mod+$alt+6 workspace 26
+bindsym $mod+$alt+7 workspace 27
+bindsym $mod+$alt+8 workspace 28
+bindsym $mod+$alt+9 workspace 29
+bindsym $mod+$alt+0 workspace 30
+
+bindsym $mod+Shift+less move workspace to output left
+bindsym $mod+Shift+greater move workspace to output right
 bindsym $mod+Shift+underscore move workspace to output down
 bindsym $mod+Shift+plus move workspace to output up
 
@@ -245,6 +259,9 @@ bindsym $mod+comma  exec /usr/bin/i3-snapshot -o > /tmp/i3-snapshot
 bindsym $mod+period exec /usr/bin/i3-snapshot -c < /tmp/i3-snapshot
 
 bindsym $mod+p exec pavucontrol
+
+bindsym $mod+Control+v exec nmcli con up 87edd5ba-939f-4135-ad51-332add56fd43
+bindsym $mod+Control+Shift+v exec nmcli con down 87edd5ba-939f-4135-ad51-332add56fd43
 
 
 # resize window (you can also use the mouse for that)
@@ -387,5 +404,6 @@ exec --no-startup-id /usr/bin/1password
 
 # Load nm-applet to provide auth dialogs for network access
 exec --no-startup-id nm-applet
-exec --no-startup-id libinput-gestures-setup start
+exec --no-startup-id libinput-gestures-setup desktop start
+exec --no-startup-id pkill teams
 exec --no-startup-id setup_commands

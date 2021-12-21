@@ -317,7 +317,8 @@ alias e='nvr -cc split --remote -c "set bufhidden=delete"'
 alias lsl='ls'
 alias cna="source $HOME/.miniconda/bin/activate && conda activate"
 alias cnd="conda deactivate && conda deactivate"
-alias ssh='kitty +kitten ssh'
+alias kssh='kitty +kitten ssh'
 alias rm='safe-rm'
+alias browncsprint="CUPS_SERVER=printhost.cs.brown.edu okular"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

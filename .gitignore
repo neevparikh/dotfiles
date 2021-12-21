@@ -16,4 +16,20 @@ config/discord/Cache/
 config/blender/
 config/Code/
 config/GIMP/
-config/session
+config/session/
+config/spotify/
+config/discord/
+config/balena-etcher-electron/
+config/Microsoft/
+config/Microsoft Teams - Preview/
+config/teams/
+config/JetBrains/
+config/coc/extensions/node_modules/
+config/gtk-3.0/
+config/gtk-2.0/
+config/gtk-4.0/
+config/inkscape/
+config/gnome-boxes/
+config/kdeglobals
+config/libvirt
+

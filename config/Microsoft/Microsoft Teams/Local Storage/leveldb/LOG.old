@@ -1,8 +1,0 @@
-2021/09/08-11:12:30.837 1b2cc Reusing MANIFEST /home/neev/repos/dotfiles/config/Microsoft/Microsoft Teams/Local Storage/leveldb/MANIFEST-000001
-2021/09/08-11:12:30.837 1b2cc Recovering log #3
-2021/09/08-11:12:30.839 1b2cc Level-0 table #3: started
-2021/09/08-11:12:30.843 1b2cc Level-0 table #3: 287972 bytes OK
-2021/09/08-11:12:30.844 1b2cc Delete type=0 #3
-2021/09/08-12:01:23.344 1d9fe Level-0 table #6: started
-2021/09/08-12:01:23.346 1d9fe Level-0 table #6: 51019 bytes OK
-2021/09/08-12:01:23.347 1d9fe Delete type=0 #4

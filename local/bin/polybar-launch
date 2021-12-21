@@ -7,6 +7,7 @@ killall -q polybar
 while pgrep -x polybar >/dev/null; do sleep 1; done
 
 PRIMARY=$(xrandr --query | grep " primary" | cut -d" " -f1)
+BACKLIGHT_CARD=$(ls -1 /sys/class/backlight/)
 
 # Launch polybar
 if command -v xrandr >/dev/null 2>&1; then

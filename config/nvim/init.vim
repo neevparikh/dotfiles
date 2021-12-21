@@ -29,6 +29,7 @@ Plug 'bfredl/nvim-miniyank'
 Plug 'machakann/vim-highlightedyank'
 Plug 'airblade/vim-rooter'
 Plug 'chrisbra/Colorizer'
+" Plug 'rhysd/vim-clang-format'
 
 call plug#end()
 filetype indent plugin on
@@ -48,7 +49,7 @@ let g:coc_global_extensions = [
             \ 'coc-word',
             \ 'coc-syntax',
             \ 'coc-git', 
-            \ 'coc-python',
+            \ 'coc-pyright',
             \ 'coc-json',
             \ 'coc-vimtex']
 
@@ -109,6 +110,7 @@ nmap <M-n> <Plug>(coc-diagnostic-next)
 nmap <M-p> <Plug>(coc-diagnostic-prev)
 nmap <space>f <Plug>(coc-format-selected)
 nmap <space>F <Plug>(coc-format)
+nmap <space>A <Plug>(coc-format-all)
 nmap <space>D <Plug>(coc-declaration)
 nmap <space>d <Plug>(coc-definition)
 nmap <space>d <Plug>(coc-definition)
@@ -263,7 +265,13 @@ endfunction
 
 augroup ResetColorscheme 
     autocmd!
-   autocmd ColorScheme * call SetColors() 
+    autocmd ColorScheme * call SetColors() 
+augroup end
+
+augroup CPPSettings
+    autocmd!
+    autocmd FileType cpp set tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd BufWritePre,FileWritePre *.cpp,*.h call CocAction('format')
 augroup end
 
 function! OpenWithName()
@@ -334,10 +342,17 @@ nnoremap <M-j> <C-w>j
 
 inoremap <c-f> <c-g>u<Esc>[s1z=`]a<c-g>u
 
-autocmd FileType markdown,text,rst setlocal spell
-autocmd FileType markdown,text,rst setlocal textwidth=100
+augroup txt
+  autocmd!
+  autocmd FileType markdown,text,rst setlocal spell textwidth=100
+augroup END
 
-autocmd BufRead,BufNewFile $HOME/CSM/* setlocal colorcolumn=0 tabstop=2 shiftwidth=2
+augroup todo
+  autocmd!
+  autocmd FileType todo setlocal wrap linebreak
+augroup END
+
+" autocmd BufRead,BufNewFile $HOME/CSM/* setlocal colorcolumn=0 tabstop=2 shiftwidth=2
 
 function! FixSpellingMistake() abort
   let orig_spell_pos = getcurpos()

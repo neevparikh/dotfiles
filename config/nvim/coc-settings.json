@@ -1,12 +1,11 @@
 {
     "suggest.echodocSupport": true,
     "suggest.maxCompleteItemCount": 20,
-    "python.jediEnabled": false,
     "python.linting.pylintUseMinimalCheckers": false,
     "python.formatting.provider": "yapf",
-    "python.formatting.yapfPath" : "~/.local/bin/yapf",
-    "python.formatting.blackPath" : "~/.local/bin/black",
-    "python.venvFolders": ["envs"],
+    "python.formatting.yapfPath": "~/.local/bin/yapf",
+    "python.formatting.blackPath": "~/.local/bin/black",
+    "python.venvPath": "~/envs",
     "python.linting.enabled": true,
     "python.linting.pylintEnabled": true,
     "python.linting.pylintPath": "pylint",
@@ -18,16 +17,15 @@
         "python"
     ],
     "coc.preferences.colorSupport": true,
-    "coc.source.word.filetypes": ["text", "markdown"],
+    "coc.source.word.filetypes": [
+        "text",
+        "markdown"
+    ],
     "git.addedSign.hlGroup": "GitGutterAdd",
     "git.changedSign.hlGroup": "GitGutterChange",
     "git.removedSign.hlGroup": "GitGutterDelete",
     "git.topRemovedSign.hlGroup": "GitGutterDelete",
     "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
-    "rust.clippy_preference": "on",
-    "rust-client.channel": "stable",
-    "rust.unstable_features": true,
-    "rust.cfg_test": true,
     "suggest.completionItemKindLabels": {
         "function": "\uf794",
         "method": "\uf6a6",
@@ -129,6 +127,5 @@
                 }
             }
         }
-    },
-    "java.format.settings.url": "/home/neev/.config/coc/extensions/node_modules/redhat.java/eclipse-formatter.xml"
+    }
 }
