@@ -2,21 +2,31 @@
 
 import sys
 from subprocess import Popen
-from i3ipc import Connection
+try:
+    from i3ipc import Connection
+except ImportError:
+    Popen("notify-send No i3ipc module installed, for app_swipe", shell=True)
 
 i3 = Connection()
+import time; time.sleep(2)
 focused_class = i3.get_tree().find_focused().window_class
 valid_apps = [
     "Google-chrome",
     "Slack",
     "Org.gnome.Nautilus",
 ]
-
 if True and focused_class in valid_apps:
+    if len(sys.argv) < 2: 
+        Popen("notify-send You must provide a direction", shell=True)
+        raise ValueError("You must provide a direction")
     direction = sys.argv[1]
-    if direction == "left":
-        Popen("xdotool key Alt_L+Left", shell=True)
-    elif direction == "right":
-        Popen("xdotool key Alt_L+Right", shell=True)
-    else:
-        raise ValueError(direction + " not understood")
+    try:
+        if direction == "left":
+            Popen("xdotool key Alt_L+Left", shell=True)
+        elif direction == "right":
+            Popen("xdotool key Alt_L+Right", shell=True)
+        else:
+            Popen(f"notify-send {direction} not understood", shell=True)
+            raise ValueError(f"{direction} not understood")
+    except OSError:
+            Popen("notify-send xdotool not installed", shell=True)
