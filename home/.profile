@@ -1,6 +1,6 @@
 #install specific environment variables (mostly path) {{{1
-if [ -d "$HOME/bin" ]; then #{{{2
-  PATH="$HOME/bin:$PATH"
+if [ -d "$HOME/.local/bin" ]; then #{{{2
+  PATH="$HOME/.local/bin:$PATH"
 fi
 
 # if [ -d "$HOME/.miniconda/bin" ]; then #{{{2
@@ -21,7 +21,7 @@ if [ -d "$HOME/scripts" ]; then #{{{2
 fi
 
 if [ -d "$HOME/.cargo/bin" ]; then #{{{2
-  export PATH="$HOME/.cargo/bin:$PATH"
+  source "$HOME/.cargo/env"
 fi
 
 if [ -d "$HOME/.yarn/bin" ]; then #{{{2
@@ -41,14 +41,14 @@ if [ -d "$HOME/.nvm" ]; then #{{{2
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 fi
 
-if [ -d "/usr/local/go/" ]; then #{{{2
-  export GOROOT=/usr/local/go
-  export PATH="$GOROOT/bin:$PATH"
-fi
+# if [ -d "/usr/local/go/" ]; then #{{{2
+#   export GOROOT=/usr/local/go
+#   export PATH="$GOROOT/bin:$PATH"
+# fi
 
 if [ -d "$HOME/go/" ]; then #{{{2
   export PATH="$HOME/go/bin:$PATH"
-  export GOPATH="$HOME/go:$HOME/repos/2951O/"
+  export GOPATH="$HOME/go:$HOME/repos/blockchain/"
 fi
 
 if [ -d "$HOME/.local/bin" ]; then #{{{2

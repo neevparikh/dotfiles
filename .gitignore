@@ -33,3 +33,12 @@ config/gnome-boxes/
 config/kdeglobals
 config/libvirt
 
+config/omniverse
+config/omniverse*
+config/QtProject
+config/dlv
+config/menus
+local/bin/pip*
+config/Trolltech.conf
+config/QtProject.conf
+config/VCG

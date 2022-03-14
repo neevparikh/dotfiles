@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-SOCKET=unix:$(lsof -U | grep -Eo "@kitty-controller-[\d 0-9]*") 
+SOCKET="unix:"$(lsof -U | grep -Eo "@kitty-controller-[\d 0-9]*") 
 DARK_KITTY="~/.config/kitty/themes/gruvbox_dark_hard.conf"
 LIGHT_KITTY="~/.config/kitty/themes/gruvbox_light.conf"
 

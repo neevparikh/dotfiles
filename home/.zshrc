@@ -289,6 +289,8 @@ alias ${gprefix}wC='git clean -d --force'
 alias ${gprefix}wx='git rm -r'
 alias ${gprefix}wX='git rm -rf'
 
+alias ${gprefix}ap='git add --patch'
+
 alias calc='insect'
 alias agi='sudo apt install'
 alias agu='sudo apt upgrade'
@@ -320,5 +322,8 @@ alias cnd="conda deactivate && conda deactivate"
 alias kssh='kitty +kitten ssh'
 alias rm='safe-rm'
 alias browncsprint="CUPS_SERVER=printhost.cs.brown.edu okular"
+alias cnvim="rm $HOME/.local/share/nvim/swap/%home%neev%*.swp"
+alias make="make --no-print-directory"
+alias feh="feh --force-aliasing"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

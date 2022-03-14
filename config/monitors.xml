@@ -1,12 +1,17 @@
 <monitors version="2">
   <configuration>
     <logicalmonitor>
-      <x>2560</x>
+      <x>0</x>
       <y>0</y>
       <scale>1</scale>
+      <primary>yes</primary>
+      <transform>
+        <rotation>right</rotation>
+        <flipped>no</flipped>
+      </transform>
       <monitor>
         <monitorspec>
-          <connector>DP-2</connector>
+          <connector>HDMI-A-0</connector>
           <vendor>DEL</vendor>
           <product>DELL S2721DS</product>
           <serial>9P4GQ43</serial>
@@ -18,17 +23,41 @@
         </mode>
       </monitor>
     </logicalmonitor>
+  </configuration>
+  <configuration>
     <logicalmonitor>
       <x>0</x>
-      <y>0</y>
+      <y>196</y>
       <scale>1</scale>
-      <primary>yes</primary>
       <monitor>
         <monitorspec>
-          <connector>DP-0</connector>
+          <connector>DP-1-2</connector>
           <vendor>DEL</vendor>
           <product>DELL S2721DS</product>
           <serial>G34GQ43</serial>
+        </monitorspec>
+        <mode>
+          <width>2560</width>
+          <height>1440</height>
+          <rate>74.970916748046875</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+    <logicalmonitor>
+      <x>2560</x>
+      <y>0</y>
+      <scale>1</scale>
+      <primary>yes</primary>
+      <transform>
+        <rotation>right</rotation>
+        <flipped>no</flipped>
+      </transform>
+      <monitor>
+        <monitorspec>
+          <connector>HDMI-A-0</connector>
+          <vendor>DEL</vendor>
+          <product>DELL S2721DS</product>
+          <serial>9P4GQ43</serial>
         </monitorspec>
         <mode>
           <width>2560</width>
@@ -43,24 +72,84 @@
       <x>2560</x>
       <y>0</y>
       <scale>1</scale>
+      <transform>
+        <rotation>right</rotation>
+        <flipped>no</flipped>
+      </transform>
+      <monitor>
+        <monitorspec>
+          <connector>DP-1-2</connector>
+          <vendor>DEL</vendor>
+          <product>DELL S2721DS</product>
+          <serial>G34GQ43</serial>
+        </monitorspec>
+        <mode>
+          <width>2560</width>
+          <height>1440</height>
+          <rate>74.970916748046875</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+    <logicalmonitor>
+      <x>0</x>
+      <y>1440</y>
+      <scale>1</scale>
+      <primary>yes</primary>
+      <monitor>
+        <monitorspec>
+          <connector>eDP</connector>
+          <vendor>unknown</vendor>
+          <product>unknown</product>
+          <serial>unknown</serial>
+        </monitorspec>
+        <mode>
+          <width>2560</width>
+          <height>1440</height>
+          <rate>165.00254821777344</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+    <logicalmonitor>
+      <x>0</x>
+      <y>0</y>
+      <scale>1</scale>
+      <monitor>
+        <monitorspec>
+          <connector>DP-1-0</connector>
+          <vendor>DEL</vendor>
+          <product>DELL S2721DS</product>
+          <serial>9P4GQ43</serial>
+        </monitorspec>
+        <mode>
+          <width>2560</width>
+          <height>1440</height>
+          <rate>74.970916748046875</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+  </configuration>
+  <configuration>
+    <logicalmonitor>
+      <x>216</x>
+      <y>0</y>
+      <scale>1</scale>
       <monitor>
         <monitorspec>
           <connector>HDMI-A-0</connector>
-          <vendor>SHP</vendor>
-          <product>LC-43LB481U</product>
-          <serial>0x01010101</serial>
+          <vendor>CEI</vendor>
+          <product>Crestron</product>
+          <serial>0x00000000</serial>
         </monitorspec>
         <mode>
           <width>1920</width>
           <height>1080</height>
           <rate>60</rate>
         </mode>
-        <underscanning>yes</underscanning>
       </monitor>
     </logicalmonitor>
     <logicalmonitor>
       <x>0</x>
-      <y>0</y>
+      <y>1080</y>
       <scale>1</scale>
       <primary>yes</primary>
       <monitor>
@@ -119,15 +208,240 @@
   </configuration>
   <configuration>
     <logicalmonitor>
-      <x>216</x>
+      <x>2560</x>
+      <y>0</y>
+      <scale>1</scale>
+      <transform>
+        <rotation>right</rotation>
+        <flipped>no</flipped>
+      </transform>
+      <monitor>
+        <monitorspec>
+          <connector>DP-1-0</connector>
+          <vendor>DEL</vendor>
+          <product>DELL S2721DS</product>
+          <serial>9P4GQ43</serial>
+        </monitorspec>
+        <mode>
+          <width>2560</width>
+          <height>1440</height>
+          <rate>74.970916748046875</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+    <logicalmonitor>
+      <x>0</x>
+      <y>0</y>
+      <scale>1</scale>
+      <primary>yes</primary>
+      <monitor>
+        <monitorspec>
+          <connector>DP-1-2</connector>
+          <vendor>DEL</vendor>
+          <product>DELL S2721DS</product>
+          <serial>G34GQ43</serial>
+        </monitorspec>
+        <mode>
+          <width>2560</width>
+          <height>1440</height>
+          <rate>74.970916748046875</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+    <logicalmonitor>
+      <x>0</x>
+      <y>1440</y>
+      <scale>1</scale>
+      <monitor>
+        <monitorspec>
+          <connector>eDP</connector>
+          <vendor>CMN</vendor>
+          <product>0x152a</product>
+          <serial>0x00000000</serial>
+        </monitorspec>
+        <mode>
+          <width>2560</width>
+          <height>1440</height>
+          <rate>165.00254821777344</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+  </configuration>
+  <configuration>
+    <logicalmonitor>
+      <x>2560</x>
+      <y>0</y>
+      <scale>1</scale>
+      <monitor>
+        <monitorspec>
+          <connector>DP-2</connector>
+          <vendor>DEL</vendor>
+          <product>DELL S2721DS</product>
+          <serial>9P4GQ43</serial>
+        </monitorspec>
+        <mode>
+          <width>2560</width>
+          <height>1440</height>
+          <rate>74.970916748046875</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+    <logicalmonitor>
+      <x>0</x>
+      <y>0</y>
+      <scale>1</scale>
+      <primary>yes</primary>
+      <monitor>
+        <monitorspec>
+          <connector>DP-0</connector>
+          <vendor>DEL</vendor>
+          <product>DELL S2721DS</product>
+          <serial>G34GQ43</serial>
+        </monitorspec>
+        <mode>
+          <width>2560</width>
+          <height>1440</height>
+          <rate>74.970916748046875</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+  </configuration>
+  <configuration>
+    <logicalmonitor>
+      <x>2560</x>
+      <y>0</y>
+      <scale>1</scale>
+      <primary>yes</primary>
+      <transform>
+        <rotation>right</rotation>
+        <flipped>no</flipped>
+      </transform>
+      <monitor>
+        <monitorspec>
+          <connector>HDMI-A-0</connector>
+          <vendor>DEL</vendor>
+          <product>DELL S2721DS</product>
+          <serial>9P4GQ43</serial>
+        </monitorspec>
+        <mode>
+          <width>2560</width>
+          <height>1440</height>
+          <rate>74.970916748046875</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+    <logicalmonitor>
+      <x>0</x>
+      <y>0</y>
+      <scale>1</scale>
+      <monitor>
+        <monitorspec>
+          <connector>eDP</connector>
+          <vendor>CMN</vendor>
+          <product>0x152a</product>
+          <serial>0x00000000</serial>
+        </monitorspec>
+        <mode>
+          <width>2560</width>
+          <height>1440</height>
+          <rate>165.00254821777344</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+  </configuration>
+  <configuration>
+    <logicalmonitor>
+      <x>2560</x>
+      <y>0</y>
+      <scale>1</scale>
+      <monitor>
+        <monitorspec>
+          <connector>DP-1-2</connector>
+          <vendor>DEL</vendor>
+          <product>DELL S2721DS</product>
+          <serial>9P4GQ43</serial>
+        </monitorspec>
+        <mode>
+          <width>2560</width>
+          <height>1440</height>
+          <rate>74.970916748046875</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+    <logicalmonitor>
+      <x>0</x>
+      <y>0</y>
+      <scale>1</scale>
+      <primary>yes</primary>
+      <monitor>
+        <monitorspec>
+          <connector>eDP</connector>
+          <vendor>CMN</vendor>
+          <product>0x152a</product>
+          <serial>0x00000000</serial>
+        </monitorspec>
+        <mode>
+          <width>2560</width>
+          <height>1440</height>
+          <rate>165.00254821777344</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+  </configuration>
+  <configuration>
+    <logicalmonitor>
+      <x>2560</x>
+      <y>0</y>
+      <scale>1</scale>
+      <primary>yes</primary>
+      <transform>
+        <rotation>right</rotation>
+        <flipped>no</flipped>
+      </transform>
+      <monitor>
+        <monitorspec>
+          <connector>HDMI-A-0</connector>
+          <vendor>DEL</vendor>
+          <product>DELL S2721DS</product>
+          <serial>9P4GQ43</serial>
+        </monitorspec>
+        <mode>
+          <width>2560</width>
+          <height>1440</height>
+          <rate>74.970916748046875</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+    <logicalmonitor>
+      <x>0</x>
+      <y>0</y>
+      <scale>1</scale>
+      <monitor>
+        <monitorspec>
+          <connector>DP-1-0</connector>
+          <vendor>DEL</vendor>
+          <product>DELL S2721DS</product>
+          <serial>G34GQ43</serial>
+        </monitorspec>
+        <mode>
+          <width>2560</width>
+          <height>1440</height>
+          <rate>74.970916748046875</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+  </configuration>
+  <configuration>
+    <logicalmonitor>
+      <x>321</x>
       <y>0</y>
       <scale>1</scale>
       <monitor>
         <monitorspec>
           <connector>HDMI-A-0</connector>
-          <vendor>CEI</vendor>
-          <product>Crestron</product>
-          <serial>0x00000000</serial>
+          <vendor>unknown</vendor>
+          <product>unknown</product>
+          <serial>unknown</serial>
         </monitorspec>
         <mode>
           <width>1920</width>
@@ -144,9 +458,9 @@
       <monitor>
         <monitorspec>
           <connector>eDP</connector>
-          <vendor>CMN</vendor>
-          <product>0x152a</product>
-          <serial>0x00000000</serial>
+          <vendor>unknown</vendor>
+          <product>unknown</product>
+          <serial>unknown</serial>
         </monitorspec>
         <mode>
           <width>2560</width>
@@ -202,201 +516,6 @@
         <serial>0x00000000</serial>
       </monitorspec>
     </disabled>
-  </configuration>
-  <configuration>
-    <logicalmonitor>
-      <x>355</x>
-      <y>0</y>
-      <scale>1</scale>
-      <monitor>
-        <monitorspec>
-          <connector>HDMI-A-0</connector>
-          <vendor>ELE</vendor>
-          <product>ELEFW2217M</product>
-          <serial>0000000000001</serial>
-        </monitorspec>
-        <mode>
-          <width>1920</width>
-          <height>1080</height>
-          <rate>60</rate>
-        </mode>
-      </monitor>
-    </logicalmonitor>
-    <logicalmonitor>
-      <x>0</x>
-      <y>1080</y>
-      <scale>1</scale>
-      <primary>yes</primary>
-      <monitor>
-        <monitorspec>
-          <connector>eDP</connector>
-          <vendor>CMN</vendor>
-          <product>0x152a</product>
-          <serial>0x00000000</serial>
-        </monitorspec>
-        <mode>
-          <width>2560</width>
-          <height>1440</height>
-          <rate>165.00254821777344</rate>
-        </mode>
-      </monitor>
-    </logicalmonitor>
-  </configuration>
-  <configuration>
-    <logicalmonitor>
-      <x>2560</x>
-      <y>0</y>
-      <scale>1</scale>
-      <primary>yes</primary>
-      <monitor>
-        <monitorspec>
-          <connector>HDMI-A-0</connector>
-          <vendor>DEL</vendor>
-          <product>DELL S2721DS</product>
-          <serial>9P4GQ43</serial>
-        </monitorspec>
-        <mode>
-          <width>2560</width>
-          <height>1440</height>
-          <rate>74.970916748046875</rate>
-        </mode>
-      </monitor>
-    </logicalmonitor>
-    <logicalmonitor>
-      <x>0</x>
-      <y>0</y>
-      <scale>1</scale>
-      <monitor>
-        <monitorspec>
-          <connector>eDP</connector>
-          <vendor>CMN</vendor>
-          <product>0x152a</product>
-          <serial>0x00000000</serial>
-        </monitorspec>
-        <mode>
-          <width>2560</width>
-          <height>1440</height>
-          <rate>165.00254821777344</rate>
-        </mode>
-      </monitor>
-    </logicalmonitor>
-  </configuration>
-  <configuration>
-    <logicalmonitor>
-      <x>2560</x>
-      <y>0</y>
-      <scale>1</scale>
-      <monitor>
-        <monitorspec>
-          <connector>DP-1-2</connector>
-          <vendor>DEL</vendor>
-          <product>DELL S2721DS</product>
-          <serial>9P4GQ43</serial>
-        </monitorspec>
-        <mode>
-          <width>2560</width>
-          <height>1440</height>
-          <rate>74.970916748046875</rate>
-        </mode>
-      </monitor>
-    </logicalmonitor>
-    <logicalmonitor>
-      <x>0</x>
-      <y>0</y>
-      <scale>1</scale>
-      <primary>yes</primary>
-      <monitor>
-        <monitorspec>
-          <connector>eDP</connector>
-          <vendor>CMN</vendor>
-          <product>0x152a</product>
-          <serial>0x00000000</serial>
-        </monitorspec>
-        <mode>
-          <width>2560</width>
-          <height>1440</height>
-          <rate>165.00254821777344</rate>
-        </mode>
-      </monitor>
-    </logicalmonitor>
-  </configuration>
-  <configuration>
-    <logicalmonitor>
-      <x>0</x>
-      <y>0</y>
-      <scale>1</scale>
-      <primary>yes</primary>
-      <monitor>
-        <monitorspec>
-          <connector>DP-1-0</connector>
-          <vendor>DEL</vendor>
-          <product>DELL S2721DS</product>
-          <serial>G34GQ43</serial>
-        </monitorspec>
-        <mode>
-          <width>2560</width>
-          <height>1440</height>
-          <rate>74.970916748046875</rate>
-        </mode>
-      </monitor>
-    </logicalmonitor>
-    <logicalmonitor>
-      <x>2560</x>
-      <y>0</y>
-      <scale>1</scale>
-      <monitor>
-        <monitorspec>
-          <connector>HDMI-A-0</connector>
-          <vendor>DEL</vendor>
-          <product>DELL S2721DS</product>
-          <serial>9P4GQ43</serial>
-        </monitorspec>
-        <mode>
-          <width>2560</width>
-          <height>1440</height>
-          <rate>74.970916748046875</rate>
-        </mode>
-      </monitor>
-    </logicalmonitor>
-  </configuration>
-  <configuration>
-    <logicalmonitor>
-      <x>321</x>
-      <y>0</y>
-      <scale>1</scale>
-      <monitor>
-        <monitorspec>
-          <connector>HDMI-A-0</connector>
-          <vendor>unknown</vendor>
-          <product>unknown</product>
-          <serial>unknown</serial>
-        </monitorspec>
-        <mode>
-          <width>1920</width>
-          <height>1080</height>
-          <rate>60</rate>
-        </mode>
-      </monitor>
-    </logicalmonitor>
-    <logicalmonitor>
-      <x>0</x>
-      <y>1080</y>
-      <scale>1</scale>
-      <primary>yes</primary>
-      <monitor>
-        <monitorspec>
-          <connector>eDP</connector>
-          <vendor>unknown</vendor>
-          <product>unknown</product>
-          <serial>unknown</serial>
-        </monitorspec>
-        <mode>
-          <width>2560</width>
-          <height>1440</height>
-          <rate>165.00254821777344</rate>
-        </mode>
-      </monitor>
-    </logicalmonitor>
   </configuration>
   <configuration>
     <logicalmonitor>
@@ -508,6 +627,39 @@
   </configuration>
   <configuration>
     <logicalmonitor>
+      <x>0</x>
+      <y>0</y>
+      <scale>1</scale>
+      <primary>yes</primary>
+      <transform>
+        <rotation>right</rotation>
+        <flipped>no</flipped>
+      </transform>
+      <monitor>
+        <monitorspec>
+          <connector>HDMI-A-0</connector>
+          <vendor>unknown</vendor>
+          <product>unknown</product>
+          <serial>unknown</serial>
+        </monitorspec>
+        <mode>
+          <width>2560</width>
+          <height>1440</height>
+          <rate>59.950550079345703</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+    <disabled>
+      <monitorspec>
+        <connector>DP-1-2</connector>
+        <vendor>DEL</vendor>
+        <product>DELL S2721DS</product>
+        <serial>G34GQ43</serial>
+      </monitorspec>
+    </disabled>
+  </configuration>
+  <configuration>
+    <logicalmonitor>
       <x>2560</x>
       <y>0</y>
       <scale>1</scale>
@@ -558,6 +710,49 @@
       <x>0</x>
       <y>0</y>
       <scale>1</scale>
+      <primary>yes</primary>
+      <monitor>
+        <monitorspec>
+          <connector>eDP</connector>
+          <vendor>CMN</vendor>
+          <product>0x152a</product>
+          <serial>0x00000000</serial>
+        </monitorspec>
+        <mode>
+          <width>2560</width>
+          <height>1440</height>
+          <rate>165.00254821777344</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+    <logicalmonitor>
+      <x>2560</x>
+      <y>0</y>
+      <scale>1</scale>
+      <transform>
+        <rotation>right</rotation>
+        <flipped>no</flipped>
+      </transform>
+      <monitor>
+        <monitorspec>
+          <connector>DP-1-0</connector>
+          <vendor>DEL</vendor>
+          <product>DELL S2721DS</product>
+          <serial>9P4GQ43</serial>
+        </monitorspec>
+        <mode>
+          <width>2560</width>
+          <height>1440</height>
+          <rate>59.950550079345703</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+  </configuration>
+  <configuration>
+    <logicalmonitor>
+      <x>0</x>
+      <y>0</y>
+      <scale>1</scale>
       <monitor>
         <monitorspec>
           <connector>DP-1-2</connector>
@@ -588,6 +783,46 @@
           <width>2560</width>
           <height>1440</height>
           <rate>59.950550079345703</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+  </configuration>
+  <configuration>
+    <logicalmonitor>
+      <x>2560</x>
+      <y>0</y>
+      <scale>1</scale>
+      <monitor>
+        <monitorspec>
+          <connector>HDMI-A-0</connector>
+          <vendor>SHP</vendor>
+          <product>LC-43LB481U</product>
+          <serial>0x01010101</serial>
+        </monitorspec>
+        <mode>
+          <width>1920</width>
+          <height>1080</height>
+          <rate>60</rate>
+        </mode>
+        <underscanning>yes</underscanning>
+      </monitor>
+    </logicalmonitor>
+    <logicalmonitor>
+      <x>0</x>
+      <y>0</y>
+      <scale>1</scale>
+      <primary>yes</primary>
+      <monitor>
+        <monitorspec>
+          <connector>eDP</connector>
+          <vendor>CMN</vendor>
+          <product>0x152a</product>
+          <serial>0x00000000</serial>
+        </monitorspec>
+        <mode>
+          <width>2560</width>
+          <height>1440</height>
+          <rate>165.00254821777344</rate>
         </mode>
       </monitor>
     </logicalmonitor>
@@ -633,6 +868,139 @@
   </configuration>
   <configuration>
     <logicalmonitor>
+      <x>0</x>
+      <y>0</y>
+      <scale>1</scale>
+      <monitor>
+        <monitorspec>
+          <connector>DP-1-2</connector>
+          <vendor>DEL</vendor>
+          <product>DELL S2721DS</product>
+          <serial>G34GQ43</serial>
+        </monitorspec>
+        <mode>
+          <width>2560</width>
+          <height>1440</height>
+          <rate>59.950550079345703</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+    <logicalmonitor>
+      <x>2560</x>
+      <y>0</y>
+      <scale>1</scale>
+      <primary>yes</primary>
+      <monitor>
+        <monitorspec>
+          <connector>HDMI-A-0</connector>
+          <vendor>unknown</vendor>
+          <product>unknown</product>
+          <serial>unknown</serial>
+        </monitorspec>
+        <mode>
+          <width>2560</width>
+          <height>1440</height>
+          <rate>59.950550079345703</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+    <disabled>
+      <monitorspec>
+        <connector>eDP</connector>
+        <vendor>unknown</vendor>
+        <product>unknown</product>
+        <serial>unknown</serial>
+      </monitorspec>
+    </disabled>
+  </configuration>
+  <configuration>
+    <logicalmonitor>
+      <x>2560</x>
+      <y>0</y>
+      <scale>1</scale>
+      <monitor>
+        <monitorspec>
+          <connector>DP-1-2</connector>
+          <vendor>DEL</vendor>
+          <product>DELL S2721DS</product>
+          <serial>G34GQ43</serial>
+        </monitorspec>
+        <mode>
+          <width>2560</width>
+          <height>1440</height>
+          <rate>59.950550079345703</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+    <logicalmonitor>
+      <x>0</x>
+      <y>0</y>
+      <scale>1</scale>
+      <primary>yes</primary>
+      <monitor>
+        <monitorspec>
+          <connector>HDMI-A-0</connector>
+          <vendor>DEL</vendor>
+          <product>DELL S2721DS</product>
+          <serial>9P4GQ43</serial>
+        </monitorspec>
+        <mode>
+          <width>2560</width>
+          <height>1440</height>
+          <rate>74.970916748046875</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+    <disabled>
+      <monitorspec>
+        <connector>eDP</connector>
+        <vendor>CMN</vendor>
+        <product>0x152a</product>
+        <serial>0x00000000</serial>
+      </monitorspec>
+    </disabled>
+  </configuration>
+  <configuration>
+    <logicalmonitor>
+      <x>0</x>
+      <y>0</y>
+      <scale>1</scale>
+      <monitor>
+        <monitorspec>
+          <connector>DP-2</connector>
+          <vendor>DEL</vendor>
+          <product>DELL S2721DS</product>
+          <serial>G34GQ43</serial>
+        </monitorspec>
+        <mode>
+          <width>2560</width>
+          <height>1440</height>
+          <rate>74.970916748046875</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+    <logicalmonitor>
+      <x>2560</x>
+      <y>0</y>
+      <scale>1</scale>
+      <primary>yes</primary>
+      <monitor>
+        <monitorspec>
+          <connector>DP-0</connector>
+          <vendor>DEL</vendor>
+          <product>DELL S2721DS</product>
+          <serial>9P4GQ43</serial>
+        </monitorspec>
+        <mode>
+          <width>2560</width>
+          <height>1440</height>
+          <rate>74.970916748046875</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+  </configuration>
+  <configuration>
+    <logicalmonitor>
       <x>733</x>
       <y>2160</y>
       <scale>1</scale>
@@ -672,39 +1040,39 @@
   </configuration>
   <configuration>
     <logicalmonitor>
-      <x>0</x>
+      <x>355</x>
       <y>0</y>
       <scale>1</scale>
       <monitor>
         <monitorspec>
-          <connector>DP-2</connector>
-          <vendor>DEL</vendor>
-          <product>DELL S2721DS</product>
-          <serial>G34GQ43</serial>
+          <connector>HDMI-A-0</connector>
+          <vendor>ELE</vendor>
+          <product>ELEFW2217M</product>
+          <serial>0000000000001</serial>
         </monitorspec>
         <mode>
-          <width>2560</width>
-          <height>1440</height>
-          <rate>74.970916748046875</rate>
+          <width>1920</width>
+          <height>1080</height>
+          <rate>60</rate>
         </mode>
       </monitor>
     </logicalmonitor>
     <logicalmonitor>
-      <x>2560</x>
-      <y>0</y>
+      <x>0</x>
+      <y>1080</y>
       <scale>1</scale>
       <primary>yes</primary>
       <monitor>
         <monitorspec>
-          <connector>DP-0</connector>
-          <vendor>DEL</vendor>
-          <product>DELL S2721DS</product>
-          <serial>9P4GQ43</serial>
+          <connector>eDP</connector>
+          <vendor>CMN</vendor>
+          <product>0x152a</product>
+          <serial>0x00000000</serial>
         </monitorspec>
         <mode>
           <width>2560</width>
           <height>1440</height>
-          <rate>74.970916748046875</rate>
+          <rate>165.00254821777344</rate>
         </mode>
       </monitor>
     </logicalmonitor>

@@ -125,27 +125,34 @@ bindsym $mod+d focus child
 
 # workspaces on monitors 
 
-workspace 1 output primary HDMI-A-1-0 DP-1 DP-2 DP-3
-workspace 2 output primary HDMI-A-1-0 DP-1 DP-2 DP-3
-workspace 3 output primary HDMI-A-1-0 DP-1 DP-2 DP-3
-workspace 4 output primary HDMI-A-1-0 DP-1 DP-2 DP-3
-workspace 5 output primary HDMI-A-1-0 DP-1 DP-2 DP-3
-workspace 6 output primary HDMI-A-1-0 DP-1 DP-2 DP-3
-workspace 7 output primary HDMI-A-1-0 DP-1 DP-2 DP-3
-workspace 8 output primary HDMI-A-1-0 DP-1 DP-2 DP-3
-workspace 9 output primary HDMI-A-1-0 DP-1 DP-2 DP-3
-workspace 10 output primary HDMI-A-1-0 DP-1 DP-2 DP-3
+set $dp0 DP-1-0
+set $dp1 DP-1-1
+set $dp2 DP-1-2
+set $dp3 DP-1-3
+set $hdmi HDMI-A-0
+set $edp eDP
 
-workspace 11 output DP-1-0 DP-3 DP-1 DP-2 HDMI-A-1-0 HDMI-A-0 primary 
-workspace 12 output DP-1-0 DP-3 DP-1 DP-2 HDMI-A-1-0 HDMI-A-0 primary 
-workspace 13 output DP-1-0 DP-3 DP-1 DP-2 HDMI-A-1-0 HDMI-A-0 primary 
-workspace 14 output DP-1-0 DP-3 DP-1 DP-2 HDMI-A-1-0 HDMI-A-0 primary 
-workspace 15 output DP-1-0 DP-3 DP-1 DP-2 HDMI-A-1-0 HDMI-A-0 primary 
-workspace 16 output DP-1-0 DP-3 DP-1 DP-2 HDMI-A-1-0 HDMI-A-0 primary 
-workspace 17 output DP-1-0 DP-3 DP-1 DP-2 HDMI-A-1-0 HDMI-A-0 primary 
-workspace 18 output DP-1-0 DP-3 DP-1 DP-2 HDMI-A-1-0 HDMI-A-0 primary 
-workspace 19 output DP-1-0 DP-3 DP-1 DP-2 HDMI-A-1-0 HDMI-A-0 primary 
-workspace 20 output DP-1-0 DP-3 DP-1 DP-2 HDMI-A-1-0 HDMI-A-0 primary 
+workspace 1 output $dp2 primary
+workspace 2 output $dp2 primary
+workspace 3 output $dp2 primary
+workspace 4 output $dp2 primary 
+workspace 5 output $dp2 primary
+workspace 6 output $dp2 primary
+workspace 7 output $dp2 primary
+workspace 8 output $dp2 primary
+workspace 9 output $dp2 primary
+workspace 10 output $dp2 primary
+
+workspace 11 output $hdmi primary
+workspace 12 output $hdmi primary
+workspace 13 output $hdmi primary
+workspace 14 output $hdmi primary
+workspace 15 output $hdmi primary
+workspace 16 output $hdmi primary
+workspace 17 output $hdmi primary
+workspace 18 output $hdmi primary
+workspace 19 output $hdmi primary
+workspace 20 output $hdmi primary
 
 # switch to workspace
 

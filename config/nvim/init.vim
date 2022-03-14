@@ -5,7 +5,7 @@ filetype off
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-Plug 'gruvbox-community/gruvbox' 
+Plug 'neevparikh/gruvbox' 
 Plug 'lervag/vimtex'
 Plug 'honza/vim-snippets'
 Plug 'itchyny/lightline.vim'
@@ -29,7 +29,6 @@ Plug 'bfredl/nvim-miniyank'
 Plug 'machakann/vim-highlightedyank'
 Plug 'airblade/vim-rooter'
 Plug 'chrisbra/Colorizer'
-" Plug 'rhysd/vim-clang-format'
 
 call plug#end()
 filetype indent plugin on
@@ -257,8 +256,6 @@ function! SetColors()
         highlight Pmenu ctermfg=223 ctermbg=239 guifg=#282828 guibg=#ebdbb2
     endif
 
-    let g:gruvbox_contrast_light = "medium"
-    let g:gruvbox_contrast_dark = "hard"
     " Customize fzf colors to match your color scheme
     let g:fzf_colors.bg = ['fg', 'GruvboxBgMed']
 endfunction
@@ -272,6 +269,19 @@ augroup CPPSettings
     autocmd!
     autocmd FileType cpp set tabstop=2 shiftwidth=2 softtabstop=2
     autocmd BufWritePre,FileWritePre *.cpp,*.h call CocAction('format')
+    autocmd FileType cpp setlocal commentstring=//\ %s
+augroup end
+
+augroup RustSettings
+    autocmd!
+    autocmd FileType rust set tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd BufWritePre,FileWritePre *.rs call CocAction('format')
+augroup end
+
+augroup GoSettings
+    autocmd!
+    autocmd FileType go set tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd BufWritePre,FileWritePre *.go call CocAction('format')
 augroup end
 
 function! OpenWithName()
@@ -340,6 +350,12 @@ nnoremap <M-h> <C-w>h
 nnoremap <M-k> <C-w>k
 nnoremap <M-j> <C-w>j
 
+tnoremap <M-l> <C-\><C-n><C-w>l
+tnoremap <M-h> <C-\><C-n><C-w>h
+tnoremap <M-k> <C-\><C-n><C-w>k
+tnoremap <M-j> <C-\><C-n><C-w>j
+
+
 inoremap <c-f> <c-g>u<Esc>[s1z=`]a<c-g>u
 
 augroup txt
@@ -372,9 +388,9 @@ endfunction
 " Theme related
 set termguicolors
 let &background= ( system("cat $HOME/.config/theme.yml") =~ "light"? "light" : "dark" )
-colorscheme gruvbox
 let g:gruvbox_contrast_light = "medium"
 let g:gruvbox_contrast_dark = "hard"
+colorscheme gruvbox
 set pumblend=15
 " set winblend=15
 

@@ -1,5 +1,5 @@
 [Default Applications]
-text/html=balena-etcher-electron.desktop
+text/html=google-chrome.desktop
 x-scheme-handler/http=google-chrome.desktop
 x-scheme-handler/https=google-chrome.desktop
 x-scheme-handler/about=google-chrome.desktop
@@ -8,6 +8,8 @@ x-scheme-handler/webcal=google-chrome.desktop
 x-scheme-handler/msteams=teams.desktop
 x-scheme-handler/tg=userapp-Telegram Desktop-AFP7A1.desktop
 x-scheme-handler/etcher=balena-etcher-electron.desktop
+x-scheme-handler/omniverse-launcher=omniverse-launcher.desktop
+x-scheme-handler/omniverse=omniverse-launcher.desktop
 
 [Added Associations]
 image/png=shotwell-viewer.desktop;
@@ -17,3 +19,4 @@ text/plain=meshlab.desktop;
 text/x-bibtex=nvim.desktop;
 x-scheme-handler/tg=userapp-Telegram Desktop-AFP7A1.desktop;
 image/x-portable-pixmap=shotwell-viewer.desktop;gimp.desktop;
+image/x-portable-graymap=gimp.desktop;
