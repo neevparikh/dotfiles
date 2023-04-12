@@ -9,6 +9,15 @@ end
 
 -- }}}
 
+-- {{{ miniyank
+bind('n', 'p', '<Plug>(miniyank-autoput)')
+bind('n', 'P', '<Plug>(miniyank-autoPut)')
+bind('x', 'p', '<Plug>(miniyank-autoput)')
+bind('x', 'P', '<Plug>(miniyank-autoPut)')
+bind('n', '<C-n>', '<Plug>(miniyank-cycle)')
+bind('n', '<C-N>', '<Plug>(miniyank-cycleback)')
+-- }}}
+
 -- {{{ window management
 -- {{{ buffers
 bind('n', '<C-h>', ':bnext<CR>')
@@ -48,7 +57,7 @@ bind('n', '<M-L>', '<C-w>L')
 -- {{{ general
 bind('', 'Y', 'y$', remap(true))
 bind('n', 'U', '<C-r>')
-bind('v', 'p', 'P')
+bind('x', 'p', 'pgvy', remap(true))
 bind('n', 'zJ', 'zczjzo')
 bind('n', 'zK', 'zczkzo')
 bind('n', 'gV', '`[v`]')
@@ -59,7 +68,7 @@ bind('n', '<M-c>', SwitchTheme)
 local lsp_opts = { noremap = true, silent = true }
 bind('n', '<space>k', vim.lsp.buf.hover, lsp_opts)
 bind('x', '<space>f', vim.lsp.buf.range_formatting, lsp_opts)
-bind('n', '<space>f', vim.lsp.buf.formatting, lsp_opts)
+bind('n', '<space>f', function() vim.lsp.buf.format({ async = true }) end, lsp_opts)
 bind('n', '<space>d', vim.lsp.buf.definition, lsp_opts)
 bind('n', '<space>D', vim.lsp.buf.declaration, lsp_opts)
 bind('n', '<space>i', vim.lsp.buf.implementation, lsp_opts)
@@ -74,15 +83,109 @@ bind('n', '<space>p', vim.diagnostic.goto_prev, lsp_opts)
 bind('n', '<space>n', vim.diagnostic.goto_next, lsp_opts)
 -- }}}
 
--- {{{ macros
-bind('x', '@', ':<c-u>v:lua.ExecuteMacroOverVisualRange()<cr>', remap(false))
-bind('n', '<expr>', '<plug>@init v:lua.AtInit()', remap(false))
-bind('i', '<expr>', '<plug>@init "\\<c-o>".v:lua.AtInit()', remap(false))
-bind('x', '<expr>', '<plug>@init v:lua.AtInit()', remap(false))
-bind('n', '<expr>', '<plug>qstop v:lua.QStop()', remap(false))
-bind('n', '<expr>', '@ v:lua.AtReg()', remap(true))
-bind('i', '<expr>', '<plug>qstop "\\<c-o>".v:lua.QStop()', remap(false))
-bind('n', '<expr>', 'q v:lua.QStart()', remap(true))
+-- {{{ completion
+function GetCmpMappings()
+  local cmp = require('cmp')
+  local ls = require("luasnip")
+  local select_opts = { behavior = cmp.SelectBehavior.Select }
+  return {
+    -- confirm selection
+    ['<CR>'] = cmp.mapping.confirm({ select = false }),
+
+    -- navigate items on the list
+    ['J'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item(select_opts)
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+    ['K'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item(select_opts)
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+
+    -- scroll up and down in the completion documentation
+    ['<c-j>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.mapping.scroll_docs(5)
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+    ['<c-k>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.mapping.scroll_docs(-5)
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+
+    -- toggle completion
+    ['<C-f>'] = cmp.mapping(function(_)
+      if cmp.visible() then
+        cmp.close()
+      else
+        cmp.complete()
+      end
+    end),
+
+    -- go to next placeholder in the snippet
+    ['<M-Tab>'] = cmp.mapping(function(fallback)
+      if ls.jumpable(1) then
+        ls.jump(1)
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+
+    -- go to previous placeholder in the snippet
+    ['<M-b>'] = cmp.mapping(function(fallback)
+      if ls.jumpable(-1) then
+        ls.jump(-1)
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+
+    -- when menu is visible, navigate to next item
+    -- when line is empty, insert a tab character
+    -- else, activate completion
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item(select_opts)
+      elseif CheckBackSpace() then
+        fallback()
+      else
+        cmp.complete()
+      end
+    end, { 'i', 's' }),
+
+    -- when menu is visible, navigate to previous item on list
+    -- else, revert to default behavior
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item(select_opts)
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+  }
+end
+
+-- }}}
+
+-- {{{ macros (doesn't work, see helpers macro section)
+-- bind('x', '@', ':<c-u>ExecuteMacroOverVisualRange()', remap(false))
+-- bind({ 'n', 'x' }, '<Plug>@init', "AtInit()", { expr = true })
+-- bind('n', '<Plug>qstop', 'QStop()', { expr = true })
+-- bind('n', '@', 'AtReg()', { expr = true })
+-- bind('n', 'q', 'QStart()', { expr = true, remap = true })
+-- bind('i', '<Plug>@init', '"\\<c-o>".AtInit()', { expr = true })
+-- bind('i', '<Plug>qstop', '"\\<c-o>".QStop()', { expr = true })
 -- }}}
 
 -- {{{ plugin
@@ -90,27 +193,18 @@ bind('n', '<expr>', 'q v:lua.QStart()', remap(true))
 bind('n', '<space>gd', ':Gvdiffsplit!<CR>')
 -- }}}
 
--- {{{ miniyank
-bind('n', 'p', '<Plug>(miniyank-autoput)')
-bind('n', 'P', '<Plug>(miniyank-autoPut)')
-bind('x', 'p', '<Plug>(miniyank-autoput)')
-bind('x', 'P', '<Plug>(miniyank-autoPut)')
-bind('n', '<space>n', '<Plug>(miniyank-cycle)')
-bind('n', '<space>N', '<Plug>(miniyank-cycleback)')
--- }}}
-
 -- {{{ luasnip
-bind('i',
-  "<Tab>",
-  "luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'",
-  { silent = true, expr = true, remap = true }
-)
-bind('s', '<Tab>', "<cmd>lua require('luasnip').jump(1)<cr>",
-  { silent = true, remap = false }
-)
-bind({ 's', 'i' }, '<S-Tab>', "<cmd>lua require('luasnip').jump(-1)<cr>",
-  { silent = true, remap = false }
-)
+-- bind('i',
+--   "<Tab>",
+--   "luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'",
+--   { silent = true, expr = true, remap = true }
+-- )
+-- bind('s', '<Tab>', "<cmd>lua require('luasnip').jump(1)<cr>",
+--   { silent = true, remap = false }
+-- )
+-- bind({ 's', 'i' }, '<S-Tab>', "<cmd>lua require('luasnip').jump(-1)<cr>",
+--   { silent = true, remap = false }
+-- )
 -- }}}
 
 -- }}}
@@ -125,10 +219,8 @@ MapWinCmd("F", "Files ", true)
 MapWinCmd("b", "Buffers")
 MapWinCmd("g", "GFiles")
 MapWinCmd("G", "GFiles ", true)
-MapWinCmd("r", "RgPreview ", true)
-MapWinCmd("R", "RgPreviewHidden")
-MapWinCmd(";r", "RgPreview ", true)
-MapWinCmd(";R", "RgPreview")
+MapWinCmd("r", "RgFuzzy")
+MapWinCmd("R", "RgRegex ", true)
 MapWinCmd("c", "normal! \\<c-o>")
 MapWinCmd("s", "Startify")
 MapWinCmd("d", "e ~/.todo")
