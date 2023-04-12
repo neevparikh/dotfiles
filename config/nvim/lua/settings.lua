@@ -119,7 +119,10 @@ vim.g.startify_bookmarks = {
   { z = '~/.zshrc' },
   { v = '~/.config/nvim/init.lua' },
   { d = '~/.todo' },
-  { a = '~/.alacritty.yml' }
+  { k = '~/.config/kitty/kitty.conf' },
+  { w = '~/.config/regolith/i3/config' },
+  { x = '~/.config/regolith/Xresources' },
+  { s = '~/.config/regolith/i3xrocks/conf.d' },
 }
 vim.g.startify_commands = {
   { t = 'terminal' },
@@ -180,7 +183,7 @@ vim.api.nvim_create_user_command('Buffers', function()
   fzf.buffers()
 end, { nargs = 0 })
 vim.api.nvim_create_user_command('RgPreview', function()
-  fzf.grep_project()
+  fzf.grep()
 end, { nargs = 0 })
 vim.api.nvim_create_user_command('RgPreviewHidden', function()
   fzf.live_grep_native()

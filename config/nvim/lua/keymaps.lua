@@ -48,7 +48,7 @@ bind('n', '<M-L>', '<C-w>L')
 -- {{{ general
 bind('', 'Y', 'y$', remap(true))
 bind('n', 'U', '<C-r>')
-bind('x', 'p', 'pgvy', remap(true))
+bind('v', 'p', 'P')
 bind('n', 'zJ', 'zczjzo')
 bind('n', 'zK', 'zczkzo')
 bind('n', 'gV', '`[v`]')
