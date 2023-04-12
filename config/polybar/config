@@ -256,7 +256,7 @@
     content-background = ${colors.dark0_soft}
     content-padding = 0
     content-font = 6
-    click-left = gnome-control-center --class=floating_window bluetooth
+    click-left = systemctl restart bluetooth && gnome-control-center bluetooth
 
 
 ; unused

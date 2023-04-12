@@ -1,0 +1,19 @@
+%YAML 1.3
+---
+- Key: [MultiPlatform Gesture Button, pressed]
+- KeyPress:
+  - [Control_L, w]
+  - click
+...
+---
+- Key: [Forward Button, pressed]
+- KeyPress:
+  - [Alt_R, rightarrow]
+  - click
+...
+---
+- Key: [Back Button, pressed]
+- KeyPress:
+  - [Alt_R, leftarrow]
+  - click
+...

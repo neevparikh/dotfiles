@@ -12,7 +12,7 @@ x-scheme-handler/omniverse-launcher=omniverse-launcher.desktop
 x-scheme-handler/omniverse=omniverse-launcher.desktop
 
 [Added Associations]
-image/png=shotwell-viewer.desktop;
+image/png=shotwell-viewer.desktop;feh.desktop;
 application/pdf=okularApplication_pdf.desktop;org.pwmt.zathura-pdf-mupdf.desktop;
 application/x-tgif=meshlab.desktop;
 text/plain=meshlab.desktop;
@@ -20,3 +20,5 @@ text/x-bibtex=nvim.desktop;
 x-scheme-handler/tg=userapp-Telegram Desktop-AFP7A1.desktop;
 image/x-portable-pixmap=shotwell-viewer.desktop;gimp.desktop;
 image/x-portable-graymap=gimp.desktop;
+image/gif=google-chrome.desktop;
+application/json=nvim.desktop;

@@ -1,4 +1,6 @@
-unstable_features = true
-indent_style = "Visual"
+# unstable_features = true
+# indent_style = "Visual"
+# wrap_comments = true
+# group_imports = "StdExternalCrate"
+
 tab_spaces = 2
-group_imports = "StdExternalCrate"
