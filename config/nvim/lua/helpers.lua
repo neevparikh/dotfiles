@@ -2,75 +2,166 @@
 require('io')
 require('os')
 
-local at_count
-local qreg
-local qrec = 0
+-- {{{ macros -- uses vim version bc the lua version doesn't work
+vim.cmd([[
+let s:atcount = 10
+function! AtRepeat(_)
+    " If no count is supplied use the one saved in s:atcount.
+    " Otherwise save the new count in s:atcount, so it will be
+    " applied to repeats.
+    let s:atcount = v:count ? v:count : s:atcount
+    " feedkeys() rather than :normal allows finishing in Insert
+    " mode, should the macro do that. @@ is remapped, so 'opfunc'
+    " will be correct, even if the macro changes it.
+    call feedkeys(s:atcount.'@@')
+endfunction
 
--- {{{ macros
-function AtRepeat(_)
-  -- If no count is supplied use the one saved in atcount.
-  -- Otherwise save the new count in s:atcount, so it will be
-  -- applied to repeats.
+function! AtSetRepeat(_)
+    set opfunc=AtRepeat
+endfunction
 
-  if vim.v.count then
-    at_count = vim.v.count
-  end
+" Called by g@ being invoked directly for the first time. Sets
+" 'opfunc' ready for repeats with . by calling AtSetRepeat().
+function! AtInit()
+    " Make sure setting 'opfunc' happens here, after initial playback
+    " of the macro recording, in case 'opfunc' is set there.
+    set opfunc=AtSetRepeat
+    return 'g@l'
+endfunction
 
-  -- feedkeys() rather than :normal allows finishing in Insert
-  -- mode, should the macro do that. @@ is remapped, so 'opfunc'
-  -- will be correct, even if the macro changes it.
-  vim.call(vim.fn.feedkeys(at_count .. '@@'))
-end
+" Enable calling a function within the mapping for @
+nnoremap <expr> <plug>@init AtInit()
+" A macro could, albeit unusually, end in Insert mode.
+inoremap <expr> <plug>@init "\<c-o>".AtInit()
+xnoremap <expr> <plug>@init AtInit()
 
-function AtSetRepeat(_)
-  vim.opt.opfunc = AtRepeat
-end
+function! AtReg()
+    let s:atcount = v:count1
+    let c = nr2char(getchar())
+    return '@'.c."\<plug>@init"
+endfunction
 
--- " Called by g@ being invoked directly for the first time. Sets
--- " 'opfunc' ready for repeats with . by calling AtSetRepeat().
-function AtInit()
-  -- Make sure setting 'opfunc' happens here, after initial playback
-  -- of the macro recording, in case 'opfunc' is set there.
-  vim.opt.opfunc = AtSetRepeat
-  return 'g@l'
-end
+nmap <expr> @ AtReg()
 
-function AtReg()
-  at_count = vim.v.count1
-  local c = vim.fn.nr2char(vim.fn.getchar())
-  return '@' .. c .. "\\<plug>@init"
-end
+function! QRepeat(_)
+    call feedkeys('@'.s:qreg)
+endfunction
 
-function QRepeat(_)
-  vim.call(vim.fn.feedkeys('@' .. qreg))
-end
+function! QSetRepeat(_)
+    set opfunc=QRepeat
+endfunction
 
-function QSetRepeat(_)
-  vim.opt.opfunc = QRepeat
-end
+function! QStop()
+    set opfunc=QSetRepeat
+    return 'g@l'
+endfunction
 
-function QStop()
-  vim.opt.opfunc = QSetRepeat
-  return 'g@l'
-end
+nnoremap <expr> <plug>qstop QStop()
+inoremap <expr> <plug>qstop "\<c-o>".QStop()
 
-function QStart()
-  if qrec == 1 then
-    qrec = 0
-    return 'q\\<plug>qstop'
-  end
-  qreg = vim.fn.nr2char(vim.fn.getchar())
-  local r = vim.regex('[0-9a-zA-Z"]')
-  if r:match_str(qreg) then
-    qrec = 1
-  end
-  return 'q' .. qreg
-end
+let s:qrec = 0
+function! QStart()
+    if s:qrec == 1
+        let s:qrec = 0
+        return "q\<plug>qstop"
+    endif
+    let s:qreg = nr2char(getchar())
+    if s:qreg =~# '[0-9a-zA-Z"]'
+        let s:qrec = 1
+    endif
+    return 'q'.s:qreg
+endfunction
 
-function ExecuteMacroOverVisualRange()
-  vim.api.nvim_echo('@' .. vim.fn.getcmdline())
-  vim.api.nvim_command(":'<,'>normal!  @" .. vim.fn.nr2char(vim.fn.getchar()))
-end
+nmap <expr> q QStart()
+]])
+
+-- local at_count
+-- local qreg
+-- local qrec = 0
+--
+-- function AtRepeat(_)
+--   -- If no count is supplied use the one saved in atcount.
+--   -- Otherwise save the new count in s:atcount, so it will be
+--   -- applied to repeats.
+--
+--   print("atrepeat")
+--   print(vim.v.count)
+--   if vim.v.count ~= 0 then
+--     at_count = vim.v.count
+--   end
+--   print(vim.v.count1)
+--
+--   -- feedkeys() rather than :normal allows finishing in Insert
+--   -- mode, should the macro do that. @@ is remapped, so 'opfunc'
+--   -- will be correct, even if the macro changes it.
+--   vim.fn.feedkeys(at_count .. '@@')
+-- end
+--
+-- function AtSetRepeat(_)
+--   print("atsetrepeat 100")
+--   vim.opt.opfunc = 'v:lua.AtRepeat()'
+--   print('opfunc at set')
+--   print(vim.opt.opfunc)
+-- end
+--
+-- -- Called by g@ being invoked directly for the first time. Sets
+-- -- 'opfunc' ready for repeats with . by calling AtSetRepeat().
+-- function AtInit()
+--   -- Make sure setting 'opfunc' happens here, after initial playback
+--   -- of the macro recording, in case 'opfunc' is set there.
+--   print("atinit 111")
+--   vim.opt.opfunc = 'v:lua.AtSetRepeat()'
+--   print("opfunc")
+--   print(vim.inspect(vim.opt.opfunc))
+--   return 'g@l'
+-- end
+--
+-- function AtReg()
+--   at_count = vim.v.count1
+--   print("atreg 120")
+--   local c = vim.fn.nr2char(vim.fn.getchar())
+--   print('@' .. c .. "\\<Plug>@init")
+--   return '@' .. c .. "\\<Plug>@init"
+-- end
+--
+-- function QRepeat(_)
+--   print("qrep 127")
+--   print("@" .. qreg)
+--   vim.fn.feedkeys('@' .. qreg)
+-- end
+--
+-- function QSetRepeat(_)
+--   print("qsetrep 133")
+--   vim.opt.opfunc = 'v:lua.QRepeat()'
+-- end
+--
+-- function QStop()
+--   print("qstop 138")
+--   vim.opt.opfunc = 'v:lua.QSetRepeat()'
+--   return 'g@l'
+-- end
+--
+-- function QStart()
+--   print("qstart 144")
+--   if qrec == 1 then
+--     qrec = 0
+--     print("qstart: 'q\\<Plug>qstop'")
+--     return 'q\\<Plug>qstop'
+--   end
+--   qreg = vim.fn.nr2char(vim.fn.getchar())
+--   local r = vim.regex('[0-9a-zA-Z"]')
+--   print(r)
+--   if r:match_str(qreg) then
+--     qrec = 1
+--   end
+--   print("qstart: q" .. qreg)
+--   return 'q' .. qreg
+-- end
+--
+-- function ExecuteMacroOverVisualRange()
+--   vim.api.nvim_echo('@' .. vim.fn.getcmdline())
+--   vim.api.nvim_command(":'<,'>normal!  @" .. vim.fn.nr2char(vim.fn.getchar()))
+-- end
 
 -- }}}
 
@@ -79,7 +170,7 @@ end
 function ReadFile(path)
   local f, err = io.open(path, 'r')
   if f == nil then
-    print(err)
+    print("err", err)
     return nil
   else
     local content = f:read('*all')
