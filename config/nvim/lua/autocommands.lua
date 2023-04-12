@@ -25,7 +25,7 @@ autocmd({ "FileType" }, {
 })
 autocmd({ "FileType" }, {
   pattern = { "todo" },
-  command = "setlocal wrap linebreak"
+  command = "setlocal wrap linebreak textwidth=100"
 })
 autocmd({ "FileType" }, { group = cpp, pattern = "cpp", command = "setlocal commentstring=//\\ %s" })
 -- }}}
@@ -34,6 +34,6 @@ autocmd({ "FileType" }, { group = cpp, pattern = "cpp", command = "setlocal comm
 -- {{{ formatting
 autocmd({ "BufWritePre", "FileWritePre" }, {
   group = formatting, pattern = { "*.cpp", "*.rs", "*.lua", "*.go", "*.h" },
-  callback = function() vim.lsp.buf.formatting_sync() end
+  callback = function() vim.lsp.buf.format() end
 })
 -- }}}

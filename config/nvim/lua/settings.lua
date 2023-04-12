@@ -139,7 +139,7 @@ vim.g.startify_lists = {
 -- }}}
 
 -- {{{ rooter
-vim.g.rooter_manual_only = 0
+vim.g.rooter_manual_only = 1
 vim.g.rooter_silent_chdir = 1
 -- }}}
 

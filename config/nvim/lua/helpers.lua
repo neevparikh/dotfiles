@@ -112,7 +112,7 @@ end
 
 function SortAndReset()
   local curr_pos = vim.fn.getpos('.')
-  vim.call(vim.fn.setpos('.', vim.fn.getpos('$')))
+  vim.fn.setpos('.', vim.fn.getpos('$'))
   vim.api.nvim_command(vim.fn.search("+--", 'b') + 1 .. ",$ sort")
   vim.fn.setpos('.', curr_pos)
 end
