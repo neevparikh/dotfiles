@@ -1,6 +1,6 @@
 -- vim: set foldmethod=marker:
 
--- {{{ ensure packer is installed 
+-- {{{ ensure packer is installed
 local ensure_packer = function()
   local fn = vim.fn
   local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
@@ -23,9 +23,9 @@ return require('packer').startup(function(use)
   use 'lervag/vimtex'
   use 'honza/vim-snippets'
   use { 'andymass/vim-matchup', setup = function()
-      -- may set any options here
-      vim.g.matchup_matchparen_offscreen = { method = "popup" }
-    end
+    -- may set any options here
+    vim.g.matchup_matchparen_offscreen = { method = "popup" }
+  end
   }
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   use { 'anuvyklack/pretty-fold.nvim', config = function()
@@ -64,6 +64,9 @@ return require('packer').startup(function(use)
       { 'rafamadriz/friendly-snippets' },
     }
   }
+
+  use({ 'scalameta/nvim-metals', requires = { "nvim-lua/plenary.nvim" } })
+  use 'mfussenegger/nvim-dap'
   use 'romainl/vim-cool'
   use { 'junegunn/fzf', run = ":call fzf#install()" }
   use { 'ibhagwan/fzf-lua', requires = { 'kyazdani42/nvim-web-devicons' } }
@@ -89,4 +92,3 @@ return require('packer').startup(function(use)
 
 end)
 -- }}}
-
