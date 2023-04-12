@@ -1,5 +1,0 @@
-When using the nparikh5_browncs_gateall.ovpn config all network traffic will be encrypted and passed through the VPN tunnel.  This is for when you _do_ _not_ trust the network you're on, like a public wifi hotspot, hotel or from another continent.
-
-When using the nparikh5_browncs.ovpn config only traffic bound for the CS and Brown networks will be passed through the VPN tunnel.  This is for when you _do_ trust the network you're connected to and simply need to connect to internal CS or Brown resources, like the file system or department printers.
-
-If you have any questions or concerns, please email problem@cs.brown.edu.
