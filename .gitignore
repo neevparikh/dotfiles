@@ -42,3 +42,14 @@ local/bin/pip*
 config/Trolltech.conf
 config/QtProject.conf
 config/VCG
+config/nwjs
+config/wireshark/
+config/KADOKAWA
+config/Surfshark
+config/protonvpn
+config/VCG
+config/QtProject.conf
+config/qt5ct
+config/hardhat-nodejs
+config/.gsd-keyboard.settings-ported
+local/bin/stm32_cube
