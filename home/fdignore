@@ -30,5 +30,13 @@ builds/
 .minecraft/
 .pylint.d/
 .mujoco
+go
 .nuget
 Slack/
+.conda
+.nvidia-omniverse/
+.wine/
+.sane/
+.psensor/
+.jupyter/
+.cups/

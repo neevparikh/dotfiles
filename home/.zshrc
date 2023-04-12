@@ -108,6 +108,7 @@ if [[ $HOME/.config/theme.yml ]]; then
 fi 
 
 # Aliases
+alias -g ls="ls -h --color=auto"
 alias la='ls -a'
 alias ll='ls -l'
 alias lla='ls -la'
@@ -322,7 +323,7 @@ alias cnd="conda deactivate && conda deactivate"
 alias kssh='kitty +kitten ssh'
 alias rm='safe-rm'
 alias browncsprint="CUPS_SERVER=printhost.cs.brown.edu okular"
-alias cnvim="rm $HOME/.local/share/nvim/swap/%home%neev%*.swp"
+alias cnvim="rm $HOME/.local/share/nvim/swap/%home%neev%*.swp $HOME/.local/share/nvim/swap/%home%neev%*.swo"
 alias make="make --no-print-directory"
 alias feh="feh --force-aliasing"
 
