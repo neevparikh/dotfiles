@@ -1,9 +1,0 @@
-pyright.organizeimports
-pyright.version
-rust-analyzer.reload
-rust-analyzer.reloadWorkspace
-snippets.editSnippets
-workspace.showOutput
-python.runLinting
-pyright.restartserver
-python.setInterpreter
