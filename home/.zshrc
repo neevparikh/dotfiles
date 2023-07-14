@@ -1,8 +1,12 @@
 # If you come from bash you might have to change your $PATH.
-VERSION=$(lsb_release -rs)
+# VERSION=$(lsb_release -rs)
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+
+export PATH=/opt/homebrew/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
+export PATH="$HOME/Library/Application Support/Coursier/bin":$PATH
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -32,9 +36,10 @@ plugins=(
   git
   colored-man-pages
   extract
-  zsh-autosuggestions
 )
 
+
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -59,11 +64,11 @@ unsetopt AUTO_CD
 export EDITOR='nvim'
 export VISUAL='nvim'
 #nvim terminal specific settings
-if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
+if [ -x "$(command -v nvr)" ]; then
   alias h='nvr -o'
   alias v='nvr -O'
   alias t='nvr --remote-tab'
-  # alias e='nvr'
+  alias e='nvr'
   export VISUAL='nvr -cc split --remote-wait -c "set bufhidden=delete"'
   export EDITOR="$VISUAL"
 fi
@@ -103,7 +108,7 @@ add-zsh-hook preexec make_beam
 bindkey -M viins ${terminfo[kdch1]} delete-char	# Del key
 bindkey "^?" backward-delete-char
 
-if [[ $HOME/.config/theme.yml ]]; then
+if [[ -f $HOME/.config/theme.yml ]]; then
     export THEME=$(cat $HOME/.config/theme.yml)
 fi 
 
@@ -111,8 +116,9 @@ fi
 alias la='ls -a'
 alias ll='ls -l'
 alias lla='ls -la'
+alias sl='ls'
 alias tlmgr='tllocalmgr'
-alias sv='sudoedit'
+alias sv='sudo -e'
 alias vim='nvim'
 alias lgout='i3-msg exit'
 alias py='python'
@@ -172,7 +178,7 @@ alias ${gprefix}di='git status --porcelain --short --ignored | sed -n "s/^!! //p
 # Fetch (f)
 alias ${gprefix}f='git fetch'
 alias ${gprefix}fc='git clone'
-alias ${gprefix}fm='git pull'
+alias ${gprefix}fm='git pull' # origin $(git branch --show-current)'
 alias ${gprefix}fr='git pull --rebase'
 alias ${gprefix}fu='git fetch --all --prune && git merge --ff-only @\{u\}'
 
@@ -320,10 +326,54 @@ alias lsl='ls'
 alias cna="source $HOME/.miniconda/bin/activate && conda activate"
 alias cnd="conda deactivate && conda deactivate"
 alias kssh='kitty +kitten ssh'
-alias rm='safe-rm'
+# alias rm='safe-rm'
 alias browncsprint="CUPS_SERVER=printhost.cs.brown.edu okular"
-alias cnvim="rm $HOME/.local/share/nvim/swap/%home%neev%*.swp"
+alias cnvim="rm $HOME/.local/share/nvim/swap/%Users%neev%*.swp"
 alias make="make --no-print-directory"
 alias feh="feh --force-aliasing"
 
+if [ -d "$HOME/.fzf" ]; then #{{{1
+  gruvbox_fg_1='#ebdbb2'
+  gruvbox_yellow='#fabd2f'
+  gruvbox_bg_1='#3c3836'
+  gruvbox_blue='#83a598'
+  gruvbox_fg_4='#a89984'
+  gruvbox_orange='#fe8019'
+  gruvbox_bg_3='#665c54'
+
+  fd_base_args='--follow --hidden --exclude .git --color=always'
+  export FZF_DEFAULT_COMMAND="fd $fd_base_args"
+  export FZF_DIR_COMMAND="fd --type directory $fd_base_args"
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  export FZF_ALT_C_COMMAND="$FZF_DIR_COMMAND"
+
+  # export FZF_COMPLETION_OPTS="--preview 'preview {}' --preview-window=wrap"
+  # export FZF_ALT_C_OPTS="$FZF_COMPLETION_OPTS"
+  # a='--preview "echo {}" --preview-window down:3:hidden:wrap'
+  # export FZF_CTRL_R_OPTS="$a"
+  # export FZF_CTRL_T_OPTS="$FZF_COMPLETION_OPTS"
+
+  FZF_DEFAULT_OPTS=''
+  export FZF_DEFAULT_OPTS
+  # FZF_DEFAULT_OPTS+="--layout=reverse --bind 'ctrl-s:select-all+accept,"
+  # FZF_DEFAULT_OPTS+="ctrl-j:jump-accept,ctrl-k:jump,ctrl-p:toggle-preview,"
+  # FZF_DEFAULT_OPTS+="ctrl-w:toggle-preview-wrap,ctrl-g:top,"
+  # FZF_DEFAULT_OPTS+="alt-e:execute-silent[(nvr --remote-tab {} &)]' --ansi "
+  FZF_DEFAULT_OPTS+="--layout=reverse --ansi "
+  FZF_DEFAULT_OPTS+="--color=fg:$gruvbox_fg_1,hl:$gruvbox_yellow,"
+  FZF_DEFAULT_OPTS+="fg+:$gruvbox_fg_1 --color=bg+:$gruvbox_bg_1,"
+  FZF_DEFAULT_OPTS+="hl+:$gruvbox_yellow,info:$gruvbox_blue "
+  FZF_DEFAULT_OPTS+="--color=prompt:$gruvbox_fg_4,pointer:$gruvbox_blue "
+  FZF_DEFAULT_OPTS+="--color=marker:$gruvbox_orange,spinner:$gruvbox_yellow "
+  FZF_DEFAULT_OPTS+="--color=header:$gruvbox_bg_3 "
+
+  PATH="$HOME/.fzf/bin/:$PATH"
+fi
+
+if [ -f "$HOME/.bash_profile" ]; then 
+  source ~/.bash_profile
+fi
+
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+

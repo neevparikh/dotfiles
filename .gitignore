@@ -43,4 +43,5 @@ config/Trolltech.conf
 config/QtProject.conf
 config/VCG
 
-local/share/nvim/site/pack/packer
+local/share/
+local/state/
