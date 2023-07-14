@@ -29,3 +29,5 @@ vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.opt.undofile = true
 vim.opt.conceallevel = 1
+
+vim.opt_global.shortmess:remove("F")

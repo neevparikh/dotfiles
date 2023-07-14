@@ -5,10 +5,10 @@ function SwitchTheme()
   local cur = vim.opt.background
   if cur == 'dark' then
     vim.opt.background = 'light'
-    vim.fn.system("toggle_theme --light")
+    vim.fn.system("toggle-theme --light")
   else
     vim.opt.background = 'dark'
-    vim.fn.system("toggle_theme --dark")
+    vim.fn.system("toggle-theme --dark")
   end
 end
 

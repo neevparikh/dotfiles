@@ -1,6 +1,6 @@
 -- vim: set foldmethod=marker:
 
--- {{{ ensure packer is installed 
+-- {{{ ensure packer is installed
 local ensure_packer = function()
   local fn = vim.fn
   local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
@@ -23,22 +23,22 @@ return require('packer').startup(function(use)
   use 'lervag/vimtex'
   use 'honza/vim-snippets'
   use { 'andymass/vim-matchup', setup = function()
-      -- may set any options here
-      vim.g.matchup_matchparen_offscreen = { method = "popup" }
-    end
+    -- may set any options here
+    vim.g.matchup_matchparen_offscreen = { method = "popup" }
+  end
   }
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   use { 'anuvyklack/pretty-fold.nvim', config = function()
     local pf = require('pretty-fold')
     pf.ft_setup('lua', {
       matchup_patterns = {
-        { '^%s*do$', 'end' }, -- do ... end blocks
-        { '^%s*if', 'end' }, -- if ... end
-        { '^%s*for', 'end' }, -- for
+        { '^%s*do$',       'end' }, -- do ... end blocks
+        { '^%s*if',        'end' }, -- if ... end
+        { '^%s*for',       'end' }, -- for
         { 'function%s*%(', 'end' }, -- 'function( or 'function (''
-        { '{', '}' },
-        { '%(', ')' }, -- % to escape lua pattern char
-        { '%[', ']' }, -- % to escape lua pattern char
+        { '{',             '}' },
+        { '%(',            ')' }, -- % to escape lua pattern char
+        { '%[',            ']' }, -- % to escape lua pattern char
       },
     })
     pf.setup()
@@ -64,6 +64,10 @@ return require('packer').startup(function(use)
       { 'rafamadriz/friendly-snippets' },
     }
   }
+
+  use({ 'scalameta/nvim-metals', requires = { "nvim-lua/plenary.nvim" } })
+  use 'mfussenegger/nvim-dap'
+  use 'mfussenegger/nvim-jdtls'
   use 'romainl/vim-cool'
   use { 'junegunn/fzf', run = ":call fzf#install()" }
   use { 'ibhagwan/fzf-lua', requires = { 'kyazdani42/nvim-web-devicons' } }
@@ -82,11 +86,10 @@ return require('packer').startup(function(use)
   use 'machakann/vim-highlightedyank'
   use 'airblade/vim-rooter'
   use 'chrisbra/Colorizer'
+  use 'jose-elias-alvarez/null-ls.nvim'
 
   if packer_bootstrap then
     require('packer').sync()
   end
-
 end)
 -- }}}
-

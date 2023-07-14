@@ -33,7 +33,8 @@ autocmd({ "FileType" }, { group = cpp, pattern = "cpp", command = "setlocal comm
 
 -- {{{ formatting
 autocmd({ "BufWritePre", "FileWritePre" }, {
-  group = formatting, pattern = { "*.cpp", "*.rs", "*.lua", "*.go", "*.h" },
-  callback = function() vim.lsp.buf.formatting_sync() end
+  group = formatting,
+  pattern = { "*.cpp", "*.rs", "*.lua", "*.go", "*.h", "*.py" },
+  callback = function() vim.lsp.buf.format() end
 })
 -- }}}

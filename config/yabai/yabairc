@@ -1,0 +1,23 @@
+# vim:fileencoding=utf-8:ft=conf:foldmethod=marker
+
+# -- {{{ script injection
+# for this to work you must configure sudo such that
+# it will be able to run the command without password
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+sudo yabai --load-sa
+# -- }}}
+
+# -- {{{ basic
+yabai -m config layout bsp
+yabai -m config auto_balance off
+yabai -m config focus_follows_mouse autofocus
+yabai -m config mouse_follows_focus on
+yabai -m config window_topmost off
+yabai -m config window_shadow float
+# -- }}}
+
+# -- {{{ application specific
+apps="(Calendar|Mail|Stremio|Reminders|Notes|Discord|Messages|Slack|Safari|Google Chrome|Arc|Preview|Code|Terminal|QuickTime|Player|Spotify|Music|kitty|Chess|Messenger|Finder|Whatsapp|Obsidian)"
+yabai -m rule --add app!="^${apps}$" manage=off
+# -- }}}
+
