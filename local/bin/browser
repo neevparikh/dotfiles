@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+osascript $HOME/.local/scripts/browser.scpt

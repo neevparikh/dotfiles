@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-GDK_SCALE=1 GDK_DPI_SCALE=1 $@

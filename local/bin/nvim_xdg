@@ -1,3 +1,0 @@
-#! /usr/bin/env bash
-
-st -c "gt_floating" -g 130x25 -e "nvim $@"
