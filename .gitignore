@@ -45,3 +45,4 @@ config/VCG
 
 local/share/
 local/state/
+config/nvim/plugin/packer_compiled.lua

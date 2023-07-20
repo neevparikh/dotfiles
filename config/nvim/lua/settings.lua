@@ -75,7 +75,8 @@ vim.g.startify_bookmarks = {
   { d = '~/.todo' },
   { y = '~/.config/kitty/kitty.conf' },
   { w = '~/.config/yabai/yabairc' },
-  { s = '~/.config/skhd/skhdrc' }
+  { s = '~/.config/skhd/skhdrc' },
+  { p = '~/.config/sketchybar/sketchybarrc' }
 }
 vim.g.startify_commands = {
   { t = 'terminal' },
