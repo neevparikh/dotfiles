@@ -12,7 +12,6 @@ get_layout_type() {
 yabai_move() {
   direction=$1
   layout=$(get_layout_type)
-  echo $direction $layout
   if [ "$layout" = "stack" ]; then
     case $direction in
     north)
