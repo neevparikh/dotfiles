@@ -1,4 +1,4 @@
-# vim:fileencoding=utf-8:ft=sh:foldmethod=marker:foldlevel=0
+# vim:fileencoding=utf-8:ft=conf:foldmethod=marker:foldlevel=0
 
 # -- {{{ mode
 :: resize
@@ -11,7 +11,7 @@ resize < escape ; default
 
 # -- {{{ yabai
 # relaunch
-cmd + alt + shift - r : yabai --restart-service && skhd --reload
+cmd + alt + shift - r : yabai --restart-service && brew services restart sketchybar && skhd --reload
 
 # rebalance
 cmd + shift - r : yabai -m space --balance
@@ -23,8 +23,8 @@ cmd - k : yabai -m window --focus stack.prev || yabai -m window --focus north
 cmd - l : yabai -m window --focus east
 
 cmd + shift - h : yabai_move west
-cmd + shift - j : yabai_move south # yabai -m window --warp stack.next || yabai -m window --warp south
-cmd + shift - k : yabai_move north # yabai -m window --warp stack.prev || yabai -m window --warp north 
+cmd + shift - j : yabai_move south
+cmd + shift - k : yabai_move north
 cmd + shift - l : yabai_move east
 
 cmd + shift - 1 : yabai -m window --space 1
@@ -67,7 +67,6 @@ alt + shift - d : yabai -m window --toggle zoom-parent
 alt + shift - f : yabai -m window --toggle zoom-fullscreen
 alt + shift - e : yabai -m window --toggle split
 ctrl - f : yabai -m window --toggle float --grid 4:4:1:1:2:2
-
 
 # tiling
 ctrl - e : yabai -m space --layout bsp
