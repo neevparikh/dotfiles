@@ -26,14 +26,13 @@ do
                               width=25                                      \
                               align=center                                  \
                               icon.align=center                             \
-                              icon.y_offset=2                               \
+                              icon.y_offset=0                               \
                               icon.font="$FONT:Bold:11.0"                   \
                               icon.color=$color                             \
                               icon.highlight_color=$color                   \
                               icon.background.height=2                      \
                               icon.background.corner_radius=2               \
                               icon.background.color=$FGALT                  \
-                              icon.background.width=15                      \
                               icon.background.y_offset=-16                  \
                               background.color=$BG                          \
                               background.corner_radius=4                    \

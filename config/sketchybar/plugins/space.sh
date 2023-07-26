@@ -3,14 +3,14 @@
 update() {
   args=()
   if [ "$SELECTED" = "true" ]; then
-    args+=(--set $NAME icon.background.y_offset=-13)
+    args+=(--set $NAME icon.background.y_offset=-9)
  else
     args+=(--set $NAME icon.background.y_offset=-30)
  fi
   
   args+=(--set $NAME icon.highlight=$SELECTED background.drawing=$SELECTED)
 
-  sketchybar -m --animate tanh 3 "${args[@]}"
+  sketchybar -m --animate tanh 5 "${args[@]}"
 }
 
 mouse_clicked() {
