@@ -10,7 +10,7 @@ update() {
   
   args+=(--set $NAME icon.highlight=$SELECTED background.drawing=$SELECTED)
 
-  sketchybar -m --animate tanh 5 "${args[@]}"
+  sketchybar -m --animate linear 5 "${args[@]}"
 }
 
 mouse_clicked() {

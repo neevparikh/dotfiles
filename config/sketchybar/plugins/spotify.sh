@@ -2,23 +2,19 @@
 #
 # built on https://github.com/FelixKratz/dotfiles/blob/master/.config/sketchybar/plugins/spotify.sh
 
-next ()
-{
+next() {
   osascript -e 'tell application "Spotify" to play next track'
 }
 
-back () 
-{
+back() {
   osascript -e 'tell application "Spotify" to play previous track'
 }
 
-play () 
-{
+play() {
   osascript -e 'tell application "Spotify" to playpause'
 }
 
-repeat () 
-{
+repeat() {
   REPEAT=$(osascript -e 'tell application "Spotify" to get repeating')
   if [ "$REPEAT" = "false" ]; then
     sketchybar -m --set spotify.repeat icon.highlight=on
@@ -29,8 +25,7 @@ repeat ()
   fi
 }
 
-shuffle () 
-{
+shuffle() {
   SHUFFLE=$(osascript -e 'tell application "Spotify" to get shuffling')
   if [ "$SHUFFLE" = "false" ]; then
     sketchybar -m --set spotify.shuffle icon.highlight=on
@@ -52,8 +47,7 @@ filter_max_len() {
   fi
 }
 
-update ()
-{
+update() {
   TRACK=$(filter_max_len "$(osascript -e 'tell application "Spotify" to get name of current track')")
   ARTIST=$(filter_max_len "$(osascript -e 'tell application "Spotify" to get artist of current track')")
   ALBUM=$(filter_max_len "$(osascript -e 'tell application "Spotify" to get album of current track')")
@@ -110,7 +104,7 @@ scroll() {
                                  label="$(date -r $DURATION +'%M:%S')"
 }
 
-mouse_clicked () {
+mouse_clicked() {
   case "$NAME" in
     "spotify.anchor") update
     ;;
@@ -131,7 +125,7 @@ mouse_clicked () {
   esac
 }
 
-popup () {
+popup() {
   sketchybar --set spotify.anchor popup.drawing=$1
 }
 

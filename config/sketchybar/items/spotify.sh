@@ -43,6 +43,7 @@ spotify_title=(
   icon.drawing=off
   padding_left=0
   padding_right=0
+  label.color=$FGALT
   label.font="$FONT:Bold:13.0"
   y_offset=55
   width=0
@@ -50,6 +51,7 @@ spotify_title=(
 
 spotify_artist=(
   icon.drawing=off
+  label.color=$FGALT
   y_offset=30
   padding_left=0
   padding_right=0
@@ -58,6 +60,7 @@ spotify_artist=(
 
 spotify_album=(
   icon.drawing=off
+  label.color=$FGALT
   padding_left=0
   padding_right=0
   y_offset=15
@@ -84,23 +87,25 @@ spotify_state=(
   slider.background.color=$GREY
   slider.highlight_color=$GREEN
   slider.percentage=40
-  slider.width=120
+  slider.width=135
   script="$PLUGIN_DIR/spotify.sh"
   update_freq=1
   updates=when_shown
 )
 
 CONTROL_FONT="$FONT:Bold:26.0"
-REPEAT_CONTROL_FONT="$FONT:Bold:32.0"
+REPEAT_CONTROL_FONT="$FONT:Bold:25.0"
+SHUFFLE_CONTROL_FONT="$FONT:Bold:22.0"
 
 spotify_shuffle=(
   icon=󰒝 # 󰒟
-  icon.font="$CONTROL_FONT"
+  icon.font="$SHUFFLE_CONTROL_FONT"
   icon.padding_left=30
   icon.padding_right=5
   icon.color=$GREY
   icon.highlight_color=$BLACK
   label.drawing=off
+  background.color=$GREEN
   script="$PLUGIN_DIR/spotify.sh"
   y_offset=-45
 )
@@ -110,6 +115,7 @@ spotify_back=(
   icon.font="$CONTROL_FONT"
   icon.padding_left=5
   icon.padding_right=5
+  background.color=$GREEN
   icon.color=$BLACK
   script="$PLUGIN_DIR/spotify.sh"
   label.drawing=off
@@ -125,6 +131,7 @@ spotify_play=(
   icon.color=$BLACK
   updates=on
   label.drawing=off
+  background.color=$GREEN
   script="$PLUGIN_DIR/spotify.sh"
   y_offset=-45
 )
@@ -136,6 +143,7 @@ spotify_next=(
   icon.padding_right=5
   icon.color=$BLACK
   label.drawing=off
+  background.color=$GREEN
   script="$PLUGIN_DIR/spotify.sh"
   y_offset=-45
 )
@@ -148,6 +156,7 @@ spotify_repeat=(
   icon.padding_right=30
   icon.color=$GREY
   label.drawing=off
+  background.color=$GREEN
   script="$PLUGIN_DIR/spotify.sh"
   y_offset=-45
 )

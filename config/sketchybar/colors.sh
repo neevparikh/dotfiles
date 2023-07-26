@@ -8,12 +8,12 @@ export BAR_COLOR=0xee101010
 export BG=0xff1d2021
 export FG=0xffd4be98
 export BGALT=0xff141617
-export FGALT=0x44d4be98
+export FGALT=0xfffbf1c7
 
 # General bar colors
 export BAR=$BAR_COLOR
-export ICON_COLOR=$WHITE # Color of all icons
-export LABEL_COLOR=$WHITE # Color of all labels
+export ICON_COLOR=$FG # Color of all icons
+export LABEL_COLOR=$FGALT # Color of all labels
 export BACKGROUND_1=$BG
 export BACKGROUND_2=$BGALT
 
