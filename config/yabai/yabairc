@@ -25,6 +25,7 @@ yabai -m config window_shadow float
 
 # -- {{{ application specific
 apps=(
+  "Hammerspoon Console"
   "Calendar"
   "Mail"
   "Stremio"
