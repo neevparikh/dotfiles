@@ -331,6 +331,7 @@ alias browncsprint="CUPS_SERVER=printhost.cs.brown.edu okular"
 alias cnvim="rm $HOME/.local/share/nvim/swap/%Users%neev%*.swp"
 alias make="make --no-print-directory"
 alias feh="feh --force-aliasing"
+alias td="todui"
 
 if [ -d "$HOME/.fzf" ]; then #{{{1
   gruvbox_fg_1='#ebdbb2'
