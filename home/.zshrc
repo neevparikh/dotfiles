@@ -69,7 +69,7 @@ if [ -x "$(command -v nvr)" ]; then
   alias v='nvr -O'
   alias t='nvr --remote-tab'
   alias e='nvr'
-  export VISUAL='nvr -cc split --remote-wait -c "set bufhidden=delete"'
+  export VISUAL='nvr -s --remote-wait -c "set bufhidden=delete"'
   export EDITOR="$VISUAL"
 fi
 
