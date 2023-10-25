@@ -6,8 +6,10 @@ volume=(
   icon.y_offset=1
   icon.font="$FONT:Retina:17.0"
   label.drawing=off
-  slider.background.corner_radius=1
-  slider.background.height=1
+  slider.background.corner_radius=2
+  slider.background.height=7
+  slider.background.border_width=2
+  slider.background.border_color=$BG
   slider.background.y_offset=0
   slider.background.color=$BG
   slider.highlight_color=$FGALT
@@ -26,4 +28,4 @@ volume=(
 
 sketchybar --add slider volume right \
            --set volume "${volume[@]}" \
-           --subscribe volume volume_changed mouse.clicked
+           --subscribe volume volume_change mouse.clicked

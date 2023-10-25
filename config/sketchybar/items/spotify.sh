@@ -14,12 +14,13 @@ spotify_anchor=(
   icon=󰓇
   icon.color="$GREEN"
   icon.y_offset=1
-  icon.padding_right=3
+  icon.padding_right=0
   icon.font="$FONT:Retina:18.0"
-  label="$TRACK"
+  label=$([-z "$TRACK"] && "Spotify" || "$TRACK")
   label.drawing=on
   label.color="$GREEN"
   label.font="$FONT:Bold:12.0"
+  label.padding_left=3
   background.color=$GREEN
   background.height=2
   background.y_offset=-9
@@ -171,7 +172,7 @@ spotify_controls=(
 )
 
 sketchybar --add event spotify_change $SPOTIFY_EVENT             \
-           --add item spotify.anchor right                       \
+           --add item spotify.anchor q                       \
            --set spotify.anchor "${spotify_anchor[@]}"           \
            --subscribe spotify.anchor mouse.clicked              \
                        mouse.exited.global                       \

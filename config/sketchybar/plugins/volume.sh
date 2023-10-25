@@ -15,7 +15,7 @@ mouse_clicked() {
 update() {
   VOLUME=$(get_volume)
   echo $VOLUME
-  sketchybar --animate linear 10 --set volume slider.percentage="$VOLUME"
+  sketchybar --animate linear 2 --set volume slider.percentage="$VOLUME"
 }
 
 case "$SENDER" in

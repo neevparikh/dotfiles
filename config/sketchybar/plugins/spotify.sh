@@ -43,7 +43,7 @@ filter_max_len() {
   if (( ${#1} > $MAX_LEN )); then
     echo "${1:0:$SUB_LEN}..."
   else
-    echo "$1"
+    echo $1
   fi
 }
 
@@ -59,7 +59,7 @@ update() {
   curl -s --max-time 20 "$COVER" -o /tmp/cover.jpg
   if [ "$ARTIST" == "" ]; then
     args+=(--set spotify.title label="$TRACK"
-           --set spotify.anchor label="$TRACK"
+           --set spotify.anchor label=$([-z "$TRACK"] && "Spotify" || "$TRACK")
            --set spotify.album label="Podcast"
            --set spotify.artist label="$ALBUM"  )
   else

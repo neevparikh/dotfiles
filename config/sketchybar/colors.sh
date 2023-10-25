@@ -7,6 +7,7 @@ export TRANSPARENT=0x00000000
 export BAR_COLOR=0xee101010
 export BG=0xff1d2021
 export FG=0xffd4be98
+export FG2=0xffd5c4a1
 export BGALT=0xff141617
 export FGALT=0xfffbf1c7
 

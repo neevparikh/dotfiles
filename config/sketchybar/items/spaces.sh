@@ -14,7 +14,7 @@ spaces=()
 for i in "${!SPACE_ICONS[@]}"
 do
   sid=$(($i+1))
-  color="$FG"
+  color="$FG2"
   sketchybar --add space      space.$sid left                               \
              --set space.$sid associated_space=$sid                         \
                               script="$PLUGIN_DIR/space.sh"                 \
@@ -32,7 +32,7 @@ do
                               icon.highlight_color=$color                   \
                               icon.background.height=2                      \
                               icon.background.corner_radius=2               \
-                              icon.background.color=$FGALT                  \
+                              icon.background.color=$FG                  \
                               icon.background.y_offset=-16                  \
                               background.color=$BG                          \
                               background.corner_radius=4                    \

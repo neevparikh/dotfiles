@@ -16,15 +16,15 @@ PADDINGS=2 # All paddings use this value (icon, label, background)
 # $HOME/.config/sketchybar/helper/helper $HELPER > /dev/null 2>&1 &
 
 # Setting up the general bar appearance and default values
-sketchybar --bar     height=38                                         \
+sketchybar --bar     height=41                                         \
                      position=top                                      \
-                     sticky=on                                         \
+                     sticky=on                                        \
                      color=$BASE                                       \
                      border_width=2                                    \
                      border_color=$REDALT                            \
                      y_offset=-2                                       \
                      margin=-2                                         \
-                     notch_width=340                                   \
+                     notch_width=210                                   \
                                                                        \
            --default updates=when_shown                                \
                      icon.font="$FONT:Retina:16.0"                       \
@@ -49,6 +49,8 @@ source "$ITEM_DIR/spaces.sh"
 
 # Right
 source "$ITEM_DIR/calendar.sh"
+source "$ITEM_DIR/wifi.sh"
+source "$ITEM_DIR/bluetooth.sh"
 source "$ITEM_DIR/battery.sh"
 source "$ITEM_DIR/volume.sh"
 source "$ITEM_DIR/spotify.sh"

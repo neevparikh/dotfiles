@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 sketchybar --add item battery right                    \
-           --set battery update_freq=120               \
+           --set battery update_freq=60               \
                        icon.font="$FONT:Retina:11.5"   \
                        icon.padding_right=3            \
                        icon.color=$YELLOW               \
