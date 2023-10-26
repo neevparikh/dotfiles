@@ -1,9 +1,8 @@
 #!/bin/sh
-# vim:ft=bash:foldmethod=marker:foldlevel=0:colorcolumn=90
+# vim:fileencoding=utf-8:ft=bash:foldmethod=marker:foldlevel=0:colorcolumn=90
 
 # -- {{{ setup
 source "$HOME/.config/sketchybar/colors.sh"
-source "$HOME/.config/sketchybar/icons.sh"
 
 PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
 
@@ -41,8 +40,8 @@ sketchybar --add event screen_unlock "com.apple.screenIsUnlocked"             \
 # -- }}}
 
 # -- {{{ spaces
-MAIN_DISPLAY_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10")
-SECONDARY_DISPLAY_ICONS=("11" "12" "13" "14" "15" "16")
+MAIN_DISPLAY_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "0")
+SECONDARY_DISPLAY_ICONS=("1̲ " "2̲" "3̲" "4̲" "5̲" "6̲")
 SPACE_ICONS=("${MAIN_DISPLAY_ICONS[@]}" "${SECONDARY_DISPLAY_ICONS[@]}")
 
 # Destroy space on right click, focus space on left click.
@@ -57,7 +56,7 @@ do
   sketchybar --add space space.$sid left                                      \
              --set space.$sid associated_space=$sid                           \
                               script="$PLUGIN_DIR/space.sh"                   \
-                              width=25                                        \
+                              width=20                                        \
                               align=center                                    \
                               label.drawing=off                               \
                               label.padding_left=0                            \
@@ -72,7 +71,7 @@ do
                               icon.padding_right=0                            \
                               background.color=$BG1                           \
                               background.corner_radius=5                      \
-                              background.height=25                            \
+                              background.height=20                            \
             --subscribe space.$sid mouse.clicked refresh_spaces 
 done
 # -- }}}
