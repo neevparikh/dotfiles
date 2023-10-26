@@ -24,7 +24,7 @@ sketchybar --bar height=41                                                    \
                      icon.color=$ICON_COLOR                                   \
                      icon.padding_left=$PADDINGS                              \
                      icon.padding_right=$PADDINGS                             \
-                     label.font="$FONT:Bold:12.0"                             \
+                     label.font="$FONT:SemiBold:12.0"                         \
                      label.color=$LABEL_COLOR                                 \
                      label.padding_left=$PADDINGS                             \
                      label.padding_right=$PADDINGS                            \
@@ -64,7 +64,7 @@ do
                               icon=${SPACE_ICONS[i]}                          \
                               icon.width=16                                   \
                               icon.align=center                               \
-                              icon.font="$FONT:Bold:11.0"                     \
+                              icon.font="$FONT:SemiBold:11.0"                 \
                               icon.color=$FG2                                 \
                               icon.highlight_color=$FG2                       \
                               icon.padding_left=1                             \
@@ -84,7 +84,7 @@ sketchybar --add item calendar right                                          \
                        icon.color=$BLUE                                       \
                        icon.y_offset=2                                        \
                        label.y_offset=1                                       \
-                       label.font="$FONT:Bold:12"                             \
+                       label.font="$FONT:SemiBold:12"                         \
                        label.color=$BLUE                                      \
                        label.padding_right=8                                  \
                        background.color=$BLUE                                 \
@@ -96,6 +96,27 @@ sketchybar --add item calendar right                                          \
                        label.padding_right=1                                  \
             --subscribe calendar system_woke screen_unlock 
 # -- }}}
+# -- {{{ battery
+sketchybar --add item battery right                                           \
+           --set battery update_freq=60                                       \
+                       icon.font="$FONT:Retina:11.5"                          \
+                       icon.padding_right=3                                   \
+                       icon.color=$YELLOW                                     \
+                       icon.y_offset=2                                        \
+                       label.y_offset=1                                       \
+                       label.font="$FONT:SemiBold:12"                         \
+                       label.color=$YELLOW                                    \
+                       label.padding_right=8                                  \
+                       background.color=$YELLOW                               \
+                       background.height=2                                    \
+                       background.y_offset=-9                                 \
+                       background.padding_right=8                             \
+                       script="$PLUGIN_DIR/battery.sh"                        \
+                       icon.padding_left=0                                    \
+                       label.padding_right=1                                  \
+            --subscribe battery system_woke screen_unlock
+
+# -- }}}
 # -- {{{ wifi
 sketchybar --add item wifi right                                              \
            --set wifi update_freq=20                                          \
@@ -104,7 +125,7 @@ sketchybar --add item wifi right                                              \
                        icon.color=$RED                                        \
                        icon.y_offset=1                                        \
                        label.y_offset=1                                       \
-                       label.font="$FONT:Bold:12"                             \
+                       label.font="$FONT:SemiBold:12"                         \
                        label.color=$RED                                       \
                        label.padding_right=8                                  \
                        background.color=$RED                                  \
@@ -125,7 +146,7 @@ sketchybar --add item bluetooth right                                         \
                        icon.color=$PEACH                                      \
                        icon.y_offset=2                                        \
                        label.y_offset=1                                       \
-                       label.font="$FONT:Bold:12"                             \
+                       label.font="$FONT:SemiBold:12"                         \
                        label.color=$PEACH                                     \
                        label.padding_right=0                                  \
                        background.color=$PEACH                                \
@@ -135,29 +156,8 @@ sketchybar --add item bluetooth right                                         \
                        script="$PLUGIN_DIR/bluetooth.sh"                      \
             --subscribe bluetooth mouse.clicked
 # -- }}}
-# -- {{{ battery
-sketchybar --add item battery right                                           \
-           --set battery update_freq=60                                       \
-                       icon.font="$FONT:Retina:11.5"                          \
-                       icon.padding_right=3                                   \
-                       icon.color=$YELLOW                                     \
-                       icon.y_offset=2                                        \
-                       label.y_offset=1                                       \
-                       label.font="$FONT:Bold:12"                             \
-                       label.color=$YELLOW                                    \
-                       label.padding_right=8                                  \
-                       background.color=$YELLOW                               \
-                       background.height=2                                    \
-                       background.y_offset=-9                                 \
-                       background.padding_right=8                             \
-                       script="$PLUGIN_DIR/battery.sh"                        \
-                       icon.padding_left=0                                    \
-                       label.padding_right=1                                  \
-            --subscribe battery system_woke screen_unlock
-
-# -- }}}
 # -- {{{ volume
-sketchybar --add slider volume right                                          \
+sketchybar --add slider volume e                                              \
            --set volume icon="󰖀"                                              \
                  icon.drawing=on                                              \
                  icon.y_offset=1                                              \
@@ -180,6 +180,7 @@ sketchybar --add slider volume right                                          \
                  background.height=2                                          \
                  background.y_offset=-9                                       \
                  background.padding_right=8                                   \
+                 background.padding_left=8                                    \
                  script="$PLUGIN_DIR/volume.sh"                               \
            --subscribe volume volume_change mouse.clicked system_woke screen_unlock
 # -- }}}
@@ -204,7 +205,7 @@ spotify_anchor=(
   label=$([-z "$TRACK"] && "Spotify" || "$TRACK")
   label.drawing=on
   label.color="$GREEN"
-  label.font="$FONT:Bold:12.0"
+  label.font="$FONT:SemiBold:12.0"
   label.padding_left=3
   background.color=$GREEN
   background.height=2
@@ -230,7 +231,7 @@ spotify_title=(
   padding_left=0
   padding_right=0
   label.color=$FGALT
-  label.font="$FONT:Bold:13.0"
+  label.font="$FONT:SemiBold:13.0"
   y_offset=55
   width=0
 )
@@ -279,9 +280,9 @@ spotify_state=(
   updates=when_shown
 )
 
-CONTROL_FONT="$FONT:Bold:26.0"
-REPEAT_CONTROL_FONT="$FONT:Bold:25.0"
-SHUFFLE_CONTROL_FONT="$FONT:Bold:22.0"
+CONTROL_FONT="$FONT:SemiBold:26.0"
+REPEAT_CONTROL_FONT="$FONT:SemiBold:25.0"
+SHUFFLE_CONTROL_FONT="$FONT:SemiBold:22.0"
 
 spotify_shuffle=(
   icon=󰒝 # 󰒟
@@ -400,6 +401,7 @@ sketchybar --add event spotify_change $SPOTIFY_EVENT                          \
 # -- }}}
 
 # -- {{{ cleanup
+sketchybar --hotload true
 # Forcing all item scripts to run (never do this outside of sketchybarrc)
 sketchybar --update
 
