@@ -31,3 +31,5 @@ vim.opt.undofile = true
 vim.opt.conceallevel = 1
 
 vim.opt_global.shortmess:remove("F")
+
+vim.g.lion_squeeze_spaces = true

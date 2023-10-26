@@ -10,6 +10,8 @@ export FG=0xffd4be98
 export FG2=0xffd5c4a1
 export BGALT=0xff141617
 export FGALT=0xfffbf1c7
+export BG1=0xff3c3836
+export BG2=0xff504945
 
 # General bar colors
 export BAR=$BAR_COLOR
