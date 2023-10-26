@@ -1,63 +1,425 @@
 #!/bin/sh
+# vim:ft=bash:foldmethod=marker:foldlevel=0
 
+# -- {{{ setup
 source "$HOME/.config/sketchybar/colors.sh" # Loads all defined colors
 source "$HOME/.config/sketchybar/icons.sh" # Loads all defined icons
 
-ITEM_DIR="$HOME/.config/sketchybar/items" # Directory where the items are configured
 PLUGIN_DIR="$HOME/.config/sketchybar/plugins" # Directory where all the plugin scripts are stored
 
 FONT="FiraCode Nerd Font Mono" # Needs to have Regular, Bold, Semibold, Heavy and Black variants
 PADDINGS=2 # All paddings use this value (icon, label, background)
 
-# Setting up and starting the helper process
-# HELPER=git.felix.helper
-# killall helper
-# cd $HOME/.config/sketchybar/helper && make
-# $HOME/.config/sketchybar/helper/helper $HELPER > /dev/null 2>&1 &
-
 # Setting up the general bar appearance and default values
-sketchybar --bar     height=41                                         \
-                     position=top                                      \
-                     sticky=on                                        \
-                     color=$BASE                                       \
-                     border_width=2                                    \
-                     border_color=$REDALT                            \
-                     y_offset=-2                                       \
-                     margin=-2                                         \
-                     notch_width=210                                   \
-                                                                       \
-           --default updates=when_shown                                \
-                     icon.font="$FONT:Retina:16.0"                       \
-                     icon.color=$ICON_COLOR                            \
-                     icon.padding_left=$PADDINGS                       \
-                     icon.padding_right=$PADDINGS                      \
-                     label.font="$FONT:Bold:12.0"                  \
-                     label.color=$LABEL_COLOR                          \
-                     label.padding_left=$PADDINGS                      \
-                     label.padding_right=$PADDINGS                     \
-                     padding_right=$PADDINGS                           \
-                     padding_left=$PADDINGS                            \
-                     background.height=32                              \
-                     popup.background.border_width=2                   \
-                     popup.background.corner_radius=9                  \
-                     popup.background.border_color=$PEACH \
-                     popup.background.color=$BASE    \
-                     popup.background.shadow.drawing=on
+sketchybar --bar     height=41                                                                       \
+                     position=top                                                                    \
+                     sticky=on                                                                       \
+                     color=$BASE                                                                     \
+                     border_width=2                                                                  \
+                     border_color=$REDALT                                                            \
+                     y_offset=-2                                                                     \
+                     margin=-2                                                                       \
+                     notch_width=210                                                                 \
+                                                                                                     \
+           --default updates=when_shown                                                              \
+                     icon.font="$FONT:Retina:16.0"                                                   \
+                     icon.color=$ICON_COLOR                                                          \
+                     icon.padding_left=$PADDINGS                                                     \
+                     icon.padding_right=$PADDINGS                                                    \
+                     label.font="$FONT:Bold:12.0"                                                    \
+                     label.color=$LABEL_COLOR                                                        \
+                     label.padding_left=$PADDINGS                                                    \
+                     label.padding_right=$PADDINGS                                                   \
+                     padding_right=$PADDINGS                                                         \
+                     padding_left=$PADDINGS                                                          \
+                     background.height=32                                                            \
+                     popup.background.border_width=2                                                 \
+                     popup.background.corner_radius=9                                                \
+                     popup.background.border_color=$PEACH                                            \
+                     popup.background.color=$BASE                                                    \
+                     popup.background.shadow.drawing=on                                              \
+sketchybar --add event screen_unlock "com.apple.screenIsUnlocked"                                    \
+# -- }}}
 
-# Left
-source "$ITEM_DIR/spaces.sh"
+# -- {{{ spaces
+MAIN_DISPLAY_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10")
+SECONDARY_DISPLAY_ICONS=("11" "12" "13" "14" "15" "16")
+SPACE_ICONS=("${MAIN_DISPLAY_ICONS[@]}" "${SECONDARY_DISPLAY_ICONS[@]}")
 
-# Right
-source "$ITEM_DIR/calendar.sh"
-source "$ITEM_DIR/wifi.sh"
-source "$ITEM_DIR/bluetooth.sh"
-source "$ITEM_DIR/battery.sh"
-source "$ITEM_DIR/volume.sh"
-source "$ITEM_DIR/spotify.sh"
+# Destroy space on right click, focus space on left click.
+# New space by left clicking separator (>)
+sketchybar --add event refresh_spaces
 
+sid=0
+spaces=()
+for i in "${!SPACE_ICONS[@]}"
+do
+  sid=$(($i+1))
+  color="$FG2"
+  sketchybar --add space      space.$sid left                                                        \
+             --set space.$sid associated_space=$sid                                                  \
+                              script="$PLUGIN_DIR/space.sh"                                          \
+                              label.drawing=off                                                      \
+                              label.align=center                                                     \
+                              label.width=10                                                         \
+                              icon=${SPACE_ICONS[i]}                                                 \
+                              icon.width=20                                                          \
+                              width=25                                                               \
+                              align=center                                                           \
+                              icon.align=center                                                      \
+                              icon.y_offset=0                                                        \
+                              icon.font="$FONT:Bold:11.0"                                            \
+                              icon.color=$color                                                      \
+                              icon.highlight_color=$color                                            \
+                              icon.background.height=2                                               \
+                              icon.background.corner_radius=2                                        \
+                              icon.background.color=$FG                                              \
+                              icon.background.y_offset=-16                                           \
+                              background.color=$BG                                                   \
+                              background.corner_radius=4                                             \
+            --subscribe space.$sid mouse.clicked refresh_spaces                             
+done
+# -- }}}
+# -- {{{ calendar
+sketchybar --add item calendar right                                                                 \
+           --set calendar update_freq=21                                                             \
+                       icon="󰥔"                                                                      \
+                       icon.font="$FONT:Retina:18.0"                                                 \
+                       icon.padding_right=4                                                          \
+                       icon.color=$BLUE                                                              \
+                       icon.y_offset=2                                                               \
+                       label.y_offset=1                                                              \
+                       label.font="$FONT:Bold:12"                                                    \
+                       label.color=$BLUE                                                             \
+                       label.padding_right=8                                                         \
+                       background.color=$BLUE                                                        \
+                       background.height=2                                                           \
+                       background.padding_right=6                                                    \
+                       background.y_offset=-9                                                        \
+                       script="$PLUGIN_DIR/calendar.sh"                                              \
+                       icon.padding_left=0                                                           \
+                       label.padding_right=1                                                         \
+            --subscribe calendar system_woke screen_unlock 
+# -- }}}
+# -- {{{ wifi
+sketchybar --add item wifi right                                                                     \
+           --set wifi update_freq=20                                                                 \
+                       icon.font="$FONT:Retina:19"                                                   \
+                       icon.padding_right=2                                                          \
+                       icon.color=$RED                                                               \
+                       icon.y_offset=1                                                               \
+                       label.y_offset=1                                                              \
+                       label.font="$FONT:Bold:12"                                                    \
+                       label.color=$RED                                                              \
+                       label.padding_right=8                                                         \
+                       background.color=$RED                                                         \
+                       background.height=2                                                           \
+                       background.y_offset=-9                                                        \
+                       background.padding_right=8                                                    \
+                       script="$PLUGIN_DIR/wifi.sh"                                                  \
+                       icon.padding_left=0                                                           \
+                       label.padding_right=1                                                         \
+            --subscribe wifi mouse.clicked
+# -- }}}
+# -- {{{ bluetooth
+sketchybar --add item bluetooth right                                                                \
+           --set bluetooth update_freq=60                                                            \
+                       icon.font="$FONT:Retina:14"                                                   \
+                       icon.padding_right=0                                                          \
+                       icon.padding_left=2                                                           \
+                       icon.color=$PEACH                                                             \
+                       icon.y_offset=2                                                               \
+                       label.y_offset=1                                                              \
+                       label.font="$FONT:Bold:12"                                                    \
+                       label.color=$PEACH                                                            \
+                       label.padding_right=0                                                         \
+                       background.color=$PEACH                                                       \
+                       background.height=2                                                           \
+                       background.y_offset=-9                                                        \
+                       background.padding_right=8                                                    \
+                       script="$PLUGIN_DIR/bluetooth.sh"                                             \
+            --subscribe bluetooth mouse.clicked
+# -- }}}
+# -- {{{ battery
+sketchybar --add item battery right                                                                  \
+           --set battery update_freq=60                                                              \
+                       icon.font="$FONT:Retina:11.5"                                                 \
+                       icon.padding_right=3                                                          \
+                       icon.color=$YELLOW                                                            \
+                       icon.y_offset=2                                                               \
+                       label.y_offset=1                                                              \
+                       label.font="$FONT:Bold:12"                                                    \
+                       label.color=$YELLOW                                                           \
+                       label.padding_right=8                                                         \
+                       background.color=$YELLOW                                                      \
+                       background.height=2                                                           \
+                       background.y_offset=-9                                                        \
+                       background.padding_right=8                                                    \
+                       script="$PLUGIN_DIR/battery.sh"                                               \
+                       icon.padding_left=0                                                           \
+                       label.padding_right=1                                                         \
+            --subscribe battery system_woke screen_unlock
+
+# -- }}}
+# -- {{{ volume
+sketchybar --add slider volume right                                                                 \
+           --set volume icon="󰖀"                                                                     \
+                 icon.drawing=on                                                                     \
+                 icon.y_offset=1                                                                     \
+                 icon.font="$FONT:Retina:17.0"                                                       \
+                 label.drawing=off                                                                   \
+                 slider.background.corner_radius=2                                                   \
+                 slider.background.height=7                                                          \
+                 slider.background.border_width=2                                                    \
+                 slider.background.border_color=$BG                                                  \
+                 slider.background.y_offset=0                                                        \
+                 slider.background.color=$BG                                                         \
+                 slider.highlight_color=$FGALT                                                       \
+                 slider.knob="󱋱"                                                                     \
+                 slider.knob.color=$FGALT                                                            \
+                 slider.knob.y_offset=1                                                              \
+                 slider.knob.font="$FONT:Retina:11.0"                                                \
+                 slider.width=70                                                                     \
+                 slider.percentage=40                                                                \
+                 background.color=$FG                                                                \
+                 background.height=2                                                                 \
+                 background.y_offset=-9                                                              \
+                 background.padding_right=8                                                          \
+                 script="$PLUGIN_DIR/volume.sh"                                                      \
+           --subscribe volume volume_change mouse.clicked system_woke screen_unlock
+# -- }}}
+# -- {{{ spotify
+# built on https://github.com/FelixKratz/dotfiles/blob/master/.config/sketchybar/items/spotify.sh
+SPOTIFY_EVENT="com.spotify.client.PlaybackStateChanged"
+POPUP_SCRIPT="sketchybar -m --set spotify.anchor popup.drawing=toggle"
+
+# -- {{{ spotify options
+spotify_anchor=(
+  script="$PLUGIN_DIR/spotify.sh"
+  click_script="$POPUP_SCRIPT"
+  popup.horizontal=on
+  popup.align=center
+  popup.height=150
+  icon=󰓇
+  icon.color="$GREEN"
+  icon.y_offset=1
+  icon.padding_right=0
+  icon.font="$FONT:Retina:18.0"
+  label=$([-z "$TRACK"] && "Spotify" || "$TRACK")
+  label.drawing=on
+  label.color="$GREEN"
+  label.font="$FONT:Bold:12.0"
+  label.padding_left=3
+  background.color=$GREEN
+  background.height=2
+  background.y_offset=-9
+  background.padding_right=8
+  drawing=on
+)
+
+spotify_cover=(
+  script="$PLUGIN_DIR/spotify.sh"
+  click_script="$POPUP_SCRIPT"
+  label.drawing=off
+  icon.drawing=off
+  padding_left=12
+  padding_right=10
+  background.image.scale=0.2
+  background.image.drawing=on
+  background.drawing=on
+)
+
+spotify_title=(
+  icon.drawing=off
+  padding_left=0
+  padding_right=0
+  label.color=$FGALT
+  label.font="$FONT:Bold:13.0"
+  y_offset=55
+  width=0
+)
+
+spotify_artist=(
+  icon.drawing=off
+  label.color=$FGALT
+  y_offset=30
+  padding_left=0
+  padding_right=0
+  width=0
+)
+
+spotify_album=(
+  icon.drawing=off
+  label.color=$FGALT
+  padding_left=0
+  padding_right=0
+  y_offset=15
+  width=0
+)
+
+spotify_state=(
+  width=0
+  icon.drawing=on
+  icon.font="$FONT:Retina:10.0"
+  icon.width=35
+  icon.padding_right=3
+  icon="00:00"
+  label.drawing=on
+  label.font="$FONT:Retina:10.0"
+  label.width=35
+  label.padding_left=3
+  label="00:00"
+  padding_left=0
+  padding_right=0
+  y_offset=-15
+  slider.background.height=6
+  slider.background.corner_radius=1
+  slider.background.color=$GREY
+  slider.highlight_color=$GREEN
+  slider.percentage=40
+  slider.width=135
+  script="$PLUGIN_DIR/spotify.sh"
+  update_freq=1
+  updates=when_shown
+)
+
+CONTROL_FONT="$FONT:Bold:26.0"
+REPEAT_CONTROL_FONT="$FONT:Bold:25.0"
+SHUFFLE_CONTROL_FONT="$FONT:Bold:22.0"
+
+spotify_shuffle=(
+  icon=󰒝 # 󰒟
+  icon.font="$SHUFFLE_CONTROL_FONT"
+  icon.padding_left=30
+  icon.padding_right=5
+  icon.color=$GREY
+  icon.highlight_color=$BLACK
+  label.drawing=off
+  background.color=$GREEN
+  script="$PLUGIN_DIR/spotify.sh"
+  y_offset=-45
+)
+
+spotify_back=(
+  icon=󰙤
+  icon.font="$CONTROL_FONT"
+  icon.padding_left=5
+  icon.padding_right=5
+  background.color=$GREEN
+  icon.color=$BLACK
+  script="$PLUGIN_DIR/spotify.sh"
+  label.drawing=off
+  y_offset=-45
+)
+
+spotify_play=(
+  icon=
+  align=center
+  icon.font="$CONTROL_FONT"
+  icon.padding_left=4
+  icon.padding_right=5
+  icon.color=$BLACK
+  updates=on
+  label.drawing=off
+  background.color=$GREEN
+  script="$PLUGIN_DIR/spotify.sh"
+  y_offset=-45
+)
+
+spotify_next=(
+  icon=󰙢
+  icon.font="$CONTROL_FONT"
+  icon.padding_left=5
+  icon.padding_right=5
+  icon.color=$BLACK
+  label.drawing=off
+  background.color=$GREEN
+  script="$PLUGIN_DIR/spotify.sh"
+  y_offset=-45
+)
+
+spotify_repeat=(
+  icon.font="$REPEAT_CONTROL_FONT"
+  icon=󰑖 # 󰕇
+  icon.highlight_color=$BLACK
+  icon.padding_left=5
+  icon.padding_right=30
+  icon.color=$GREY
+  label.drawing=off
+  background.color=$GREEN
+  script="$PLUGIN_DIR/spotify.sh"
+  y_offset=-45
+)
+
+spotify_controls=(
+  background.color=$GREEN
+  background.corner_radius=6
+  background.drawing=on
+  padding_left=25
+  padding_right=25
+  y_offset=-45
+)
+
+# -- }}}
+
+sketchybar --add event spotify_change $SPOTIFY_EVENT                                                 \
+           --add item spotify.anchor q                                                               \
+           --set spotify.anchor "${spotify_anchor[@]}"                                               \
+           --subscribe spotify.anchor system_woke screen_unlock mouse.clicked                        \
+                       mouse.exited.global                                                           \
+                                                                                                     \
+           --add item spotify.cover popup.spotify.anchor                                             \
+           --set spotify.cover "${spotify_cover[@]}"                                                 \
+                                                                                                     \
+           --add item spotify.title popup.spotify.anchor                                             \
+           --set spotify.title "${spotify_title[@]}"                                                 \
+                                                                                                     \
+           --add item spotify.artist popup.spotify.anchor                                            \
+           --set spotify.artist "${spotify_artist[@]}"                                               \
+                                                                                                     \
+           --add item spotify.album popup.spotify.anchor                                             \
+           --set spotify.album "${spotify_album[@]}"                                                 \
+                                                                                                     \
+           --add slider spotify.state popup.spotify.anchor                                           \
+           --set spotify.state "${spotify_state[@]}"                                                 \
+           --subscribe spotify.state mouse.clicked                                                   \
+                                                                                                     \
+           --add item spotify.shuffle popup.spotify.anchor                                           \
+           --set spotify.shuffle "${spotify_shuffle[@]}"                                             \
+           --subscribe spotify.shuffle mouse.clicked                                                 \
+                                                                                                     \
+           --add item spotify.back popup.spotify.anchor                                              \
+           --set spotify.back "${spotify_back[@]}"                                                   \
+           --subscribe spotify.back mouse.clicked                                                    \
+                                                                                                     \
+           --add item spotify.play popup.spotify.anchor                                              \
+           --set spotify.play "${spotify_play[@]}"                                                   \
+           --subscribe spotify.play mouse.clicked spotify_change                                     \
+                                                                                                     \
+           --add item spotify.next popup.spotify.anchor                                              \
+           --set spotify.next "${spotify_next[@]}"                                                   \
+           --subscribe spotify.next mouse.clicked                                                    \
+                                                                                                     \
+           --add item spotify.repeat popup.spotify.anchor                                            \
+           --set spotify.repeat "${spotify_repeat[@]}"                                               \
+           --subscribe spotify.repeat  mouse.clicked                                                 \
+                                                                                                     \
+           --add item spotify.spacer popup.spotify.anchor                                            \
+           --set spotify.spacer width=5                                                              \
+                                                                                                     \
+           --add bracket spotify.controls spotify.shuffle                                            \
+                                          spotify.back                                               \
+                                          spotify.play                                               \
+                                          spotify.next                                               \
+                                          spotify.repeat                                             \
+           --set spotify.controls "${spotify_controls[@]}"       
+# -- }}}
+
+# -- {{{ cleanup
 # Forcing all item scripts to run (never do this outside of sketchybarrc)
 sketchybar --update
 
 # Force triggers
 sleep 1 && sketchybar --trigger refresh_spaces
 sleep 1 && sketchybar --trigger refresh_focus
+# -- }}}
