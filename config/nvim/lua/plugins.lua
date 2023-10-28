@@ -87,9 +87,12 @@ return require('packer').startup(function(use)
   use 'airblade/vim-rooter'
   use 'chrisbra/Colorizer'
   use 'jose-elias-alvarez/null-ls.nvim'
+  use 'stevearc/conform.nvim'
+  use 'mfussenegger/nvim-lint'
 
   if packer_bootstrap then
     require('packer').sync()
   end
+
 end)
 -- }}}
