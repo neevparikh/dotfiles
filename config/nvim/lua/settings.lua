@@ -1,4 +1,4 @@
--- vim: set foldmethod=marker:
+-- vim:foldmethod=marker:foldlevel=0
 require('helpers')
 require('keymaps')
 local lsp = require('lsp-zero')
@@ -81,14 +81,14 @@ vim.g.startify_bookmarks = {
 vim.g.startify_commands = {
   { t = 'terminal' },
   { b = 'Buffers' },
-  { f = 'Files' }
+  { f = 'GFiles' }
 }
 vim.g.startify_custom_header = ""
 vim.g.startify_lists = {
-  { type = 'commands',  header = { '   Commands' } },
+  { type = 'commands', header = { '   Commands' } },
   { type = 'bookmarks', header = { '   Bookmarks' } },
-  { type = 'files',     header = { '   MRU' } },
-  { type = 'sessions',  header = { '   Sessions' } }
+  { type = 'files', header = { '   MRU' } },
+  { type = 'sessions', header = { '   Sessions' } }
 }
 -- }}}
 
@@ -116,8 +116,11 @@ local function fzf_config()
         cmd    = "bat",
         args   = "--style=numbers,changes --color always",
         theme  = bat_theme, -- bat preview theme (bat --list-themes)
-        config = nil,       -- nil uses $BAT_CONFIG_PATH
+        config = nil, -- nil uses $BAT_CONFIG_PATH
       },
+    },
+    grep = {
+      cmd = "rg --no-hidden --column --line-number --no-heading --color=always --smart-case --max-columns=512",
     },
   }
 end
@@ -139,14 +142,14 @@ end, { nargs = '?' })
 vim.api.nvim_create_user_command('Buffers', function()
   fzf.buffers()
 end, { nargs = 0 })
-vim.api.nvim_create_user_command('RgFuzzy', function(opts)
+vim.api.nvim_create_user_command('Rg', function(opts)
   local str = opts.args
   fzf.grep_project({ search = str })
 end, { nargs = '?' })
 vim.api.nvim_create_user_command('GFiles', function()
   fzf.git_files()
 end, { nargs = 0 })
-vim.api.nvim_create_user_command('RgRegex', function(opts)
+vim.api.nvim_create_user_command('LgGlob', function(opts)
   local str = opts.args
   fzf.live_grep_glob({ search = str })
 end, { nargs = 1 })
@@ -164,7 +167,7 @@ require("luasnip.loaders.from_vscode").lazy_load()
 -- {{{ treesitter
 require('nvim-treesitter.configs').setup {
   -- A list of parser names, or "all"
-  ensure_installed = { "cpp", "lua", "rust", "java" },
+  ensure_installed = { "cpp", "lua", "rust", "java", "python" },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
@@ -192,14 +195,4 @@ require('nvim-treesitter.configs').setup {
     enable = true,
   }
 }
--- }}}
-
--- {{{ null-ls
-local null_ls = require("null-ls")
-null_ls.setup({
-  sources = {
-    null_ls.builtins.formatting.black,
-    null_ls.builtins.completion.spell,
-  },
-})
 -- }}}

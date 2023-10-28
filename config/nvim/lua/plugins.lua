@@ -1,4 +1,4 @@
--- vim: set foldmethod=marker:
+-- vim:foldmethod=marker:foldlevel=0
 
 -- {{{ ensure packer is installed
 local ensure_packer = function()
