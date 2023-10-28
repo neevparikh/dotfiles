@@ -1,3 +1,4 @@
+-- vim:foldmethod=marker:foldlevel=0
 require('plugins')
 
 require('options')

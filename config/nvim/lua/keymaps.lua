@@ -1,4 +1,4 @@
--- vim: set foldmethod=marker:
+-- vim:foldmethod=marker:foldlevel=0
 require('helpers')
 local bind = vim.keymap.set
 
@@ -133,30 +133,14 @@ function GetCmpMappings()
       end
     end),
 
-    -- go to next placeholder in the snippet
-    ['<M-Tab>'] = cmp.mapping(function(fallback)
-      if ls.jumpable(1) then
-        ls.jump(1)
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-
-    -- go to previous placeholder in the snippet
-    ['<M-b>'] = cmp.mapping(function(fallback)
-      if ls.jumpable(-1) then
-        ls.jump(-1)
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-
     -- when menu is visible, navigate to next item
     -- when line is empty, insert a tab character
     -- else, activate completion
     ['<Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item(select_opts)
+      elseif ls.expand_or_jumpable() then
+        ls.expand_or_jump()
       elseif CheckBackSpace() then
         fallback()
       else
@@ -169,6 +153,8 @@ function GetCmpMappings()
     ['<S-Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item(select_opts)
+      elseif ls.jumpable(-1) then
+        ls.jump(-1)
       else
         fallback()
       end
@@ -206,7 +192,6 @@ bind('n', '<space>gd', ':Gvdiffsplit!<CR>')
 --   { silent = true, remap = false }
 -- )
 -- }}}
-
 -- }}}
 
 -- {{{ commands
@@ -214,13 +199,13 @@ MapWinCmd("t", "terminal")
 MapWinCmd("T", "OpenWithName ", true)
 MapWinCmd("e", " e ", true)
 MapWinCmd("w", "enew <bar> setlocal bufhidden=hide nobuflisted buftype=nofile")
-MapWinCmd("f", "Files")
-MapWinCmd("F", "Files ", true)
+MapWinCmd("f", "GFiles")
+MapWinCmd("F", "Files")
 MapWinCmd("b", "Buffers")
-MapWinCmd("g", "GFiles")
-MapWinCmd("G", "GFiles ", true)
-MapWinCmd("r", "RgFuzzy")
-MapWinCmd("R", "RgRegex ", true)
+MapWinCmd("g", "GFiles ", true)
+MapWinCmd("G", "Files ", true)
+MapWinCmd("r", "Rg ", true)
+MapWinCmd("R", "LgGlob ", true)
 MapWinCmd("c", "normal! \\<c-o>")
 MapWinCmd("s", "Startify")
 MapWinCmd("d", "e ~/.todo")

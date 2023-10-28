@@ -1,8 +1,8 @@
--- vim: set foldmethod=marker:
+-- vim: set foldmethod=marker:foldlevel=0
 require('helpers')
 
 function SwitchTheme()
-  local cur = vim.opt.background
+  local cur = vim.opt.background:get()
   if cur == 'dark' then
     vim.opt.background = 'light'
     vim.fn.system("toggle-theme --light")

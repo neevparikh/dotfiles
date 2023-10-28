@@ -1,9 +1,19 @@
--- vim: set foldmethod=marker:
+-- vim:foldmethod=marker:foldlevel=0
 require('io')
 require('os')
 
 -- {{{ macros -- uses vim version bc the lua version doesn't work
 vim.cmd([[
+
+function! CleanNoNameEmptyBuffers()
+  let buffers = filter(range(1, bufnr('$')), 'buflisted(v:val) && '.
+        \ 'empty(bufname(v:val)) && bufwinnr(v:val) < 0 && ' .
+        \ '(getbufline(v:val, 1, "$") == [""])')
+  if !empty(buffers)
+    exe 'bd! '.join(buffers, ' ')
+  endif
+endfunction
+
 let s:atcount = 10
 function! AtRepeat(_)
     " If no count is supplied use the one saved in s:atcount.
@@ -167,6 +177,12 @@ nmap <expr> q QStart()
 
 -- {{{ other
 
+function HasWordsBefore()
+  unpack = unpack or table.unpack
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
 function ReadFile(path)
   local f, err = io.open(path, 'r')
   if f == nil then
@@ -188,18 +204,18 @@ function CheckBackSpace()
   end
 end
 
-function CleanNoNameEmptyBuffers()
-  local buffers = vim.fn.filter(
-    vim.fn.range(1, vim.fn.bufnr('$')),
-    'buflisted(v:val) && '
-    .. 'empty(bufname(v:val)) && bufwinnr(v:val) < 0 && '
-    .. '(getbufline(v:val, 1, "$") == [""])'
-  )
+-- function CleanNoNameEmptyBuffers()
+--   local buffers = vim.fn.filter(
+--     vim.fn.range(1, vim.fn.bufnr('$')),
+--     'buflisted(v:val) && '
+--     .. 'empty(bufname(v:val)) && bufwinnr(v:val) < 0 && '
+--     .. '(getbufline(v:val, 1, "$") == [""])'
+--   )
 
-  if not vim.fn.empty(buffers) then
-    vim.fn.exe('bd ' .. vim.fn.join(buffers, ' '))
-  end
-end
+--   if not vim.fn.empty(buffers) then
+--     vim.fn.exe('bd ' .. vim.fn.join(buffers, ' '))
+--   end
+-- end
 
 function SortAndReset()
   local curr_pos = vim.fn.getpos('.')
@@ -237,6 +253,12 @@ function MapWinCmd(key, command, ...)
   bind("n", "<space>J" .. key, ":<c-u>botright new <bar>" .. command .. suffix)
   bind("n", "<space>K" .. key, ":<c-u>topleft new <bar>" .. command .. suffix)
   bind("n", "<space>L" .. key, ":<c-u>botright vnew <bar>" .. command .. suffix)
+end
+
+function hasExe(name)
+  return function()
+    return vim.fn.executable(name) == 1
+  end
 end
 
 -- }}}

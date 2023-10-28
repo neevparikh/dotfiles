@@ -1,4 +1,4 @@
--- vim: set foldmethod=marker:
+-- vim: set foldmethod=marker:foldlevel=0
 vim.opt.clipboard = 'unnamedplus'
 vim.opt.pumblend = 15
 vim.opt.termguicolors = true
@@ -29,6 +29,7 @@ vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.opt.undofile = true
 vim.opt.conceallevel = 1
+vim.opt.hlsearch = true
 
 vim.opt_global.shortmess:remove("F")
 

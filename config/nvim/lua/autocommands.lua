@@ -1,4 +1,4 @@
--- vim: set foldmethod=marker:
+-- vim: set foldmethod=marker:foldlevel=0
 require("helpers")
 
 local autocmd = vim.api.nvim_create_autocmd
@@ -10,7 +10,7 @@ local cpp = create_augroup('cpp')
 local formatting = create_augroup('formatting')
 
 -- {{{ general
-autocmd({ "BufLeave" }, { pattern = "*", callback = CleanNoNameEmptyBuffers })
+autocmd({ "BufLeave" }, { pattern = "*", command = "call CleanNoNameEmptyBuffers()" })
 autocmd({ "BufWrite" }, { pattern = "*.todo", callback = SortAndReset })
 autocmd({ "BufEnter", "FocusGained", "InsertLeave" }, { pattern = "*", command = "set relativenumber" })
 autocmd({ "BufLeave", "FocusLost", "InsertEnter" }, { pattern = "*", command = "set norelativenumber number" })
@@ -25,16 +25,15 @@ autocmd({ "FileType" }, {
 })
 autocmd({ "FileType" }, {
   pattern = { "todo" },
-  command = "setlocal wrap linebreak"
+  command = "setlocal wrap linebreak textwidth=100 foldlevel=0"
 })
 autocmd({ "FileType" }, { group = cpp, pattern = "cpp", command = "setlocal commentstring=//\\ %s" })
 -- }}}
 
 
 -- {{{ formatting
-autocmd({ "BufWritePre", "FileWritePre" }, {
-  group = formatting,
-  pattern = { "*.cpp", "*.rs", "*.lua", "*.go", "*.h", "*.py" },
-  callback = function() vim.lsp.buf.format() end
-})
+-- autocmd({ "BufWritePre", "FileWritePre" }, {
+--   group = formatting, pattern = { "*.cpp", "*.rs", "*.lua", "*.go", "*.h", "*.rb", "*.ts", "*.tsx"},
+--   callback = function() vim.lsp.buf.format() end
+-- })
 -- }}}
