@@ -17,18 +17,38 @@ filter_max_len() {
 }
 
 update() {
-  CURRENT_WIFI="$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I)"
-
+  CURRENT_WIFI="$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport --getinfo)"
   RAW="$(echo "$CURRENT_WIFI" | grep -o "SSID: .*" | sed 's/^SSID: //')"
   SSID=$(filter_max_len "$RAW")
 
-  CURR_TX_bits="$(echo "$CURRENT_WIFI" | grep -o "lastTxRate: .*" | sed 's/^lastTxRate: //')"
-  CURR_TX=$(echo "scale=1; $CURR_TX_bits / 8" | bc)
+  SIGNAL=$(echo "$CURRENT_WIFI" | grep -o "agrCtlRSSI: .*" | sed "s/^agrCtlRSSI: //")
+  NOISE=$(echo "$CURRENT_WIFI" | grep -o "agrCtlNoise: .*" | sed "s/^agrCtlNoise: //")
+  SNR=$(echo "scale=2; ($NOISE - $SIGNAL) * -1" | bc)
 
-  if [ "$SSID" = "" ]; then
-    sketchybar --set wifi label="Disconnected" icon=󰖪
+  STATE=$(echo "$CURRENT_WIFI" | grep -o "AirPort: .*" | sed "s/^AirPort: //")
+  
+  if [ "$STATE" = "Off" ]; then
+    sketchybar --set wifi label="Off" icon=󰤭
   else
-    sketchybar --set wifi label="$SSID (${CURR_TX} MB/s)" icon=󰖩
+    case ${SNR} in
+       100) ICON="󰤨" ;;
+        9[0-9]) ICON="󰤨" ;; 
+        8[0-9]) ICON="󰤨" ;; 
+        7[0-9]) ICON="󰤨" ;; 
+        6[0-9]) ICON="󰤨" ;; 
+        5[0-9]) ICON="󰤨" ;; 
+        4[0-9]) ICON="󰤨" ;; 
+        3[0-9]) ICON="󰤢" ;;
+        2[0-9]) ICON="󰤢" ;;
+        1[0-9]) ICON="󰤟" ;;
+        *) ICON="󰤯"
+    esac
+
+    if [ "$SSID" = "" ]; then
+      sketchybar --set wifi label="Disconnected" icon=󰤫
+    else
+      sketchybar --set wifi label="$SSID" icon=$ICON
+    fi
   fi
 }
 

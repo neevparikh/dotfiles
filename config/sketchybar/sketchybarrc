@@ -118,24 +118,38 @@ sketchybar --add item battery right                                           \
 
 # -- }}}
 # -- {{{ wifi
+sketchybar --add graph wifi_speed right 30                                    \
+sketchybar --set wifi_speed update_freq=1                                     \
+                            graph.color=$RED                                  \
+                            graph.fill_color=$RED                             \
+                            label.drawing=off                                 \
+                            background.padding_right=8                        \
+                            icon.drawing=off                                  \
+                            background.drawing=on                             \
+                            background.height=20                              \
+                            background.y_offset=-9                            \
+                            background.padding_left=0                         \
+                            background.color=$TRANSPARENT                     \
+                            script="$PLUGIN_DIR/wifi_speed.sh"                \
+            --subscribe wifi_speed mouse.clicked screen_unlock system_woke
+
 sketchybar --add item wifi right                                              \
-           --set wifi update_freq=20                                          \
-                       icon.font="$FONT:Retina:19"                            \
-                       icon.padding_right=2                                   \
-                       icon.color=$RED                                        \
-                       icon.y_offset=1                                        \
-                       label.y_offset=1                                       \
-                       label.font="$FONT:SemiBold:12"                         \
-                       label.color=$RED                                       \
-                       label.padding_right=8                                  \
-                       background.color=$RED                                  \
-                       background.height=2                                    \
-                       background.y_offset=-9                                 \
-                       background.padding_right=8                             \
-                       script="$PLUGIN_DIR/wifi.sh"                           \
-                       icon.padding_left=0                                    \
-                       label.padding_right=1                                  \
-            --subscribe wifi mouse.clicked
+           --set wifi update_freq=30                                          \
+                      icon.font="$FONT:Retina:19"                             \
+                      icon.padding_right=2                                    \
+                      icon.color=$RED                                         \
+                      icon.y_offset=1                                         \
+                      label.y_offset=1                                        \
+                      label.font="$FONT:SemiBold:12"                          \
+                      label.color=$RED                                        \
+                      background.color=$RED                                   \
+                      background.height=2                                     \
+                      background.y_offset=-9                                  \
+                      background.padding_right=1                              \
+                      script="$PLUGIN_DIR/wifi.sh"                            \
+                      icon.padding_left=0                                     \
+                      label.padding_right=1                                   \
+            --subscribe wifi mouse.clicked screen_unlock system_woke
 # -- }}}
 # -- {{{ bluetooth
 sketchybar --add item bluetooth right                                         \
