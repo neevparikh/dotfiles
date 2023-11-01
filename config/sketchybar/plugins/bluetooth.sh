@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 NAME=bluetooth
-MAX_LEN=10
+MAX_LEN=16
 SUB_LEN=$(($MAX_LEN - 3))
 
 filter_max_len() {
