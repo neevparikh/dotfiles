@@ -255,7 +255,7 @@ function MapWinCmd(key, command, ...)
   bind("n", "<space>L" .. key, ":<c-u>botright vnew <bar>" .. command .. suffix)
 end
 
-function hasExe(name)
+function HasExe(name)
   return function()
     return vim.fn.executable(name) == 1
   end
