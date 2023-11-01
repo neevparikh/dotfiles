@@ -328,7 +328,7 @@ alias cnd="conda deactivate && conda deactivate"
 alias kssh='kitty +kitten ssh'
 # alias rm='safe-rm'
 alias browncsprint="CUPS_SERVER=printhost.cs.brown.edu okular"
-alias cnvim="rm $HOME/.local/share/nvim/swap/%Users%neev%*.swp"
+alias cnvim="rm $HOME/.local/state/nvim/swap/%Users%neev%*.swp"
 alias make="make --no-print-directory"
 alias feh="feh --force-aliasing"
 alias td="todui"
