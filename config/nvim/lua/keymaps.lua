@@ -195,17 +195,21 @@ bind('n', '<space>gd', ':Gvdiffsplit!<CR>')
 -- }}}
 
 -- {{{ commands
+
+vim.api.nvim_create_user_command('Scratch', function()
+  vim.cmd("enew | setlocal bufhidden=hide nobuflisted buftype=nofile noswapfile")
+end, { nargs = 0 })
 MapWinCmd("t", "terminal")
 MapWinCmd("T", "OpenWithName ", true)
 MapWinCmd("e", " e ", true)
-MapWinCmd("w", "enew <bar> setlocal bufhidden=hide nobuflisted buftype=nofile")
+MapWinCmd("w", "Scratch")
 MapWinCmd("f", "GFiles")
 MapWinCmd("F", "Files")
 MapWinCmd("b", "Buffers")
 MapWinCmd("g", "GFiles ", true)
 MapWinCmd("G", "Files ", true)
 MapWinCmd("r", "Rg ", true)
-MapWinCmd("R", "LgGlob ", true)
+MapWinCmd("R", "Rg")
 MapWinCmd("c", "normal! \\<c-o>")
 MapWinCmd("s", "Startify")
 MapWinCmd("d", "e ~/.todo")
