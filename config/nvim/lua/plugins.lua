@@ -37,8 +37,8 @@ return require('packer').startup(function(use)
         { '^%s*for',       'end' }, -- for
         { 'function%s*%(', 'end' }, -- 'function( or 'function (''
         { '{',             '}' },
-        { '%(',            ')' }, -- % to escape lua pattern char
-        { '%[',            ']' }, -- % to escape lua pattern char
+        { '%(',            ')' },   -- % to escape lua pattern char
+        { '%[',            ']' },   -- % to escape lua pattern char
       },
     })
     pf.setup()
@@ -70,7 +70,10 @@ return require('packer').startup(function(use)
   use 'mfussenegger/nvim-jdtls'
   use 'romainl/vim-cool'
   use { 'junegunn/fzf', run = ":call fzf#install()" }
-  use { 'ibhagwan/fzf-lua', requires = { 'kyazdani42/nvim-web-devicons' } }
+  use {
+    'nvim-telescope/telescope.nvim', branch = '0.1.x',
+    requires = { 'nvim-lua/plenary.nvim' }
+  }
   use 'tmhedberg/SimpylFold'
   use 'tommcdo/vim-lion'
   use 'tpope/vim-repeat'
@@ -86,13 +89,11 @@ return require('packer').startup(function(use)
   use 'machakann/vim-highlightedyank'
   use 'airblade/vim-rooter'
   use 'chrisbra/Colorizer'
-  use 'jose-elias-alvarez/null-ls.nvim'
   use 'stevearc/conform.nvim'
   use 'mfussenegger/nvim-lint'
 
   if packer_bootstrap then
     require('packer').sync()
   end
-
 end)
 -- }}}
