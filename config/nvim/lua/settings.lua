@@ -158,7 +158,9 @@ vim.api.nvim_create_user_command('LuaSnipEdit', function()
 end, { nargs = 0 })
 ls.config.setup({ store_selection_keys = "<Tab>", enable_autosnippets = true })
 require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets" })
-require("luasnip.loaders.from_vscode").lazy_load()
+require("luasnip.loaders.from_vscode").lazy_load({
+  exclude = { "gitcommit" },
+})
 -- }}}
 
 -- {{{ treesitter

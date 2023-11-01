@@ -21,7 +21,6 @@ return require('packer').startup(function(use)
 
   use 'neevparikh/gruvbox'
   use 'lervag/vimtex'
-  use 'honza/vim-snippets'
   use { 'andymass/vim-matchup', setup = function()
     -- may set any options here
     vim.g.matchup_matchparen_offscreen = { method = "popup" }
@@ -61,6 +60,7 @@ return require('packer').startup(function(use)
 
       -- Snippets
       { 'L3MON4D3/LuaSnip' },
+      { 'honza/vim-snippets' },
       { 'rafamadriz/friendly-snippets' },
     }
   }
