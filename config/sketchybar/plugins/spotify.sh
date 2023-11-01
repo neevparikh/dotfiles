@@ -91,6 +91,18 @@ scrubbing() {
   sketchybar --set spotify.state slider.percentage=$PERCENTAGE
 }
 
+scroll_no_animate() {
+  DURATION_MS=$(osascript -e 'tell application "Spotify" to get duration of current track')
+  DURATION=$((DURATION_MS/1000))
+
+  FLOAT="$(osascript -e 'tell application "Spotify" to get player position')"
+  TIME=${FLOAT%.*}
+  
+  sketchybar --set spotify.state slider.percentage="$((TIME*100/DURATION))" \
+                                 icon="$(date -ju -f "%s" $TIME '+%M:%S')" \
+                                 label="$(date -ju -f "%s" $DURATION '+%M:%S')"
+}
+
 scroll() {
   DURATION_MS=$(osascript -e 'tell application "Spotify" to get duration of current track')
   DURATION=$((DURATION_MS/1000))
@@ -100,11 +112,12 @@ scroll() {
   
   sketchybar --animate linear 10 \
              --set spotify.state slider.percentage="$((TIME*100/DURATION))" \
-                                 icon="$(date -r $TIME +'%M:%S')" \
-                                 label="$(date -r $DURATION +'%M:%S')"
+                                 icon="$(date -ju -f "%s" $TIME '+%M:%S')" \
+                                 label="$(date -ju -f "%s" $DURATION '+%M:%S')"
 }
 
 mouse_clicked() {
+  scroll_no_animate
   case "$NAME" in
     "spotify.anchor") update
     ;;
