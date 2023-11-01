@@ -133,7 +133,7 @@ vim.g.startify_bookmarks = {
   { p = '~/.config/sketchybar/sketchybarrc' }
 }
 vim.g.startify_commands = {
-  { e = 'Scratch' },
+  { w = 'Scratch' },
   { t = 'terminal' },
   { b = 'Buffers' },
   { f = 'Files' }

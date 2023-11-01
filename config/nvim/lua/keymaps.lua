@@ -197,8 +197,9 @@ bind('n', '<space>gd', ':Gvdiffsplit!<CR>')
 -- {{{ commands
 
 vim.api.nvim_create_user_command('Scratch', function()
-  vim.cmd("enew | setlocal bufhidden=hide nobuflisted buftype=nofile noswapfile")
+  vim.cmd("enew | setlocal bufhidden=hide nobuflisted buftype=nofile noswapfile | file [Scratch]")
 end, { nargs = 0 })
+
 MapWinCmd("t", "terminal")
 MapWinCmd("T", "OpenWithName ", true)
 MapWinCmd("e", " e ", true)
