@@ -3,6 +3,12 @@ require('helpers')
 require('keymaps')
 local lsp = require('lsp-zero')
 local ls = require('luasnip')
+local lspconfig = require('lspconfig')
+
+-- {{{ mason
+require("mason").setup()
+require("mason-lspconfig").setup()
+-- }}}
 
 -- {{{ lsp
 lsp.set_preferences({
@@ -47,6 +53,13 @@ local cmp_config = {
 
 lsp.setup_nvim_cmp(cmp_config)
 lsp.setup()
+
+lspconfig.pyright.setup({
+  settings = {
+    pyright = { venvPath = "~/.venvs/", },
+  }
+})
+
 -- }}}
 
 -- {{{ conform
@@ -64,7 +77,7 @@ require("conform").setup({
     lua = { "stylua" },
     python = { "isort", "black" },
   },
-  format_after_save =  { lsp_fallback = true },
+  format_after_save = { lsp_fallback = true },
 })
 -- }}}
 
@@ -109,95 +122,34 @@ local lualine_options = vim.tbl_deep_extend('force', default_options, custom_opt
 lualine.setup(lualine_options)
 -- }}}
 
--- {{{ mason
-require("mason").setup()
--- }}}
-
 -- {{{ startify
 vim.g.startify_bookmarks = {
   { z = '~/.zshrc' },
-  { v = '~/.config/nvim/init.lua' },
+  { l = '~/.config/nvim/init.lua' },
   { d = '~/.todo' },
-  { y = '~/.config/kitty/kitty.conf' },
-  { w = '~/.config/yabai/yabairc' },
+  { c = '~/.config/kitty/kitty.conf' },
+  { y = '~/.config/yabai/yabairc' },
   { s = '~/.config/skhd/skhdrc' },
   { p = '~/.config/sketchybar/sketchybarrc' }
 }
 vim.g.startify_commands = {
+  { e = 'Scratch' },
   { t = 'terminal' },
   { b = 'Buffers' },
-  { f = 'GFiles' }
+  { f = 'Files' }
 }
 vim.g.startify_custom_header = ""
 vim.g.startify_lists = {
-  { type = 'commands', header = { '   Commands' } },
+  { type = 'commands',  header = { '   Commands' } },
   { type = 'bookmarks', header = { '   Bookmarks' } },
-  { type = 'files', header = { '   MRU' } },
-  { type = 'sessions', header = { '   Sessions' } }
+  { type = 'files',     header = { '   MRU' } },
+  { type = 'sessions',  header = { '   Sessions' } }
 }
 -- }}}
 
 -- {{{ rooter
 vim.g.rooter_manual_only = 1
 vim.g.rooter_silent_chdir = 1
--- }}}
-
--- {{{ fzf
-local function fzf_config()
-  local bat_theme
-  if vim.opt.background == 'dark' then
-    bat_theme = 'gruvbox-dark'
-  else
-    bat_theme = 'gruvbox-light'
-  end
-  return {
-    winopts = {
-      hl = {
-        border = 'FloatBorder'
-      },
-    },
-    previewers = {
-      bat = {
-        cmd    = "bat",
-        args   = "--style=numbers,changes --color always",
-        theme  = bat_theme, -- bat preview theme (bat --list-themes)
-        config = nil, -- nil uses $BAT_CONFIG_PATH
-      },
-    },
-    grep = {
-      cmd = "rg --no-hidden --column --line-number --no-heading --color=always --smart-case --max-columns=512",
-    },
-  }
-end
-
-local fzf = require('fzf-lua')
-fzf.setup(fzf_config())
-vim.api.nvim_create_user_command('Filetypes', function()
-  fzf.filetypes()
-end, { nargs = 0 })
-vim.api.nvim_create_user_command('Files', function(opts)
-  local path = opts.args
-  if path == '' then
-    fzf.files(fzf_config())
-  else
-    local cfg = vim.tbl_extend('error', fzf_config(), { cwd = path })
-    fzf.files(cfg)
-  end
-end, { nargs = '?' })
-vim.api.nvim_create_user_command('Buffers', function()
-  fzf.buffers()
-end, { nargs = 0 })
-vim.api.nvim_create_user_command('Rg', function(opts)
-  local str = opts.args
-  fzf.grep_project({ search = str })
-end, { nargs = '?' })
-vim.api.nvim_create_user_command('GFiles', function()
-  fzf.git_files()
-end, { nargs = 0 })
-vim.api.nvim_create_user_command('LgGlob', function(opts)
-  local str = opts.args
-  fzf.live_grep_glob({ search = str })
-end, { nargs = 1 })
 -- }}}
 
 -- {{{ luasnip
@@ -240,4 +192,57 @@ require('nvim-treesitter.configs').setup {
     enable = true,
   }
 }
+-- }}}
+
+-- {{{ telescope
+local t_actions = require("telescope.actions")
+require("telescope").setup({
+  defaults = {
+    layout_strategy = "flex",
+    layout_config = { prompt_position = "top", },
+    sorting_strategy = "ascending",
+    mappings = {
+      i = {
+        ["<esc>"] = t_actions.close,
+        ["<Tab>"] = t_actions.move_selection_next,
+        ["<S-Tab>"] = t_actions.move_selection_previous,
+        ["<C-n>"] = t_actions.toggle_selection + t_actions.move_selection_next,
+        ["<C-p>"] = t_actions.toggle_selection + t_actions.move_selection_previous,
+      },
+    }
+  },
+})
+local tb = require("telescope.builtin")
+
+vim.api.nvim_create_user_command(
+  'Filetypes',
+  function() tb.filetypes() end,
+  { nargs = 0 }
+)
+
+vim.api.nvim_create_user_command('Files', function(opts)
+  local path = opts.args
+  if path == '' then
+    tb.find_files()
+  else
+    tb.find_files({ cwd = path })
+  end
+end, { nargs = '?' })
+
+vim.api.nvim_create_user_command('Buffers', function()
+  tb.buffers({ ignore_current_buffer = true, sort_mru = true, })
+end, { nargs = 0 })
+
+vim.api.nvim_create_user_command('Rg', function(opts)
+  local str = opts.args
+  if str == '' then
+    tb.live_grep()
+  else
+    tb.grep_string({ search = str })
+  end
+end, { nargs = '?' })
+
+vim.api.nvim_create_user_command('GFiles', function()
+  tb.git_files()
+end, { nargs = 0 })
 -- }}}
