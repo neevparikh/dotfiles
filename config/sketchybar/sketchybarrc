@@ -118,6 +118,7 @@ sketchybar --add item battery right                                           \
 
 # -- }}}
 # -- {{{ wifi
+<<<<<<< HEAD
 sketchybar --add item wifi_speed_mbps right                                   \
            --set wifi_speed_mbps                                              \
                       icon.drawing=off                                        \
