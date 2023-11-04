@@ -87,6 +87,7 @@ return require("packer").startup(function(use)
     branch = "0.1.x",
     requires = { "nvim-lua/plenary.nvim" },
   })
+  use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
   use("tmhedberg/SimpylFold")
   use("tommcdo/vim-lion")
   use("tpope/vim-repeat")

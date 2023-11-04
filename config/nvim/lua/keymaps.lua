@@ -215,4 +215,5 @@ MapWinCmd("d", "e ~/.todo")
 
 -- {{{ rewrite built in commands
 vim.cmd("cabbrev split lua WindowSizeAwareSplit()")
+vim.cmd("cabbrev h H")
 -- }}}
