@@ -1,9 +1,9 @@
 -- vim:foldmethod=marker:foldlevel=0
-require('helpers')
-require('keymaps')
-local lsp = require('lsp-zero')
-local ls = require('luasnip')
-local lspconfig = require('lspconfig')
+require("helpers")
+require("keymaps")
+local lsp = require("lsp-zero")
+local ls = require("luasnip")
+local lspconfig = require("lspconfig")
 
 -- {{{ mason
 require("mason").setup()
@@ -18,18 +18,18 @@ lsp.set_preferences({
   configure_diagnostics = true,
   cmp_capabilities = true,
   manage_nvim_cmp = true,
-  call_servers = 'local',
+  call_servers = "local",
   sign_icons = {
-    error = '✘',
-    warn = '▲',
-    hint = '⚑',
-    info = ''
-  }
+    error = "✘",
+    warn = "▲",
+    hint = "⚑",
+    info = "",
+  },
 })
 
 lsp.nvim_workspace()
 
-local cmp = require('cmp')
+local cmp = require("cmp")
 local mappings = GetCmpMappings()
 
 local winopts = {
@@ -47,8 +47,8 @@ local cmp_config = {
     { name = "path" },
     { keyword_length = 3, name = "nvim_lsp" },
     { keyword_length = 3, name = "buffer" },
-    { keyword_length = 2, name = "luasnip", option = { show_autosnippets = true } }
-  }
+    { keyword_length = 2, name = "luasnip", option = { show_autosnippets = true } },
+  },
 }
 
 lsp.setup_nvim_cmp(cmp_config)
@@ -56,8 +56,8 @@ lsp.setup()
 
 lspconfig.pyright.setup({
   settings = {
-    pyright = { venvPath = "~/.venvs/", },
-  }
+    pyright = { venvPath = "~/.venvs/" },
+  },
 })
 
 -- }}}
@@ -110,40 +110,40 @@ vim.api.nvim_create_autocmd({ "BufWritePost", "TextChanged", "InsertLeave" }, {
 -- }}}
 
 -- {{{ lualine
-local lualine = require('lualine')
+local lualine = require("lualine")
 local custom_options = {
   theme = vim.g.colors_name,
   sections = {
-    lualine_c = { 'filename', 'g:metals_status' },
+    lualine_c = { "filename", "g:metals_status" },
   },
 }
 local default_options = lualine.get_config()
-local lualine_options = vim.tbl_deep_extend('force', default_options, custom_options)
+local lualine_options = vim.tbl_deep_extend("force", default_options, custom_options)
 lualine.setup(lualine_options)
 -- }}}
 
 -- {{{ startify
 vim.g.startify_bookmarks = {
-  { z = '~/.zshrc' },
-  { l = '~/.config/nvim/init.lua' },
-  { d = '~/.todo' },
-  { c = '~/.config/kitty/kitty.conf' },
-  { y = '~/.config/yabai/yabairc' },
-  { s = '~/.config/skhd/skhdrc' },
-  { p = '~/.config/sketchybar/sketchybarrc' }
+  { z = "~/.zshrc" },
+  { l = "~/.config/nvim/init.lua" },
+  { d = "~/.todo" },
+  { c = "~/.config/kitty/kitty.conf" },
+  { y = "~/.config/yabai/yabairc" },
+  { s = "~/.config/skhd/skhdrc" },
+  { p = "~/.config/sketchybar/sketchybarrc" },
 }
 vim.g.startify_commands = {
-  { w = 'Scratch' },
-  { t = 'terminal' },
-  { b = 'Buffers' },
-  { f = 'Files' }
+  { w = "Scratch" },
+  { t = "terminal" },
+  { b = "Buffers" },
+  { f = "Files" },
 }
 vim.g.startify_custom_header = ""
 vim.g.startify_lists = {
-  { type = 'commands',  header = { '   Commands' } },
-  { type = 'bookmarks', header = { '   Bookmarks' } },
-  { type = 'files',     header = { '   MRU' } },
-  { type = 'sessions',  header = { '   Sessions' } }
+  { type = "commands", header = { "   Commands" } },
+  { type = "bookmarks", header = { "   Bookmarks" } },
+  { type = "files", header = { "   MRU" } },
+  { type = "sessions", header = { "   Sessions" } },
 }
 -- }}}
 
@@ -153,7 +153,7 @@ vim.g.rooter_silent_chdir = 1
 -- }}}
 
 -- {{{ luasnip
-vim.api.nvim_create_user_command('LuaSnipEdit', function()
+vim.api.nvim_create_user_command("LuaSnipEdit", function()
   require("luasnip.loaders").edit_snippet_files()
 end, { nargs = 0 })
 ls.config.setup({ store_selection_keys = "<Tab>", enable_autosnippets = true })
@@ -164,7 +164,7 @@ require("luasnip.loaders.from_vscode").lazy_load({
 -- }}}
 
 -- {{{ treesitter
-require('nvim-treesitter.configs').setup {
+require("nvim-treesitter.configs").setup({
   -- A list of parser names, or "all"
   ensure_installed = { "cpp", "lua", "rust", "java", "python" },
 
@@ -182,7 +182,7 @@ require('nvim-treesitter.configs').setup {
     enable = true,
 
     -- list of language that will be disabled
-    disable = { 'gitcommit' },
+    disable = { "gitcommit" },
 
     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
     -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
@@ -192,8 +192,8 @@ require('nvim-treesitter.configs').setup {
   },
   matchup = {
     enable = true,
-  }
-}
+  },
+})
 -- }}}
 
 -- {{{ telescope
@@ -205,7 +205,7 @@ local utils = require("telescope.utils")
 require("telescope").setup({
   defaults = {
     layout_strategy = "flex",
-    layout_config = { prompt_position = "top", },
+    layout_config = { prompt_position = "top" },
     sorting_strategy = "ascending",
     mappings = {
       i = {
@@ -267,28 +267,26 @@ require("telescope").setup({
 require("telescope").load_extension("fzf")
 local tb = require("telescope.builtin")
 
-vim.api.nvim_create_user_command(
-  'Filetypes',
-  function() tb.filetypes() end,
-  { nargs = 0 }
-)
+vim.api.nvim_create_user_command("Filetypes", function()
+  tb.filetypes()
+end, { nargs = 0 })
 
-vim.api.nvim_create_user_command('Files', function(opts)
+vim.api.nvim_create_user_command("Files", function(opts)
   local path = opts.args
-  if path == '' then
+  if path == "" then
     tb.find_files()
   else
     tb.find_files({ cwd = path })
   end
-end, { nargs = '?' })
+end, { nargs = "?" })
 
-vim.api.nvim_create_user_command('Buffers', function()
-  tb.buffers({ ignore_current_buffer = true, sort_mru = true, })
+vim.api.nvim_create_user_command("Buffers", function()
+  tb.buffers({ ignore_current_buffer = true, sort_mru = true })
 end, { nargs = 0 })
 
-vim.api.nvim_create_user_command('Rg', function(opts)
+vim.api.nvim_create_user_command("Rg", function(opts)
   local str = opts.args
-  if str == '' then
+  if str == "" then
     tb.live_grep()
   else
     tb.grep_string({ search = str })

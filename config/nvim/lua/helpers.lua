@@ -1,6 +1,6 @@
 -- vim:foldmethod=marker:foldlevel=0
-require('io')
-require('os')
+require("io")
+require("os")
 
 -- {{{ macros -- uses vim version bc the lua version doesn't work
 vim.cmd([[
@@ -180,24 +180,25 @@ nmap <expr> q QStart()
 function HasWordsBefore()
   unpack = unpack or table.unpack
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+  return col ~= 0
+    and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
 function ReadFile(path)
-  local f, err = io.open(path, 'r')
+  local f, err = io.open(path, "r")
   if f == nil then
     print("err", err)
     return nil
   else
-    local content = f:read('*all')
+    local content = f:read("*all")
     f:close()
     return content
   end
 end
 
 function CheckBackSpace()
-  local col = vim.fn.col('.') - 1
-  if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+  local col = vim.fn.col(".") - 1
+  if col == 0 or vim.fn.getline("."):sub(col, col):match("%s") then
     return true
   else
     return false
@@ -218,25 +219,25 @@ end
 -- end
 
 function SortAndReset()
-  local curr_pos = vim.fn.getpos('.')
-  vim.fn.setpos('.', vim.fn.getpos('$'))
-  vim.api.nvim_command(vim.fn.search("+--", 'b') + 1 .. ",$ sort")
-  vim.fn.setpos('.', curr_pos)
+  local curr_pos = vim.fn.getpos(".")
+  vim.fn.setpos(".", vim.fn.getpos("$"))
+  vim.api.nvim_command(vim.fn.search("+--", "b") + 1 .. ",$ sort")
+  vim.fn.setpos(".", curr_pos)
 end
 
 function OpenWithName(name)
   vim.fn.termopen(vim.opt.shell)
-  vim.api.nvim_command('keepalt file ' .. vim.fn.expand('%:p') .. '//' .. name)
+  vim.api.nvim_command("keepalt file " .. vim.fn.expand("%:p") .. "//" .. name)
 end
 
-vim.api.nvim_create_user_command('OpenWithName', function(opts)
+vim.api.nvim_create_user_command("OpenWithName", function(opts)
   local name = opts.args
   OpenWithName(name)
 end, { nargs = 1 })
 
 function MapWinCmd(key, command, ...)
   local suffix
-  if select('#', ...) == 1 and select(1, ...) then
+  if select("#", ...) == 1 and select(1, ...) then
     suffix = ""
   else
     suffix = "<cr>"
