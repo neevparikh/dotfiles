@@ -261,4 +261,31 @@ function HasExe(name)
   end
 end
 
+vim.api.nvim_create_user_command("Scratch", function()
+  random_string = ""
+  for i = 1, 5 do
+    random_string = random_string .. string.char(math.random(97, 97 + 25))
+  end
+  vim.cmd(
+    "enew | setlocal bufhidden=hide nobuflisted buftype=nofile noswapfile | file [scratch-"
+      .. random_string
+      .. "]"
+  )
+end, { nargs = 0 })
+
+function ShouldSplitHorizontal()
+  height = vim.api.nvim_win_get_height(0)
+  width = vim.api.nvim_win_get_width(0)
+  vim.print({ h = height, w = width })
+  return height * 2.14 > width
+end
+
+function WindowSizeAwareSplit()
+  if ShouldSplitHorizontal() then
+    vim.cmd("split")
+  else
+    vim.cmd("vsplit")
+  end
+end
+
 -- }}}

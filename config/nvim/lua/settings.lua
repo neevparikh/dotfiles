@@ -197,7 +197,11 @@ require('nvim-treesitter.configs').setup {
 -- }}}
 
 -- {{{ telescope
-local t_actions = require("telescope.actions")
+-- {{{ setup
+local actions = require("telescope.actions")
+local action_state = require("telescope.actions.state")
+local utils = require("telescope.utils")
+
 require("telescope").setup({
   defaults = {
     layout_strategy = "flex",
@@ -211,9 +215,56 @@ require("telescope").setup({
         ["<C-n>"] = t_actions.toggle_selection + t_actions.move_selection_next,
         ["<C-p>"] = t_actions.toggle_selection + t_actions.move_selection_previous,
       },
-    }
+    },
+    vimgrep_arguments = {
+      "rg",
+      "--color=never",
+      "--no-heading",
+      "--with-filename",
+      "--line-number",
+      "--column",
+      "--smart-case",
+    },
+  },
+  extensions = {
+    fzf = {
+      fuzzy = true, -- false will only do exact matching
+      override_generic_sorter = true, -- override the generic sorter
+      override_file_sorter = true, -- override the file sorter
+      case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+    },
+  },
+  pickers = {
+    live_grep = {
+      on_input_filter_cb = function(prompt)
+        -- AND operator for live_grep like how fzf handles spaces with wildcards in rg
+        return { prompt = prompt:gsub("%s", ".*") }
+      end,
+    },
+    help_tags = {
+      mappings = {
+        i = {
+          ["<CR>"] = function(prompt_bufnr)
+            local selection = action_state.get_selected_entry()
+            if selection == nil then
+              utils.__warn_no_selection("builtin.help_tags")
+              return
+            end
+            actions.close(prompt_bufnr)
+            if ShouldSplitHorizontal() then
+              vim.cmd("help " .. selection.value)
+            else
+              vim.cmd("vert help " .. selection.value)
+            end
+          end,
+        },
+      },
+    },
   },
 })
+-- }}}
+-- {{{ commands
+require("telescope").load_extension("fzf")
 local tb = require("telescope.builtin")
 
 vim.api.nvim_create_user_command(
@@ -242,9 +293,16 @@ vim.api.nvim_create_user_command('Rg', function(opts)
   else
     tb.grep_string({ search = str })
   end
-end, { nargs = '?' })
+end, { nargs = "?" })
 
-vim.api.nvim_create_user_command('GFiles', function()
-  tb.git_files()
+vim.api.nvim_create_user_command("GFiles", function()
+  tb.git_files({
+    git_command = { "git", "ls-files", "--exclude-standard", "--cached" },
+  })
 end, { nargs = 0 })
+
+vim.api.nvim_create_user_command("H", function()
+  tb.help_tags()
+end, { nargs = 0 })
+-- }}}
 -- }}}
