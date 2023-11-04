@@ -209,11 +209,11 @@ require("telescope").setup({
     sorting_strategy = "ascending",
     mappings = {
       i = {
-        ["<esc>"] = t_actions.close,
-        ["<Tab>"] = t_actions.move_selection_next,
-        ["<S-Tab>"] = t_actions.move_selection_previous,
-        ["<C-n>"] = t_actions.toggle_selection + t_actions.move_selection_next,
-        ["<C-p>"] = t_actions.toggle_selection + t_actions.move_selection_previous,
+        ["<esc>"] = actions.close,
+        ["<Tab>"] = actions.move_selection_next,
+        ["<S-Tab>"] = actions.move_selection_previous,
+        ["<C-n>"] = actions.toggle_selection + actions.move_selection_next,
+        ["<C-p>"] = actions.toggle_selection + actions.move_selection_previous,
       },
     },
     vimgrep_arguments = {
