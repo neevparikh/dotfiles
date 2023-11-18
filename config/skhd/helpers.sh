@@ -3,7 +3,7 @@
 get_layout_type() {
   out=$(yabai -m query --spaces --window mouse)
   length=$(echo $out | jq length)
-  if [ $length -ne 1 ]; then 
+  if [ -z "$length"] || [$length -ne 1 ]; then 
     return -1
   fi
   echo $(echo $out | jq --raw-output ".[0].type")
