@@ -36,3 +36,7 @@ vim.opt_global.shortmess:remove("F")
 vim.g.lion_squeeze_spaces = true
 vim.g.startify_enable_special = false
 vim.g.startify_update_oldfiles = true
+
+vim.cmd([[
+let g:fzf_colors = {'gutter': ['bg', 'GruvboxBg1']}
+]])

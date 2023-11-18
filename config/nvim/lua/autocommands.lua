@@ -14,7 +14,10 @@ autocmd({ "BufWrite" }, { pattern = "*.todo", callback = SortAndReset })
 autocmd({ "BufEnter", "FocusGained", "InsertLeave" }, {
   pattern = "*",
   callback = function(args)
-    if vim.api.nvim_buf_get_name(args.buf) ~= "" then
+    if
+      vim.api.nvim_buf_get_name(args.buf) ~= ""
+      and vim.api.nvim_buf_get_option(args.buf, "buftype") ~= "terminal"
+    then
       vim.opt_local.relativenumber = true
       vim.opt_local.number = true
     else
@@ -26,7 +29,10 @@ autocmd({ "BufEnter", "FocusGained", "InsertLeave" }, {
 autocmd({ "BufLeave", "FocusLost", "InsertEnter" }, {
   pattern = "*",
   callback = function(args)
-    if vim.api.nvim_buf_get_name(args.buf) ~= "" then
+    if
+      vim.api.nvim_buf_get_name(args.buf) ~= ""
+      and vim.api.nvim_buf_get_option(args.buf, "buftype") ~= "terminal"
+    then
       vim.opt_local.relativenumber = false
       vim.opt_local.number = true
     end
@@ -52,3 +58,4 @@ autocmd(
   { group = cpp, pattern = "cpp", command = "setlocal commentstring=//\\ %s" }
 )
 -- }}}
+-- autocmd TerminalWinOpen * setlocal nonumber norelativenumber

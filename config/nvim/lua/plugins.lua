@@ -77,11 +77,11 @@ return require("packer").startup(function(use)
     },
   })
 
-  use({ "scalameta/nvim-metals", requires = { "nvim-lua/plenary.nvim" } })
+  -- use({ "scalameta/nvim-metals", requires = { "nvim-lua/plenary.nvim" } })
   use("mfussenegger/nvim-dap")
   use("mfussenegger/nvim-jdtls")
   use("romainl/vim-cool")
-  use({ "junegunn/fzf", run = ":call fzf#install()" })
+  use("junegunn/fzf")
   use({
     "nvim-telescope/telescope.nvim",
     branch = "0.1.x",
