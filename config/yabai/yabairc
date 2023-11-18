@@ -58,6 +58,7 @@ apps=(
   "Obsidian"
   "Books"
   "Photos"
+  "Hammerspoon"
 )
 joined_list="$(join_by "${apps[@]}")"
 yabai -m rule --add app!="^${joined_list}$" manage=off
