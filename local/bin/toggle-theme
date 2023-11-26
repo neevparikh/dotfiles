@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+SOCKET="unix:/tmp/"$(lsof -U | grep -Eo "kitty-controller-[\d 0-9]*") 
+DARK_KITTY="~/.config/kitty/themes/gruvbox_dark_hard.conf"
+LIGHT_KITTY="~/.config/kitty/themes/gruvbox_light.conf"
+
+if [[ $@ = "--dark" ]] 
+then
+    kitty @ --to $SOCKET set-colors --all --configured $DARK_KITTY
+    echo 'dark' > $HOME/.config/theme.yml
+elif [[ $@ = "--light" ]] 
+then
+    kitty @ --to $SOCKET set-colors --all --configured $LIGHT_KITTY
+    echo 'light' > $HOME/.config/theme.yml
+fi 

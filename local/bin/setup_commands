@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-setxkbmap -option 'caps:swapescape'
-setxkbmap -option 'altwin:swap_lalt_lwin'
-setxkbmap -option 'altwin:menu_win'
-setxkbmap -option 'lv3:ralt_alt'
-# libinput-gestures-setup desktop restart
-# $HOME/.local/bin/polybar-launch

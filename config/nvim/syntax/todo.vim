@@ -15,7 +15,8 @@ syn keyword title NOTES
 syn match basic "\v^[-]"
 syn match done "\v^[x]"
 syn match imp "\v^[!]"
-syn match markers "\v\s*\*"
+syn match markers "\v^\s*\*"
+syn match period_markers "\v^\s*\."
 syn match notes_markers "\v^\+\s"
 
 syn match seperator "\v----*--"
@@ -33,4 +34,5 @@ hi def link basic Statement
 hi def link done Identifier
 
 hi def link markers Constant
+hi def link period_markers Constant
 hi def link notes_markers Statement

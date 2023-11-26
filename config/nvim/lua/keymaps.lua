@@ -1,5 +1,5 @@
--- vim: set foldmethod=marker:
-require('helpers')
+-- vim:foldmethod=marker:foldlevel=0
+require("helpers")
 local bind = vim.keymap.set
 
 -- {{{
@@ -10,122 +10,124 @@ end
 -- }}}
 
 -- {{{ miniyank
-bind('n', 'p', '<Plug>(miniyank-autoput)')
-bind('n', 'P', '<Plug>(miniyank-autoPut)')
-bind('x', 'p', '<Plug>(miniyank-autoput)')
-bind('x', 'P', '<Plug>(miniyank-autoPut)')
-bind('n', '<C-n>', '<Plug>(miniyank-cycle)')
-bind('n', '<C-N>', '<Plug>(miniyank-cycleback)')
+bind("n", "p", "<Plug>(miniyank-autoput)")
+bind("n", "P", "<Plug>(miniyank-autoPut)")
+bind("x", "p", "<Plug>(miniyank-autoput)")
+bind("x", "P", "<Plug>(miniyank-autoPut)")
+bind("n", "<C-n>", "<Plug>(miniyank-cycle)")
+bind("n", "<C-N>", "<Plug>(miniyank-cycleback)")
 -- }}}
 
 -- {{{ window management
 -- {{{ buffers
-bind('n', '<C-h>', ':bnext<CR>')
-bind('n', '<C-l>', ':bprev<CR>')
+bind("n", "<C-h>", ":bnext<CR>")
+bind("n", "<C-l>", ":bprev<CR>")
 -- }}}
 
 -- {{{ split pane navigation
-bind('n', '<M-l>', '<C-w>l')
-bind('n', '<M-h>', '<C-w>h')
-bind('n', '<M-k>', '<C-w>k')
-bind('n', '<M-j>', '<C-w>j')
+bind("n", "<M-l>", "<C-w>l")
+bind("n", "<M-h>", "<C-w>h")
+bind("n", "<M-k>", "<C-w>k")
+bind("n", "<M-j>", "<C-w>j")
 -- }}}
 
 -- {{{ terminal navigation
-bind('t', '<M-l>', '<C-\\><C-n><C-w>l')
-bind('t', '<M-h>', '<C-\\><C-n><C-w>h')
-bind('t', '<M-k>', '<C-\\><C-n><C-w>k')
-bind('t', '<M-j>', '<C-\\><C-n><C-w>j')
-bind('t', '<M-space>', '<C-\\><C-n>')
+bind("t", "<M-l>", "<C-\\><C-n><C-w>l")
+bind("t", "<M-h>", "<C-\\><C-n><C-w>h")
+bind("t", "<M-k>", "<C-\\><C-n><C-w>k")
+bind("t", "<M-j>", "<C-\\><C-n><C-w>j")
+bind("t", "<M-space>", "<C-\\><C-n>")
 -- }}}
 
 -- {{{ resizing
-bind('', '<up>', '<C-W>+')
-bind('', '<down>', '<C-W>-')
-bind('', '<left>', '3<C-W>>')
-bind('', '<right>', '3<C-W><')
-bind('n', '<M-=>', '<C-w>=')
-bind('n', '<M-->', '<C-w>_')
-bind('n', '<M-\\>', '<C-w><bar>')
-bind('n', '<M-H>', '<C-w>H')
-bind('n', '<M-J>', '<C-w>J')
-bind('n', '<M-K>', '<C-w>K')
-bind('n', '<M-L>', '<C-w>L')
+bind("", "<up>", "<C-W>+")
+bind("", "<down>", "<C-W>-")
+bind("", "<left>", "3<C-W>>")
+bind("", "<right>", "3<C-W><")
+bind("n", "<M-=>", "<C-w>=")
+bind("n", "<M-->", "<C-w>_")
+bind("n", "<M-\\>", "<C-w><bar>")
+bind("n", "<M-H>", "<C-w>H")
+bind("n", "<M-J>", "<C-w>J")
+bind("n", "<M-K>", "<C-w>K")
+bind("n", "<M-L>", "<C-w>L")
 -- }}}
 -- }}}
 
 -- {{{ general
-bind('', 'Y', 'y$', remap(true))
-bind('n', 'U', '<C-r>')
-bind('x', 'p', 'pgvy', remap(true))
-bind('n', 'zJ', 'zczjzo')
-bind('n', 'zK', 'zczkzo')
-bind('n', 'gV', '`[v`]')
-bind('n', '<M-c>', SwitchTheme)
+bind("", "Y", "y$", remap(true))
+bind("n", "U", "<C-r>")
+bind("x", "p", "pgvy", remap(true))
+bind("n", "zJ", "zczjzo")
+bind("n", "zK", "zczkzo")
+bind("n", "gV", "`[v`]")
+bind("n", "<M-c>", SwitchTheme)
 -- }}}
 
 -- {{{ lsp
 local lsp_opts = { noremap = true, silent = true }
-bind('n', '<space>k', vim.lsp.buf.hover, lsp_opts)
-bind('x', '<space>f', vim.lsp.buf.range_formatting, lsp_opts)
-bind('n', '<space>f', function() vim.lsp.buf.format({ async = true }) end, lsp_opts)
-bind('n', '<space>d', vim.lsp.buf.definition, lsp_opts)
-bind('n', '<space>D', vim.lsp.buf.declaration, lsp_opts)
-bind('n', '<space>i', vim.lsp.buf.implementation, lsp_opts)
-bind('n', '<space>t', vim.lsp.buf.type_definition, lsp_opts)
-bind('n', '<space>u', vim.lsp.buf.references, lsp_opts)
-bind('n', '<space>rn', vim.lsp.buf.rename, lsp_opts)
-bind('x', '<space>c', vim.lsp.buf.range_code_action, lsp_opts)
-bind('n', '<space>C', vim.lsp.buf.code_action, lsp_opts)
-bind('n', '<space>K', vim.lsp.buf.signature_help, lsp_opts)
-bind('n', '<space>N', vim.diagnostic.open_float, lsp_opts)
-bind('n', '<space>p', vim.diagnostic.goto_prev, lsp_opts)
-bind('n', '<space>n', vim.diagnostic.goto_next, lsp_opts)
+bind("n", "<space>k", vim.lsp.buf.hover, lsp_opts)
+bind("x", "<space>f", vim.lsp.buf.format, lsp_opts)
+bind("n", "<space>f", function()
+  vim.lsp.buf.format({ async = true })
+end, lsp_opts)
+bind("n", "<space>d", vim.lsp.buf.definition, lsp_opts)
+bind("n", "<space>D", vim.lsp.buf.declaration, lsp_opts)
+bind("n", "<space>i", vim.lsp.buf.implementation, lsp_opts)
+bind("n", "<space>t", vim.lsp.buf.type_definition, lsp_opts)
+bind("n", "<space>u", vim.lsp.buf.references, lsp_opts)
+bind("n", "<space>rn", vim.lsp.buf.rename, lsp_opts)
+bind("x", "<space>c", vim.lsp.buf.code_action, lsp_opts)
+bind("n", "<space>C", vim.lsp.buf.code_action, lsp_opts)
+bind("n", "<space>K", vim.lsp.buf.signature_help, lsp_opts)
+bind("n", "<space>N", vim.diagnostic.open_float, lsp_opts)
+bind("n", "<space>p", vim.diagnostic.goto_prev, lsp_opts)
+bind("n", "<space>n", vim.diagnostic.goto_next, lsp_opts)
 -- }}}
 
 -- {{{ completion
 function GetCmpMappings()
-  local cmp = require('cmp')
+  local cmp = require("cmp")
   local ls = require("luasnip")
   local select_opts = { behavior = cmp.SelectBehavior.Select }
   return {
     -- confirm selection
-    ['<CR>'] = cmp.mapping.confirm({ select = false }),
+    ["<CR>"] = cmp.mapping.confirm({ select = false }),
 
     -- navigate items on the list
-    ['J'] = cmp.mapping(function(fallback)
+    ["J"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item(select_opts)
       else
         fallback()
       end
-    end, { 'i', 's' }),
-    ['K'] = cmp.mapping(function(fallback)
+    end, { "i", "s" }),
+    ["K"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item(select_opts)
       else
         fallback()
       end
-    end, { 'i', 's' }),
+    end, { "i", "s" }),
 
     -- scroll up and down in the completion documentation
-    ['<c-j>'] = cmp.mapping(function(fallback)
+    ["<c-j>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.mapping.scroll_docs(5)
       else
         fallback()
       end
-    end, { 'i', 's' }),
-    ['<c-k>'] = cmp.mapping(function(fallback)
+    end, { "i", "s" }),
+    ["<c-k>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.mapping.scroll_docs(-5)
       else
         fallback()
       end
-    end, { 'i', 's' }),
+    end, { "i", "s" }),
 
     -- toggle completion
-    ['<C-f>'] = cmp.mapping(function(_)
+    ["<C-f>"] = cmp.mapping(function(_)
       if cmp.visible() then
         cmp.close()
       else
@@ -133,46 +135,32 @@ function GetCmpMappings()
       end
     end),
 
-    -- go to next placeholder in the snippet
-    ['<M-Tab>'] = cmp.mapping(function(fallback)
-      if ls.jumpable(1) then
-        ls.jump(1)
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-
-    -- go to previous placeholder in the snippet
-    ['<M-b>'] = cmp.mapping(function(fallback)
-      if ls.jumpable(-1) then
-        ls.jump(-1)
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-
     -- when menu is visible, navigate to next item
     -- when line is empty, insert a tab character
     -- else, activate completion
-    ['<Tab>'] = cmp.mapping(function(fallback)
+    ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item(select_opts)
+      elseif ls.expand_or_jumpable() then
+        ls.expand_or_jump()
       elseif CheckBackSpace() then
         fallback()
       else
         cmp.complete()
       end
-    end, { 'i', 's' }),
+    end, { "i", "s" }),
 
     -- when menu is visible, navigate to previous item on list
     -- else, revert to default behavior
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item(select_opts)
+      elseif ls.jumpable(-1) then
+        ls.jump(-1)
       else
         fallback()
       end
-    end, { 'i', 's' }),
+    end, { "i", "s" }),
   }
 end
 
@@ -190,7 +178,7 @@ end
 
 -- {{{ plugin
 -- {{{ vimdiff
-bind('n', '<space>gd', ':Gvdiffsplit!<CR>')
+bind("n", "<space>gd", ":Gvdiffsplit!<CR>")
 -- }}}
 
 -- {{{ luasnip
@@ -206,22 +194,26 @@ bind('n', '<space>gd', ':Gvdiffsplit!<CR>')
 --   { silent = true, remap = false }
 -- )
 -- }}}
-
 -- }}}
 
 -- {{{ commands
 MapWinCmd("t", "terminal")
 MapWinCmd("T", "OpenWithName ", true)
 MapWinCmd("e", " e ", true)
-MapWinCmd("w", "enew <bar> setlocal bufhidden=hide nobuflisted buftype=nofile")
+MapWinCmd("w", "Scratch")
 MapWinCmd("f", "Files")
-MapWinCmd("F", "Files ", true)
+MapWinCmd("F", "Files", true)
 MapWinCmd("b", "Buffers")
-MapWinCmd("g", "GFiles")
+MapWinCmd("g", "GFiles ")
 MapWinCmd("G", "GFiles ", true)
-MapWinCmd("r", "RgFuzzy")
-MapWinCmd("R", "RgRegex ", true)
+MapWinCmd("r", "Rg ", true)
+MapWinCmd("R", "Rg")
 MapWinCmd("c", "normal! \\<c-o>")
 MapWinCmd("s", "Startify")
 MapWinCmd("d", "e ~/.todo")
+-- }}}
+
+-- {{{ rewrite built in commands
+vim.cmd("cabbrev split lua WindowSizeAwareSplit()")
+vim.cmd("cabbrev h H")
 -- }}}

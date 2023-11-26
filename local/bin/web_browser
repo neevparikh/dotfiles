@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-hires_wrapper firefox &
-disown

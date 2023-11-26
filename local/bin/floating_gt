@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-if !(class=$(xprop -id $(xprop -root 32x '\t$0' _NET_ACTIVE_WINDOW | cut -f 2) WM_CLASS | grep -o "gt_floating" )); then
-    kitty --title "gt_floating" --config $HOME/.config/kitty/kitty.conf --class "gt_floating" --override initial_window_width=130c --override initial_window_height=25c --override remember_window_size=no --override include="~/.config/kitty/themes/gruvbox_dark.conf" "$@" 
-fi

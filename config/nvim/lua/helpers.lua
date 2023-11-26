@@ -1,9 +1,19 @@
--- vim: set foldmethod=marker:
-require('io')
-require('os')
+-- vim:foldmethod=marker:foldlevel=0
+require("io")
+require("os")
 
 -- {{{ macros -- uses vim version bc the lua version doesn't work
 vim.cmd([[
+
+function! CleanNoNameEmptyBuffers()
+  let buffers = filter(range(1, bufnr('$')), 'buflisted(v:val) && '.
+        \ 'empty(bufname(v:val)) && bufwinnr(v:val) < 0 && ' .
+        \ '(getbufline(v:val, 1, "$") == [""])')
+  if !empty(buffers)
+    exe 'bd! '.join(buffers, ' ')
+  endif
+endfunction
+
 let s:atcount = 10
 function! AtRepeat(_)
     " If no count is supplied use the one saved in s:atcount.
@@ -167,60 +177,67 @@ nmap <expr> q QStart()
 
 -- {{{ other
 
+function HasWordsBefore()
+  unpack = unpack or table.unpack
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0
+    and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
 function ReadFile(path)
-  local f, err = io.open(path, 'r')
+  local f, err = io.open(path, "r")
   if f == nil then
     print("err", err)
     return nil
   else
-    local content = f:read('*all')
+    local content = f:read("*all")
     f:close()
     return content
   end
 end
 
 function CheckBackSpace()
-  local col = vim.fn.col('.') - 1
-  if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+  local col = vim.fn.col(".") - 1
+  if col == 0 or vim.fn.getline("."):sub(col, col):match("%s") then
     return true
   else
     return false
   end
 end
 
-function CleanNoNameEmptyBuffers()
-  local buffers = vim.fn.filter(
-    vim.fn.range(1, vim.fn.bufnr('$')),
-    'buflisted(v:val) && '
-    .. 'empty(bufname(v:val)) && bufwinnr(v:val) < 0 && '
-    .. '(getbufline(v:val, 1, "$") == [""])'
-  )
+-- function CleanNoNameEmptyBuffers()
+--   local buffers = vim.fn.filter(
+--     vim.fn.range(1, vim.fn.bufnr('$')),
+--     'buflisted(v:val) && '
+--     .. 'empty(bufname(v:val)) && bufwinnr(v:val) < 0 && '
+--     .. '(getbufline(v:val, 1, "$") == [""])'
+--   )
 
-  if not vim.fn.empty(buffers) then
-    vim.fn.exe('bd ' .. vim.fn.join(buffers, ' '))
-  end
-end
+--   if not vim.fn.empty(buffers) then
+--     vim.fn.exe('bd ' .. vim.fn.join(buffers, ' '))
+--   end
+-- end
 
 function SortAndReset()
-  local curr_pos = vim.fn.getpos('.')
-  vim.fn.setpos('.', vim.fn.getpos('$'))
-  vim.api.nvim_command(vim.fn.search("+--", 'b') + 1 .. ",$ sort")
-  vim.fn.setpos('.', curr_pos)
+  local curr_pos = vim.fn.getpos(".")
+  vim.fn.setpos(".", vim.fn.getpos("$"))
+  vim.api.nvim_command(vim.fn.search("+--", "b") + 1 .. ",$ sort")
+  vim.fn.setpos(".", curr_pos)
 end
 
 function OpenWithName(name)
   vim.fn.termopen(vim.opt.shell)
-  vim.api.nvim_command('keepalt file ' .. vim.fn.expand('%:p') .. '//' .. name)
+  vim.api.nvim_command("keepalt file " .. vim.fn.expand("%:p") .. "//" .. name)
 end
 
-vim.api.nvim_create_user_command('OpenWithName', function(opts)
+vim.api.nvim_create_user_command("OpenWithName", function(opts)
   local name = opts.args
   OpenWithName(name)
 end, { nargs = 1 })
 
 function MapWinCmd(key, command, ...)
   local suffix
-  if select('#', ...) == 1 and select(1, ...) then
+  if select("#", ...) == 1 and select(1, ...) then
     suffix = ""
   else
     suffix = "<cr>"
@@ -237,6 +254,39 @@ function MapWinCmd(key, command, ...)
   bind("n", "<space>J" .. key, ":<c-u>botright new <bar>" .. command .. suffix)
   bind("n", "<space>K" .. key, ":<c-u>topleft new <bar>" .. command .. suffix)
   bind("n", "<space>L" .. key, ":<c-u>botright vnew <bar>" .. command .. suffix)
+end
+
+function HasExe(name)
+  return function()
+    return vim.fn.executable(name) == 1
+  end
+end
+
+vim.api.nvim_create_user_command("Scratch", function()
+  random_string = ""
+  for i = 1, 5 do
+    random_string = random_string .. string.char(math.random(97, 97 + 25))
+  end
+  vim.cmd(
+    "enew | setlocal bufhidden=hide nobuflisted buftype=nofile noswapfile | file [scratch-"
+      .. random_string
+      .. "]"
+  )
+end, { nargs = 0 })
+
+function ShouldSplitHorizontal()
+  height = vim.api.nvim_win_get_height(0)
+  width = vim.api.nvim_win_get_width(0)
+  vim.print({ h = height, w = width })
+  return height * 2.14 > width
+end
+
+function WindowSizeAwareSplit()
+  if ShouldSplitHorizontal() then
+    vim.cmd("split")
+  else
+    vim.cmd("vsplit")
+  end
 end
 
 -- }}}

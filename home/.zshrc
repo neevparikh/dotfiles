@@ -318,6 +318,7 @@ alias -g dt="toggle_theme --dark"
 alias o='xdg-open'
 alias e='nvr -cc split --remote -c "set bufhidden=delete"'
 alias lsl='ls'
+alias sl='ls'
 alias cna="source $HOME/.miniconda/bin/activate && conda activate"
 alias cnd="conda deactivate && conda deactivate"
 alias kssh='kitty +kitten ssh'
