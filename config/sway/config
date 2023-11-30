@@ -13,7 +13,7 @@ focus_follows_mouse yes
 # }}}
 
 # {{{ wallpaper
-# output * bg $HOME/Pictures/wallpaper/gruv1.png fill
+# output * bg $HOME/pictures/wallpaper/gruv1.png fill
 output * bg '#000000' solid_color
 # }}}
 
