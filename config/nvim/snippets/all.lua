@@ -15,23 +15,29 @@ local function makeAsComment(_, _, str)
 end
 
 return {}, {
-  s({ trig = '--{', dscr = 'Fold Marker', snippetType = 'autosnippet' }, {
+  s({ trig = "--{", dscr = "Fold Marker", snippetType = "autosnippet" }, {
     f(makeAsComment, {}, { user_args = { "{{{ " } }),
     d(1, function(_, parent, _, _)
       if next(parent.env.TM_SELECTED_TEXT) == nil then
-        return sn(nil, fmt("{}\n{}", {
-          i(1, 'label'),
-          i(2, '')
-        }))
+        return sn(
+          nil,
+          fmt("{}\n{}", {
+            i(1, "label"),
+            i(2, ""),
+          })
+        )
       else
-        return sn(nil, fmt("{}\n{selected}", {
-          i(1, 'label'),
-          selected = t(parent.env.TM_SELECTED_TEXT)
-        }))
+        return sn(
+          nil,
+          fmt("{}\n{selected}", {
+            i(1, "label"),
+            selected = t(parent.env.TM_SELECTED_TEXT),
+          })
+        )
       end
     end),
-    t({"", ""}),
+    t({ "", "" }),
     f(makeAsComment, {}, { user_args = { "}}}" } }),
-    i(0)
-  })
+    i(0),
+  }),
 }
