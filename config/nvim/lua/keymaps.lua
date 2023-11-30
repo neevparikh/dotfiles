@@ -4,7 +4,7 @@ local bind = vim.keymap.set
 
 -- {{{
 local function remap(to_remap)
-  return { remap = to_remap }
+	return { remap = to_remap }
 end
 
 -- }}}
@@ -69,7 +69,7 @@ local lsp_opts = { noremap = true, silent = true }
 bind("n", "<space>k", vim.lsp.buf.hover, lsp_opts)
 bind("x", "<space>f", vim.lsp.buf.format, lsp_opts)
 bind("n", "<space>f", function()
-  vim.lsp.buf.format({ async = true })
+	vim.lsp.buf.format({ async = true })
 end, lsp_opts)
 bind("n", "<space>d", vim.lsp.buf.definition, lsp_opts)
 bind("n", "<space>D", vim.lsp.buf.declaration, lsp_opts)
@@ -87,81 +87,81 @@ bind("n", "<space>n", vim.diagnostic.goto_next, lsp_opts)
 
 -- {{{ completion
 function GetCmpMappings()
-  local cmp = require("cmp")
-  local ls = require("luasnip")
-  local select_opts = { behavior = cmp.SelectBehavior.Select }
-  return {
-    -- confirm selection
-    ["<CR>"] = cmp.mapping.confirm({ select = false }),
+	local cmp = require("cmp")
+	local ls = require("luasnip")
+	local select_opts = { behavior = cmp.SelectBehavior.Select }
+	return {
+		-- confirm selection
+		["<CR>"] = cmp.mapping.confirm({ select = false }),
 
-    -- navigate items on the list
-    ["J"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item(select_opts)
-      else
-        fallback()
-      end
-    end, { "i", "s" }),
-    ["K"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item(select_opts)
-      else
-        fallback()
-      end
-    end, { "i", "s" }),
+		-- navigate items on the list
+		["J"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.select_next_item(select_opts)
+			else
+				fallback()
+			end
+		end, { "i", "s" }),
+		["K"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.select_prev_item(select_opts)
+			else
+				fallback()
+			end
+		end, { "i", "s" }),
 
-    -- scroll up and down in the completion documentation
-    ["<c-j>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.mapping.scroll_docs(5)
-      else
-        fallback()
-      end
-    end, { "i", "s" }),
-    ["<c-k>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.mapping.scroll_docs(-5)
-      else
-        fallback()
-      end
-    end, { "i", "s" }),
+		-- scroll up and down in the completion documentation
+		["<c-j>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.mapping.scroll_docs(5)
+			else
+				fallback()
+			end
+		end, { "i", "s" }),
+		["<c-k>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.mapping.scroll_docs(-5)
+			else
+				fallback()
+			end
+		end, { "i", "s" }),
 
-    -- toggle completion
-    ["<C-f>"] = cmp.mapping(function(_)
-      if cmp.visible() then
-        cmp.close()
-      else
-        cmp.complete()
-      end
-    end),
+		-- toggle completion
+		["<C-f>"] = cmp.mapping(function(_)
+			if cmp.visible() then
+				cmp.close()
+			else
+				cmp.complete()
+			end
+		end),
 
-    -- when menu is visible, navigate to next item
-    -- when line is empty, insert a tab character
-    -- else, activate completion
-    ["<Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item(select_opts)
-      elseif ls.expand_or_jumpable() then
-        ls.expand_or_jump()
-      elseif CheckBackSpace() then
-        fallback()
-      else
-        cmp.complete()
-      end
-    end, { "i", "s" }),
+		-- when menu is visible, navigate to next item
+		-- when line is empty, insert a tab character
+		-- else, activate completion
+		["<Tab>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.select_next_item(select_opts)
+			elseif ls.expand_or_jumpable() then
+				ls.expand_or_jump()
+			elseif CheckBackSpace() then
+				fallback()
+			else
+				cmp.complete()
+			end
+		end, { "i", "s" }),
 
-    -- when menu is visible, navigate to previous item on list
-    -- else, revert to default behavior
-    ["<S-Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item(select_opts)
-      elseif ls.jumpable(-1) then
-        ls.jump(-1)
-      else
-        fallback()
-      end
-    end, { "i", "s" }),
-  }
+		-- when menu is visible, navigate to previous item on list
+		-- else, revert to default behavior
+		["<S-Tab>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.select_prev_item(select_opts)
+			elseif ls.jumpable(-1) then
+				ls.jump(-1)
+			else
+				fallback()
+			end
+		end, { "i", "s" }),
+	}
 end
 
 -- }}}
