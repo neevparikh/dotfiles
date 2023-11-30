@@ -8,8 +8,13 @@ set $output_left DP-2
 set $output_right DP-1
 # }}}
 
+# {{{ settings
+focus_follows_mouse yes
+# }}}
+
 # {{{ wallpaper
-output * bg $HOME/Pictures/wallpaper/gruv1.png fill
+# output * bg $HOME/Pictures/wallpaper/gruv1.png fill
+output * bg '#000000' solid_color
 # }}}
 
 # {{{ displays
@@ -39,26 +44,34 @@ input "type:keyboard" {
 }
 
 input "1133:16478:Logitech_M720_Triathlon" {
-  accel_profile "flat"
-  pointer_accel 0.02
-  scroll_factor 0.8
+  accel_profile "adaptive"
+  pointer_accel -0.85
+  scroll_factor 0.6
 }
 # }}}
 
-# {{{ launch commands
+# {{{ commands
+# launch
 bindsym $mod+Shift+Return exec terminal
 bindsym $mod+Shift+w exec browser
+bindsym $mod+p exec pavucontrol
+bindsym $mod+n exec GTK_THEME=$GTK_THEME /usr/bin/nautilus --new-window
 # bindsym $mod+d exec $menu
-# }}}
 
-# {{{ commands
+# regular commands
 bindsym $mod+Shift+q kill
 bindsym $mod+Shift+r reload
-# Exit sway (logs you out of your Wayland session)
 bindsym $mod+Control+q exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
-# }}}
 
-# {{{ movement
+bindsym XF86AudioMute exec_always pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioRaiseVolume exec_always pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec_always pactl set-sink-volume @DEFAULT_SINK@ -5%
+
+# simulate macos
+# bindsym $mod+c exec wtype -m 'ctrl' -k 'c'
+# bindsym $mod+Shift+c exec wtype -m 'ctrl' -m 'shift' -k 'c'
+
+# movement
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
@@ -71,6 +84,8 @@ bindsym $mod+Shift+l move right
 
 bindsym $mod+a focus parent
 bindsym $mod+d focus child
+
+bindsym $mod+Tab workspace back_and_forth
 # }}}
 
 # {{{ workspaces
@@ -189,6 +204,29 @@ bar {
 default_border none
 default_floating_border none
 font pango:FiraCode Nerd Font Mono 9px
+# }}}
+
+# {{{ extra execs
+exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec dim-inactive -o 0.9
+# }}}
+
+# {{{ per window
+for_window [class="^.*"] border pixel 0
+for_window [class="^.*"] title_format ""
+
+floating_maximum_size -1 x -1
+for_window [app_id="pavucontrol"] floating enable
+for_window [app_id="nwg-look"] floating enable
+for_window [class="1Password"] floating enable
+for_window [title="zoom" class="zoom"] floating enable
+for_window [class="Zoom"] floating enable
+
+assign [class="Slack"] 10
+assign [class="Spotify"] 20
+assign [class="discord"] 10
+
+for_window [class="Spotify"] move to workspace 20
 # }}}
 
 include /etc/sway/config.d/*
