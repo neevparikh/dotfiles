@@ -3,31 +3,9 @@ require("helpers")
 require("keymaps")
 local lsp = require("lsp-zero")
 local ls = require("luasnip")
-local lspconfig = require("lspconfig")
-
--- {{{ mason
-require("mason").setup()
-require("mason-lspconfig").setup()
--- }}}
 
 -- {{{ lsp
-lsp.set_preferences({
-  suggest_lsp_servers = true,
-  setup_servers_on_start = true,
-  set_lsp_keymaps = false,
-  configure_diagnostics = true,
-  cmp_capabilities = true,
-  manage_nvim_cmp = true,
-  call_servers = "local",
-  sign_icons = {
-    error = "✘",
-    warn = "▲",
-    hint = "⚑",
-    info = "",
-  },
-})
-
--- lsp.nvim_workspace()
+lsp.extend_lspconfig()
 
 local cmp = require("cmp")
 local mappings = GetCmpMappings()
@@ -37,22 +15,34 @@ local winopts = {
   winhighlight = "FloatBorder:Normal,CursorLine:Visual,Search:None",
 }
 
-local cmp_config = {
-  window = {
-    completion = cmp.config.window.bordered(winopts),
-    documentation = cmp.config.window.bordered(winopts),
-  },
-  mapping = mappings,
-  sources = {
-    { name = "path" },
-    { keyword_length = 3, name = "nvim_lsp" },
-    { keyword_length = 3, name = "buffer" },
-    { keyword_length = 2, name = "luasnip", option = { show_autosnippets = true } },
-  },
-}
+cmp.setup({
+	window = {
+		completion = cmp.config.window.bordered(winopts),
+		documentation = cmp.config.window.bordered(winopts),
+	},
+	mapping = mappings,
+	formatting = lsp.cmp_format(),
+	sources = {
+		{ name = "path" },
+		{ keyword_length = 3, name = "nvim_lsp" },
+		{ keyword_length = 3, name = "buffer" },
+		{ keyword_length = 2, name = "luasnip", option = { show_autosnippets = true } },
+	},
+})
+-- }}}
 
--- lsp.setup_nvim_cmp(cmp_config)
-lsp.setup()
+-- {{{ mason
+require("mason").setup()
+require("mason-lspconfig").setup({
+	ensure_installed = {},
+	handlers = {
+		lsp.default_setup(),
+		lua_ls = function()
+			local lua_opts = lsp.nvim_lua_ls()
+			require("lspconfig").lua_ls.setup(lua_opts)
+		end,
+	},
+})
 -- }}}
 
 -- {{{ conform
