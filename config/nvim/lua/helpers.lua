@@ -263,8 +263,8 @@ function HasExe(name)
 end
 
 vim.api.nvim_create_user_command("Scratch", function()
-  random_string = ""
-  for i = 1, 5 do
+  local random_string = ""
+  for _ = 1, 5 do
     random_string = random_string .. string.char(math.random(97, 97 + 25))
   end
   vim.cmd(
@@ -275,9 +275,8 @@ vim.api.nvim_create_user_command("Scratch", function()
 end, { nargs = 0 })
 
 function ShouldSplitHorizontal()
-  height = vim.api.nvim_win_get_height(0)
-  width = vim.api.nvim_win_get_width(0)
-  vim.print({ h = height, w = width })
+  local height = vim.api.nvim_win_get_height(0)
+  local width = vim.api.nvim_win_get_width(0)
   return height * 2.14 > width
 end
 
