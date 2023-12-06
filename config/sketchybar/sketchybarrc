@@ -114,7 +114,7 @@ sketchybar --add item battery right                                           \
                        script="$PLUGIN_DIR/battery.sh"                        \
                        icon.padding_left=0                                    \
                        label.padding_right=1                                  \
-            --subscribe battery system_woke screen_unlock
+            --subscribe battery system_woke screen_unlock mouse.entered
 
 # -- }}}
 # -- {{{ wifi
