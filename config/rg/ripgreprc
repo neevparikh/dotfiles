@@ -1,0 +1,6 @@
+--color=auto
+--no-heading
+--with-filename
+--line-number
+--column
+--smart-case 
