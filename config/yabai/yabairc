@@ -19,7 +19,6 @@ yabai -m config layout bsp
 yabai -m config auto_balance off
 yabai -m config focus_follows_mouse autofocus
 yabai -m config mouse_follows_focus on
-yabai -m config window_topmost off
 yabai -m config external_bar all:38:00
 yabai -m config window_shadow float
 # -- }}}
@@ -58,6 +57,7 @@ apps=(
   "Zoom"
   "Obsidian"
   "Books"
+  "Photos"
 )
 joined_list="$(join_by "${apps[@]}")"
 yabai -m rule --add app!="^${joined_list}$" manage=off
