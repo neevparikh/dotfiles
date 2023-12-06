@@ -67,8 +67,8 @@ if [ -x "$(command -v nvr)" ]; then
   alias h='nvr -o'
   alias v='nvr -O'
   alias t='nvr --remote-tab'
-  alias e='nvr'
-  export VISUAL='nvr -s --remote-wait -c "set bufhidden=delete"'
+  alias e='nvr -s -c "lua WindowSizeAwareSplit()"'
+  export VISUAL='git-editor'
   export GIT_EDITOR='git-editor'
   export EDITOR="$VISUAL"
 fi
@@ -333,7 +333,7 @@ alias make="make --no-print-directory"
 alias feh="feh --force-aliasing"
 alias td="todui"
 
-if [ -d "$HOME/.fzf" ]; then #{{{1
+if [ -f "$HOME/.fzf.zsh" ]; then
   gruvbox_fg_1='#ebdbb2'
   gruvbox_yellow='#fabd2f'
   gruvbox_bg_1='#3c3836'
@@ -348,11 +348,10 @@ if [ -d "$HOME/.fzf" ]; then #{{{1
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
   export FZF_ALT_C_COMMAND="$FZF_DIR_COMMAND"
 
-  # export FZF_COMPLETION_OPTS="--preview 'preview {}' --preview-window=wrap"
-  # export FZF_ALT_C_OPTS="$FZF_COMPLETION_OPTS"
-  # a='--preview "echo {}" --preview-window down:3:hidden:wrap'
-  # export FZF_CTRL_R_OPTS="$a"
-  # export FZF_CTRL_T_OPTS="$FZF_COMPLETION_OPTS"
+  export FZF_COMPLETION_OPTS="--preview 'bat {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
+  export FZF_ALT_C_OPTS="$FZF_COMPLETION_OPTS"
+  export FZF_CTRL_R_OPTS="$FZF_COMPLETION_OPTS"
+  export FZF_CTRL_T_OPTS="$FZF_COMPLETION_OPTS"
 
   FZF_DEFAULT_OPTS=''
   export FZF_DEFAULT_OPTS
@@ -369,12 +368,10 @@ if [ -d "$HOME/.fzf" ]; then #{{{1
   FZF_DEFAULT_OPTS+="--color=header:$gruvbox_bg_3 "
 
   PATH="$HOME/.fzf/bin/:$PATH"
+    
+  source ~/.fzf.zsh
 fi
 
 if [ -f "$HOME/.bash_profile" ]; then 
   source ~/.bash_profile
 fi
-
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
