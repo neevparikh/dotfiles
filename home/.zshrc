@@ -327,4 +327,41 @@ alias cnvim="rm $HOME/.local/share/nvim/swap/%home%neev%*.swp $HOME/.local/share
 alias make="make --no-print-directory"
 alias feh="feh --force-aliasing"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+if [ -f "/usr/share/fzf/fzf-extras.zsh" ]; then
+  gruvbox_fg_1='#ebdbb2'
+  gruvbox_yellow='#fabd2f'
+  gruvbox_bg_1='#3c3836'
+  gruvbox_blue='#83a598'
+  gruvbox_fg_4='#a89984'
+  gruvbox_orange='#fe8019'
+  gruvbox_bg_3='#665c54'
+
+  fd_base_args='--follow --hidden --exclude .git --color=always'
+  export FZF_DEFAULT_COMMAND="fd $fd_base_args"
+  export FZF_DIR_COMMAND="fd --type directory $fd_base_args"
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  export FZF_ALT_C_COMMAND="$FZF_DIR_COMMAND"
+
+  export FZF_COMPLETION_OPTS="--preview 'bat {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
+  export FZF_ALT_C_OPTS="$FZF_COMPLETION_OPTS"
+  export FZF_CTRL_R_OPTS="$FZF_COMPLETION_OPTS"
+  export FZF_CTRL_T_OPTS="$FZF_COMPLETION_OPTS"
+
+  FZF_DEFAULT_OPTS=''
+  export FZF_DEFAULT_OPTS
+  # FZF_DEFAULT_OPTS+="--layout=reverse --bind 'ctrl-s:select-all+accept,"
+  # FZF_DEFAULT_OPTS+="ctrl-j:jump-accept,ctrl-k:jump,ctrl-p:toggle-preview,"
+  # FZF_DEFAULT_OPTS+="ctrl-w:toggle-preview-wrap,ctrl-g:top,"
+  # FZF_DEFAULT_OPTS+="alt-e:execute-silent[(nvr --remote-tab {} &)]' --ansi "
+  FZF_DEFAULT_OPTS+="--layout=reverse --ansi "
+  FZF_DEFAULT_OPTS+="--color=fg:$gruvbox_fg_1,hl:$gruvbox_yellow,"
+  FZF_DEFAULT_OPTS+="fg+:$gruvbox_fg_1 --color=bg+:$gruvbox_bg_1,"
+  FZF_DEFAULT_OPTS+="hl+:$gruvbox_yellow,info:$gruvbox_blue "
+  FZF_DEFAULT_OPTS+="--color=prompt:$gruvbox_fg_4,pointer:$gruvbox_blue "
+  FZF_DEFAULT_OPTS+="--color=marker:$gruvbox_orange,spinner:$gruvbox_yellow "
+  FZF_DEFAULT_OPTS+="--color=header:$gruvbox_bg_3 "
+
+  source /usr/share/fzf/completion.zsh
+  source /usr/share/fzf/key-bindings.zsh
+  source /usr/share/fzf/fzf-extras.zsh
+fi
