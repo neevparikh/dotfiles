@@ -67,7 +67,7 @@ if [ -x "$(command -v nvr)" ]; then
   alias h='nvr -o'
   alias v='nvr -O'
   alias t='nvr --remote-tab'
-  alias e='nvr -s -c "lua WindowSizeAwareSplit()"'
+  alias e='nvr -s -cc "lua WindowSizeAwareSplit()"'
   export VISUAL='git-editor'
   export GIT_EDITOR='git-editor'
   export EDITOR="$VISUAL"
@@ -320,8 +320,6 @@ alias -g dsc='Discord &!; exit'
 alias -g lt="toggle_theme --light"
 alias -g dt="toggle_theme --dark"
 
-alias o='xdg-open'
-alias e='nvr -cc split --remote -c "set bufhidden=delete"'
 alias lsl='ls'
 alias cna="source $HOME/.miniconda/bin/activate && conda activate"
 alias cnd="conda deactivate && conda deactivate"

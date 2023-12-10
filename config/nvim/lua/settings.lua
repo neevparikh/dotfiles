@@ -60,6 +60,17 @@ lspconfig.pyright.setup({
   },
 })
 
+lspconfig.clangd.setup({
+  settings = {
+    clangd = {
+      arguments = {
+        "--header-insertion=never",
+        "--query-driver=**",
+      },
+    },
+  },
+})
+
 -- }}}
 
 -- {{{ conform
