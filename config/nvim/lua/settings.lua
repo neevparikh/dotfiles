@@ -1,8 +1,9 @@
 -- vim:foldmethod=marker:foldlevel=0
-equire("helpers")
+require("helpers")
 require("keymaps")
 local lsp = require("lsp-zero")
 local ls = require("luasnip")
+local lspconfig = require("lspconfig")
 
 -- {{{ lsp
 lsp.extend_lspconfig()
