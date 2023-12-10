@@ -1,5 +1,5 @@
 -- vim:foldmethod=marker:foldlevel=0
-require("helpers")
+equire("helpers")
 require("keymaps")
 local lsp = require("lsp-zero")
 local ls = require("luasnip")
@@ -43,6 +43,18 @@ require("mason-lspconfig").setup({
     end,
   },
 })
+
+lspconfig.clangd.setup({
+  settings = {
+    clangd = {
+      arguments = {
+        "--header-insertion=never",
+        "--query-driver=**",
+      },
+    },
+  },
+})
+
 -- }}}
 
 -- {{{ conform
