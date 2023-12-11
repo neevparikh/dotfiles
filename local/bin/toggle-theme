@@ -6,10 +6,24 @@ LIGHT_KITTY="~/.config/kitty/themes/gruvbox_light.conf"
 
 if [[ $@ = "--dark" ]] 
 then
+    export GRUVBOX_BG_1='#3c3836'
+    export GRUVBOX_BG_3='#665c54'
+    export GRUVBOX_BLUE='#83a598'
+    export GRUVBOX_FG_1='#ebdbb2'
+    export GRUVBOX_FG_4='#a89984'
+    export GRUVBOX_ORANGE='#fe8019'
+    export GRUVBOX_YELLOW='#fabd2f'
     kitty @ --to $SOCKET set-colors --all --configured $DARK_KITTY
     echo 'dark' > $HOME/.config/theme.yml
 elif [[ $@ = "--light" ]] 
 then
+    export GRUVBOX_BG_1='#ebdbb2'
+    export GRUVBOX_BG_3='#bdae93'
+    export GRUVBOX_BLUE='#076678'
+    export GRUVBOX_FG_1='#3c3836'
+    export GRUVBOX_FG_4='#7c6f64'
+    export GRUVBOX_ORANGE='#af3a03'
+    export GRUVBOX_YELLOW='#b57614'
     kitty @ --to $SOCKET set-colors --all --configured $LIGHT_KITTY
     echo 'light' > $HOME/.config/theme.yml
 fi 
