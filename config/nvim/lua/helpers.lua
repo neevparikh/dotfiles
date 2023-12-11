@@ -226,7 +226,7 @@ function SortAndReset()
 end
 
 function OpenWithName(name)
-  vim.fn.termopen(vim.opt.shell)
+  vim.fn.termopen(vim.opt.shell:get())
   vim.api.nvim_command("keepalt file " .. vim.fn.expand("%:p") .. "//" .. name)
 end
 
@@ -268,7 +268,7 @@ vim.api.nvim_create_user_command("Scratch", function()
     random_string = random_string .. string.char(math.random(97, 97 + 25))
   end
   vim.cmd(
-    "enew | setlocal bufhidden=hide nobuflisted buftype=nofile noswapfile | file [scratch-"
+    "enew | setlocal bufhidden=hide nobuflisted buftype=nowrite noswapfile | file [scratch-"
       .. random_string
       .. "]"
   )

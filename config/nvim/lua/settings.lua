@@ -288,7 +288,7 @@ end, { nargs = 0 })
 vim.api.nvim_create_user_command("Files", function(opts)
   local path = opts.args
   if path == "" then
-    tb.find_files()
+    tb.find_files({ cwd = vim.fn.getcwd() })
   else
     tb.find_files({ cwd = path })
   end

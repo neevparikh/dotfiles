@@ -216,4 +216,17 @@ MapWinCmd("R", "FzfRG")
 MapWinCmd("c", "normal! \\<c-o>")
 MapWinCmd("s", "Startify")
 MapWinCmd("d", "e ~/.todo")
+
+vim.api.nvim_create_user_command("FilesFZF", function(opts)
+  local path = opts.args
+  if path == "" then
+    vim.cmd([[
+    call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+    ]])
+  else
+    vim.cmd([[
+    call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+    ]])
+  end
+end, { nargs = "?" })
 -- }}}
