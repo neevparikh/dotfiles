@@ -178,14 +178,10 @@ bindsym $mod+Shift+Control+f focus mode_toggle
 
 # {{{ modes
 mode "resize" {
-    # left will shrink the containers width
-    # right will grow the containers width
-    # up will shrink the containers height
-    # down will grow the containers height
-    bindsym h resize shrink width 10px
-    bindsym j resize grow height 10px
-    bindsym k resize shrink height 10px
-    bindsym l resize grow width 10px
+    bindsym h resize shrink width 2ppt
+    bindsym j resize grow height 2ppt
+    bindsym k resize shrink height 2ppt
+    bindsym l resize grow width 2ppt
 
     # Return to default mode
     bindsym Return mode "default"
