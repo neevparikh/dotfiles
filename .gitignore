@@ -64,3 +64,9 @@ local/share/nvim
 
 config/github-copilot/
 config/neofetch/
+config/todui/tasks.json
+config/nvim/plugin/
+config/karabiner/automatic_backups
+asus-wayland
+macos-personal
+config/theme.yml
