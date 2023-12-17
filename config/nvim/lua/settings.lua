@@ -147,7 +147,7 @@ vim.g.startify_commands = {
   { w = "Scratch" },
   { t = "terminal" },
   { b = "Buffers" },
-  { f = "FZF" },
+  { f = "FzfFiles" },
 }
 vim.g.startify_custom_header = ""
 vim.g.startify_lists = {

@@ -287,5 +287,4 @@ function WindowSizeAwareSplit()
     vim.cmd("vsplit")
   end
 end
-
 -- }}}

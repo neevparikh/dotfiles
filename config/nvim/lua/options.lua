@@ -39,4 +39,7 @@ vim.g.startify_update_oldfiles = true
 
 vim.cmd([[
 let g:fzf_colors = {'gutter': ['bg', 'GruvboxBg1']}
+let g:fzf_vim = {}
+let g:fzf_vim.preview_window = ['right,50%,<70(down,40%)', '?']
+let g:fzf_vim.command_prefix = 'Fzf'
 ]])

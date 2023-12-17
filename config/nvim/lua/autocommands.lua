@@ -1,5 +1,6 @@
 -- vim: set foldmethod=marker:foldlevel=0
 require("helpers")
+require("themes")
 
 local autocmd = vim.api.nvim_create_autocmd
 local function create_augroup(name)
@@ -7,6 +8,10 @@ local function create_augroup(name)
 end
 
 local cpp = create_augroup("cpp")
+
+-- {{{ theme
+autocmd({ "User" }, { pattern = "SwitchedTheme", callback = SwitchTheme })
+-- }}}
 
 -- {{{ general
 autocmd({ "BufLeave" }, { pattern = "*", command = "call CleanNoNameEmptyBuffers()" })
