@@ -66,7 +66,7 @@ unsetopt AUTO_CD
 export EDITOR='nvim'
 export VISUAL='nvim'
 #nvim terminal specific settings
-if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
+if [ -f "$HOME/.local/bin/nvr" ]; then
   alias h='nvr -o'
   alias v='nvr -O'
   alias t='nvr --remote-tab'
@@ -335,20 +335,20 @@ alias make="make --no-print-directory"
 alias feh="feh --force-aliasing"
 
 if [ -f "/usr/share/fzf/fzf-extras.zsh" ]; then
-  FD_BASE_ARGS='--follow --hidden --exclude .git --color=always'
+  FD_BASE_ARGS='--follow --hidden --exclude .git --no-ignore-vcs --color=always'
 
-  FZF_PREVIEW_OPTS="--preview 'bat {}' --preview-window 'right:50%:hidden:wrap:<100(down:30%)' --bind '?:toggle-preview'"
-
+  export FZF_PREVIEW_COMMAND="rsp {}"
   export FZF_DEFAULT_COMMAND="fd $FD_BASE_ARGS"
   export FZF_DIR_COMMAND="fd --type directory $FD_BASE_ARGS"
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
   export FZF_ALT_C_COMMAND="$FZF_DIR_COMMAND"
 
+  export FZF_PREVIEW_OPTS="--preview '$FZF_PREVIEW_COMMAND' --preview-window 'right:50%:hidden:wrap:<100(down:30%)' --bind '?:toggle-preview'"
   export FZF_ALT_C_OPTS="$FZF_PREVIEW_OPTS"
   export FZF_CTRL_R_OPTS="$FZF_PREVIEW_OPTS"
   export FZF_CTRL_T_OPTS="$FZF_PREVIEW_OPTS"
 
-  export FZF_DEFAULT_OPTS="--layout=reverse --ansi $FZF_PREVIEW_OPTS"
+  export FZF_DEFAULT_OPTS="--layout=reverse --ansi --color=gutter:-1 --bind tab:down,shift-tab:up $FZF_PREVIEW_OPTS "
 
   source /usr/share/fzf/completion.zsh
   source /usr/share/fzf/key-bindings.zsh
