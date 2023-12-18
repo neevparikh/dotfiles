@@ -13,8 +13,9 @@ focus_follows_mouse yes
 # }}}
 
 # {{{ wallpaper
-# output * bg $HOME/pictures/wallpaper/gruv1.png fill
-output * bg '#000000' solid_color
+output DP-1 bg $HOME/pictures/wallpaper/firewatch_separate_1.png fill
+output DP-2 bg $HOME/pictures/wallpaper/firewatch_separate_0.png fill
+output eDP-1 bg $HOME/pictures/wallpaper/firewatch_combined.png fill
 # }}}
 
 # {{{ displays
@@ -54,6 +55,7 @@ input "1133:16478:Logitech_M720_Triathlon" {
 # launch
 bindsym $mod+Shift+Return exec terminal
 bindsym $mod+Shift+w exec browser
+bindsym $mod+Shift+Space exec launcher
 bindsym $mod+p exec pavucontrol
 bindsym $mod+n exec GTK_THEME=$GTK_THEME /usr/bin/nautilus --new-window
 # bindsym $mod+d exec $menu
@@ -61,7 +63,9 @@ bindsym $mod+n exec GTK_THEME=$GTK_THEME /usr/bin/nautilus --new-window
 # regular commands
 bindsym $mod+Shift+q kill
 bindsym $mod+Shift+r reload
-bindsym $mod+Control+q exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+bindsym $mod+Shift+Control+q exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+bindsym $mod+Control+q output * dpms off
+bindsym $mod+Escape output * dpms on
 
 bindsym XF86AudioMute exec_always pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioRaiseVolume exec_always pactl set-sink-volume @DEFAULT_SINK@ +5%
@@ -200,11 +204,14 @@ bar {
 default_border none
 default_floating_border none
 font pango:FiraCode Nerd Font Mono 9px
+
+# sway fx
+default_dim_inactive 0.1
+corner_radius 10
 # }}}
 
 # {{{ extra execs
 exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
-exec dim-inactive -o 0.9
 # }}}
 
 # {{{ per window
