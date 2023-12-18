@@ -34,6 +34,8 @@ output eDP-1 {
   scale 1.5
 }
 
+output HDMI-A-1 disable
+
 bindswitch --reload --locked lid:on output eDP-1 disable
 bindswitch --reload --locked lid:off output eDP-1 enable
 exec_always $HOME/.local/bin/laptop-display-check
@@ -56,6 +58,7 @@ input "1133:16478:Logitech_M720_Triathlon" {
 bindsym $mod+Shift+Return exec terminal
 bindsym $mod+Shift+w exec browser
 bindsym $mod+Shift+Space exec launcher
+bindsym $mod+Space exec "tofi-run | xargs swaymsg exec -- "
 bindsym $mod+p exec pavucontrol
 bindsym $mod+n exec GTK_THEME=$GTK_THEME /usr/bin/nautilus --new-window
 # bindsym $mod+d exec $menu
@@ -208,6 +211,7 @@ font pango:FiraCode Nerd Font Mono 9px
 # sway fx
 default_dim_inactive 0.1
 corner_radius 10
+layer_effects "launcher" corner_radius 10
 # }}}
 
 # {{{ extra execs
