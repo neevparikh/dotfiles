@@ -82,6 +82,7 @@ return require("packer").startup(function(use)
   use("mfussenegger/nvim-jdtls")
   use("romainl/vim-cool")
   use("junegunn/fzf")
+  use("junegunn/fzf.vim")
   use({
     "nvim-telescope/telescope.nvim",
     branch = "0.1.x",
