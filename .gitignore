@@ -72,3 +72,4 @@ local/share/nvim
 
 **/__pycache__
 work_branch/
+config/nvim/plugin/packer_compiled.lua
