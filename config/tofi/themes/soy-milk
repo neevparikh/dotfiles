@@ -1,0 +1,38 @@
+# style
+outline-width                             = 0
+border-width                              = 0
+min-input-width                           = 80
+result-spacing                            = 15
+prompt-text                               = "==>"
+clip-to-padding                           = false
+
+# padding
+padding-top                               = 8
+padding-bottom                            = 0
+padding-left                              = 14
+padding-right                             = 0
+
+prompt-padding                            = 30
+
+prompt-background-padding                 = 4, 10
+input-background-padding                  = 4, 10
+alternate-result-background-padding       = 4, 10
+selection-background-padding              = 4, 10
+
+# colors
+background-color                          = #fff0dc
+prompt-background                         = #eebab1
+input-background                          = #f4cf42
+alternate-result-background               = #b8daf3
+selection-background                      = #da5d64
+
+text-color                                = #4280a0
+input-color                               = #e1666a
+selection-color                           = #f0d2af
+selection-match-color                     = #ffffff
+
+# corner
+prompt-background-corner-radius           = 8
+input-background-corner-radius            = 8
+alternate-result-background-corner-radius = 8
+selection-background-corner-radius        = 8

@@ -1,0 +1,35 @@
+# font
+font               = "FiraCode Nerd Font Mono Ret"
+font-size          = 12
+font-features      = "liga 1, zero 1, calt 1"
+font-variations    = ""
+hint-font          = true
+
+# positioning
+output             = ""
+anchor             = center
+width              = 22%
+height             = 21%
+exclusive-zone     = -1
+margin-top         = 0
+margin-bottom      = 0
+margin-left        = 0
+margin-right       = 0
+
+# behaviour
+hide-cursor        = false
+text-cursor        = false
+history            = true
+fuzzy-match        = true
+require-match      = true
+auto-accept-single = false
+hide-input         = false
+hidden-character   = "*"
+drun-launch        = false
+terminal           = kitty
+late-keyboard-init = false
+multi-instance     = false
+ascii-input        = false
+
+# theme
+include            = themes/gruvbox-dark
