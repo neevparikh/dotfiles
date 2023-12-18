@@ -63,7 +63,7 @@ unsetopt AUTO_CD
 export EDITOR='nvim'
 export VISUAL='nvim'
 #nvim terminal specific settings
-if [ -x "$(command -v nvr)" ]; then
+if [ -f "$HOME/.local/bin/nvr" ]; then
   alias h='nvr -o'
   alias v='nvr -O'
   alias t='nvr --remote-tab'
@@ -340,35 +340,24 @@ if [ -f "$HOME/.fzf.zsh" ]; then
   gruvbox_orange='#fe8019'
   gruvbox_bg_3='#665c54'
 
-  fd_base_args='--follow --hidden --exclude .git --color=always'
-  export FZF_DEFAULT_COMMAND="fd $fd_base_args"
-  export FZF_DIR_COMMAND="fd --type directory $fd_base_args"
+  FD_BASE_ARGS='--follow --hidden --exclude .git --no-ignore-vcs --color=always'
+
+  export FZF_PREVIEW_COMMAND="rsp {}"
+  export FZF_DEFAULT_COMMAND="fd $FD_BASE_ARGS"
+  export FZF_DIR_COMMAND="fd --type directory $FD_BASE_ARGS"
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
   export FZF_ALT_C_COMMAND="$FZF_DIR_COMMAND"
 
-  export FZF_COMPLETION_OPTS="--preview 'bat {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
-  export FZF_ALT_C_OPTS="$FZF_COMPLETION_OPTS"
-  export FZF_CTRL_R_OPTS="$FZF_COMPLETION_OPTS"
-  export FZF_CTRL_T_OPTS="$FZF_COMPLETION_OPTS"
+  export FZF_PREVIEW_OPTS="--preview '$FZF_PREVIEW_COMMAND' --preview-window 'right:50%:hidden:wrap:<100(down:30%)' --bind '?:toggle-preview'"
+  export FZF_ALT_C_OPTS="$FZF_PREVIEW_OPTS"
+  export FZF_CTRL_R_OPTS="$FZF_PREVIEW_OPTS"
+  export FZF_CTRL_T_OPTS="$FZF_PREVIEW_OPTS"
 
-  FZF_DEFAULT_OPTS=''
-  export FZF_DEFAULT_OPTS
-  # FZF_DEFAULT_OPTS+="--layout=reverse --bind 'ctrl-s:select-all+accept,"
-  # FZF_DEFAULT_OPTS+="ctrl-j:jump-accept,ctrl-k:jump,ctrl-p:toggle-preview,"
-  # FZF_DEFAULT_OPTS+="ctrl-w:toggle-preview-wrap,ctrl-g:top,"
-  # FZF_DEFAULT_OPTS+="alt-e:execute-silent[(nvr --remote-tab {} &)]' --ansi "
-  FZF_DEFAULT_OPTS+="--layout=reverse --ansi "
-  FZF_DEFAULT_OPTS+="--color=fg:$gruvbox_fg_1,hl:$gruvbox_yellow,"
-  FZF_DEFAULT_OPTS+="fg+:$gruvbox_fg_1 --color=bg+:$gruvbox_bg_1,"
-  FZF_DEFAULT_OPTS+="hl+:$gruvbox_yellow,info:$gruvbox_blue "
-  FZF_DEFAULT_OPTS+="--color=prompt:$gruvbox_fg_4,pointer:$gruvbox_blue "
-  FZF_DEFAULT_OPTS+="--color=marker:$gruvbox_orange,spinner:$gruvbox_yellow "
-  FZF_DEFAULT_OPTS+="--color=header:$gruvbox_bg_3 "
+  export FZF_DEFAULT_OPTS="--layout=reverse --ansi --color=gutter:-1 --bind tab:down,shift-tab:up $FZF_PREVIEW_OPTS "
 
   PATH="$HOME/.fzf/bin/:$PATH"
-    
   source ~/.fzf.zsh
-fi
+fi 
 
 if [ -f "$HOME/.bash_profile" ]; then 
   source ~/.bash_profile
