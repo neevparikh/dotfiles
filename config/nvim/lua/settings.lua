@@ -1,17 +1,35 @@
 -- vim:foldmethod=marker:foldlevel=0
 require("helpers")
 require("keymaps")
-local lsp = require("lsp-zero")
+local lsp_zero = require("lsp-zero")
 local ls = require("luasnip")
 local lspconfig = require("lspconfig")
 
 -- {{{ mason
-require("mason").setup()
-require("mason-lspconfig").setup()
+require("mason").setup({
+  ui = {
+    icons = {
+      package_installed = "✓",
+      package_pending = "➜",
+      package_uninstalled = "✗",
+    },
+    border = "rounded",
+    width = 0.6,
+    height = 0.6,
+    keymaps = {
+      apply_language_filter = "<M-f>",
+    },
+  },
+})
+require("mason-lspconfig").setup({
+  handlers = {
+    lsp_zero.default_setup,
+  },
+})
 -- }}}
 
 -- {{{ lsp
-lsp.set_preferences({
+lsp_zero.set_preferences({
   suggest_lsp_servers = true,
   setup_servers_on_start = true,
   set_lsp_keymaps = false,
@@ -23,18 +41,18 @@ lsp.set_preferences({
     error = "✘",
     warn = "▲",
     hint = "⚑",
-    info = "",
+    info = "",
   },
 })
 
-lsp.nvim_workspace()
+lsp_zero.nvim_workspace()
 
 local cmp = require("cmp")
 local mappings = GetCmpMappings()
 
 local winopts = {
   border = "rounded",
-  winhighlight = "FloatBorder:Normal,CursorLine:Visual,Search:None",
+  winhighlight = "CursorLine:Visual,Search:None",
 }
 
 local cmp_config = {
@@ -51,8 +69,8 @@ local cmp_config = {
   },
 }
 
-lsp.setup_nvim_cmp(cmp_config)
-lsp.setup()
+lsp_zero.setup_nvim_cmp(cmp_config)
+lsp_zero.setup()
 
 lspconfig.pyright.setup({
   settings = {
@@ -71,6 +89,9 @@ lspconfig.clangd.setup({
   },
 })
 
+vim.diagnostic.config({
+  virtual_text = true,
+})
 -- }}}
 
 -- {{{ conform
@@ -89,6 +110,17 @@ require("conform").setup({
     python = { "isort", "black" },
   },
   format_after_save = { lsp_fallback = true },
+})
+-- }}}
+
+-- {{{ dressing
+require("dressing").setup({
+  input = {
+    border = "rounded",
+    win_options = {
+      winhighlight = "CursorLine:Visual,Search:None",
+    },
+  },
 })
 -- }}}
 
@@ -172,7 +204,7 @@ require("luasnip.loaders.from_vscode").lazy_load({
 -- {{{ treesitter
 require("nvim-treesitter.configs").setup({
   -- A list of parser names, or "all"
-  ensure_installed = { "cpp", "lua", "rust", "java", "python" },
+  ensure_installed = { "cpp", "lua", "rust", "java", "python", "comment" },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
