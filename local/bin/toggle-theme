@@ -2,10 +2,10 @@
 
 if [[ $@ = "--dark" ]] 
 then
-    sed -i "" "s/colors: \*gruvbox_light/colors: \*gruvbox_dark/" $HOME/.alacritty.yml
-    echo 'dark' > $HOME/.config/theme.yml
+    kitty @ --to $SOCKET set-colors --all --configured $DARK_KITTY
+    echo 'dark' > $HOME/.config/theme.yaml
 elif [[ $@ = "--light" ]] 
 then
-    sed -i "" "s/colors: \*gruvbox_dark/colors: \*gruvbox_light/" $HOME/.alacritty.yml
-    echo 'light' > $HOME/.config/theme.yml
+    kitty @ --to $SOCKET set-colors --all --configured $LIGHT_KITTY
+    echo 'light' > $HOME/.config/theme.yaml
 fi 

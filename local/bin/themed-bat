@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+while IFS= read -r line; do
+    if [[ $line = "dark" ]] 
+    then
+      bat --theme=gruvbox-dark $@
+    elif [[ $line = "light" ]] 
+    then
+      bat --theme=gruvbox-light $@
+    fi 
+done < $HOME/.config/theme.yaml
