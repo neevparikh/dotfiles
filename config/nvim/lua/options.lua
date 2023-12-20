@@ -36,9 +36,10 @@ vim.opt_global.shortmess:remove("F")
 vim.g.lion_squeeze_spaces = true
 vim.g.startify_enable_special = false
 vim.g.startify_update_oldfiles = true
+vim.g.rooter_manual_only = 0
+vim.g.rooter_silent_chdir = 1
 
 vim.cmd([[
-let g:fzf_colors = {'gutter': ['bg', 'GruvboxBg1', 'Normal']}
 let g:fzf_vim = {}
 let g:fzf_vim.preview_window = ['right,50%,<70(down,40%)', '?']
 let g:fzf_vim.command_prefix = 'Fzf'
