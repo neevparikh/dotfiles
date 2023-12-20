@@ -344,12 +344,10 @@ if [ -f "/usr/share/fzf/fzf-extras.zsh" ]; then
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
   export FZF_ALT_C_COMMAND="$FZF_DIR_COMMAND"
 
-  export FZF_PREVIEW_OPTS="--preview '$FZF_PREVIEW_COMMAND' --preview-window 'right:50%:hidden:wrap:<100(down:30%)' --bind '?:toggle-preview'"
+  export FZF_PREVIEW_OPTS="--preview '$FZF_PREVIEW_COMMAND' --preview-window 'right:50%:wrap:<100(down:30%)' --bind '?:toggle-preview'"
   export FZF_ALT_C_OPTS="$FZF_PREVIEW_OPTS"
   export FZF_CTRL_R_OPTS="$FZF_PREVIEW_OPTS"
   export FZF_CTRL_T_OPTS="$FZF_PREVIEW_OPTS"
-
-  export FZF_DEFAULT_OPTS="--layout=reverse --ansi --color=gutter:-1 --bind tab:down,shift-tab:up $FZF_PREVIEW_OPTS "
 
   source /usr/share/fzf/completion.zsh
   source /usr/share/fzf/key-bindings.zsh
