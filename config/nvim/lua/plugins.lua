@@ -26,7 +26,7 @@ local packer_bootstrap = ensure_packer()
 return require("packer").startup(function(use)
   use("wbthomason/packer.nvim")
 
-  use("neevparikh/gruvbox")
+  use("ellisonleao/gruvbox.nvim")
   use("lervag/vimtex")
   use({
     "andymass/vim-matchup",
@@ -106,6 +106,7 @@ return require("packer").startup(function(use)
   use("chrisbra/Colorizer")
   use("stevearc/conform.nvim")
   use("mfussenegger/nvim-lint")
+  use("stevearc/dressing.nvim")
 
   if packer_bootstrap then
     require("packer").sync()
