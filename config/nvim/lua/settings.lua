@@ -161,11 +161,6 @@ vim.g.startify_lists = {
 }
 -- }}}
 
--- {{{ rooter
-vim.g.rooter_manual_only = 1
-vim.g.rooter_silent_chdir = 1
--- }}}
-
 -- {{{ luasnip
 vim.api.nvim_create_user_command("LuaSnipEdit", function()
   require("luasnip.loaders").edit_snippet_files()
