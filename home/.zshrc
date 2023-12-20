@@ -332,7 +332,8 @@ alias rm='safe-rm'
 alias browncsprint="CUPS_SERVER=printhost.cs.brown.edu okular"
 alias cnvim="rm $HOME/.local/share/nvim/swap/%home%neev%*.swp $HOME/.local/share/nvim/swap/%home%neev%*.swo"
 alias make="make --no-print-directory"
-alias feh="feh --force-aliasing"
+alias bat='themed-bat'
+alias cat='themed-bat'
 
 if [ -f "/usr/share/fzf/fzf-extras.zsh" ]; then
   FD_BASE_ARGS='--follow --hidden --exclude .git --no-ignore-vcs --color=always'
