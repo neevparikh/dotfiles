@@ -328,7 +328,8 @@ alias kssh='kitty +kitten ssh'
 alias browncsprint="CUPS_SERVER=printhost.cs.brown.edu okular"
 alias cnvim="rm $HOME/.local/state/nvim/swap/%Users%neev%*.swp"
 alias make="make --no-print-directory"
-alias feh="feh --force-aliasing"
+alias bat='themed-bat'
+alias cat='themed-bat'
 alias td="todui"
 
 if [ -f "$HOME/.fzf.zsh" ]; then
