@@ -290,3 +290,23 @@ function WindowSizeAwareSplit()
 end
 
 -- }}}
+
+function SwitchTheme()
+  local cur = vim.opt.background:get()
+  if cur == "dark" then
+    vim.opt.background = "light"
+    vim.fn.system("toggle-theme --light")
+  else
+    vim.opt.background = "dark"
+    vim.fn.system("toggle-theme --dark")
+  end
+end
+
+function CheckTheme()
+  local theme = ReadFile(os.getenv("HOME") .. "/.config/theme.yaml")
+  if theme == nil then
+    return "dark"
+  else
+    return theme:gsub("\n", "")
+  end
+end
