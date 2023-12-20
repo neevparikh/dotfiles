@@ -1,50 +1,38 @@
 -- vim:foldmethod=marker:foldlevel=0
 require("helpers")
 require("keymaps")
-local lsp = require("lsp-zero")
+local lsp_zero = require("lsp-zero")
 local ls = require("luasnip")
 local lspconfig = require("lspconfig")
 
--- {{{ lsp
-lsp.extend_lspconfig()
-
-local cmp = require("cmp")
-local mappings = GetCmpMappings()
-
-local winopts = {
-  border = "rounded",
-  winhighlight = "FloatBorder:Normal,CursorLine:Visual,Search:None",
-}
-
-cmp.setup({
-  window = {
-    completion = cmp.config.window.bordered(winopts),
-    documentation = cmp.config.window.bordered(winopts),
-  },
-  mapping = mappings,
-  formatting = lsp.cmp_format(),
-  sources = {
-    { name = "path" },
-    { keyword_length = 3, name = "nvim_lsp" },
-    { keyword_length = 3, name = "buffer" },
-    { keyword_length = 2, name = "luasnip", option = { show_autosnippets = true } },
+-- {{{ mason
+require("mason").setup({
+  ui = {
+    icons = {
+      package_installed = "✓",
+      package_pending = "➜",
+      package_uninstalled = "✗",
+    },
+    border = "rounded",
+    width = 0.6,
+    height = 0.6,
+    keymaps = {
+      apply_language_filter = "<M-f>",
+    },
   },
 })
--- }}}
-
--- {{{ mason
-require("mason").setup()
 require("mason-lspconfig").setup({
   ensure_installed = {},
   handlers = {
-    lsp.default_setup(),
+    lsp_zero.default_setup(),
     lua_ls = function()
-      local lua_opts = lsp.nvim_lua_ls()
+      local lua_opts = lsp_zero.nvim_lua_ls()
       require("lspconfig").lua_ls.setup(lua_opts)
     end,
   },
 })
 
+-- move this into mason lspconfig?
 lspconfig.clangd.setup({
   settings = {
     clangd = {
@@ -55,7 +43,53 @@ lspconfig.clangd.setup({
     },
   },
 })
+--
+-- }}}
 
+-- {{{ lsp
+lsp_zero.set_preferences({
+  suggest_lsp_servers = true,
+  setup_servers_on_start = true,
+  set_lsp_keymaps = false,
+  configure_diagnostics = true,
+  cmp_capabilities = true,
+  manage_nvim_cmp = true,
+  call_servers = "local",
+  sign_icons = {
+    error = "✘",
+    warn = "▲",
+    hint = "⚑",
+    info = "",
+  },
+})
+
+lsp_zero.nvim_workspace()
+
+local cmp = require("cmp")
+local mappings = GetCmpMappings()
+
+local winopts = {
+  border = "rounded",
+  winhighlight = "CursorLine:Visual,Search:None",
+}
+
+cmp.setup({
+  window = {
+    completion = cmp.config.window.bordered(winopts),
+    documentation = cmp.config.window.bordered(winopts),
+  },
+  mapping = mappings,
+  formatting = lsp_zero.cmp_format(),
+  sources = {
+    { name = "path" },
+    { keyword_length = 3, name = "nvim_lsp" },
+    { keyword_length = 3, name = "buffer" },
+    { keyword_length = 2, name = "luasnip", option = { show_autosnippets = true } },
+  },
+})
+-- }}}
+
+-- {{{ mason
 -- }}}
 
 -- {{{ conform
@@ -78,26 +112,23 @@ require("conform").setup({
 })
 -- }}}
 
+-- {{{ dressing
+require("dressing").setup({
+  input = {
+    border = "rounded",
+    win_options = {
+      winhighlight = "CursorLine:Visual,Search:None",
+    },
+  },
+})
+-- }}}
+
 -- {{{ nvim-lint
-lint = require("lint")
-lint.linters_by_ft = {
+require("lint").linters_by_ft = {
   ruby = { "rubocop" },
   typescript = { "eslint_d" },
   typescriptreact = { "eslint_d" },
 }
-
-local rubocop_severities = {
-  info = vim.diagnostic.severity.INFO,
-  refactor = vim.diagnostic.severity.HINT,
-  convention = vim.diagnostic.severity.WARN,
-  warning = vim.diagnostic.severity.WARN,
-  error = vim.diagnostic.severity.ERROR,
-  fatal = vim.diagnostic.severity.ERROR,
-}
-
-local function get_file_name()
-  return vim.api.nvim_buf_get_name(0)
-end
 
 -- Run lint (with debounce) when file is saved or changed
 local timer = assert(vim.loop.new_timer())
@@ -175,7 +206,7 @@ require("luasnip.loaders.from_vscode").lazy_load({
 -- {{{ treesitter
 require("nvim-treesitter.configs").setup({
   -- A list of parser names, or "all"
-  ensure_installed = { "cpp", "lua", "rust", "java", "python" },
+  ensure_installed = { "cpp", "lua", "rust", "java", "python", "comment" },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
