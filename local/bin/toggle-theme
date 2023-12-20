@@ -14,7 +14,7 @@ then
     export GRUVBOX_ORANGE='#fe8019'
     export GRUVBOX_YELLOW='#fabd2f'
     kitty @ --to $SOCKET set-colors --all --configured $DARK_KITTY
-    echo 'dark' > $HOME/.config/theme.yml
+    echo 'dark' > $HOME/.config/theme.yaml
 elif [[ $@ = "--light" ]] 
 then
     export GRUVBOX_BG_1='#ebdbb2'
@@ -25,5 +25,5 @@ then
     export GRUVBOX_ORANGE='#af3a03'
     export GRUVBOX_YELLOW='#b57614'
     kitty @ --to $SOCKET set-colors --all --configured $LIGHT_KITTY
-    echo 'light' > $HOME/.config/theme.yml
+    echo 'light' > $HOME/.config/theme.yaml
 fi 
