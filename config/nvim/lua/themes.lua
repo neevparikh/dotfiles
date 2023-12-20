@@ -1,29 +1,54 @@
 -- vim: set foldmethod=marker:foldlevel=0
 require("helpers")
 
-function SwitchTheme()
-  local cur = vim.opt.background:get()
-  if cur == "dark" then
-    vim.opt.background = "light"
-    vim.fn.system("toggle-theme --light")
-  else
-    vim.opt.background = "dark"
-    vim.fn.system("toggle-theme --dark")
-  end
-end
+gruvbox = require("gruvbox")
+gruvbox.setup({
+  terminal_colors = true, -- add neovim terminal colors
+  undercurl = true,
+  underline = true,
+  bold = true,
+  italic = {
+    strings = true,
+    emphasis = true,
+    comments = true,
+    operators = false,
+    folds = true,
+  },
+  strikethrough = true,
+  invert_selection = false,
+  invert_signs = false,
+  invert_tabline = false,
+  invert_intend_guides = false,
+  inverse = true, -- invert background for search, diffs, statuslines and errors
+  contrast = "hard", -- can be "hard", "soft" or empty string
+  dim_inactive = false,
+  transparent_mode = false,
+  palette_overrides = {},
+  overrides = {
+    String = { italic = false },
+    -- TODO: update this to use get_colors when exposed
+    Todo = { link = "htmlBoldItalic" },
 
-function CheckTheme()
-  local theme = ReadFile(os.getenv("HOME") .. "/.config/theme.yml")
-  if theme == nil then
-    return "dark"
-  else
-    return theme:gsub("\n", "")
-  end
-end
+    FloatBorder = { link = "GruvboxBg2" },
+
+    TelescopeBorder = { link = "GruvboxBg2" },
+    TelescopePromptBorder = { link = "GruvboxBg2" },
+    TelescopeResultsBorder = { link = "GruvboxBg2" },
+    TelescopePreviewBorder = { link = "GruvboxBg2" },
+
+    MasonNormal = { link = "GruvboxFg1" },
+    MasonMutedBlock = { link = "GruvboxRed" },
+    MasonMutedBlockBold = { link = "GruvboxRed", bold = true },
+    MasonHighlight = { link = "GruvboxOrange" },
+    MasonHighlightBlock = { link = "GruvboxOrangeBold" },
+    MasonHighlightBlockBold = { link = "GruvboxOrangeBold", bold = true },
+    MasonHighlightSecondary = { link = "GruvboxYellow" },
+    MasonHighlightBlockSecondary = { link = "GruvboxYellow" },
+    MasonHighlightBlockBoldSecondary = { link = "GruvboxYellow", bold = true },
+  },
+})
 
 vim.cmd("colorscheme gruvbox")
-vim.g.gruvbox_contrast_light = "medium"
-vim.g.gruvbox_contrast_dark = "hard"
 vim.opt.background = CheckTheme()
 
 vim.cmd([[
