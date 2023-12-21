@@ -206,7 +206,17 @@ require("luasnip.loaders.from_vscode").lazy_load({
 -- {{{ treesitter
 require("nvim-treesitter.configs").setup({
   -- A list of parser names, or "all"
-  ensure_installed = { "cpp", "lua", "rust", "java", "python", "comment" },
+  ensure_installed = {
+    "cpp",
+    "lua",
+    "rust",
+    "java",
+    "python",
+    "comment",
+    "gitcommit",
+    "diff",
+    "git_rebase",
+  },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
@@ -222,7 +232,7 @@ require("nvim-treesitter.configs").setup({
     enable = true,
 
     -- list of language that will be disabled
-    disable = { "gitcommit" },
+    disable = {},
 
     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
     -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
