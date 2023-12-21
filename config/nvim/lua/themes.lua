@@ -31,8 +31,8 @@ gruvbox.setup({
     ["@text.danger.comment"] = { link = "htmlBoldItalic" },
 
     -- FIXME: find a better solution for this, maybe a plugin or something
-    diffAdded = { link = "GruvboxGreenSign" },
-    diffRemoved = { link = "GruvboxRedSign" },
+    diffAdded = { fg = "#98971a" },
+    diffRemoved = { fg = "#cc241d" },
 
     FloatBorder = { link = "GruvboxBg2" },
 
