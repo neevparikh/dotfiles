@@ -6,6 +6,7 @@
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 sudo yabai --load-sa
 # -- }}}
+source ~/.config/yabai/apps.sh
 
 # -- {{{ helpers
 join_by() {
@@ -24,42 +25,6 @@ yabai -m config window_shadow float
 # -- }}}
 
 # -- {{{ application specific
-apps=(
-  "Hammerspoon Console"
-  "Calendar"
-  "Mail"
-  "Stremio"
-  "Reminders"
-  "Notes"
-  "Discord"
-  "Messages"
-  "Slack"
-  "Safari"
-  "Google Chrome"
-  "zoom.us"
-  "Arc"
-  "Preview"
-  "Code"
-  "Terminal"
-  "QuickTime"
-  "Player"
-  "Spotify"
-  "spotify"
-  "Music"
-  "kitty"
-  "Chess"
-  "Messenger"
-  "Facetime"
-  "FaceTime"
-  "Finder"
-  "WhatsApp"
-  "zoom.us"
-  "Zoom"
-  "Obsidian"
-  "Books"
-  "Photos"
-  "Hammerspoon"
-)
 joined_list="$(join_by "${apps[@]}")"
 yabai -m rule --add app!="^${joined_list}$" manage=off
 # -- }}}
