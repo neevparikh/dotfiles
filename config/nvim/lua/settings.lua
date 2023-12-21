@@ -254,7 +254,11 @@ local utils = require("telescope.utils")
 require("telescope").setup({
   defaults = {
     layout_strategy = "flex",
-    layout_config = { prompt_position = "top" },
+    layout_config = {
+      flip_columns = 220,
+      prompt_position = "top",
+      horizontal = { preview_cutoff = 80 },
+    },
     sorting_strategy = "ascending",
     mappings = {
       i = {
