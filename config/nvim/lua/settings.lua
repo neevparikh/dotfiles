@@ -237,7 +237,6 @@ require("nvim-treesitter.configs").setup({
 -- }}}
 
 -- {{{ telescope
--- {{{ setup
 local actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
 local utils = require("telescope.utils")
@@ -302,45 +301,4 @@ require("telescope").setup({
     },
   },
 })
--- }}}
--- {{{ commands
-require("telescope").load_extension("fzf")
-local tb = require("telescope.builtin")
-
-vim.api.nvim_create_user_command("Filetypes", function()
-  tb.filetypes()
-end, { nargs = 0 })
-
-vim.api.nvim_create_user_command("Files", function(opts)
-  local path = opts.args
-  if path == "" then
-    tb.find_files({ cwd = vim.fn.getcwd() })
-  else
-    tb.find_files({ cwd = path })
-  end
-end, { nargs = "?" })
-
-vim.api.nvim_create_user_command("Buffers", function()
-  tb.buffers({ ignore_current_buffer = true, sort_mru = true })
-end, { nargs = 0 })
-
-vim.api.nvim_create_user_command("Rg", function(opts)
-  local str = opts.args
-  if str == "" then
-    tb.live_grep()
-  else
-    tb.grep_string({ search = str })
-  end
-end, { nargs = "?" })
-
-vim.api.nvim_create_user_command("GFiles", function()
-  tb.git_files({
-    git_command = { "git", "ls-files", "--exclude-standard", "--cached" },
-  })
-end, { nargs = 0 })
-
-vim.api.nvim_create_user_command("H", function()
-  tb.help_tags()
-end, { nargs = 0 })
--- }}}
 -- }}}

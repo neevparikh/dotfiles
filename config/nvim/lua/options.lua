@@ -40,7 +40,9 @@ vim.g.rooter_manual_only = 0
 vim.g.rooter_silent_chdir = 1
 
 vim.cmd([[
+let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.9 } }
+
 let g:fzf_vim = {}
-let g:fzf_vim.preview_window = ['right,50%,<70(down,40%)', '?']
+let g:fzf_vim.preview_window = ['right,45%,<70(down,40%)', '?']
 let g:fzf_vim.command_prefix = 'Fzf'
 ]])
