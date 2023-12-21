@@ -353,7 +353,7 @@ if [ -f "$HOME/.fzf.zsh" ]; then
   export FZF_CTRL_R_OPTS="$FZF_PREVIEW_OPTS"
   export FZF_CTRL_T_OPTS="$FZF_PREVIEW_OPTS"
 
-  export FZF_DEFAULT_OPTS="--layout=reverse --ansi --color=gutter:-1 --bind tab:down,shift-tab:up $FZF_PREVIEW_OPTS "
+  export FZF_DEFAULT_OPTS="--layout=reverse --ansi --height=~40% --color=gutter:-1 --bind tab:down,shift-tab:up $FZF_PREVIEW_OPTS "
 
   PATH="$HOME/.fzf/bin/:$PATH"
   source ~/.fzf.zsh
