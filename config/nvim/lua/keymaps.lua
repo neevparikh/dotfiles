@@ -66,7 +66,7 @@ bind("n", "<M-c>", SwitchTheme)
 
 -- {{{ lsp
 local lsp_opts = { noremap = true, silent = true }
-bind("n", "<space>k", vim.lsp.buf.hover, lsp_opts)
+bind("n", "K", vim.lsp.buf.hover, lsp_opts)
 bind("x", "<space>f", vim.lsp.buf.format, lsp_opts)
 bind("n", "<space>f", function()
   vim.lsp.buf.format({ async = true })
@@ -211,7 +211,7 @@ MapWinCmd("F", "FzfFiles ", true)
 MapWinCmd("b", "Buffers")
 MapWinCmd("g", "Files")
 MapWinCmd("G", "Files ", true)
-MapWinCmd("r", "FzfRg ", true)
+MapWinCmd("r", "FzfRgWithArgs ", true)
 MapWinCmd("R", "FzfRG")
 MapWinCmd("c", "normal! \\<c-o>")
 MapWinCmd("s", "Startify")

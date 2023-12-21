@@ -28,6 +28,7 @@ gruvbox.setup({
     String = { italic = false },
     -- TODO: update this to use get_colors when exposed
     Todo = { link = "htmlBoldItalic" },
+    ["@text.danger.comment"] = { link = "htmlBoldItalic" },
 
     FloatBorder = { link = "GruvboxBg2" },
 

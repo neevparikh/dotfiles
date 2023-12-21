@@ -175,8 +175,6 @@ nmap <expr> q QStart()
 
 -- }}}
 
--- {{{ other
-
 function HasWordsBefore()
   unpack = unpack or table.unpack
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -204,19 +202,6 @@ function CheckBackSpace()
     return false
   end
 end
-
--- function CleanNoNameEmptyBuffers()
---   local buffers = vim.fn.filter(
---     vim.fn.range(1, vim.fn.bufnr('$')),
---     'buflisted(v:val) && '
---     .. 'empty(bufname(v:val)) && bufwinnr(v:val) < 0 && '
---     .. '(getbufline(v:val, 1, "$") == [""])'
---   )
-
---   if not vim.fn.empty(buffers) then
---     vim.fn.exe('bd ' .. vim.fn.join(buffers, ' '))
---   end
--- end
 
 function SortAndReset()
   local curr_pos = vim.fn.getpos(".")
@@ -287,7 +272,6 @@ function WindowSizeAwareSplit()
     vim.cmd("vsplit")
   end
 end
--- }}}
 
 function SwitchTheme()
   local cur = vim.opt.background:get()
@@ -307,4 +291,12 @@ function CheckTheme()
   else
     return theme:gsub("\n", "")
   end
+end
+
+function RegisterFzfCommand(cmd_prefix, name, cmd_suffix)
+  local prefix = vim.g.fzf_vim["command_prefix"]
+  if prefix == nil then
+    prefix = ""
+  end
+  vim.cmd(cmd_prefix .. prefix .. name .. cmd_suffix)
 end
