@@ -93,6 +93,17 @@ bindsym $mod+a focus parent
 bindsym $mod+d focus child
 
 bindsym $mod+Tab workspace back_and_forth
+
+# screenshots
+# capture all screens to clipboard    
+bindsym $mod+Ctrl+c exec grim - | wl-copy    
+
+# capture the specified screen area to clipboard    
+bindsym $mod+Ctrl+k exec grim -g "$(slurp)" - | wl-copy    
+
+# capture the focused monitor to clipboard    
+bindsym $mod+Ctrl+p exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') - | wl-copy
+
 # }}}
 
 # {{{ workspaces
@@ -216,6 +227,7 @@ layer_effects "launcher" corner_radius 10
 
 # {{{ extra execs
 exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec wlsunset -l 37.7 -L -122.4
 # }}}
 
 # {{{ per window
