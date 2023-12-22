@@ -1,0 +1,74 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: FiraCode Nerd Font Mono Ret, Noto Sans Light, monospace;
+    font-size: 11px;
+    min-height: 0;
+}
+
+window#waybar {
+    background: @theme_base_color;
+    border-bottom: 1px solid @unfocused_borders;
+    color: @theme_text_color;
+}
+
+tooltip {
+  background: @theme_bg_color;
+  border: 1px solid @theme_fg_color;
+}
+
+tooltip label {
+  color: white;
+}
+
+#workspaces button {
+    padding: 4px 4px;
+    background: transparent;
+    color: @theme_selected_fg_color;
+    border-bottom: 1px solid transparent;
+}
+
+#workspaces button.focused {
+    background: @theme_bg_color;
+    border-bottom: 1px solid @theme_fg_color;
+}
+
+#mode, #clock, #battery {
+    padding: 4px 4px;
+}
+
+#mode {
+    background: @theme_bg_color;
+    border-bottom: 1px solid @theme_text_color;
+}
+
+#clock {
+    background-color: @theme_bg_color;
+}
+
+#battery {
+    background-color: @theme_bg_color;
+    color: @theme_text_color;
+}
+
+#battery.charging {
+    background-color: @theme_selected_bg_color;
+    color: @theme_selected_fg_color;
+}
+
+@keyframes blink {
+    to {
+        background-color: @theme_base_color;
+        color: @theme_text_color;
+    }
+}
+
+#battery.warning:not(.charging) {
+    background: @theme_base_color;
+    color: @theme_text_color;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}

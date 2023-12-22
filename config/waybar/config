@@ -1,17 +1,18 @@
 {
     "__vim__": " /* vim:filetype=json */ ",
     "layer": "top",
+    "position": "top",
     "modules-left": ["sway/workspaces", "sway/mode"],
-    "modules-center": ["sway/window"],
+    "modules-center": [],
     "modules-right": ["battery", "clock"],
     "sway/window": {
         "max-length": 50
     },
     "battery": {
-        "format": "{capacity}% {icon}",
+        "format": "{icon} {capacity}%",
         "format-icons": ["", "", "", "", ""]
     },
     "clock": {
-        "format-alt": "{:%a, %d. %b  %H:%M}"
+        "format": "󰥔 {:%a %b %d %I:%M%p}"
     }
 }
