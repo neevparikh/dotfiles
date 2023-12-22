@@ -349,6 +349,7 @@ if [ -f "/usr/share/fzf/fzf-extras.zsh" ]; then
   export FZF_ALT_C_OPTS="$FZF_PREVIEW_OPTS"
   export FZF_CTRL_R_OPTS="$FZF_PREVIEW_OPTS"
   export FZF_CTRL_T_OPTS="$FZF_PREVIEW_OPTS"
+
   export FZF_DEFAULT_OPTS="--layout=reverse --ansi --height=~40% --color=gutter:-1 --bind tab:down,shift-tab:up $FZF_PREVIEW_OPTS "
 
   source /usr/share/fzf/completion.zsh
