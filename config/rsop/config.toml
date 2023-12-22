@@ -284,11 +284,11 @@ shell = true
 stdin_arg = "/dev/stdin"
 
 [handler_preview.markdown]
-command = "mdcat %i"
+command = "themed-bat --paging=never --terminal-width=%c %i"
 
 [handler_edit.markdown]
-command = "retext %i"
-wait = false
+command = "nvim %i"
+shell = true
 
 [handler_open.mobi]
 command = "FBReader %i"
@@ -299,7 +299,7 @@ command = "pandoc -s -t markdown -- %i | mdcat"
 shell = true
 
 [handler_edit.msdocument]
-command = "libreoffice %i"
+command = "nvim %i"
 no_pipe = true
 
 [handler_preview.opendocument]
@@ -311,7 +311,7 @@ command = "libreoffice %i"
 no_pipe = true
 
 [handler_preview.patch]
-command = "cat %i | delta"
+command = "themed-bat --paging=never --terminal-width=%c %i"
 shell = true
 
 [handler_preview.pcap]
@@ -343,12 +343,12 @@ no_pipe = true
 command = "ss -alxp src unix:'%i'"
 
 [handler_preview.sqlite]
-command = "sqlite3 %i .dump | bat -P --color=always -n --terminal-width %c -r :%l -l sql"
+command = "sqlite3 %i .dump | themed-bat -P -n --terminal-width %c -r :%l -l sql"
 shell = true
 no_pipe = true
 
 [handler_open.sqlite]
-command = "sqlite3 %i .dump | bat --paging always --color=always -n --terminal-width %c -l sql"
+command = "sqlite3 %i .dump | themed-bat --paging always -n --terminal-width %c -l sql"
 shell = true
 no_pipe = true
 
@@ -360,7 +360,7 @@ command = "browser %i"
 no_pipe = true
 
 [handler_preview.text]
-command = "bat --paging=never --color=always --style=auto --terminal-width %c -r :%l %i"
+command = "themed-bat --paging=never --terminal-width=%c %i"
 
 [handler_open.text]
 command = "subl %i"
@@ -383,10 +383,10 @@ command = "mpv --loop %i"
 no_pipe = true
 
 [handler_preview.xsv]
-command = "bat --paging=never --color=always --style=auto --terminal-width %c -r :%l --language csv %i"
+command = "themed-bat --paging=never --terminal-width=%c --language=csv %i"
 
 [handler_open.xsv]
-command = "libreoffice %i"
+command = "tabview %i"
 no_pipe = true
 
 
