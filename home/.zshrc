@@ -111,8 +111,8 @@ add-zsh-hook preexec make_beam
 bindkey -M viins ${terminfo[kdch1]} delete-char	# Del key
 bindkey "^?" backward-delete-char
 
-if [[ $HOME/.config/theme.yml ]]; then
-    export THEME=$(cat $HOME/.config/theme.yml)
+if [ -f $HOME/.config/theme.yaml ]; then
+    export THEME=$(cat $HOME/.config/theme.yaml)
 fi 
 
 # Aliases

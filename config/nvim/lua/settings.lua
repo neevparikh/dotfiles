@@ -63,8 +63,6 @@ lsp_zero.set_preferences({
   },
 })
 
-lsp_zero.nvim_workspace()
-
 local cmp = require("cmp")
 local mappings = GetCmpMappings()
 
@@ -145,7 +143,7 @@ vim.api.nvim_create_autocmd({ "BufWritePost", "TextChanged", "InsertLeave" }, {
       vim.schedule_wrap(function()
         if vim.api.nvim_buf_is_valid(bufnr) then
           vim.api.nvim_buf_call(bufnr, function()
-            lint.try_lint(nil, { ignore_errors = false })
+            require("lint").try_lint(nil, { ignore_errors = false })
           end)
         end
       end)
