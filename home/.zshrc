@@ -15,6 +15,18 @@ export PATH="$HOME/Library/Application Support/Coursier/bin":$PATH
 ZSH_THEME="minimal"
 GRUVBOX_THEME="dark"
 
+if [ -d "$HOME/.cargo/bin" ]; then
+  source "$HOME/.cargo/env"
+fi
+
+if [ -d "/opt/cuda/bin/" ]; then
+  export PATH="/opt/cuda/bin:$PATH"
+fi
+
+if [ -d "/usr/local/cuda/bin/" ]; then
+  export PATH="/usr/local/cuda/bin:$PATH"
+fi
+
 # Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="false"
 
@@ -317,8 +329,8 @@ alias -g slk='slack &!; exit'
 alias -g dsc='Discord &!; exit'
 
 # Changing theme
-alias -g lt="toggle_theme --light"
-alias -g dt="toggle_theme --dark"
+alias -g lt="toggle-theme --light"
+alias -g dt="toggle-theme --dark"
 
 alias lsl='ls'
 alias cna="source $HOME/.miniconda/bin/activate && conda activate"
