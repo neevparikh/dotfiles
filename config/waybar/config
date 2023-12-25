@@ -5,9 +5,6 @@
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": [],
     "modules-right": ["battery", "clock"],
-    "sway/window": {
-        "max-length": 50
-    },
     "battery": {
         "format": "{icon} {capacity}%",
         "format-icons": ["", "", "", "", ""]
