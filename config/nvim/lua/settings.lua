@@ -5,7 +5,7 @@ local lsp_zero = require("lsp-zero")
 local ls = require("luasnip")
 local lspconfig = require("lspconfig")
 
--- {{{ mason
+-- {{{ mason and lspconfig
 require("mason").setup({
   ui = {
     icons = {
@@ -21,32 +21,34 @@ require("mason").setup({
     },
   },
 })
+
 require("mason-lspconfig").setup({
-  ensure_installed = {},
+  ensure_installed = { "lua_ls", "clangd", "pyright" },
   handlers = {
     lsp_zero.default_setup(),
     lua_ls = function()
       local lua_opts = lsp_zero.nvim_lua_ls()
-      require("lspconfig").lua_ls.setup(lua_opts)
+      lspconfig.lua_ls.setup(lua_opts)
+    end,
+    clangd = function()
+      lspconfig.clangd.setup({
+        settings = {
+          clangd = {
+            arguments = {
+              "--header-insertion=never",
+              "--query-driver=**",
+            },
+          },
+        },
+      })
     end,
   },
 })
 
--- move this into mason lspconfig?
-lspconfig.clangd.setup({
-  settings = {
-    clangd = {
-      arguments = {
-        "--header-insertion=never",
-        "--query-driver=**",
-      },
-    },
-  },
-})
---
+lspconfig.rust_analyzer.setup({})
 -- }}}
 
--- {{{ lsp
+-- {{{ lspzero and completion
 lsp_zero.set_preferences({
   suggest_lsp_servers = true,
   setup_servers_on_start = true,
@@ -62,21 +64,17 @@ lsp_zero.set_preferences({
     info = "",
   },
 })
-
 local cmp = require("cmp")
-local mappings = GetCmpMappings()
-
 local winopts = {
   border = "rounded",
   winhighlight = "CursorLine:Visual,Search:None",
 }
-
 cmp.setup({
   window = {
     completion = cmp.config.window.bordered(winopts),
     documentation = cmp.config.window.bordered(winopts),
   },
-  mapping = mappings,
+  mapping = GetCmpMappings(),
   formatting = lsp_zero.cmp_format(),
   sources = {
     { name = "path" },
@@ -85,9 +83,11 @@ cmp.setup({
     { keyword_length = 2, name = "luasnip", option = { show_autosnippets = true } },
   },
 })
--- }}}
 
--- {{{ mason
+vim.diagnostic.config({
+  virtual_text = true,
+})
+
 -- }}}
 
 -- {{{ conform
