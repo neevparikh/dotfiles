@@ -10,13 +10,18 @@ export ZSH="$HOME/.oh-my-zsh"
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="minimal"
 GRUVBOX_THEME="dark"
-export GRUVBOX_BG_1='#3c3836'
-export GRUVBOX_BG_3='#665c54'
-export GRUVBOX_BLUE='#83a598'
-export GRUVBOX_FG_1='#ebdbb2'
-export GRUVBOX_FG_4='#a89984'
-export GRUVBOX_ORANGE='#fe8019'
-export GRUVBOX_YELLOW='#fabd2f'
+
+if [ -d "$HOME/.cargo/bin" ]; then
+  source "$HOME/.cargo/env"
+fi
+
+if [ -d "/opt/cuda/bin/" ]; then
+  export PATH="/opt/cuda/bin:$PATH"
+fi
+
+if [ -d "/usr/local/cuda/bin/" ]; then
+  export PATH="/usr/local/cuda/bin:$PATH"
+fi
 
 # Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="false"
@@ -320,8 +325,8 @@ alias -g slk='slack &!; exit'
 alias -g dsc='Discord &!; exit'
 
 # Changing theme
-alias -g lt="toggle_theme --light"
-alias -g dt="toggle_theme --dark"
+alias -g lt="toggle-theme --light"
+alias -g dt="toggle-theme --dark"
 
 alias lsl='ls'
 alias sl='ls'
