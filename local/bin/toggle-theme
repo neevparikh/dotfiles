@@ -1,29 +1,29 @@
 #!/usr/bin/env bash
 
 SOCKET="unix:/tmp/"$(lsof -U | grep -Eo "kitty-controller-[\d 0-9]*") 
-DARK_KITTY="~/.config/kitty/themes/gruvbox_dark_hard.conf"
-LIGHT_KITTY="~/.config/kitty/themes/gruvbox_light.conf"
+DARK=mocha
+LIGHT=latte
 
 if [[ $@ = "--dark" ]] 
 then
-    export GRUVBOX_BG_1='#3c3836'
-    export GRUVBOX_BG_3='#665c54'
-    export GRUVBOX_BLUE='#83a598'
-    export GRUVBOX_FG_1='#ebdbb2'
-    export GRUVBOX_FG_4='#a89984'
-    export GRUVBOX_ORANGE='#fe8019'
-    export GRUVBOX_YELLOW='#fabd2f'
-    kitty @ --to $SOCKET set-colors --all --configured $DARK_KITTY
+    kitty @ --to $SOCKET set-colors --all --configured "~/.config/kitty/themes/$DARK.conf"
+    ln -sf ~/.config/sway/themes/catppuccin-$DARK ~/.config/sway/themes/active-theme \
+      && ln -sf ~/.config/waybar/themes/$DARK.css ~/.config/waybar/themes/active.css \
+      && swaymsg reload
+    ln -sf ~/.config/dunst/dunstrc-$DARK ~/.config/dunst/dunstrc && pkill dunst
+    ln -sf ~/.config/tofi/themes/catppuccin-$DARK ~/.config/tofi/themes/active
+    
+    sed -i 's/prefer-light/prefer-dark/g' ~/.local/share/nwg-look/gsettings && nwg-look -a && nwg-look -x
     echo 'dark' > $HOME/.config/theme.yaml
 elif [[ $@ = "--light" ]] 
 then
-    export GRUVBOX_BG_1='#ebdbb2'
-    export GRUVBOX_BG_3='#bdae93'
-    export GRUVBOX_BLUE='#076678'
-    export GRUVBOX_FG_1='#3c3836'
-    export GRUVBOX_FG_4='#7c6f64'
-    export GRUVBOX_ORANGE='#af3a03'
-    export GRUVBOX_YELLOW='#b57614'
-    kitty @ --to $SOCKET set-colors --all --configured $LIGHT_KITTY
+    kitty @ --to $SOCKET set-colors --all --configured "~/.config/kitty/themes/$LIGHT.conf"
+    ln -sf ~/.config/sway/themes/catppuccin-$LIGHT ~/.config/sway/themes/active-theme \
+      && ln -sf ~/.config/waybar/themes/$LIGHT.css ~/.config/waybar/themes/active.css \
+      && swaymsg reload
+    ln -sf ~/.config/dunst/dunstrc-$LIGHT ~/.config/dunst/dunstrc && pkill dunst
+    ln -sf ~/.config/tofi/themes/catppuccin-$LIGHT ~/.config/tofi/themes/active
+    
+    sed -i 's/prefer-dark/prefer-light/g' ~/.local/share/nwg-look/gsettings && nwg-look -a && nwg-look -x
     echo 'light' > $HOME/.config/theme.yaml
 fi 

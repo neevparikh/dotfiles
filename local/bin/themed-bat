@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 
+source $HOME/.local/bin/toggle-theme
+
 while IFS= read -r line; do
     if [[ $line = "dark" ]] 
     then
-      bat --theme=gruvbox-dark $@
+      bat --theme=Catppuccin-$DARk $@
     elif [[ $line = "light" ]] 
     then
-      bat --theme=gruvbox-light $@
+      bat --theme=Catppuccin-$LIGHT $@
     fi 
 done < $HOME/.config/theme.yaml
