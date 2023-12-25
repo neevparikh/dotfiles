@@ -9,7 +9,6 @@ export ZSH="$HOME/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="minimal"
-GRUVBOX_THEME="dark"
 
 if [ -d "$HOME/.cargo/bin" ]; then
   source "$HOME/.cargo/env"
@@ -116,8 +115,19 @@ add-zsh-hook preexec make_beam
 bindkey -M viins ${terminfo[kdch1]} delete-char	# Del key
 bindkey "^?" backward-delete-char
 
+
+if [ -f $HOME/.local/share/nwg-look/gsettings ]; then
+  export THEME=$(sed -n -e 's/^.*gtk-theme=//p' ~/.local/share/nwg-look/gsettings)
+  export GTK_THEME=$THEME
+  export THEME_DIR="/usr/share/themes/$THEME"
+fi 
+if ! [ $HOME/.config/gtk-4.0/gtk.css ]; then
+  ln -sf "${THEME_DIR}/gtk-4.0/assets" "${HOME}/.config/gtk-4.0/assets"
+  ln -sf "${THEME_DIR}/gtk-4.0/gtk.css" "${HOME}/.config/gtk-4.0/gtk.css"
+  ln -sf "${THEME_DIR}/gtk-4.0/gtk-dark.css" "${HOME}/.config/gtk-4.0/gtk-dark.css"
+fi
 if [ -f $HOME/.config/theme.yaml ]; then
-    export THEME=$(cat $HOME/.config/theme.yaml)
+    export VARIANT=$(cat $HOME/.config/theme.yaml)
 fi 
 
 # Aliases
