@@ -5,7 +5,7 @@ local lsp_zero = require("lsp-zero")
 local ls = require("luasnip")
 local lspconfig = require("lspconfig")
 
--- {{{ mason
+-- {{{ mason and lspconfig
 require("mason").setup({
   ui = {
     icons = {
@@ -21,14 +21,41 @@ require("mason").setup({
     },
   },
 })
+
 require("mason-lspconfig").setup({
+  ensure_installed = { "lua_ls", "clangd", "pyright" },
   handlers = {
     lsp_zero.default_setup,
+    lua_ls = function()
+      local lua_opts = lsp_zero.nvim_lua_ls()
+      lspconfig.lua_ls.setup(lua_opts)
+    end,
+    pyright = function() 
+      lspconfig.pyright.setup({
+        settings = {
+          pyright = { venvPath = "~/.venvs/" },
+        },
+      })
+    end,
+    clangd = function()
+      lspconfig.clangd.setup({
+        settings = {
+          clangd = {
+            arguments = {
+              "--header-insertion=never",
+              "--query-driver=**",
+            },
+          },
+        },
+      })
+    end,
   },
 })
+
+lspconfig.rust_analyzer.setup({})
 -- }}}
 
--- {{{ lsp
+-- {{{ lspzero and completion
 lsp_zero.set_preferences({
   suggest_lsp_servers = true,
   setup_servers_on_start = true,
@@ -45,47 +72,23 @@ lsp_zero.set_preferences({
   },
 })
 
-lsp_zero.nvim_workspace()
-
 local cmp = require("cmp")
-local mappings = GetCmpMappings()
-
 local winopts = {
   border = "rounded",
   winhighlight = "CursorLine:Visual,Search:None",
 }
-
-local cmp_config = {
+cmp.setup({
   window = {
     completion = cmp.config.window.bordered(winopts),
     documentation = cmp.config.window.bordered(winopts),
   },
-  mapping = mappings,
+  mapping = GetCmpMappings(),
+  formatting = lsp_zero.cmp_format(),
   sources = {
     { name = "path" },
     { keyword_length = 3, name = "nvim_lsp" },
     { keyword_length = 3, name = "buffer" },
     { keyword_length = 2, name = "luasnip", option = { show_autosnippets = true } },
-  },
-}
-
-lsp_zero.setup_nvim_cmp(cmp_config)
-lsp_zero.setup()
-
-lspconfig.pyright.setup({
-  settings = {
-    pyright = { venvPath = "~/.venvs/" },
-  },
-})
-
-lspconfig.clangd.setup({
-  settings = {
-    clangd = {
-      arguments = {
-        "--header-insertion=never",
-        "--query-driver=**",
-      },
-    },
   },
 })
 
