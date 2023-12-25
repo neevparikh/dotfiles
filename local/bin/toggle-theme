@@ -1,11 +1,15 @@
 #!/usr/bin/env bash
 
+SOCKET="unix:/tmp/"$(lsof -U | grep -Eo "kitty-controller-[\d 0-9]*") 
+DARK=mocha
+LIGHT=latte
+
 if [[ $@ = "--dark" ]] 
 then
-    kitty @ --to $SOCKET set-colors --all --configured $DARK_KITTY
+    kitty @ --to $SOCKET set-colors --all --configured "~/.config/kitty/themes/$DARK.conf"
     echo 'dark' > $HOME/.config/theme.yaml
 elif [[ $@ = "--light" ]] 
 then
-    kitty @ --to $SOCKET set-colors --all --configured $LIGHT_KITTY
+    kitty @ --to $SOCKET set-colors --all --configured "~/.config/kitty/themes/$LIGHT.conf"
     echo 'light' > $HOME/.config/theme.yaml
 fi 
