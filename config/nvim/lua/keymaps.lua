@@ -94,21 +94,21 @@ function GetCmpMappings()
     -- confirm selection
     ["<CR>"] = cmp.mapping.confirm({ select = false }),
 
-    -- navigate items on the list
-    ["J"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item(select_opts)
-      else
-        fallback()
-      end
-    end, { "i", "s" }),
-    ["K"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item(select_opts)
-      else
-        fallback()
-      end
-    end, { "i", "s" }),
+    -- -- navigate items on the list
+    -- ["J"] = cmp.mapping(function(fallback)
+    --   if cmp.visible() then
+    --     cmp.select_next_item(select_opts)
+    --   else
+    --     fallback()
+    --   end
+    -- end, { "i", "s" }),
+    -- ["K"] = cmp.mapping(function(fallback)
+    --   if cmp.visible() then
+    --     cmp.select_prev_item(select_opts)
+    --   else
+    --     fallback()
+    --   end
+    -- end, { "i", "s" }),
 
     -- scroll up and down in the completion documentation
     ["<c-j>"] = cmp.mapping(function(fallback)
