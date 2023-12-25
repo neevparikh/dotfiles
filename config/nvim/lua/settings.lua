@@ -110,17 +110,6 @@ require("conform").setup({
 })
 -- }}}
 
--- {{{ dressing
-require("dressing").setup({
-  input = {
-    border = "rounded",
-    win_options = {
-      winhighlight = "CursorLine:Visual,Search:None",
-    },
-  },
-})
--- }}}
-
 -- {{{ nvim-lint
 require("lint").linters_by_ft = {
   ruby = { "rubocop" },
@@ -253,9 +242,11 @@ require("telescope").setup({
   defaults = {
     layout_strategy = "flex",
     layout_config = {
-      flip_columns = 220,
       prompt_position = "top",
       horizontal = { preview_cutoff = 80 },
+      flex = {
+        flip_columns = 220,
+      },
     },
     sorting_strategy = "ascending",
     mappings = {
@@ -311,6 +302,36 @@ require("telescope").setup({
         },
       },
     },
+  },
+})
+-- }}}
+
+-- {{{ dressing
+require("dressing").setup({
+  input = {
+    border = "rounded",
+    win_options = {
+      wrap = true,
+      winhighlight = "CursorLine:Visual,Search:None",
+    },
+  },
+  select = {
+    builtin = {
+      prefer_width = 0.4,
+      border = "rounded",
+      win_options = {
+        wrap = true,
+        winhighlight = "CursorLine:Visual,Search:None",
+      },
+    },
+    telescope = require("telescope.themes").get_dropdown({
+      wrap_results = true,
+      layout_config = {
+        prompt_position = "top",
+        width = 0.5,
+        height = 0.4,
+      },
+    }),
   },
 })
 -- }}}
