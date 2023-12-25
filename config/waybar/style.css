@@ -1,3 +1,5 @@
+@import "themes/active.css";
+
 * {
     border: none;
     border-radius: 0;
@@ -7,30 +9,30 @@
 }
 
 window#waybar {
-    background: @theme_base_color;
-    border-bottom: 1px solid @unfocused_borders;
-    color: @theme_text_color;
+    background: @base;
+    border-bottom: 1px solid @crust;
+    color: @text;
 }
 
 tooltip {
-  background: @theme_bg_color;
-  border: 1px solid @theme_fg_color;
+  background: @base;
+  border: 1px solid @crust;
 }
 
 tooltip label {
-  color: white;
+  color: @text;
 }
 
 #workspaces button {
-    padding: 4px 4px;
+    padding: 2px;
+    color: @overlay0;
     background: transparent;
-    color: @theme_selected_fg_color;
     border-bottom: 1px solid transparent;
 }
 
 #workspaces button.focused {
-    background: @theme_bg_color;
-    border-bottom: 1px solid @theme_fg_color;
+    background: @surface0;
+    border-bottom: 1px solid @crust;
 }
 
 #mode, #clock, #battery {
@@ -38,34 +40,34 @@ tooltip label {
 }
 
 #mode {
-    background: @theme_bg_color;
-    border-bottom: 1px solid @theme_text_color;
+    background: @base;
+    border-bottom: 1px solid @text;
 }
 
 #clock {
-    background-color: @theme_bg_color;
+    background-color: @base;
 }
 
 #battery {
-    background-color: @theme_bg_color;
-    color: @theme_text_color;
+    background-color: @base;
+    color: @text;
 }
 
 #battery.charging {
-    background-color: @theme_selected_bg_color;
-    color: @theme_selected_fg_color;
+    background-color: @surface0;
+    color: @green;
 }
 
 @keyframes blink {
     to {
-        background-color: @theme_base_color;
-        color: @theme_text_color;
+        background-color: @base;
+        color: @text;
     }
 }
 
 #battery.warning:not(.charging) {
-    background: @theme_base_color;
-    color: @theme_text_color;
+    background: @base;
+    color: @red;
     animation-name: blink;
     animation-duration: 0.5s;
     animation-timing-function: linear;
