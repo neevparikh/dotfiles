@@ -1,79 +1,112 @@
 -- vim: set foldmethod=marker:foldlevel=0
 require("helpers")
 
-gruvbox = require("gruvbox")
-gruvbox.setup({
-  terminal_colors = true, -- add neovim terminal colors
-  undercurl = true,
-  underline = true,
-  bold = true,
-  italic = {
-    strings = true,
-    emphasis = true,
-    comments = true,
-    operators = false,
-    folds = true,
+require("catppuccin").setup({
+  flavour = "mocha", -- latte, frappe, macchiato, mocha
+  background = { -- :h background
+    light = "latte",
+    dark = "mocha",
   },
-  strikethrough = true,
-  invert_selection = false,
-  invert_signs = false,
-  invert_tabline = false,
-  invert_intend_guides = false,
-  inverse = true, -- invert background for search, diffs, statuslines and errors
-  contrast = "hard", -- can be "hard", "soft" or empty string
-  dim_inactive = false,
-  transparent_mode = false,
-  palette_overrides = {},
-  overrides = {
-    String = { italic = false },
-    -- TODO: update this to use get_colors when exposed
-    Todo = { link = "htmlBoldItalic" },
-    ["@text.danger.comment"] = { link = "htmlBoldItalic" },
+  transparent_background = false, -- disables setting the background color.
+  show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
+  term_colors = false, -- sets terminal colors (e.g. `g:terminal_color_0`)
+  dim_inactive = {
+    enabled = false, -- dims the background color of inactive window
+    shade = "dark",
+    percentage = 0.15, -- percentage of the shade to apply to the inactive window
+  },
+  no_italic = false, -- Force no italic
+  no_bold = false, -- Force no bold
+  no_underline = false, -- Force no underline
+  styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
+    comments = { "italic" }, -- Change the style of comments
+    conditionals = { "italic" },
+    loops = {},
+    functions = {},
+    keywords = {},
+    strings = {},
+    variables = {},
+    numbers = {},
+    booleans = {},
+    properties = {},
+    types = {},
+    operators = {},
+  },
+  color_overrides = {},
+  highlight_overrides = {},
+  custom_highlights = function(colors)
+    return {
+      FloatBorder = { fg = colors.surface0 },
+      WinSeparator = { fg = colors.surface0, bg = colors.base },
 
-    -- FIXME: find a better solution for this, maybe a plugin or something
-    diffAdded = { fg = "#98971a" },
-    diffRemoved = { fg = "#cc241d" },
+      TelescopeBorder = { fg = colors.surface0 },
+      TelescopePromptBorder = { fg = colors.surface0 },
+      TelescopeResultsBorder = { fg = colors.surface0 },
+      TelescopePreviewBorder = { fg = colors.surface0 },
+      TelescopeSelection = { bg = colors.base },
 
-    FloatBorder = { link = "GruvboxBg2" },
+      MasonHeader = { fg = colors.lavender, bg = colors.mantle, style = { "bold" } },
+      MasonHeaderSecondary = { fg = colors.blue, bg = colors.mantle, style = { "bold" } },
 
-    TelescopeBorder = { link = "GruvboxBg2" },
-    TelescopePromptBorder = { link = "GruvboxBg2" },
-    TelescopeResultsBorder = { link = "GruvboxBg2" },
-    TelescopePreviewBorder = { link = "GruvboxBg2" },
+      MasonHighlight = { fg = colors.green, bg = colors.mantle },
+      MasonHighlightBlock = { fg = colors.green, bg = colors.mantle },
+      MasonHighlightBlockBold = { fg = colors.blue, bg = colors.mantle, bold = true },
 
-    MasonNormal = { link = "GruvboxFg1" },
-    MasonMutedBlock = { link = "GruvboxRed" },
-    MasonMutedBlockBold = { link = "GruvboxRed", bold = true },
-    MasonHighlight = { link = "GruvboxOrange" },
-    MasonHighlightBlock = { link = "GruvboxOrangeBold" },
-    MasonHighlightBlockBold = { link = "GruvboxOrangeBold", bold = true },
-    MasonHighlightSecondary = { link = "GruvboxYellow" },
-    MasonHighlightBlockSecondary = { link = "GruvboxYellow" },
-    MasonHighlightBlockBoldSecondary = { link = "GruvboxYellow", bold = true },
+      MasonHighlightSecondary = { fg = colors.mauve, bg = colors.mantle },
+      MasonHighlightBlockSecondary = { fg = colors.blue, bg = colors.mantle },
+      MasonHighlightBlockBoldSecondary = { fg = colors.lavender, bg = colors.mantle, bold = true },
+
+      MasonMuted = { fg = colors.overlay0, bg = colors.mantle },
+      MasonMutedBlock = { fg = colors.overlay0, bg = colors.mantle },
+      MasonMutedBlockBold = { fg = colors.yellow, bg = colors.mantle, bold = true },
+
+      MasonError = { fg = colors.red, bg = colors.mantle },
+
+      MasonHeading = { fg = colors.lavender, bg = colors.mantle, bold = true },
+    }
+  end,
+  native_lsp = {
+    enabled = true,
+    virtual_text = {
+      errors = { "italic" },
+      hints = { "italic" },
+      warnings = { "italic" },
+      information = { "italic" },
+    },
+    underlines = {
+      errors = { "underline" },
+      hints = { "underline" },
+      warnings = { "underline" },
+      information = { "underline" },
+    },
+    inlay_hints = {
+      background = false,
+    },
+  },
+  integrations = {
+    cmp = true,
+    gitsigns = true,
+    nvimtree = true,
+    treesitter = true,
+    notify = false,
+    mason = true,
+    telescope = { enabled = true },
+    mini = {
+      enabled = true,
+      indentscope_color = "",
+    },
   },
 })
 
-vim.cmd("colorscheme gruvbox")
+-- setup must be called before loading
+vim.cmd.colorscheme("catppuccin")
 vim.opt.background = CheckTheme()
 
 vim.cmd([[
 " default
-let g:fzf_colors = {
-      \ 'fg':      ['fg', 'GruvboxFg1'],
-      \ 'bg':      ['fg', 'GruvboxBg0'],
-      \ 'hl':      ['fg', 'GruvboxYellow'],
-      \ 'fg+':     ['fg', 'GruvboxFg1'],
-      \ 'bg+':     ['fg', 'GruvboxBg1'],
-      \ 'hl+':     ['fg', 'GruvboxYellow'],
-      \ 'info':    ['fg', 'GruvboxBlue'],
-      \ 'prompt':  ['fg', 'GruvboxFg4'],
-      \ 'pointer': ['fg', 'GruvboxBlue'],
-      \ 'marker':  ['fg', 'GruvboxOrange'],
-      \ 'spinner': ['fg', 'GruvboxYellow'],
-      \ 'header':  ['fg', 'GruvboxBg3']
-      \ }
-
-let g:fzf_colors["gutter"] = ['bg', 'GruvboxBg1', 'Normal']
-let g:fzf_colors["bg+"] = ['bg', 'GruvboxBg1', 'Normal']
-let g:fzf_colors["info"] = ['bg', 'GruvboxBg2', 'Normal']
+let g:fzf_colors = {}
+let g:fzf_colors["border"] = ['fg', 'FloatBorder']
+let g:fzf_colors["gutter"] = ['bg', 'Normal']
+let g:fzf_colors["bg+"] = ['bg', 'Normal']
+let g:fzf_colors["info"] = ['bg', 'Normal']
 ]])
