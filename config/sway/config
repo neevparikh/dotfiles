@@ -1,4 +1,5 @@
 # vim:foldmethod=marker:foldlevel=0
+include $HOME/.config/sway/themes/active-theme
 
 # {{{ variables
 set $mod Mod4
@@ -232,10 +233,11 @@ exec wlsunset -l 37.7 -L -122.4
 
 # {{{ per window
 for_window [class="^.*"] border pixel 0
-for_window [class="^.*"] title_format ""
+for_window [class="^.*"] title_format "%title"
 
 floating_maximum_size -1 x -1
 for_window [app_id="pavucontrol"] floating enable
+for_window [app_id="blueman-manager"] floating enable
 for_window [app_id="nwg-look"] floating enable
 for_window [class="1Password"] floating enable
 for_window [title="zoom" class="zoom"] floating enable
