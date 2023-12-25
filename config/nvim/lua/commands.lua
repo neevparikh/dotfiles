@@ -52,7 +52,7 @@ end, { nargs = 0 })
 -- }}}
 
 vim.api.nvim_create_user_command("Scratch", function()
-  random_string = ""
+  local random_string = ""
   for i = 1, 5 do
     random_string = random_string .. string.char(math.random(97, 97 + 25))
   end
