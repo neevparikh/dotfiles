@@ -244,11 +244,11 @@ command = "dpkg -c %i | head -n %l"
 shell = true
 
 [handler_preview.directory]
-command = "lsd -alFh --tree --depth 2 --color=always --icon=always %i | head -n %l"
+command = "eza -alFh --tree --level 2 --color=always --icons=always %i | head -n %l"
 shell = true
 
 [handler_open.directory]
-command = "lsd -alFh --tree --depth 2 --color=always --icon=always %i | less -R"
+command = "eza -alFh --tree --level 2 --color=always --icons=always %i | less -R"
 shell = true
 
 [handler_open.epub]
