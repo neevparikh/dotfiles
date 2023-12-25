@@ -1,0 +1,11 @@
+# latte
+background-color            = #e6e9ef
+prompt-background           = #e6e9ef
+input-background            = #e6e9ef
+alternate-result-background = #e6e9ef
+
+selection-background        = #fe640b
+
+text-color                  = #4c4f69
+prompt-color                = #d20f39
+selection-color             = #414559

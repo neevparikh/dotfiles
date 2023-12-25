@@ -1,0 +1,11 @@
+# macchiato
+background-color            = #1e2030
+prompt-background           = #1e2030
+input-background            = #1e2030
+alternate-result-background = #1e2030
+
+selection-background        = #f5a97f
+
+text-color                  = #cad3f5
+prompt-color                = #ed8796
+selection-color             = #363a4f

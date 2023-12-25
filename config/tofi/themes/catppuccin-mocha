@@ -1,0 +1,11 @@
+# mocha
+background-color            = #181825
+prompt-background           = #181825
+input-background            = #181825
+alternate-result-background = #181825
+
+selection-background        = #fab387
+
+text-color                  = #cdd6f4
+prompt-color                = #f38ba8
+selection-color             = #313244

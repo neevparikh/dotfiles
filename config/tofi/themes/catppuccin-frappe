@@ -1,0 +1,11 @@
+# frappe
+background-color            = #292c3c
+prompt-background           = #292c3c
+input-background            = #292c3c
+alternate-result-background = #292c3c
+
+selection-background        = #ef9f76
+
+text-color                  = #c6d0f5
+prompt-color                = #e78284
+selection-color             = #e5c890

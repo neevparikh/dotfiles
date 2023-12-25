@@ -31,5 +31,33 @@ late-keyboard-init = false
 multi-instance     = false
 ascii-input        = false
 
+# style
+outline-width                             = 0
+border-width                              = 0
+min-input-width                           = 0
+result-spacing                            = 12
+num-results                               = 8
+prompt-text                               = "->"
+clip-to-padding                           = false
+
+# padding
+padding-top                               = 8
+padding-bottom                            = 0
+padding-left                              = 8
+padding-right                             = 8
+
+prompt-padding                            = 4
+
+prompt-background-padding                 = 2, 4
+input-background-padding                  = 2, 4
+alternate-result-background-padding       = 2, 4
+selection-background-padding              = 2, 4
+
+# corner
+prompt-background-corner-radius           = 6
+input-background-corner-radius            = 6
+alternate-result-background-corner-radius = 6
+selection-background-corner-radius        = 6
+
 # theme
-include            = themes/gruvbox-dark
+include            = themes/active
