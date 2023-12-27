@@ -10,7 +10,6 @@ end
 local cpp = create_augroup("cpp")
 
 -- {{{ theme
-autocmd({ "User" }, { pattern = "SwitchedTheme", callback = SwitchTheme })
 -- }}}
 
 -- {{{ general
