@@ -30,7 +30,7 @@ require("mason-lspconfig").setup({
       local lua_opts = lsp_zero.nvim_lua_ls()
       lspconfig.lua_ls.setup(lua_opts)
     end,
-    pyright = function() 
+    pyright = function()
       lspconfig.pyright.setup({
         settings = {
           pyright = { venvPath = "~/.venvs/" },
@@ -248,7 +248,7 @@ require("telescope").setup({
       prompt_position = "top",
       horizontal = { preview_cutoff = 80 },
       flex = {
-        flip_columns = 220,
+        flip_columns = 160,
       },
     },
     sorting_strategy = "ascending",
