@@ -27,8 +27,10 @@ require("gruvbox").setup({
     NormalFloat = { link = "Normal" },
     String = { italic = false },
     -- TODO: update this to use get_colors when exposed
-    Todo = { link = "htmlBoldItalic" },
+    ["@text.todo.comment"] = { link = "htmlBoldItalic" },
     ["@text.danger.comment"] = { link = "htmlBoldItalic" },
+    -- lua_ls defines comment semantic group, overrides other comment-specific things
+    ["@lsp.type.comment.lua"] = {},
 
     -- FIXME: find a better solution for this, maybe a plugin or something
     diffAdded = { fg = "#98971a" },
