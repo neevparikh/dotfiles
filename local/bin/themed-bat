@@ -5,9 +5,9 @@ source $HOME/.local/bin/toggle-theme
 while IFS= read -r line; do
     if [[ $line = "dark" ]] 
     then
-      bat --theme=$(echo $DARK | sed 's/_/-/g') $@
+      bat --theme=$(echo $DARK | sed 's/_/-/g' | sed 's/-hard/-/g') $@
     elif [[ $line = "light" ]] 
     then
-      bat --theme=$(echo $LIGHT | sed 's/_/-/g') $@
+      bat --theme=$(echo $LIGHT | sed 's/_/-/g' | sed 's/-hard/-/g') $@
     fi 
 done < $HOME/.config/theme.yaml

@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
 
 SOCKET="unix:/tmp/"$(lsof -U | grep -Eo "kitty-controller-[\d 0-9]*") 
-DARK=gruvbox_dark
+DARK=gruvbox_dark_hard
 LIGHT=gruvbox_light
 
 if [[ $@ = "--dark" ]] 
 then
-    kitty @ --to $SOCKET set-colors --all --configured "~/.config/kitty/themes/$DARK\_hard.conf"
     ln -sf ~/.config/sway/themes/catppuccin-$DARK ~/.config/sway/themes/active-theme \
       && ln -sf ~/.config/waybar/themes/$DARK.css ~/.config/waybar/themes/active.css \
       && swaymsg reload
@@ -14,10 +13,10 @@ then
     ln -sf ~/.config/tofi/themes/catppuccin-$DARK ~/.config/tofi/themes/active
     
     sed -i 's/prefer-light/prefer-dark/g' ~/.local/share/nwg-look/gsettings && nwg-look -a && nwg-look -x
+    kitty @ --to $SOCKET set-colors --all --configured "~/.config/kitty/themes/$DARK.conf"
     echo 'dark' > $HOME/.config/theme.yaml
 elif [[ $@ = "--light" ]] 
 then
-    kitty @ --to $SOCKET set-colors --all --configured "~/.config/kitty/themes/$LIGHT.conf"
     ln -sf ~/.config/sway/themes/catppuccin-$LIGHT ~/.config/sway/themes/active-theme \
       && ln -sf ~/.config/waybar/themes/$LIGHT.css ~/.config/waybar/themes/active.css \
       && swaymsg reload
@@ -25,5 +24,6 @@ then
     ln -sf ~/.config/tofi/themes/catppuccin-$LIGHT ~/.config/tofi/themes/active
     
     sed -i 's/prefer-dark/prefer-light/g' ~/.local/share/nwg-look/gsettings && nwg-look -a && nwg-look -x
+    kitty @ --to $SOCKET set-colors --all --configured "~/.config/kitty/themes/$LIGHT.conf"
     echo 'light' > $HOME/.config/theme.yaml
 fi 
