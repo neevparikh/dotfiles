@@ -48,6 +48,7 @@ plugins=(
   git
   colored-man-pages
   extract
+  colors
 )
 
 
@@ -344,14 +345,6 @@ alias cat='themed-bat'
 alias td="todui"
 
 if [ -f "$HOME/.fzf.zsh" ]; then
-  gruvbox_fg_1='#ebdbb2'
-  gruvbox_yellow='#fabd2f'
-  gruvbox_bg_1='#3c3836'
-  gruvbox_blue='#83a598'
-  gruvbox_fg_4='#a89984'
-  gruvbox_orange='#fe8019'
-  gruvbox_bg_3='#665c54'
-
   FD_BASE_ARGS='--follow --hidden --exclude .git --no-ignore-vcs --color=always'
 
   export FZF_PREVIEW_COMMAND="rsp {}"
