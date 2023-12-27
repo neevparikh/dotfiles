@@ -43,7 +43,11 @@ plugins=(
   git
   colored-man-pages
   extract
+<<<<<<< HEAD
   zsh-autosuggestions
+=======
+  colors
+>>>>>>> 759f3da (feat: switched back to gruvbox)
 )
 
 source $ZSH/oh-my-zsh.sh

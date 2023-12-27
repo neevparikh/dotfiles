@@ -5,9 +5,9 @@ source $HOME/.local/bin/toggle-theme
 while IFS= read -r line; do
     if [[ $line = "dark" ]] 
     then
-      bat --theme=Catppuccin-$DARK $@
+      bat --theme=$(echo $DARK | sed 's/_/-/g') $@
     elif [[ $line = "light" ]] 
     then
-      bat --theme=Catppuccin-$LIGHT $@
+      bat --theme=$(echo $LIGHT | sed 's/_/-/g') $@
     fi 
 done < $HOME/.config/theme.yaml

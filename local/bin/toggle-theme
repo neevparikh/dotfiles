@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 SOCKET="unix:/tmp/"$(lsof -U | grep -Eo "kitty-controller-[\d 0-9]*") 
-DARK=mocha
-LIGHT=latte
+DARK=gruvbox_dark
+LIGHT=gruvbox_light
 
 if [[ $@ = "--dark" ]] 
 then
-    kitty @ --to $SOCKET set-colors --all --configured "~/.config/kitty/themes/$DARK.conf"
+    kitty @ --to $SOCKET set-colors --all --configured "~/.config/kitty/themes/$DARK\_hard.conf"
     ln -sf ~/.config/sway/themes/catppuccin-$DARK ~/.config/sway/themes/active-theme \
       && ln -sf ~/.config/waybar/themes/$DARK.css ~/.config/waybar/themes/active.css \
       && swaymsg reload
