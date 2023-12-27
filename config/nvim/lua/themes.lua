@@ -24,6 +24,7 @@ require("gruvbox").setup({
   transparent_mode = false,
   palette_overrides = {},
   overrides = {
+    NormalFloat = { link = "Normal" },
     String = { italic = false },
     -- TODO: update this to use get_colors when exposed
     Todo = { link = "htmlBoldItalic" },
