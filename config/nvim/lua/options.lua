@@ -43,6 +43,6 @@ vim.cmd([[
 let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.9 } }
 
 let g:fzf_vim = {}
-let g:fzf_vim.preview_window = ['right,45%,<70(down,40%)', '?']
+let g:fzf_vim.preview_window = ['right,45%,<50(down,40%)', '?']
 let g:fzf_vim.command_prefix = 'Fzf'
 ]])
