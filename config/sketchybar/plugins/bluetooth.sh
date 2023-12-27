@@ -23,6 +23,8 @@ update() {
   DEVICE=$(filter_max_len "$RAW")
   if [ "$STATE" = "Off" ]; then
     sketchybar --set $NAME icon=󰂲 
+  elif [[ -z "$DEVICE" ]]; then
+    sketchybar --set $NAME icon=󰂯 label="Bluetooth"
   else
     sketchybar --set $NAME icon=󰂯 label="$DEVICE"
   fi
