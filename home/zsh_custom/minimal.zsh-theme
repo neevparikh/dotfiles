@@ -1,14 +1,10 @@
-GIT_COLOR="magenta"
-TIME_COLOR="red"
-SSH_COLOR="cyan"
+GIT_COLOR=022
+SSH_COLOR=004
 
-ZSH_THEME_GIT_PROMPT_PREFIX="%{$reset_color%}%{$fg[$GIT_COLOR]%}["
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$reset_color%}%{$FG[$GIT_COLOR]%}["
 ZSH_THEME_GIT_PROMPT_SUFFIX=""
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[$GIT_COLOR]%}]%{$reset_color%}" 
+ZSH_THEME_GIT_PROMPT_DIRTY="%{$FG[$GIT_COLOR]%}]%{$reset_color%}" 
 ZSH_THEME_GIT_PROMPT_CLEAN="]%{$reset_color%}"
-
-
-local time="%{$fg[$TIME_COLOR]%}%D{%l:%M %P}%{$reset_color%}"
 
 git_custom_info() {
     git_prompt_info
@@ -16,7 +12,7 @@ git_custom_info() {
 
 remote_host_prompt () {
   if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-    echo "%{$fg[$SSH_COLOR]%}$(hostname)"
+    echo "%{$FG[$SSH_COLOR]%}$(hostname)"
   else
     echo ""
   fi
