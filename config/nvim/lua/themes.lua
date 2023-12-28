@@ -25,6 +25,8 @@ require("gruvbox").setup({
   palette_overrides = {},
   overrides = {
     NormalFloat = { link = "Normal" },
+    SignColumn = { link = "Normal" },
+
     String = { italic = false },
     -- TODO: update this to use get_colors when exposed
     ["@text.todo.comment"] = { link = "htmlBoldItalic" },
