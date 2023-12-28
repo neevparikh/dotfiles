@@ -11,10 +11,12 @@ if [[ $@ = "--dark" ]]
 then
     kitty @ --to $SOCKET set-colors --all --configured "~/.config/kitty/themes/$DARK_WITH_CONTRAST.conf"
     ln -sf ~/.config/sketchybar/themes/$DARK_WITH_CONTRAST.sh ~/.config/sketchybar/themes/colors.sh
+    osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = true"
     echo 'dark' > $HOME/.config/theme.yaml
 elif [[ $@ = "--light" ]] 
 then
     kitty @ --to $SOCKET set-colors --all --configured "~/.config/kitty/themes/$LIGHT_WITH_CONTRAST.conf"
     ln -sf ~/.config/sketchybar/themes/$LIGHT_WITH_CONTRAST.sh ~/.config/sketchybar/themes/colors.sh
+    osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = false"
     echo 'light' > $HOME/.config/theme.yaml
 fi 
