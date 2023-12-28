@@ -264,9 +264,11 @@ end
 function SwitchTheme()
   local cur = vim.opt.background:get()
   if cur == "dark" then
+    require("gruvbox").setup({ contrast = "soft" })
     vim.opt.background = "light"
     vim.fn.system("toggle-theme --light")
   else
+    require("gruvbox").setup({ contrast = "hard" })
     vim.opt.background = "dark"
     vim.fn.system("toggle-theme --dark")
   end
