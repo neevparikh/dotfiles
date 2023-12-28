@@ -1,15 +1,20 @@
 #!/usr/bin/env bash
 
 SOCKET="unix:/tmp/"$(lsof -U | grep -Eo "kitty-controller-[\d 0-9]*") 
-DARK=gruvbox_dark_hard
-LIGHT=gruvbox_light
+DARK_WITH_CONTRAST=gruvbox_dark_hard
+LIGHT_WITH_CONTRAST=gruvbox_light_soft
+
+DARK=$(echo $DARK_WITH_CONTRAST | sed 's/_soft//g' | sed 's/_hard//g')
+LIGHT=$(echo $LIGHT_WITH_CONTRAST | sed 's/_soft//g' | sed 's/_hard//g')
 
 if [[ $@ = "--dark" ]] 
 then
-    kitty @ --to $SOCKET set-colors --all --configured "~/.config/kitty/themes/$DARK.conf"
+    kitty @ --to $SOCKET set-colors --all --configured "~/.config/kitty/themes/$DARK_WITH_CONTRAST.conf"
+    ln -sf ~/.config/sketchybar/themes/$DARK_WITH_CONTRAST.sh ~/.config/sketchybar/themes/colors.sh
     echo 'dark' > $HOME/.config/theme.yaml
 elif [[ $@ = "--light" ]] 
 then
-    kitty @ --to $SOCKET set-colors --all --configured "~/.config/kitty/themes/$LIGHT.conf"
+    kitty @ --to $SOCKET set-colors --all --configured "~/.config/kitty/themes/$LIGHT_WITH_CONTRAST.conf"
+    ln -sf ~/.config/sketchybar/themes/$LIGHT_WITH_CONTRAST.sh ~/.config/sketchybar/themes/colors.sh
     echo 'light' > $HOME/.config/theme.yaml
 fi 
