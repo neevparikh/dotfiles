@@ -2,7 +2,7 @@
 # vim:fileencoding=utf-8:ft=bash:foldmethod=marker:foldlevel=0:colorcolumn=90
 
 # -- {{{ setup
-source "$HOME/.config/sketchybar/colors.sh"
+source "$HOME/.config/sketchybar/themes/colors.sh"
 
 PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
 
@@ -13,7 +13,7 @@ PADDINGS=2
 sketchybar --bar height=41                                       \
                      position=top                                \
                      sticky=on                                   \
-                     color=$bg0_hard                             \
+                     color=$bg0                                  \
                      border_width=2                              \
                      border_color=$bg1                           \
                      y_offset=-2                                 \
@@ -21,7 +21,7 @@ sketchybar --bar height=41                                       \
                      notch_width=210                             \
            --default updates=when_shown                          \
                      icon.font="$FONT:Retina:16.0"               \
-                     icon.color=$fg0_hard                        \
+                     icon.color=$fg0                             \
                      icon.padding_left=$PADDINGS                 \
                      icon.padding_right=$PADDINGS                \
                      label.font="$FONT:SemiBold:12.0"            \
@@ -34,7 +34,7 @@ sketchybar --bar height=41                                       \
                      popup.background.border_width=2             \
                      popup.background.corner_radius=9            \
                      popup.background.border_color=$faded_orange \
-                     popup.background.color=$bg0_hard            \
+                     popup.background.color=$bg0                 \
                      popup.background.shadow.drawing=on          \
            --add event screen_unlock "com.apple.screenIsUnlocked" 
 # -- }}}
@@ -202,8 +202,8 @@ sketchybar --add slider volume e                                 \
                  background.padding_left=8                       \
                  icon.color=$fg3                                 \
                  label.color=$fg3                                \
-                 slider.background.border_color=$bg0_hard        \
-                 slider.background.color=$bg0_hard               \
+                 slider.background.border_color=$bg0             \
+                 slider.background.color=$bg0                    \
                  slider.highlight_color=$fg3                     \
                  slider.knob.color=$fg3                          \
                  background.color=$fg4                           \
