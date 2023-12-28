@@ -48,7 +48,6 @@ plugins=(
   git
   colored-man-pages
   extract
-  colors
 )
 
 
