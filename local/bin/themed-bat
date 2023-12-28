@@ -2,12 +2,15 @@
 
 source $HOME/.local/bin/toggle-theme
 
+DARK=$(echo $DARK | sed 's/_/-/g')
+LIGHT=$(echo $DARK | sed 's/_/-/g')
+
 while IFS= read -r line; do
     if [[ $line = "dark" ]] 
     then
-      bat --theme=$(echo $DARK | sed 's/_/-/g' | sed 's/-soft//g' | sed 's/-hard//g') $@
+      bat --theme=$DARK $@
     elif [[ $line = "light" ]] 
     then
-      bat --theme=$(echo $LIGHT | sed 's/_/-/g' | sed 's/-soft//g' | sed 's/-hard//g') $@
+      bat --theme=$LIGHT $@
     fi 
 done < $HOME/.config/theme.yaml
