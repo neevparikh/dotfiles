@@ -1,1 +1,0 @@
-/Users/neev/repos/dotfiles/config/sketchybar/gruvbox_dark.sh
