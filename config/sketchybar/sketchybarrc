@@ -125,12 +125,12 @@ sketchybar --add item wifi_speed_mbps right                      \
                       width=0                                    \
                       label.y_offset=3                           \
                       label.font="$FONT:SemiBold:7.0"            \
-                      label.color=$neutral_red
+                      label.color=$bright_red
 
 sketchybar --add graph wifi_speed right 60                       \
 sketchybar --set wifi_speed update_freq=1                        \
-                            graph.color=$faded_red               \
-                            graph.fill_color=$faded_red          \
+                            graph.color="0x77${neutral_red:0-6}" \
+                            graph.fill_color="0x77${neutral_red:0-6}" \
                             graph.line_width=0.5                 \
                             label.drawing=off                    \
                             icon.drawing=off                     \
