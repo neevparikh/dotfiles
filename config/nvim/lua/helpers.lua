@@ -264,13 +264,23 @@ end
 function SwitchTheme()
   local cur = vim.opt.background:get()
   if cur == "dark" then
-    require("gruvbox").setup({ contrast = "soft" })
+    require("gruvbox").setup({ contrast = GetContrast("light") })
     vim.opt.background = "light"
     vim.fn.system("toggle-theme --light")
   else
-    require("gruvbox").setup({ contrast = "hard" })
+    require("gruvbox").setup({ contrast = GetContrast("dark") })
     vim.opt.background = "dark"
     vim.fn.system("toggle-theme --dark")
+  end
+end
+
+function GetContrast(variant)
+  if variant == "dark" then
+    return "hard"
+  elseif variant == "light" then
+    return "soft"
+  else
+    error("Unknown variant: " .. variant)
   end
 end
 

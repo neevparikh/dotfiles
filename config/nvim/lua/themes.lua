@@ -1,6 +1,7 @@
 -- vim: set foldmethod=marker:foldlevel=0
 require("helpers")
 
+local color_variant = CheckTheme()
 require("gruvbox").setup({
   terminal_colors = true, -- add neovim terminal colors
   undercurl = true,
@@ -19,7 +20,7 @@ require("gruvbox").setup({
   invert_tabline = false,
   invert_intend_guides = false,
   inverse = true, -- invert background for search, diffs, statuslines and errors
-  contrast = "hard", -- can be "hard", "soft" or empty string
+  contrast = GetContrast(color_variant), -- can be "hard", "soft" or empty string
   dim_inactive = false,
   transparent_mode = false,
   palette_overrides = {},
@@ -59,7 +60,7 @@ require("gruvbox").setup({
 
 -- setup must be called before loading
 vim.cmd.colorscheme("gruvbox")
-vim.opt.background = CheckTheme()
+vim.opt.background = color_variant
 
 vim.cmd([[
 " default
