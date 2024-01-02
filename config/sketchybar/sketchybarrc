@@ -10,11 +10,11 @@ FONT="FiraCode Nerd Font Mono"
 PADDINGS=2
 
 # Setting up the general bar appearance and default values
-sketchybar --bar height=41                                            \
+sketchybar --bar height=36                                            \
                      position=top                                     \
                      sticky=on                                        \
                      color=$bg0                                       \
-                     border_width=1                                   \
+                     border_width=2                                   \
                      border_color=$bg0                                \
                      y_offset=-2                                      \
                      margin=-2                                        \
@@ -87,7 +87,7 @@ sketchybar --add item calendar right                                  \
                        label.font="$FONT:SemiBold:12.0"               \
                        label.color=$neutral_blue                      \
                        label.padding_right=8                          \
-                       background.color=$faded_blue                   \
+                       background.color="0xbb${neutral_blue:0-6}"                   \
                        background.height=2                            \
                        background.padding_right=6                     \
                        background.y_offset=-9                         \
@@ -107,7 +107,7 @@ sketchybar --add item battery right                                   \
                        label.font="$FONT:SemiBold:12.0"               \
                        label.color=$neutral_yellow                    \
                        label.padding_right=8                          \
-                       background.color=$faded_yellow                 \
+                       background.color="0xbb${neutral_yellow:0-6}"                 \
                        background.height=2                            \
                        background.y_offset=-9                         \
                        background.padding_right=8                     \
@@ -129,7 +129,7 @@ sketchybar --add item wifi_speed_mbps right                           \
 
 sketchybar --add graph wifi_speed right 60                            \
 sketchybar --set wifi_speed update_freq=1                             \
-                            graph.color="0x77${neutral_red:0-6}"      \
+                            graph.color="0xbb${neutral_red:0-6}"      \
                             graph.fill_color="0x77${neutral_red:0-6}" \
                             graph.line_width=0.5                      \
                             label.drawing=off                         \
@@ -150,7 +150,7 @@ sketchybar --add item wifi right                                      \
                       label.y_offset=1                                \
                       label.font="$FONT:SemiBold:12.0"                \
                       label.color=$neutral_orange                     \
-                      background.color=$faded_orange                  \
+                      background.color="0xbb${neutral_orange:0-6}"                  \
                       background.height=2                             \
                       background.y_offset=-9                          \
                       background.padding_right=1                      \
@@ -173,7 +173,7 @@ sketchybar --add item bluetooth right                                 \
                        label.color=$neutral_aqua                      \
                        label.padding_right=0                          \
                        label.padding_left=1                           \
-                       background.color=$faded_aqua                   \
+                       background.color="0xbb${neutral_aqua:0-6}"                   \
                        background.height=2                            \
                        background.y_offset=-9                         \
                        background.padding_right=8                     \
