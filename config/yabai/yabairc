@@ -14,7 +14,6 @@ join_by() {
   echo "$*";
 }
 # -- }}}
-
 # -- {{{ basic
 yabai -m config layout bsp
 yabai -m config auto_balance off
@@ -23,7 +22,6 @@ yabai -m config mouse_follows_focus on
 yabai -m config external_bar all:38:00
 yabai -m config window_shadow float
 # -- }}}
-
 # -- {{{ application specific
 joined_list="$(join_by "${apps[@]}")"
 yabai -m rule --add app!="^${joined_list}$" manage=off
