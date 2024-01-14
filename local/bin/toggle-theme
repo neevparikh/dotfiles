@@ -2,7 +2,7 @@
 
 SOCKET="unix:/tmp/"$(lsof -U | grep -Eo "kitty-controller-[\d 0-9]*") 
 DARK_WITH_CONTRAST=gruvbox_dark_hard
-LIGHT_WITH_CONTRAST=gruvbox_light_soft
+LIGHT_WITH_CONTRAST=gruvbox_light
 
 DARK=$(echo $DARK_WITH_CONTRAST | sed 's/_soft//g' | sed 's/_hard//g')
 LIGHT=$(echo $LIGHT_WITH_CONTRAST | sed 's/_soft//g' | sed 's/_hard//g')
