@@ -290,7 +290,7 @@ function GetContrast(variant)
   if variant == "dark" then
     return "hard"
   elseif variant == "light" then
-    return "soft"
+    return ""
   else
     error("Unknown variant: " .. variant)
   end
