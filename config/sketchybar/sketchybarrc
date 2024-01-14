@@ -10,7 +10,7 @@ FONT="FiraCode Nerd Font Mono"
 PADDINGS=2
 
 # Setting up the general bar appearance and default values
-sketchybar --bar height=36                                            \
+sketchybar --bar height=41                                            \
                      position=top                                     \
                      sticky=on                                        \
                      color=$bg0                                       \
