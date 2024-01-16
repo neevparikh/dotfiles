@@ -1,5 +1,6 @@
 #!/bin/bash
 apps=(
+  "News"
   "Script Editor"
   "Calendar"
   "Mail"
@@ -29,5 +30,8 @@ apps=(
   "Zoom"
   "IntelliJ IDEA"
   "Hammerspoon"
+  "Pages"
+  "TV"
   "Managed Software Center"
+  "Steam"
 )

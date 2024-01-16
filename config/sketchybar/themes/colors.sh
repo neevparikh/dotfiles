@@ -1,1 +1,1 @@
-/Users/neev/.config/sketchybar/themes/gruvbox_light.sh
+/Users/neev/.config/sketchybar/themes/gruvbox_dark_hard.sh
