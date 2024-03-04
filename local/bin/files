@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+source $HOME/.local/bin/toggle-theme
+
+DARK=$(echo $GTK_THEME | sed 's/Light/Dark/')
+LIGHT=$GTK_THEME
+
+while IFS= read -r line; do
+    if [[ $line = "dark" ]] 
+    then
+      GTK_THEME=$DARK nohup /usr/bin/nautilus --new-window 1>/dev/null 2>/dev/null &
+      disown %1
+    elif [[ $line = "light" ]] 
+    then
+      GTK_THEME=$LIGHT nohup /usr/bin/nautilus --new-window 1>/dev/null 2>/dev/null &
+      disown %1
+    fi 
+done < $HOME/.config/theme.yaml
+
