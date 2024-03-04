@@ -43,6 +43,7 @@ plugins=(
   git
   colored-man-pages
   extract
+  zsh-autosuggestions
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -314,7 +315,6 @@ alias ${gprefix}wX='git rm -rf'
 
 alias ${gprefix}ap='git add --patch'
 
-alias calc='insect'
 alias agi='sudo apt install'
 alias agu='sudo apt upgrade'
 alias agd='sudo apt update'

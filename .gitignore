@@ -74,3 +74,4 @@ local/share/nvim
 work_branch/
 config/nvim/plugin/packer_compiled.lua
 home/todo
+mac_laptop

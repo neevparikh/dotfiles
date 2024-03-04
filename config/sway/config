@@ -60,8 +60,9 @@ bindsym $mod+Shift+Return exec terminal
 bindsym $mod+Shift+w exec browser
 bindsym $mod+Shift+Space exec launcher
 bindsym $mod+Space exec "tofi-run | xargs swaymsg exec -- "
+bindsym Control+Shift+Space exec 1password --quick-access
 bindsym $mod+p exec pavucontrol
-bindsym $mod+n exec GTK_THEME=$GTK_THEME /usr/bin/nautilus --new-window
+bindsym $mod+n exec files
 # bindsym $mod+d exec $menu
 
 # regular commands
@@ -229,6 +230,10 @@ layer_effects "launcher" corner_radius 10
 # {{{ extra execs
 exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
 exec wlsunset -l 37.7 -L -122.4
+exec nm-applet
+exec blueman-applet
+exec 1password --silent
+exec discord --start-minimized
 # }}}
 
 # {{{ per window
