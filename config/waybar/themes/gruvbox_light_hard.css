@@ -1,0 +1,7 @@
+@import "gruvbox_light.css";
+
+@define-color bg0            #f9f5d7;
+@define-color fg0            #1d2021;
+@define-color specific_red   #fc9690;
+@define-color specific_green #d3d6a5;
+@define-color specific_aqua  #e6e9c1;

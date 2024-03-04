@@ -1,0 +1,7 @@
+@import "gruvbox_dark.css";
+
+@define-color bg0            #1d2021;
+@define-color fg0            #f9f5d7;
+@define-color specific_red   #792329;
+@define-color specific_green #5a633a;
+@define-color specific_aqua  #3e4934;

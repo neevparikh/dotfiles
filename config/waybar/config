@@ -4,12 +4,16 @@
     "position": "top",
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": [],
-    "modules-right": ["battery", "clock"],
+    "modules-right": ["tray", "battery", "clock"],
     "battery": {
         "format": "{icon} {capacity}%",
         "format-icons": ["", "", "", "", ""]
     },
     "clock": {
         "format": "󰥔 {:%a %b %d %I:%M%p}"
+    },
+    "tray": {
+        "icon-size": 12,
+        "spacing": 4
     }
 }
