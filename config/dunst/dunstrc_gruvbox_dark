@@ -1,8 +1,4 @@
 [global]
-  close = ctrl+space
-  close_all = ctrl+shift+space
-  history = ctrl+grave
-  context = ctrl+shift+period
   font = "FiraCodeNerdFontPropo Retina 11"
   format = "<b>%s</b>\n%b"
   sort = yes
@@ -25,22 +21,23 @@
   corner_radius = 6
   horizontal_padding = 8
 
-  # latte
-  frame_color = "#1E66F5"
+  icon_theme = Numix Circle
+  enable_recursive_icon_lookup = true
+
+  frame_color = "#504945"
   separator_color= frame
 
 [urgency_low]
-  background = "#EFF1F5"
-  foreground = "#4C4F69"
-  timeout = 5
+    background = "#282828"
+    foreground = "#ebdbb2"
+    timeout = 5
 
 [urgency_normal]
-  background = "#EFF1F5"
-  foreground = "#4C4F69"
-  timeout = 5
+    background = "#282828"
+    foreground = "#ebdbb2"
+    timeout = 5
 
 [urgency_critical]
-  background = "#EFF1F5"
-  foreground = "#4C4F69"
-  frame_color = "#FE640B"
-  timeout = 5
+    background = "#282828"
+    foreground = "#ebdbb2"
+    timeout = 5
