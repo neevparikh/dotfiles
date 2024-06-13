@@ -52,6 +52,12 @@ input "1133:16478:Logitech_M720_Triathlon" {
   pointer_accel -0.85
   scroll_factor 0.6
 }
+
+input "1133:4133:Logitech_M510" {
+  accel_profile "adaptive"
+  pointer_accel -0.85
+  scroll_factor 0.6
+}
 # }}}
 
 # {{{ commands
@@ -233,6 +239,7 @@ exec wlsunset -l 37.7 -L -122.4
 exec nm-applet
 exec blueman-applet
 exec 1password --silent
+exec surfshark
 exec discord --start-minimized
 # }}}
 
