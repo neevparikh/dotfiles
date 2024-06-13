@@ -1,3 +1,4 @@
+# vim: set fdm=marker:
 #install specific environment variables (mostly path) {{{1
 if [ -d "$HOME/.local/bin" ]; then #{{{2
   PATH="$HOME/.local/bin:$PATH"
@@ -123,5 +124,3 @@ export SHELLCHECK_OPTS="$a"
 export PROFILE_SOURCED=1
 
 #}}}
-
-# vim: set fdm=marker:
