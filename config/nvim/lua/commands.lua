@@ -62,3 +62,9 @@ vim.api.nvim_create_user_command("Scratch", function()
       .. "]"
   )
 end, { nargs = 0 })
+
+vim.api.nvim_create_user_command("PrintPath", PrintPath, { nargs = 0 })
+
+vim.api.nvim_create_user_command("SwitchThemeWithoutToggling", function(opts)
+  SwitchThemeWithoutToggling(opts.args)
+end, { nargs = 1 })

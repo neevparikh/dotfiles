@@ -264,13 +264,23 @@ end
 function SwitchTheme()
   local cur = vim.opt.background:get()
   if cur == "dark" then
+    vim.fn.jobstart("toggle-theme --light")
+    SwitchThemeWithoutToggling("light")
+  else
+    vim.fn.jobstart("toggle-theme --dark")
+    SwitchThemeWithoutToggling("dark")
+  end
+end
+
+function SwitchThemeWithoutToggling(to_switch)
+  if to_switch == "light" then
     require("gruvbox").setup({ contrast = GetContrast("light") })
     vim.opt.background = "light"
-    vim.fn.system("toggle-theme --light")
-  else
+  elseif to_switch == "dark" then
     require("gruvbox").setup({ contrast = GetContrast("dark") })
     vim.opt.background = "dark"
-    vim.fn.system("toggle-theme --dark")
+  else
+    error("Unknown current variant: " .. to_switch)
   end
 end
 
@@ -299,4 +309,8 @@ function RegisterFzfCommand(cmd_prefix, name, cmd_suffix)
     prefix = ""
   end
   vim.cmd(cmd_prefix .. prefix .. name .. cmd_suffix)
+end
+
+function PrintPath()
+  vim.print(vim.fn.expand("%:p"))
 end
