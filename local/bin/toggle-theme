@@ -12,21 +12,27 @@ then
     ln -sf ~/.config/sway/themes/$DARK ~/.config/sway/themes/active-theme \
       && ln -sf ~/.config/waybar/themes/$DARK_WITH_CONTRAST.css ~/.config/waybar/themes/active.css \
       && swaymsg reload
-    ln -sf ~/.config/dunst/dunstrc-$DARK ~/.config/dunst/dunstrc && pkill dunst
+    ln -sf ~/.config/dunst/dunstrc_$DARK ~/.config/dunst/dunstrc && pkill dunst
     ln -sf ~/.config/tofi/themes/$DARK ~/.config/tofi/themes/active
     
     sed -i 's/prefer-light/prefer-dark/g' ~/.local/share/nwg-look/gsettings && nwg-look -a && nwg-look -x
     kitty @ --to $SOCKET set-colors --all --configured "~/.config/kitty/themes/$DARK_WITH_CONTRAST.conf"
     echo 'dark' > $HOME/.config/theme.yaml
+    for server in $(nvr --serverlist); do
+        nvr --servername "$server" -cc "SwitchThemeWithoutToggling dark"
+    done
 elif [[ $@ = "--light" ]] 
 then
     ln -sf ~/.config/sway/themes/$LIGHT ~/.config/sway/themes/active-theme \
       && ln -sf ~/.config/waybar/themes/$LIGHT_WITH_CONTRAST.css ~/.config/waybar/themes/active.css \
       && swaymsg reload
-    ln -sf ~/.config/dunst/dunstrc-$LIGHT ~/.config/dunst/dunstrc && pkill dunst
+    ln -sf ~/.config/dunst/dunstrc_$LIGHT ~/.config/dunst/dunstrc && pkill dunst
     ln -sf ~/.config/tofi/themes/$LIGHT ~/.config/tofi/themes/active
     
     sed -i 's/prefer-dark/prefer-light/g' ~/.local/share/nwg-look/gsettings && nwg-look -a && nwg-look -x
     kitty @ --to $SOCKET set-colors --all --configured "~/.config/kitty/themes/$LIGHT_WITH_CONTRAST.conf"
     echo 'light' > $HOME/.config/theme.yaml
+    for server in $(nvr --serverlist); do
+        nvr --servername "$server" -cc "SwitchThemeWithoutToggling light"
+    done
 fi 
