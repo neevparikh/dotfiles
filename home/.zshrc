@@ -133,7 +133,7 @@ alias tlmgr='tllocalmgr'
 alias sv='sudo -e'
 alias vim='nvim'
 alias lgout='i3-msg exit'
-alias py='python'
+alias py='python3'
 
 local gprefix
 zstyle -s ':zim:git' aliases-prefix 'gprefix' || gprefix=g
