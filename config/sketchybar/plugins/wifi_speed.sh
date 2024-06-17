@@ -12,16 +12,14 @@ filter_max_len() {
 }
 
 update() {
-  CURRENT_WIFI="$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport --getinfo)"
+  CURRENT_WIFI="$($HOME/.local/bin/spaceport)"
 
-  RAW="$(echo "$CURRENT_WIFI" | grep -o "SSID: .*" | sed 's/^SSID: //')"
+  RAW="$(echo "$CURRENT_WIFI" | grep -o "^SSID: .*" | sed "s/^SSID: //")"
   SSID=$(filter_max_len "$RAW")
-
-  STATE=$(echo "$CURRENT_WIFI" | grep -o "AirPort: .*" | sed "s/^AirPort: //")
-
-  TX_RATE="$(echo "$CURRENT_WIFI" | grep -o 'lastTxRate: .*' | sed 's/^lastTxRate: //')"
-  SIGNAL=$(echo "$CURRENT_WIFI" | grep -o "agrCtlRSSI: .*" | sed "s/^agrCtlRSSI: //")
-  NOISE=$(echo "$CURRENT_WIFI" | grep -o "agrCtlNoise: .*" | sed "s/^agrCtlNoise: //")
+  STATE=$(echo "$CURRENT_WIFI" | grep -o "^Power: .*" | sed "s/^Power: //")
+  TX_RATE="$(echo "$CURRENT_WIFI" | grep -o "^Tx Rate: .*" | sed "s/^Tx Rate: // ; s/\.[0-9] Mbps//")"
+  SIGNAL=$(echo "$CURRENT_WIFI" | grep -o "^RSSI: .*" | sed "s/^RSSI: // ; s/ dBm//")
+  NOISE=$(echo "$CURRENT_WIFI" | grep -o "^Noise: .*" | sed "s/^Noise: // ; s/ dBm//")
 
   SPEED="$(echo "scale=2; $TX_RATE/1024.0" | bc)"
   SPEED_CLIPPED=$(awk '{ print ($0 > 1) ? 1.0 : $0 }' <<<"$SPEED")
@@ -29,7 +27,7 @@ update() {
   SNR=$(echo "scale=2; $SIGNAL - $NOISE" | bc)
   SNR_CLIPPED=$(awk '{ print ($0 > 100) ? 100 : $0 }' <<<"$SNR")
 
-  if [ "$STATE" = "Off" ]; then
+  if [ "$STATE" = "Off [Off]" ]; then
     ICON="󰤭"
   else
     case ${SNR_CLIPPED} in
@@ -47,7 +45,7 @@ update() {
     esac
   fi
 
-  if [ "$SSID" = "" ]; then
+  if [ "$SSID" = "None" ]; then
     SSID="Disconnected"
     ICON="󰤫"
   fi
