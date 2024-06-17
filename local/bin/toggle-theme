@@ -13,10 +13,16 @@ then
     ln -sf ~/.config/sketchybar/themes/$DARK_WITH_CONTRAST.sh ~/.config/sketchybar/themes/colors.sh
     osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = true"
     echo 'dark' > $HOME/.config/theme.yaml
+    for server in $(nvr --serverlist); do
+        nvr --servername "$server" -cc "SwitchThemeWithoutToggling dark"
+    done
 elif [[ $@ = "--light" ]] 
 then
     kitty @ --to $SOCKET set-colors --all --configured "~/.config/kitty/themes/$LIGHT_WITH_CONTRAST.conf"
     ln -sf ~/.config/sketchybar/themes/$LIGHT_WITH_CONTRAST.sh ~/.config/sketchybar/themes/colors.sh
     osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = false"
     echo 'light' > $HOME/.config/theme.yaml
+    for server in $(nvr --serverlist); do
+        nvr --servername "$server" -cc "SwitchThemeWithoutToggling light"
+    done
 fi 
