@@ -12,14 +12,17 @@ filter_max_len() {
 }
 
 update() {
-  CURRENT_WIFI="$($HOME/.local/bin/spaceport)"
+  open /Applications/spaceport.app
 
-  RAW="$(echo "$CURRENT_WIFI" | grep -o "^SSID: .*" | sed "s/^SSID: //")"
+  CURRENT_WIFI="$(cat /tmp/spaceport.json)"
+
+  RAW="$(echo "$CURRENT_WIFI" | jq -r .ssid)"
+  STATE=$(echo "$CURRENT_WIFI" | jq -r .power)
+  TX_RATE="$(echo "$CURRENT_WIFI" | jq -r .'tx_rate | round')"
+  SIGNAL=$(echo "$CURRENT_WIFI" | jq -r .rssi)
+  NOISE=$(echo "$CURRENT_WIFI" | jq -r .noise)
+
   SSID=$(filter_max_len "$RAW")
-  STATE=$(echo "$CURRENT_WIFI" | grep -o "^Power: .*" | sed "s/^Power: //")
-  TX_RATE="$(echo "$CURRENT_WIFI" | grep -o "^Tx Rate: .*" | sed "s/^Tx Rate: // ; s/\.[0-9] Mbps//")"
-  SIGNAL=$(echo "$CURRENT_WIFI" | grep -o "^RSSI: .*" | sed "s/^RSSI: // ; s/ dBm//")
-  NOISE=$(echo "$CURRENT_WIFI" | grep -o "^Noise: .*" | sed "s/^Noise: // ; s/ dBm//")
 
   SPEED="$(echo "scale=2; $TX_RATE/1024.0" | bc)"
   SPEED_CLIPPED=$(awk '{ print ($0 > 1) ? 1.0 : $0 }' <<<"$SPEED")
@@ -27,7 +30,7 @@ update() {
   SNR=$(echo "scale=2; $SIGNAL - $NOISE" | bc)
   SNR_CLIPPED=$(awk '{ print ($0 > 100) ? 100 : $0 }' <<<"$SNR")
 
-  if [ "$STATE" = "Off [Off]" ]; then
+  if [ "$STATE" = "false" ]; then
     ICON="󰤭"
   else
     case ${SNR_CLIPPED} in
@@ -45,7 +48,7 @@ update() {
     esac
   fi
 
-  if [ "$SSID" = "None" ]; then
+  if [ "$SSID" = "null" ]; then
     SSID="Disconnected"
     ICON="󰤫"
   fi

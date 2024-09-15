@@ -37,24 +37,6 @@ return require("packer").startup(function(use)
   })
   use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
   use({
-    "anuvyklack/pretty-fold.nvim",
-    config = function()
-      local pf = require("pretty-fold")
-      pf.ft_setup("lua", {
-        matchup_patterns = {
-          { "^%s*do$", "end" }, -- do ... end blocks
-          { "^%s*if", "end" }, -- if ... end
-          { "^%s*for", "end" }, -- for
-          { "function%s*%(", "end" }, -- 'function( or 'function (''
-          { "{", "}" },
-          { "%(", ")" }, -- % to escape lua pattern char
-          { "%[", "]" }, -- % to escape lua pattern char
-        },
-      })
-      pf.setup()
-    end,
-  })
-  use({
     "VonHeikemen/lsp-zero.nvim",
     requires = {
       -- LSP Support
