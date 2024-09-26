@@ -160,6 +160,26 @@ sketchybar --add item wifi right                                      \
                       label.padding_left=1                            \
             --subscribe wifi mouse.clicked 
 # -- }}}
+# # -- {{{ vpn
+sketchybar --add item vpn right                                       \
+           --set vpn update_freq=60                                   \
+                       icon.font="$FONT:Retina:16.0"                  \
+                       icon.padding_right=3                           \
+                       icon.color=$neutral_blue                       \
+                       icon.y_offset=1                                \
+                       label.y_offset=1                               \
+                       label.font="$FONT:Bold:12"                     \
+                       label.color=$neutral_blue                      \
+                       label.padding_right=4                          \
+                       background.color=$neutral_blue                 \
+                       background.height=2                            \
+                       background.y_offset=-9                         \
+                       background.padding_right=6                     \
+                       script="$PLUGIN_DIR/vpn.sh"                    \
+                       icon.padding_left=0                            \
+                       label.padding_right=1                          \
+           --subscribe vpn system_woke screen_unlock mouse.entered mouse.clicked
+# # -- }}}
 # -- {{{ bluetooth
 sketchybar --add item bluetooth right                                 \
            --set bluetooth update_freq=60                             \
@@ -209,6 +229,26 @@ sketchybar --add slider volume e                                      \
                  background.color=$fg4                                \
                  script="$PLUGIN_DIR/volume.sh"                       \
            --subscribe volume volume_change mouse.clicked system_woke screen_unlock
+# -- }}}
+# -- {{{ meetingbar
+sketchybar --add item meetingbar q                                    \
+           --set meetingbar update_freq=60                            \
+                       icon.font="$FONT:Retina:16.0"                  \
+                       icon.padding_right=3                           \
+                       icon.color=$neutral_red                        \
+                       icon.y_offset=2                                \
+                       label.y_offset=1                               \
+                       label.font="$FONT:Bold:12"                     \
+                       label.color=$neutral_red                       \
+                       label.padding_right=4                          \
+                       background.color=$neutral_red                  \
+                       background.height=2                            \
+                       background.y_offset=-9                         \
+                       background.padding_right=6                     \
+                       script="$PLUGIN_DIR/meetingbar.sh"             \
+                       icon.padding_left=0                            \
+                       label.padding_right=1                          \
+           --subscribe meetingbar mouse.clicked system_woke screen_unlock
 # -- }}}
 
 # -- {{{ cleanup

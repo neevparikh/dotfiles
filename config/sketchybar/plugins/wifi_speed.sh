@@ -12,8 +12,6 @@ filter_max_len() {
 }
 
 update() {
-  open /Applications/spaceport.app
-
   CURRENT_WIFI="$(cat /tmp/spaceport.json)"
 
   RAW="$(echo "$CURRENT_WIFI" | jq -r .ssid)"

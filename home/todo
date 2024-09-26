@@ -1,12 +1,15 @@
 +---------+
 |  NOTES  |
 +---------+
-
+- (F) system diagram of vivaria 
+- (F) data schema + where the data lives
+- (F) how runs + baselines work
+- (F) viv cli
 
 +---------+
 |  TODO   |
 +---------+
 
-
 *
+- (S) add devcontainers setup
 .

@@ -75,7 +75,7 @@ unsetopt AUTO_CD
 export EDITOR='nvim'
 export VISUAL='nvim'
 #nvim terminal specific settings
-if [ -f "$HOME/.local/bin/nvr" ]; then
+if [ -f "$HOME/.local/bin/nvr" ] || [ command -v nvr &> /dev/null ]; then
   alias h='nvr -o'
   alias v='nvr -O'
   alias t='nvr --remote-tab'
@@ -342,6 +342,7 @@ alias make="make --no-print-directory"
 alias bat='themed-bat'
 alias cat='themed-bat'
 alias td="todui"
+alias cdm="cd $HOME/repos/metr/"
 
 if [ -f "$HOME/.fzf.zsh" ]; then
   FD_BASE_ARGS='--follow --hidden --exclude .git --no-ignore-vcs --color=always'
@@ -362,6 +363,30 @@ if [ -f "$HOME/.fzf.zsh" ]; then
   PATH="$HOME/.fzf/bin/:$PATH"
   source ~/.fzf.zsh
 fi 
+
+
+if [ -d "$HOME/.config/viv-cli" ]; then
+  vswitch () {
+    viv_config_dir="${HOME}/.config/viv-cli"
+    config_file="config.${1}.json"
+
+    if [ ! -f "${viv_config_dir}/${config_file}" ]
+    then
+      echo "No config called '${1}'. Available configs:"
+      find "${viv_config_dir}" -type f -name "config.*.json" | sed -E 's/^.+\/config\.(.+)\.json$/  \1/' | sort
+      return 1
+    fi
+
+    ln -sf "${config_file}" "${viv_config_dir}/config.json"
+    echo "Switched to config '${1}'"
+  }
+
+  _vswitch_completion() {
+    local cur=${COMP_WORDS[COMP_CWORD]}
+    local viv_config_dir="${HOME}/.config/viv-cli"
+    COMPREPLY=($(compgen -W "$(find "${viv_config_dir}" -type f -name "config.*.json" | sed -E 's/^.+\/config\.(.+)\.json$/\1/' | sort)" -- "$cur"))
+  }
+fi
 
 if [ -f "$HOME/.bash_profile" ]; then 
   source ~/.bash_profile
