@@ -31,29 +31,10 @@ return require("packer").startup(function(use)
   use({
     "andymass/vim-matchup",
     setup = function()
-      -- may set any options here
       vim.g.matchup_matchparen_offscreen = { method = "popup" }
     end,
   })
   use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
-  use({
-    "anuvyklack/pretty-fold.nvim",
-    config = function()
-      local pf = require("pretty-fold")
-      pf.ft_setup("lua", {
-        matchup_patterns = {
-          { "^%s*do$", "end" }, -- do ... end blocks
-          { "^%s*if", "end" }, -- if ... end
-          { "^%s*for", "end" }, -- for
-          { "function%s*%(", "end" }, -- 'function( or 'function (''
-          { "{", "}" },
-          { "%(", ")" }, -- % to escape lua pattern char
-          { "%[", "]" }, -- % to escape lua pattern char
-        },
-      })
-      pf.setup()
-    end,
-  })
   use({
     "VonHeikemen/lsp-zero.nvim",
     requires = {
@@ -77,7 +58,6 @@ return require("packer").startup(function(use)
     },
   })
 
-  -- use({ "scalameta/nvim-metals", requires = { "nvim-lua/plenary.nvim" } })
   use("mfussenegger/nvim-dap")
   use("mfussenegger/nvim-jdtls")
   use("romainl/vim-cool")
@@ -89,7 +69,6 @@ return require("packer").startup(function(use)
     requires = { "nvim-lua/plenary.nvim" },
   })
   use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
-  use("tmhedberg/SimpylFold")
   use("tommcdo/vim-lion")
   use("tpope/vim-repeat")
   use("tpope/vim-commentary")

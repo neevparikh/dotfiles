@@ -5,7 +5,7 @@ local lsp_zero = require("lsp-zero")
 local ls = require("luasnip")
 local lspconfig = require("lspconfig")
 
--- {{{ mason and lspconfig
+-- {{{mason and lspconfig
 require("mason").setup({
   ui = {
     icons = {
@@ -25,10 +25,19 @@ require("mason").setup({
 require("mason-lspconfig").setup({
   ensure_installed = { "lua_ls", "clangd", "pyright" },
   handlers = {
-    lsp_zero.default_setup(),
+    lsp_zero.default_setup,
     lua_ls = function()
       local lua_opts = lsp_zero.nvim_lua_ls()
       lspconfig.lua_ls.setup(lua_opts)
+    end,
+    pyright = function()
+      lspconfig.pyright.setup({
+        settings = {
+          python = {
+            venvPath = vim.fn.expand("$HOME/.venv"),
+          },
+        },
+      })
     end,
     clangd = function()
       lspconfig.clangd.setup({

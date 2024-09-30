@@ -2,11 +2,10 @@
 require("helpers")
 local bind = vim.keymap.set
 
--- {{{
+-- {{{ remap helper
 local function remap(to_remap)
   return { remap = to_remap }
 end
-
 -- }}}
 
 -- {{{ miniyank
@@ -66,7 +65,6 @@ bind("n", "<M-c>", SwitchTheme)
 
 -- {{{ lsp
 local lsp_opts = { noremap = true, silent = true }
-bind("n", "K", vim.lsp.buf.hover, lsp_opts)
 bind("x", "<space>f", vim.lsp.buf.format, lsp_opts)
 bind("n", "<space>f", function()
   vim.lsp.buf.format({ async = true })

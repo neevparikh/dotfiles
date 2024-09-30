@@ -23,6 +23,7 @@ output eDP-1 bg $HOME/pictures/wallpaper/firewatch_combined.png fill
 output DP-1 {
   mode 2560x1440@74.971Hz
   position 2560,0
+  transform 90
 }
 
 output DP-2 {
@@ -102,12 +103,15 @@ bindsym $mod+d focus child
 
 bindsym $mod+Tab workspace back_and_forth
 
+bindsym $mod+$alt+w move scratchpad
+bindsym $mod+Ctrl+w scratchpad show
+
 # screenshots
 # capture all screens to clipboard    
-bindsym $mod+Ctrl+c exec grim - | wl-copy    
+bindsym $mod+Ctrl+k exec grim - | wl-copy    
 
 # capture the specified screen area to clipboard    
-bindsym $mod+Ctrl+k exec grim -g "$(slurp)" - | wl-copy    
+bindsym $mod+Ctrl+c exec grim -g "$(slurp)" - | wl-copy    
 
 # capture the focused monitor to clipboard    
 bindsym $mod+Ctrl+p exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') - | wl-copy
@@ -196,10 +200,10 @@ bindsym $mod+v splitv
 bindsym $mod+s layout stacking
 bindsym $mod+t layout tabbed
 bindsym $mod+e layout toggle split
-bindsym $alt+Shift+f fullscreen
+bindsym $alt+Shift+f floating toggle
 
-bindsym $mod+Shift+f floating toggle
-bindsym $mod+Shift+Control+f focus mode_toggle
+bindsym $mod+Shift+f fullscreen 
+# bindsym $mod+Shift+Control+f focus mode_toggle
 # }}}
 
 # {{{ modes
@@ -235,12 +239,14 @@ layer_effects "launcher" corner_radius 10
 
 # {{{ extra execs
 exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
-exec wlsunset -l 37.7 -L -122.4
+exec_always wlsunset -l 37.86 -L -122.27
 exec nm-applet
 exec blueman-applet
+exec asusctltray
 exec 1password --silent
 exec surfshark
 exec discord --start-minimized
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # }}}
 
 # {{{ per window
@@ -251,6 +257,7 @@ floating_maximum_size -1 x -1
 for_window [app_id="pavucontrol"] floating enable
 for_window [app_id="blueman-manager"] floating enable
 for_window [app_id="nwg-look"] floating enable
+for_window [app_id="psensor"] floating enable
 for_window [class="1Password"] floating enable
 for_window [title="zoom" class="zoom"] floating enable
 for_window [class="Zoom"] floating enable
