@@ -73,3 +73,4 @@ config/theme.yml
 work
 asus
 .DS_Store
+config/viv-cli
