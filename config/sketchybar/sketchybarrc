@@ -18,7 +18,7 @@ sketchybar --bar height=41                                            \
                      border_color=$bg0                                \
                      y_offset=-2                                      \
                      margin=-2                                        \
-                     notch_width=210                                  \
+                     notch_width=215                                  \
            --default updates=when_shown                               \
                      icon.font="$FONT:Retina:16.0"                    \
                      icon.color=$fg0                                  \
@@ -41,27 +41,20 @@ sketchybar --bar height=41                                            \
 
 # -- {{{ spaces
 MAIN_DISPLAY_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "0")
-SECONDARY_DISPLAY_ICONS=("1̲ " "2̲" "3̲" "4̲" "5̲" "6̲")
+SECONDARY_DISPLAY_ICONS=("1̲" "2̲" "3̲" "4̲" "5̲" "6̲" "7̲" "8̲" "9̲" "0̲")
 SPACE_ICONS=("${MAIN_DISPLAY_ICONS[@]}" "${SECONDARY_DISPLAY_ICONS[@]}")
 
-# Destroy space on right click, focus space on left click.
-# New space by left clicking separator (>)
 sketchybar --add event refresh_spaces
 
-sid=0
-spaces=()
-for i in "${!SPACE_ICONS[@]}"
-do
-  sid=$(($i+1))
-  sketchybar --add space space.$sid left                              \
-             --set space.$sid associated_space=$sid                   \
+for sid in $(aerospace list-workspaces --all); do
+  sketchybar --add item space.$sid left                               \
+             --set space.$sid update_freq=0                           \
                               script="$PLUGIN_DIR/space.sh"           \
                               width=20                                \
                               align=center                            \
-                              label.drawing=off                       \
                               label.padding_left=0                    \
                               label.padding_right=0                   \
-                              icon=${SPACE_ICONS[i]}                  \
+                              icon=${SPACE_ICONS[sid - 1]}            \
                               icon.width=16                           \
                               icon.align=center                       \
                               icon.font="$FONT:SemiBold:11.0"         \
@@ -72,6 +65,9 @@ do
                               background.color=$bg1                   \
                               background.corner_radius=5              \
                               background.height=20                    \
+                              background.drawing=off                  \
+                              icon.drawing=on                         \
+                              label.drawing=off                       \
             --subscribe space.$sid mouse.clicked refresh_spaces 
 done
 # -- }}}
@@ -160,7 +156,7 @@ sketchybar --add item wifi right                                      \
                       label.padding_left=1                            \
             --subscribe wifi mouse.clicked 
 # -- }}}
-# # -- {{{ vpn
+# -- {{{ vpn
 sketchybar --add item vpn right                                       \
            --set vpn update_freq=60                                   \
                        icon.font="$FONT:Retina:16.0"                  \
@@ -257,6 +253,6 @@ sketchybar --hotload true
 sketchybar --update
 
 # Force triggers
-sleep 1 && sketchybar --trigger refresh_spaces
+sleep 1 && sketchybar --trigger refresh_spaces FOCUSED=$(aerospace list-workspaces --focused | tr -d "\n")
 sleep 1 && sketchybar --trigger refresh_focus
 # -- }}}

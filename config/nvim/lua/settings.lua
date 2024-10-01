@@ -56,15 +56,9 @@ lspconfig.rust_analyzer.setup({})
 -- }}}
 
 -- {{{ lspzero and completion
-lsp_zero.set_preferences({
-  suggest_lsp_servers = true,
-  setup_servers_on_start = true,
-  set_lsp_keymaps = false,
-  configure_diagnostics = true,
-  cmp_capabilities = true,
-  manage_nvim_cmp = true,
-  call_servers = "local",
-  sign_icons = {
+lsp_zero.ui({
+  float_border = "rounded",
+  sign_text = {
     error = "✘",
     warn = "▲",
     hint = "⚑",
@@ -163,8 +157,7 @@ vim.g.startify_bookmarks = {
   { l = "~/.config/nvim/init.lua" },
   { d = "~/.todo" },
   { c = "~/.config/kitty/kitty.conf" },
-  { y = "~/.config/yabai/yabairc" },
-  { s = "~/.config/skhd/skhdrc" },
+  { a = "~/.config/aerospace/aerospace.toml" },
   { p = "~/.config/sketchybar/sketchybarrc" },
 }
 vim.g.startify_commands = {
@@ -175,10 +168,10 @@ vim.g.startify_commands = {
 }
 vim.g.startify_custom_header = ""
 vim.g.startify_lists = {
-  { type = "commands", header = { "   Commands" } },
+  { type = "commands",  header = { "   Commands" } },
   { type = "bookmarks", header = { "   Bookmarks" } },
-  { type = "files", header = { "   MRU" } },
-  { type = "sessions", header = { "   Sessions" } },
+  { type = "files",     header = { "   MRU" } },
+  { type = "sessions",  header = { "   Sessions" } },
 }
 -- }}}
 
@@ -261,10 +254,10 @@ require("telescope").setup({
   },
   extensions = {
     fzf = {
-      fuzzy = true, -- false will only do exact matching
+      fuzzy = true,                   -- false will only do exact matching
       override_generic_sorter = true, -- override the generic sorter
-      override_file_sorter = true, -- override the file sorter
-      case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+      override_file_sorter = true,    -- override the file sorter
+      case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
     },
   },
   pickers = {

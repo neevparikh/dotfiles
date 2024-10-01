@@ -2,19 +2,18 @@
 
 update() {
   args=()
-  if [ "$SELECTED" = "true" ]; then
-    args+=(--set $NAME icon.background.y_offset=-9)
+
+  if [ "space.$FOCUSED" = "$NAME" ]; then
+    args+=(--set $NAME icon.highlight=on background.drawing=on)
   else
-    args+=(--set $NAME icon.background.y_offset=-30)
+    args+=(--set $NAME icon.highlight=off background.drawing=off)
   fi
   
-  args+=(--set $NAME icon.highlight=$SELECTED background.drawing=$SELECTED)
-
-  sketchybar -m --animate linear 5 "${args[@]}"
+  sketchybar -m "${args[@]}"
 }
 
 mouse_clicked() {
-  yabai -m space --focus $SID 2>/dev/null
+  aerospace workspace $SID 2>/dev/null
 }
 
 case "$SENDER" in
