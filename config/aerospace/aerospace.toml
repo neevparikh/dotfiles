@@ -4,7 +4,7 @@ after-startup-command = ['exec-and-forget sketchybar']
 
 # callbacks
 exec-on-workspace-change = ['/bin/bash', '-c', 'sketchybar --trigger refresh_spaces FOCUSED=$AEROSPACE_FOCUSED_WORKSPACE']
-on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+on-focus-changed = ['move-mouse window-lazy-center']
 
 start-at-login = true
 
@@ -23,7 +23,7 @@ inner.horizontal = 0
 inner.vertical =   0
 outer.left =       0
 outer.bottom =     0
-outer.top =        0
+outer.top =        36
 outer.right =      0
 
 [mode.main.binding]
@@ -31,10 +31,10 @@ outer.right =      0
 cmd-shift-enter = 'exec-and-forget $HOME/.local/bin/terminal'
 cmd-shift-w = 'exec-and-forget $HOME/.local/bin/browser'
 
-cmd-h = 'focus left'
-cmd-j = 'focus down'
-cmd-k = 'focus up'
-cmd-l = 'focus right'
+cmd-h = 'focus --boundaries all-monitors-outer-frame --boundaries-action stop left'
+cmd-j = 'focus --boundaries all-monitors-outer-frame --boundaries-action stop down'
+cmd-k = 'focus --boundaries all-monitors-outer-frame --boundaries-action stop up'
+cmd-l = 'focus --boundaries all-monitors-outer-frame --boundaries-action stop right'
 cmd-shift-h = 'move left'
 cmd-shift-j = 'move down'
 cmd-shift-k = 'move up'
@@ -85,19 +85,18 @@ alt-shift-0 = 'move-node-to-workspace 20'
 alt-tab = 'workspace-back-and-forth'
 alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
-alt-cmd-shift-r = 'reload-config'
-
-alt-h = 'join-with left'
-alt-j = 'join-with down'
-alt-k = 'join-with up'
-alt-l = 'join-with right'
+ctrl-alt-h = 'join-with left'
+ctrl-alt-j = 'join-with down'
+ctrl-alt-k = 'join-with up'
+ctrl-alt-l = 'join-with right'
 
 alt-s = 'layout v_accordion'
 alt-t = 'layout h_accordion'
 alt-e = 'layout tiles horizontal vertical'
-alt-shift-f = 'fullscreen'
 ctrl-f = 'layout floating tiling'
-cmd-shift-r = 'balance-sizes'
+
+alt-shift-f = 'fullscreen'
+cmd-shift-r = 'reload-config'
 
 alt-r = 'mode resize'
 
@@ -132,4 +131,5 @@ k = 'resize height -10'
 l = 'resize width +10'
 alt-r = 'mode main'
 esc = 'mode main'
+cmd-shift-r = 'balance-sizes'
 
