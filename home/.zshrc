@@ -75,7 +75,7 @@ unsetopt AUTO_CD
 export EDITOR='nvim'
 export VISUAL='nvim'
 #nvim terminal specific settings
-if [ -f "$HOME/.local/bin/nvr" ] || [ command -v nvr &> /dev/null ]; then
+if which command nvr &> /dev/null; then
   alias h='nvr -o'
   alias v='nvr -O'
   alias t='nvr --remote-tab'
@@ -344,7 +344,7 @@ alias cat='themed-bat'
 alias td="todui"
 alias cdm="cd $HOME/repos/metr/"
 
-if [ -f "$HOME/.fzf.zsh" ]; then
+if which command fzf &> /dev/null; then
   FD_BASE_ARGS='--follow --hidden --exclude .git --no-ignore-vcs --color=always'
 
   export FZF_PREVIEW_COMMAND="rsp {}"
@@ -360,8 +360,7 @@ if [ -f "$HOME/.fzf.zsh" ]; then
 
   export FZF_DEFAULT_OPTS="--layout=reverse --ansi --height=~40% --color=gutter:-1 --bind tab:down,shift-tab:up $FZF_PREVIEW_OPTS "
 
-  PATH="$HOME/.fzf/bin/:$PATH"
-  source ~/.fzf.zsh
+  source <(fzf --zsh)
 fi 
 
 
