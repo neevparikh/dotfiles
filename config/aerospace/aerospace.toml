@@ -3,7 +3,7 @@ after-login-command = []
 after-startup-command = ['exec-and-forget sketchybar']
 
 # callbacks
-exec-on-workspace-change = ['/bin/bash', '-c', 'sketchybar --trigger refresh_spaces FOCUSED=$AEROSPACE_FOCUSED_WORKSPACE']
+exec-on-workspace-change = ['/bin/bash', '-c', 'sketchybar --trigger refresh_spaces FOCUSED=$AEROSPACE_FOCUSED_WORKSPACE VISIBLE=$(aerospace list-workspaces --monitor all --visible | tr "\n" ",")']
 on-focus-changed = ['move-mouse window-lazy-center']
 
 start-at-login = true
@@ -23,7 +23,7 @@ inner.horizontal = 0
 inner.vertical =   0
 outer.left =       0
 outer.bottom =     0
-outer.top =        36
+outer.top =        [{monitor."^built-in retina display$" = 0}, 36]
 outer.right =      0
 
 [mode.main.binding]
@@ -96,7 +96,6 @@ alt-e = 'layout tiles horizontal vertical'
 ctrl-f = 'layout floating tiling'
 
 alt-shift-f = 'fullscreen'
-cmd-shift-r = 'reload-config'
 
 alt-r = 'mode resize'
 
@@ -131,5 +130,6 @@ k = 'resize height -10'
 l = 'resize width +10'
 alt-r = 'mode main'
 esc = 'mode main'
+cmd-shift-c = 'reload-config'
 cmd-shift-r = 'balance-sizes'
 
