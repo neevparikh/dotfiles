@@ -1,4 +1,4 @@
-# If you come from bash you might have to change your $PATH.
+# If you come from bash you might have to change your $PATH. 
 VERSION=$(lsb_release -rs)
 
 # Path to your oh-my-zsh installation.

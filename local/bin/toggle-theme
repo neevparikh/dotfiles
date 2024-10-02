@@ -7,6 +7,8 @@ LIGHT_WITH_CONTRAST=gruvbox_light
 DARK=$(echo $DARK_WITH_CONTRAST | sed 's/_soft//g' | sed 's/_hard//g')
 LIGHT=$(echo $LIGHT_WITH_CONTRAST | sed 's/_soft//g' | sed 's/_hard//g')
 
+GTK_THEME=$(\cat $HOME/.config/gtk-3.0/settings.ini | sed -n -e 's/^gtk-theme-name=//p')
+
 if [[ $@ = "--dark" ]] 
 then
     ln -sf ~/.config/sway/themes/$DARK ~/.config/sway/themes/active-theme \
@@ -21,6 +23,7 @@ then
     for server in $(nvr --serverlist); do
         nvr --servername "$server" -cc "SwitchThemeWithoutToggling dark"
     done
+    /usr/bin/swayrst save themed
 elif [[ $@ = "--light" ]] 
 then
     ln -sf ~/.config/sway/themes/$LIGHT ~/.config/sway/themes/active-theme \
@@ -35,4 +38,5 @@ then
     for server in $(nvr --serverlist); do
         nvr --servername "$server" -cc "SwitchThemeWithoutToggling light"
     done
+    /usr/bin/swayrst save themed
 fi 

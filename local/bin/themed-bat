@@ -8,9 +8,9 @@ LIGHT=$(echo $DARK | sed 's/_/-/g')
 while IFS= read -r line; do
     if [[ $line = "dark" ]] 
     then
-      bat --theme=$DARK $@
+      bat --theme=$DARK "$@"
     elif [[ $line = "light" ]] 
     then
-      bat --theme=$LIGHT $@
+      bat --theme=$LIGHT "$@"
     fi 
 done < $HOME/.config/theme.yaml
