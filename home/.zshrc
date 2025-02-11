@@ -10,16 +10,8 @@ export ZSH="$HOME/.oh-my-zsh"
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="minimal"
 
-if [ -d "$HOME/.cargo/bin" ]; then
-  source "$HOME/.cargo/env"
-fi
-
-if [ -d "/opt/cuda/bin/" ]; then
-  export PATH="/opt/cuda/bin:$PATH"
-fi
-
-if [ -d "/usr/local/cuda/bin/" ]; then
-  export PATH="/usr/local/cuda/bin:$PATH"
+if [ -f "$HOME/.zprofile" ]; then
+  source $HOME/.zprofile
 fi
 
 # Uncomment the following line to enable command auto-correction.
@@ -69,6 +61,7 @@ unsetopt AUTO_CD
 
 export EDITOR='nvim'
 export VISUAL='nvim'
+export SUDO_EDITOR='nvim'
 #nvim terminal specific settings
 if [ -f "$HOME/.local/bin/nvr" ]; then
   alias h='nvr -o'
@@ -338,16 +331,24 @@ alias -g lt="toggle-theme --light"
 alias -g dt="toggle-theme --dark"
 
 alias lsl='ls'
-alias sl='ls'
-alias cna="source $HOME/.miniconda/bin/activate && conda activate"
-alias cnd="conda deactivate && conda deactivate"
 alias kssh='kitty +kitten ssh'
-alias rm='safe-rm'
-alias browncsprint="CUPS_SERVER=printhost.cs.brown.edu okular"
-alias cnvim="rm $HOME/.local/share/nvim/swap/%home%neev%*.swp $HOME/.local/share/nvim/swap/%home%neev%*.swo"
+alias cnvim="rm $HOME/.local/state/nvim/swap/%Users%neev%*.swp"
 alias make="make --no-print-directory"
-alias bat='themed-bat'
-alias cat='themed-bat'
+if [ -f "$HOME/.local/bin/themed-bat" ]; then
+  alias bat='themed-bat'
+  alias cat='themed-bat'
+fi
+alias td="todui"
+
+
+local repo_prefix
+repo_prefix=cd
+alias ${repo_prefix}m="cd $HOME/repos/metr/"
+alias ${repo_prefix}t="cd $HOME/repos/metr/mp4-tasks/"
+alias ${repo_prefix}e="cd $HOME/repos/metr/eval-pipeline/"
+alias ${repo_prefix}v="cd $HOME/repos/metr/vivaria/"
+alias ${repo_prefix}p="cd $HOME/repos/metr/poke-tools/"
+alias ${repo_prefix}c="cd $HOME/repos/metr/cot-monitoring/"
 
 if [ -f "/usr/share/fzf/fzf-extras.zsh" ]; then
   FD_BASE_ARGS='--follow --hidden --exclude .git --no-ignore-vcs --color=always'
