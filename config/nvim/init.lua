@@ -1,9 +1,6 @@
 -- vim:foldmethod=marker:foldlevel=0
-require("plugins")
 require("options")
-
 require("keymaps")
-require("settings")
+require("lazy_config")
 require("commands")
 require("autocommands")
-require("themes")

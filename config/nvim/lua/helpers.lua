@@ -2,12 +2,11 @@
 require("io")
 require("os")
 
--- {{{ macros -- uses vim version bc the lua version doesn't work
 vim.cmd([[
 
 function! CleanNoNameEmptyBuffers()
   let buffers = filter(range(1, bufnr('$')), 'buflisted(v:val) && '.
-        \ 'empty(bufname(v:val)) && bufwinnr(v:val) < 0 && ' .
+        \ 'empty(bufname(v:val)) && !(bufname(v:val) =~ "^health:\//\//.*$") && bufwinnr(v:val) < 0 && ' .
         \ '(getbufline(v:val, 1, "$") == [""])')
   if !empty(buffers)
     exe 'bd! '.join(buffers, ' ')
@@ -85,103 +84,6 @@ endfunction
 nmap <expr> q QStart()
 ]])
 
--- local at_count
--- local qreg
--- local qrec = 0
---
--- function AtRepeat(_)
---   -- If no count is supplied use the one saved in atcount.
---   -- Otherwise save the new count in s:atcount, so it will be
---   -- applied to repeats.
---
---   print("atrepeat")
---   print(vim.v.count)
---   if vim.v.count ~= 0 then
---     at_count = vim.v.count
---   end
---   print(vim.v.count1)
---
---   -- feedkeys() rather than :normal allows finishing in Insert
---   -- mode, should the macro do that. @@ is remapped, so 'opfunc'
---   -- will be correct, even if the macro changes it.
---   vim.fn.feedkeys(at_count .. '@@')
--- end
---
--- function AtSetRepeat(_)
---   print("atsetrepeat 100")
---   vim.opt.opfunc = 'v:lua.AtRepeat()'
---   print('opfunc at set')
---   print(vim.opt.opfunc)
--- end
---
--- -- Called by g@ being invoked directly for the first time. Sets
--- -- 'opfunc' ready for repeats with . by calling AtSetRepeat().
--- function AtInit()
---   -- Make sure setting 'opfunc' happens here, after initial playback
---   -- of the macro recording, in case 'opfunc' is set there.
---   print("atinit 111")
---   vim.opt.opfunc = 'v:lua.AtSetRepeat()'
---   print("opfunc")
---   print(vim.inspect(vim.opt.opfunc))
---   return 'g@l'
--- end
---
--- function AtReg()
---   at_count = vim.v.count1
---   print("atreg 120")
---   local c = vim.fn.nr2char(vim.fn.getchar())
---   print('@' .. c .. "\\<Plug>@init")
---   return '@' .. c .. "\\<Plug>@init"
--- end
---
--- function QRepeat(_)
---   print("qrep 127")
---   print("@" .. qreg)
---   vim.fn.feedkeys('@' .. qreg)
--- end
---
--- function QSetRepeat(_)
---   print("qsetrep 133")
---   vim.opt.opfunc = 'v:lua.QRepeat()'
--- end
---
--- function QStop()
---   print("qstop 138")
---   vim.opt.opfunc = 'v:lua.QSetRepeat()'
---   return 'g@l'
--- end
---
--- function QStart()
---   print("qstart 144")
---   if qrec == 1 then
---     qrec = 0
---     print("qstart: 'q\\<Plug>qstop'")
---     return 'q\\<Plug>qstop'
---   end
---   qreg = vim.fn.nr2char(vim.fn.getchar())
---   local r = vim.regex('[0-9a-zA-Z"]')
---   print(r)
---   if r:match_str(qreg) then
---     qrec = 1
---   end
---   print("qstart: q" .. qreg)
---   return 'q' .. qreg
--- end
---
--- function ExecuteMacroOverVisualRange()
---   vim.api.nvim_echo('@' .. vim.fn.getcmdline())
---   vim.api.nvim_command(":'<,'>normal!  @" .. vim.fn.nr2char(vim.fn.getchar()))
--- end
-
--- }}}
-
-function HasWordsBefore()
-  unpack = unpack or table.unpack
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0
-    and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-end
-
 function ReadFile(path)
   local f, err = io.open(path, "r")
   if f == nil then
@@ -194,7 +96,7 @@ function ReadFile(path)
   end
 end
 
-function CheckBackSpace()
+function CheckSpaceBehind()
   local col = vim.fn.col(".") - 1
   if col == 0 or vim.fn.getline("."):sub(col, col):match("%s") then
     return true
@@ -229,16 +131,16 @@ function MapWinCmd(key, command, ...)
   end
 
   local bind = vim.keymap.set
-  bind("n", "<space>h" .. key, ":<c-u>aboveleft vnew <bar>" .. command .. suffix)
-  bind("n", "<space>j" .. key, ":<c-u>belowright new <bar>" .. command .. suffix)
-  bind("n", "<space>k" .. key, ":<c-u>aboveleft new <bar>" .. command .. suffix)
-  bind("n", "<space>l" .. key, ":<c-u>belowright vnew <bar>" .. command .. suffix)
-  bind("n", "<space>," .. key, ":<c-u>tabnew <bar>" .. command .. suffix)
-  bind("n", "<space>." .. key, ":<c-u>" .. command .. suffix)
-  bind("n", "<space>H" .. key, ":<c-u>topleft vnew <bar>" .. command .. suffix)
-  bind("n", "<space>J" .. key, ":<c-u>botright new <bar>" .. command .. suffix)
-  bind("n", "<space>K" .. key, ":<c-u>topleft new <bar>" .. command .. suffix)
-  bind("n", "<space>L" .. key, ":<c-u>botright vnew <bar>" .. command .. suffix)
+  bind("n", "<leader>h" .. key, ":<c-u>aboveleft vnew <bar>" .. command .. suffix)
+  bind("n", "<leader>j" .. key, ":<c-u>belowright new <bar>" .. command .. suffix)
+  bind("n", "<leader>k" .. key, ":<c-u>aboveleft new <bar>" .. command .. suffix)
+  bind("n", "<leader>l" .. key, ":<c-u>belowright vnew <bar>" .. command .. suffix)
+  bind("n", "<leader>," .. key, ":<c-u>tabnew <bar>" .. command .. suffix)
+  bind("n", "<leader>." .. key, ":<c-u>" .. command .. suffix)
+  bind("n", "<leader>H" .. key, ":<c-u>topleft vnew <bar>" .. command .. suffix)
+  bind("n", "<leader>J" .. key, ":<c-u>botright new <bar>" .. command .. suffix)
+  bind("n", "<leader>K" .. key, ":<c-u>topleft new <bar>" .. command .. suffix)
+  bind("n", "<leader>L" .. key, ":<c-u>botright vnew <bar>" .. command .. suffix)
 end
 
 function HasExe(name)
@@ -246,6 +148,18 @@ function HasExe(name)
     return vim.fn.executable(name) == 1
   end
 end
+
+vim.api.nvim_create_user_command("Scratch", function()
+  local random_string = ""
+  for _ = 1, 5 do
+    random_string = random_string .. string.char(math.random(97, 97 + 25))
+  end
+  vim.cmd(
+    "enew | setlocal bufhidden=hide nobuflisted buftype=nowrite noswapfile | file [scratch-"
+      .. random_string
+      .. "]"
+  )
+end, { nargs = 0 })
 
 function ShouldSplitHorizontal()
   local height = vim.api.nvim_win_get_height(0)
@@ -301,14 +215,6 @@ function CheckTheme()
   else
     return theme:gsub("\n", "")
   end
-end
-
-function RegisterFzfCommand(cmd_prefix, name, cmd_suffix)
-  local prefix = vim.g.fzf_vim["command_prefix"]
-  if prefix == nil then
-    prefix = ""
-  end
-  vim.cmd(cmd_prefix .. prefix .. name .. cmd_suffix)
 end
 
 function PrintPath()

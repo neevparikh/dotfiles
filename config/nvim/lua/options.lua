@@ -1,5 +1,16 @@
 -- vim: set foldmethod=marker:foldlevel=0
-vim.opt.clipboard = "unnamedplus"
+-- vim.opt.clipboard = vim.g.remote_neovim_host and "" or "unnamedplus"
+vim.g.clipboard = {
+  name = "OSC 52",
+  copy = {
+    ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+    ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+  },
+  paste = {
+    ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+    ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+  },
+}
 vim.opt.pumblend = 15
 vim.opt.termguicolors = true
 vim.opt.showmode = false
@@ -22,27 +33,47 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.lazyredraw = true
 vim.opt.wrap = true
--- vim.opt.colorcolumn = "100"
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldtext = ""
+vim.opt.fillchars = "fold: "
 vim.opt.undofile = true
 vim.opt.conceallevel = 1
 vim.opt.hlsearch = true
-
 vim.opt_global.shortmess:remove("F")
+vim.opt.laststatus = 3
+vim.g.mapleader = " "
 
-vim.g.lion_squeeze_spaces = true
-vim.g.startify_enable_special = false
-vim.g.startify_update_oldfiles = true
-vim.g.rooter_manual_only = 0
-vim.g.rooter_silent_chdir = 1
+-- custom
+vim.g.use_telescope = false
+vim.g.codecompanion_processing = false
 
-vim.cmd([[
-let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.9 } }
+vim.diagnostic.config({
+  underline = true,
+  virtual_text = {
+    source = "if_many",
+  },
+  float = {
+    border = "rounded",
+    source = "if_many",
+  },
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = "✘",
+      [vim.diagnostic.severity.WARN] = "▲",
+      [vim.diagnostic.severity.HINT] = "⚑",
+      [vim.diagnostic.severity.INFO] = "",
+    },
+  },
+})
 
-let g:fzf_vim = {}
-let g:fzf_vim.preview_window = ['right,45%,<50(down,40%)', '?']
-let g:fzf_vim.command_prefix = 'Fzf'
-]])
+-- This is a disgusting hack but it comes recommended:
+-- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization
+local orig = vim.lsp.util.open_floating_preview
+function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+  opts = opts or {}
+  opts.border = opts.border or "rounded"
+  return orig(contents, syntax, opts, ...)
+end
