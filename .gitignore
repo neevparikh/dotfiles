@@ -75,3 +75,6 @@ work_branch/
 config/nvim/plugin/packer_compiled.lua
 home/todo
 mac_laptop
+local/bin/uv
+local/bin/uvx
+mac/
