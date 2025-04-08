@@ -15,8 +15,7 @@ if [ -d "/opt/cuda/bin/" ]; then #{{{2
 fi
 
 if [ -d "$HOME/.cargo/bin" ]; then
-  source "$HOME/.cargo/env"
-fi
+  fi
 
 if [ -d "$HOME/.yarn/bin" ]; then #{{{2
   export PATH="$HOME/.yarn/bin:$PATH"

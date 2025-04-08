@@ -63,7 +63,7 @@ export EDITOR='nvim'
 export VISUAL='nvim'
 export SUDO_EDITOR='nvim'
 #nvim terminal specific settings
-if [ -f "$HOME/.local/bin/nvr" ]; then
+if which command nvr &> /dev/null; then
   alias h='nvr -o'
   alias v='nvr -O'
   alias t='nvr --remote-tab'
@@ -339,7 +339,7 @@ if [ -f "$HOME/.local/bin/themed-bat" ]; then
   alias cat='themed-bat'
 fi
 alias td="todui"
-
+alias abduco="abduco -e '^q'"
 
 local repo_prefix
 repo_prefix=cd
@@ -370,4 +370,10 @@ if [ -f "/usr/share/fzf/fzf-extras.zsh" ]; then
   source /usr/share/fzf/completion.zsh
   source /usr/share/fzf/key-bindings.zsh
   source /usr/share/fzf/fzf-extras.zsh
+fi
+
+if [ -d "$HOME/.nvm" ]; then
+  export NVM_DIR="$HOME/.nvm"
+  source "$NVM_DIR/nvm.sh"
+  # source "$NVM_DIR/bash_completion"
 fi
