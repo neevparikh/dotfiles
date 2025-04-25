@@ -1,5 +1,6 @@
 -- vim: set foldmethod=marker:foldlevel=0
-vim.opt.clipboard = vim.g.remote_neovim_host and "" or "unnamedplus"
+vim.opt.clipboard = "unnamedplus"
+vim.g.clipboard = "osc52"
 vim.opt.pumblend = 15
 vim.opt.termguicolors = true
 vim.opt.showmode = false

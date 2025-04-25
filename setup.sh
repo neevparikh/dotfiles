@@ -26,3 +26,6 @@ ln -s ~/repos/dotfiles/config/bat/ ~/.config/bat
 ln -s ~/repos/dotfiles/config/theme.yaml ~/.config/theme.yaml
 ln -s ~/repos/dotfiles/config/nvim/ ~/.config/nvim
 ln -s ~/repos/dotfiles/home/zsh_custom/minimal.zsh-theme ~/.oh-my-zsh/custom/themes/minimal.zsh-theme
+ln -s ~/repos/dotfiles/local/bin/nvr ~/.local/bin/nvr
+ln -s ~/repos/dotfiles/local/bin/git-editor ~/.local/bin/git-editor
+ln -s ~/repos/dotfiles/local/bin/themed-bat ~/.local/bin/themed-bat
