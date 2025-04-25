@@ -56,15 +56,3 @@ MapWinCmd("d", "e ~/.todo")
 vim.keymap.set("n", "<leader>m", function()
   require("mini.diff").toggle_overlay()
 end, { noremap = true, silent = true })
-vim.keymap.set(
-  { "n", "x" },
-  "<leader>b",
-  ":CodeCompanionActions<cr>",
-  { noremap = true, silent = true }
-)
-vim.keymap.set(
-  { "n", "x" },
-  "<leader>c",
-  ":CodeCompanionChat Toggle<cr>",
-  { noremap = true, silent = true }
-)

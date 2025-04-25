@@ -11,7 +11,11 @@ local fmt = require("luasnip.extras.fmt").fmt
 -- }}}
 
 local function makeAsComment(_, _, str)
-  return vim.opt.commentstring:get():gsub("%%s", str)
+  local comment = vim.opt.commentstring:get()
+  if comment == nil or comment == "" then
+    return str
+  end
+  return comment:gsub("%%s", str)
 end
 
 return {}, {

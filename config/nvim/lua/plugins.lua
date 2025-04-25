@@ -105,7 +105,7 @@ return {
       vim.g.startify_update_oldfiles = true
       vim.g.startify_bookmarks = {
         { z = "~/.zshrc" },
-        { l = "~/.config/nvim/init.lua" },
+        { l = "~/.config/nvim/lua/plugins.lua" },
         { d = "~/.todo" },
         { c = "~/.config/kitty/kitty.conf" },
         { a = "~/.config/aerospace/aerospace.toml" },
@@ -211,7 +211,77 @@ return {
     },
   },
   { "chrisbra/Colorizer" },
+  {
+    "kndndrj/nvim-dbee",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+    },
+    build = function()
+      -- Install tries to automatically detect the install method.
+      -- if it fails, try calling it with one of these parameters:
+      --    "curl", "wget", "bitsadmin", "go"
+      require("dbee").install()
+    end,
+    config = function()
+      require("dbee").setup({
+        drawer = {
+          disable_help = true,
+          mappings = {
+            -- manually refresh drawer
+            { key = "r", mode = "n", action = "refresh" },
+            -- actions perform different stuff depending on the node:
+            -- action_1 opens a note or executes a helper
+            { key = "<CR>", mode = "n", action = "action_1" },
+            -- action_2 renames a note or sets the connection as active manually
+            { key = "cw", mode = "n", action = "action_2" },
+            -- action_3 deletes a note or connection (removes connection from the file if you configured it like so)
+            { key = "dd", mode = "n", action = "action_3" },
+            -- these are self-explanatory:
+            { key = "c", mode = "n", action = "collapse" },
+            { key = "e", mode = "n", action = "expand" },
+            { key = "o", mode = "n", action = "toggle" },
+            -- mappings for menu popups:
+            { key = "<CR>", mode = "n", action = "menu_confirm" },
+            { key = "y", mode = "n", action = "menu_yank" },
+            { key = "<Esc>", mode = "n", action = "menu_close" },
+            { key = "q", mode = "n", action = "menu_close" },
+          },
+        },
+        result = {
+          page_size = 100,
+          mappings = {
+            -- next/previous page
+            { key = "L", mode = "", action = "page_next" },
+            { key = "H", mode = "", action = "page_prev" },
+            { key = "E", mode = "", action = "page_last" },
+            { key = "F", mode = "", action = "page_first" },
+            -- yank rows as csv/json
+            { key = "yaj", mode = "n", action = "yank_current_json" },
+            { key = "yaj", mode = "v", action = "yank_selection_json" },
+            { key = "yaJ", mode = "", action = "yank_all_json" },
+            { key = "yac", mode = "n", action = "yank_current_csv" },
+            { key = "yac", mode = "v", action = "yank_selection_csv" },
+            { key = "yaC", mode = "", action = "yank_all_csv" },
 
+            -- cancel current call execution
+            { key = "<C-c>", mode = "", action = "cancel_call" },
+          },
+        },
+        editor = {
+          -- directory = vim.fn.expand("~/",
+          mappings = {
+            -- run what's currently selected on the active connection
+            { key = "<S-CR>", mode = "v", action = "run_selection" },
+            -- run the whole file on the active connection
+            { key = "<S-CR>", mode = "n", action = "run_file" },
+          },
+        },
+        sources = {
+          require("dbee.sources").FileSource:new(vim.fn.expand("~/.db.json")),
+        },
+      })
+    end,
+  },
   { "romainl/vim-cool" },
   { "tpope/vim-repeat" },
   { "tpope/vim-commentary" },
@@ -353,6 +423,7 @@ return {
         preview = {
           flip_columns = 160,
           layout = "flex",
+          wrap = true,
         },
       },
       fzf_opts = {
@@ -611,6 +682,9 @@ return {
               },
             })
           end,
+          ts_ls = function()
+            require("lspconfig").ts_ls.setup({})
+          end,
           clangd = function()
             require("lspconfig").clangd.setup({
               settings = {
@@ -657,8 +731,12 @@ return {
         { noremap = true, silent = true }
       )
       vim.keymap.set("n", "<leader>N", vim.diagnostic.open_float, { noremap = true, silent = true })
-      vim.keymap.set("n", "<leader>p", vim.diagnostic.goto_prev, { noremap = true, silent = true })
-      vim.keymap.set("n", "<leader>n", vim.diagnostic.goto_next, { noremap = true, silent = true })
+      vim.keymap.set("n", "<leader>p", function()
+        vim.diagnostic.jump({ count = -1, float = true })
+      end, { noremap = true, silent = true })
+      vim.keymap.set("n", "<leader>n", function()
+        vim.diagnostic.jump({ count = 1, float = true })
+      end, { noremap = true, silent = true })
     end,
   },
   {
@@ -1012,446 +1090,14 @@ return {
     },
   },
   {
-    "olimorris/codecompanion.nvim",
+    "luckasRanarison/tailwind-tools.nvim",
+    name = "tailwind-tools",
+    build = ":UpdateRemotePlugins",
     dependencies = {
-      "nvim-lua/plenary.nvim",
-      "echasnovski/mini.diff",
       "nvim-treesitter/nvim-treesitter",
-      -- The following are optional:
-      { "MeanderingProgrammer/render-markdown.nvim", ft = { "markdown", "codecompanion" } },
+      "nvim-telescope/telescope.nvim", -- optional
+      "neovim/nvim-lspconfig", -- optional
     },
-    opts = {
-      log_level = "TRACE",
-      display = {
-        action_palette = {
-          width = 95,
-          height = 13,
-          prompt = "Prompt ", -- Prompt used for interactive LLM calls
-          provider = "default", -- default|telescope|mini_pick
-          opts = {
-            show_default_actions = true, -- Show the default actions in the action palette?
-            show_default_prompt_library = true, -- Show the default prompt library in the action palette?
-          },
-        },
-        chat = {
-          render_headers = false,
-          window = {
-            layout = "vertical", -- float|vertical|horizontal|buffer
-            border = "single",
-            height = 0.8,
-            width = 0.4,
-            relative = "editor",
-            opts = {
-              breakindent = true,
-              cursorcolumn = false,
-              cursorline = false,
-              foldcolumn = "0",
-              linebreak = true,
-              list = false,
-              signcolumn = "no",
-              spell = false,
-              wrap = true,
-            },
-          },
-          intro_message = "Welcome to CodeCompanion ✨! Press ? for options",
-          show_header_separator = false, -- Show header separators in the chat buffer? Set this to false if you're using an exteral markdown formatting plugin
-          separator = "─", -- The separator between the different messages in the chat buffer
-          show_references = true, -- Show references (from slash commands and variables) in the chat buffer?
-          show_settings = false, -- Show LLM settings at the top of the chat buffer?
-          show_token_count = true, -- Show the token count for each response?
-          start_in_insert_mode = false, -- Open the chat buffer in insert mode?
-          token_count = function(tokens, _) -- The function to display the token count
-            return " (" .. tokens .. " tokens)"
-          end,
-        },
-        diff = {
-          enabled = true,
-          close_chat_at = 240, -- Close an open chat buffer if the total columns of your display are less than...
-          layout = "vertical", -- vertical|horizontal split for default provider
-          opts = {
-            "internal",
-            "filler",
-            "closeoff",
-            "algorithm:patience",
-            "followwrap",
-            "linematch:120",
-          },
-          provider = "mini_diff", -- default|mini_diff
-        },
-        inline = {
-          -- If the inline prompt creates a new buffer, how should we display this?
-          layout = "vertical", -- vertical|horizontal|buffer
-        },
-      },
-      strategies = {
-        -- CHAT STRATEGY ----------------------------------------------------------
-        chat = {
-          adapter = "anthropic",
-          roles = {
-            llm = "CodeCompanion", -- The markdown header content for the LLM's responses
-            user = "Me", -- The markdown header for your questions
-          },
-          variables = {
-            ["buffer"] = {
-              callback = "strategies.chat.variables.buffer",
-              description = "Share the current buffer with the LLM",
-              opts = {
-                contains_code = true,
-                has_params = true,
-              },
-            },
-            ["lsp"] = {
-              callback = "strategies.chat.variables.lsp",
-              description = "Share LSP information and code for the current buffer",
-              opts = {
-                contains_code = true,
-                hide_reference = true,
-              },
-            },
-            ["viewport"] = {
-              callback = "strategies.chat.variables.viewport",
-              description = "Share the code that you see in Neovim with the LLM",
-              opts = {
-                contains_code = true,
-                hide_reference = true,
-              },
-            },
-          },
-          slash_commands = {
-            ["buffer"] = {
-              callback = "strategies.chat.slash_commands.buffer",
-              description = "Insert open buffers",
-              opts = {
-                contains_code = true,
-                provider = provider(), -- default|telescope|mini_pick|fzf_lua
-              },
-            },
-            ["fetch"] = {
-              callback = "strategies.chat.slash_commands.fetch",
-              description = "Insert URL contents",
-              opts = {
-                adapter = "jina",
-              },
-            },
-            ["file"] = {
-              callback = "strategies.chat.slash_commands.file",
-              description = "Insert a file",
-              opts = {
-                contains_code = true,
-                max_lines = 1000,
-                provider = provider(), -- default|telescope|mini_pick|fzf_lua
-              },
-            },
-            ["help"] = {
-              callback = "strategies.chat.slash_commands.help",
-              description = "Insert content from help tags",
-              opts = {
-                contains_code = false,
-                provider = provider(), -- telescope|mini_pick|fzf_lua
-              },
-            },
-            ["now"] = {
-              callback = "strategies.chat.slash_commands.now",
-              description = "Insert the current date and time",
-              opts = {
-                contains_code = false,
-              },
-            },
-            ["symbols"] = {
-              callback = "strategies.chat.slash_commands.symbols",
-              description = "Insert symbols for a selected file",
-              opts = {
-                contains_code = true,
-                provider = provider(), -- default|telescope|mini_pick|fzf_lua
-              },
-            },
-            ["terminal"] = {
-              callback = "strategies.chat.slash_commands.terminal",
-              description = "Insert terminal output",
-              opts = {
-                contains_code = false,
-              },
-            },
-          },
-          keymaps = {
-            options = {
-              modes = {
-                n = "?",
-              },
-              callback = "keymaps.options",
-              description = "Options",
-              hide = true,
-            },
-            completion = {
-              modes = {
-                i = "<C-_>",
-              },
-              index = 1,
-              callback = "keymaps.completion",
-              condition = function()
-                local has_cmp, _ = pcall(require, "cmp")
-                return not has_cmp
-              end,
-              description = "Completion Menu",
-            },
-            send = {
-              modes = {
-                n = { "<CR>", "<C-s>" },
-                i = "<C-s>",
-              },
-              index = 1,
-              callback = "keymaps.send",
-              description = "Send",
-            },
-            regenerate = {
-              modes = {
-                n = "gr",
-              },
-              index = 2,
-              callback = "keymaps.regenerate",
-              description = "Regenerate the last response",
-            },
-            close = {
-              modes = {
-                n = "<C-c>",
-                i = "<C-c>",
-              },
-              index = 3,
-              callback = "keymaps.close",
-              description = "Close Chat",
-            },
-            stop = {
-              modes = {
-                n = "q",
-              },
-              index = 4,
-              callback = "keymaps.stop",
-              description = "Stop Request",
-            },
-            clear = {
-              modes = {
-                n = "gx",
-              },
-              index = 5,
-              callback = "keymaps.clear",
-              description = "Clear Chat",
-            },
-            codeblock = {
-              modes = {
-                n = "gc",
-              },
-              index = 6,
-              callback = "keymaps.codeblock",
-              description = "Insert Codeblock",
-            },
-            yank_code = {
-              modes = {
-                n = "gy",
-              },
-              index = 7,
-              callback = "keymaps.yank_code",
-              description = "Yank Code",
-            },
-            next_chat = {
-              modes = {
-                n = "}",
-              },
-              index = 8,
-              callback = "keymaps.next_chat",
-              description = "Next Chat",
-            },
-            previous_chat = {
-              modes = {
-                n = "{",
-              },
-              index = 9,
-              callback = "keymaps.previous_chat",
-              description = "Previous Chat",
-            },
-            next_header = {
-              modes = {
-                n = "]]",
-              },
-              index = 10,
-              callback = "keymaps.next_header",
-              description = "Next Header",
-            },
-            previous_header = {
-              modes = {
-                n = "[[",
-              },
-              index = 11,
-              callback = "keymaps.previous_header",
-              description = "Previous Header",
-            },
-            change_adapter = {
-              modes = {
-                n = "ga",
-              },
-              index = 12,
-              callback = "keymaps.change_adapter",
-              description = "Change adapter",
-            },
-            fold_code = {
-              modes = {
-                n = "gf",
-              },
-              index = 13,
-              callback = "keymaps.fold_code",
-              description = "Fold code",
-            },
-            debug = {
-              modes = {
-                n = "gd",
-              },
-              index = 14,
-              callback = "keymaps.debug",
-              description = "View debug info",
-            },
-            system_prompt = {
-              modes = {
-                n = "gs",
-              },
-              index = 15,
-              callback = "keymaps.toggle_system_prompt",
-              description = "Toggle the system prompt",
-            },
-          },
-          opts = {
-            register = "+", -- The register to use for yanking code
-            yank_jump_delay_ms = 400, -- Delay in milliseconds before jumping back from the yanked code
-          },
-        },
-        -- INLINE STRATEGY --------------------------------------------------------
-        inline = {
-          adapter = "anthropic",
-          keymaps = {
-            accept_change = {
-              modes = {
-                n = "ga",
-              },
-              index = 1,
-              callback = "keymaps.accept_change",
-              description = "Accept change",
-            },
-            reject_change = {
-              modes = {
-                n = "gr",
-              },
-              index = 2,
-              callback = "keymaps.reject_change",
-              description = "Reject change",
-            },
-          },
-          prompts = {
-            -- The prompt to send to the LLM when a user initiates the inline strategy and it needs to convert to a chat
-            inline_to_chat = function(context)
-              return string.format(
-                [[I want you to act as an expert and senior developer in the %s language. I will ask you questions, perhaps giving you code examples, and I want you to advise me with explanations and code where neccessary.]],
-                context.filetype
-              )
-            end,
-          },
-        },
-        -- AGENT STRATEGY ---------------------------------------------------------
-        agent = {
-          ["full_stack_dev"] = {
-            description = "Full Stack Developer - Can run code, edit code and modify files",
-            system_prompt = "**DO NOT** make any assumptions about the dependencies that a user has installed. If you need to install any dependencies to fulfil the user's request, do so via the Command Runner tool. If the user doesn't specify a path, use their current working directory.",
-            tools = {
-              "cmd_runner",
-              "editor",
-              "files",
-            },
-          },
-          tools = {
-            ["cmd_runner"] = {
-              callback = "strategies.chat.tools.cmd_runner",
-              description = "Run shell commands initiated by the LLM",
-              opts = {
-                user_approval = true,
-              },
-            },
-            ["editor"] = {
-              callback = "strategies.chat.tools.editor",
-              description = "Update a buffer with the LLM's response",
-            },
-            ["files"] = {
-              callback = "strategies.chat.tools.files",
-              description = "Update the file system with the LLM's response",
-              opts = {
-                user_approval = true,
-              },
-            },
-            ["rag"] = {
-              callback = "strategies.chat.tools.rag",
-              description = "Supplement the LLM with real-time info from the internet",
-              opts = {
-                hide_output = true,
-              },
-            },
-            opts = {
-              auto_submit_errors = false, -- Send any errors to the LLM automatically?
-              auto_submit_success = false, -- Send any successful output to the LLM automatically?
-              system_prompt = [[## Tools
-  You now have access to tools:
-  - These enable you to assist the user with specific tasks
-  - The user will outline which specific tools you have access to
-  - You trigger a tool by following a specific XML schema which is defined for each tool
-  You must:
-  - Only use the tool when prompted by the user, despite having access to it
-  - Follow the specific tool's schema
-  - Respond with the schema in XML format
-  - Ensure the schema is in a markdown code block that is designated as XML
-  - Ensure any output you're intending to execute will be able to parsed as valid XML
-  Points to note:
-  - The user detects that you've triggered a tool by using Tree-sitter to parse your markdown response
-  - If you call multiple tools within the same response:
-  - Each unique tool MUST be called in its own, individual, XML codeblock
-  - Tools of the same type SHOULD be called in the same XML codeblock
-  - If your response doesn't follow the tool's schema, the tool will not execute
-  - Tools should not alter your core tasks and how you respond to a user]],
-            },
-          },
-        },
-        -- CMD STRATEGY -----------------------------------------------------------
-        cmd = {
-          adapter = "anthropic",
-          opts = {
-            system_prompt = [[You are currently plugged in to the Neovim text editor on a user's machine. Your core task is to generate an command-line inputs that the user can run within Neovim. Below are some rules to adhere to:
-  - Return plain text only
-  - Do not wrap your response in a markdown block or backticks
-  - Do not use any line breaks or newlines in you response
-  - Do not provide any explanations
-  - Generate an command that is valid and can be run in Neovim
-  - Ensure the command is relevant to the user's request]],
-          },
-        },
-      },
-      adapters = {
-        anthropic = function()
-          return require("codecompanion.adapters").extend("anthropic", {
-            env = {
-              api_key = "ANTHROPIC_API_KEY",
-            },
-            schema = {
-              model = { default = "claude-3-5-sonnet-20241022" },
-              max_tokens = { default = 8192 },
-            },
-          })
-        end,
-        openai = function()
-          return require("codecompanion.adapters").extend("anthropic", {
-            env = {
-              api_key = "OPENAI_API_KEY",
-            },
-            schema = {
-              model = { default = "o1-preview-2024-09-12" },
-              max_tokens = { default = 8192 },
-            },
-          })
-        end,
-      },
-    },
+    opts = {}, -- your configuration
   },
 }

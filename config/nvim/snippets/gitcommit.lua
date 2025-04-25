@@ -23,6 +23,7 @@ end
 return {}, {
   formatConventionalSnippet("feat"),
   formatConventionalSnippet("chore"),
+  formatConventionalSnippet("wip"),
   formatConventionalSnippet("fix"),
   formatConventionalSnippet("docs"),
   formatConventionalSnippet("build"),
