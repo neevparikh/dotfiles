@@ -1,17 +1,28 @@
-# If you come from bash you might have to change your $PATH. 
-VERSION=$(lsb_release -rs)
-
+# If you come from bash you might have to change your $PATH.
+# VERSION=$(lsb_release -rs)
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+export PATH=$HOMEBREW_PREFIX/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
+export PATH="$HOME/Library/Application Support/Coursier/bin":$PATH
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="minimal"
+GRUVBOX_THEME="dark"
 
-if [ -f "$HOME/.zprofile" ]; then
-  source $HOME/.zprofile
+if [ -d "$HOME/.cargo/bin" ]; then
+  source "$HOME/.cargo/env"
+fi
+
+if [ -d "/opt/cuda/bin/" ]; then
+  export PATH="/opt/cuda/bin:$PATH"
+fi
+
+if [ -d "/usr/local/cuda/bin/" ]; then
+  export PATH="/usr/local/cuda/bin:$PATH"
 fi
 
 # Uncomment the following line to enable command auto-correction.
@@ -25,20 +36,22 @@ COMPLETION_WAITING_DOTS="true"
 # much, much faster.
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-
-# Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
   colored-man-pages
   extract
-  zsh-autosuggestions
 )
+if [ -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
+  plugins+=(zsh-autosuggestions)
+fi
 
-source $ZSH/oh-my-zsh.sh
+
+if [ -f "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]; then 
+  source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+if [ -f "$ZSH/oh-my-zsh.sh" ]; then 
+  source $ZSH/oh-my-zsh.sh
+fi
 
 # User configuration
 #faster load, may require manual load after installs
@@ -46,6 +59,7 @@ for dump in ~/.zcompdump(N.mh+24); do
     # Install plugins if there are plugins that have not been installed
     compinit
 done
+fpath+=~/.zfunc
 autoload -Uz compinit
 compinit -C
 
@@ -58,12 +72,10 @@ unsetopt AUTO_CD
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-
 export EDITOR='nvim'
 export VISUAL='nvim'
-export SUDO_EDITOR='nvim'
 #nvim terminal specific settings
-if [ -f "$HOME/.local/bin/nvr" ]; then
+if which command nvr &> /dev/null; then
   alias h='nvr -o'
   alias v='nvr -O'
   alias t='nvr --remote-tab'
@@ -108,31 +120,20 @@ add-zsh-hook preexec make_beam
 bindkey -M viins ${terminfo[kdch1]} delete-char	# Del key
 bindkey "^?" backward-delete-char
 
-
-if [ -f $HOME/.local/share/nwg-look/gsettings ]; then
-  export THEME=$(sed -n -e 's/^.*gtk-theme=//p' ~/.local/share/nwg-look/gsettings)
-  export GTK_THEME=$THEME
-  export THEME_DIR="/usr/share/themes/$THEME"
-fi 
-if ! [ $HOME/.config/gtk-4.0/gtk.css ]; then
-  ln -sf "${THEME_DIR}/gtk-4.0/assets" "${HOME}/.config/gtk-4.0/assets"
-  ln -sf "${THEME_DIR}/gtk-4.0/gtk.css" "${HOME}/.config/gtk-4.0/gtk.css"
-  ln -sf "${THEME_DIR}/gtk-4.0/gtk-dark.css" "${HOME}/.config/gtk-4.0/gtk-dark.css"
-fi
-if [ -f $HOME/.config/theme.yaml ]; then
-    export VARIANT=$(cat $HOME/.config/theme.yaml)
+if [[ -f $HOME/.config/theme.yml ]]; then
+    export THEME=$(cat $HOME/.config/theme.yml)
 fi 
 
 # Aliases
-alias -g ls="ls -h --color=auto"
 alias la='ls -a'
 alias ll='ls -l'
 alias lla='ls -la'
+alias sl='ls'
 alias tlmgr='tllocalmgr'
-alias sv='sudoedit'
+alias sv='sudo -e'
 alias vim='nvim'
 alias lgout='i3-msg exit'
-alias py='python'
+alias py='python3'
 
 local gprefix
 zstyle -s ':zim:git' aliases-prefix 'gprefix' || gprefix=g
@@ -189,7 +190,7 @@ alias ${gprefix}di='git status --porcelain --short --ignored | sed -n "s/^!! //p
 # Fetch (f)
 alias ${gprefix}f='git fetch'
 alias ${gprefix}fc='git clone'
-alias ${gprefix}fm='git pull'
+alias ${gprefix}fm='git pull' # origin $(git branch --show-current)'
 alias ${gprefix}fr='git pull --rebase'
 alias ${gprefix}fu='git fetch --all --prune && git merge --ff-only @\{u\}'
 
@@ -308,6 +309,7 @@ alias ${gprefix}wX='git rm -rf'
 
 alias ${gprefix}ap='git add --patch'
 
+alias calc='insect'
 alias agi='sudo apt install'
 alias agu='sudo apt upgrade'
 alias agd='sudo apt update'
@@ -336,10 +338,8 @@ alias cnvim="rm $HOME/.local/state/nvim/swap/%Users%neev%*.swp"
 alias make="make --no-print-directory"
 if [ -f "$HOME/.local/bin/themed-bat" ]; then
   alias bat='themed-bat'
-  alias cat='themed-bat'
 fi
 alias td="todui"
-
 
 local repo_prefix
 repo_prefix=cd
@@ -349,25 +349,32 @@ alias ${repo_prefix}e="cd $HOME/repos/metr/eval-pipeline/"
 alias ${repo_prefix}v="cd $HOME/repos/metr/vivaria/"
 alias ${repo_prefix}p="cd $HOME/repos/metr/poke-tools/"
 alias ${repo_prefix}c="cd $HOME/repos/metr/cot-monitoring/"
+alias timg="timg -p kitty"
 
-if [ -f "/usr/share/fzf/fzf-extras.zsh" ]; then
+if which command fzf &> /dev/null; then
   FD_BASE_ARGS='--follow --hidden --exclude .git --no-ignore-vcs --color=always'
 
-  export FZF_PREVIEW_COMMAND="rsp {}"
+  export FZF_PREVIEW_COMMAND="~/.local/share/nvim/lazy/fzf/bin/fzf-preview.sh  {}"
   export FZF_DEFAULT_COMMAND="fd $FD_BASE_ARGS"
   export FZF_DIR_COMMAND="fd --type directory $FD_BASE_ARGS"
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
   export FZF_ALT_C_COMMAND="$FZF_DIR_COMMAND"
-
 
   export FZF_PREVIEW_OPTS="--preview '$FZF_PREVIEW_COMMAND' --preview-window 'right:50%:wrap:<100(down:30%)' --bind '?:toggle-preview'"
   export FZF_ALT_C_OPTS="$FZF_PREVIEW_OPTS"
   export FZF_CTRL_R_OPTS="$FZF_PREVIEW_OPTS"
   export FZF_CTRL_T_OPTS="$FZF_PREVIEW_OPTS"
 
-  export FZF_DEFAULT_OPTS="--layout=reverse --ansi --height=~40% --color=gutter:-1 --bind tab:down,shift-tab:up $FZF_PREVIEW_OPTS "
+  export FZF_DEFAULT_OPTS="--layout=reverse --ansi --height=~40% --color=gutter:-1 --bind ctrl-j:down,ctrl-k:up $FZF_PREVIEW_OPTS "
 
-  source /usr/share/fzf/completion.zsh
-  source /usr/share/fzf/key-bindings.zsh
-  source /usr/share/fzf/fzf-extras.zsh
+  source <(fzf --zsh)
+fi 
+
+if [ -d "$HOME/.viv-task-dev" ]; then
+  export TASK_DEV_HOME="$HOME/.viv-task-dev"
+  export PATH="${PATH}:${TASK_DEV_HOME}/dev/bin" 
+fi
+
+if [ -f "$HOME/.bash_profile" ]; then 
+  source ~/.bash_profile
 fi
