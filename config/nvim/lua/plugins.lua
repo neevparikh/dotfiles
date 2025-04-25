@@ -2,14 +2,6 @@
 require("helpers")
 require("keymaps")
 
-local provider = function()
-  if vim.g.use_telescope then
-    return "telescope"
-  else
-    return "fzf_lua"
-  end
-end
-
 return {
   { -- gruvbox
     "neevparikh/gruvbox.nvim",
