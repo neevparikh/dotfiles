@@ -16,6 +16,7 @@ wget https://github.com/BurntSushi/ripgrep/releases/download/14.1.1/ripgrep-14.1
 wget https://github.com/sharkdp/fd/releases/download/v10.2.0/fd-v10.2.0-x86_64-unknown-linux-gnu.tar.gz
 wget https://github.com/martanne/abduco/releases/download/v0.6/abduco-0.6.tar.gz
 wget https://github.com/martanne/dvtm/releases/download/v0.15/dvtm-0.15.tar.gz
+wget https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
 
 ln -s ~/repos/dotfiles/home/.zshrc ~/.zshrc
 ln -s ~/repos/dotfiles/home/.zlogin ~/.zlogin
