@@ -12,7 +12,9 @@ git_custom_info() {
 
 remote_host_prompt () {
   if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-    echo "%{$FG[$SSH_COLOR]%}$(hostname)"
+    echo "%{$FG[$SSH_COLOR]%}ssh->$(hostname)%{$reset_color%}"
+  elif [ -f "/.dockerenv"]; then
+    echo "%{$FG[$SSH_COLOR]%}docker->$(hostname)%{$reset_color%}"
   else
     echo ""
   fi
