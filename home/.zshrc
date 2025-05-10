@@ -92,16 +92,14 @@ zle -N edit-command-line
 # bindkey "^E" edit-command-line
 
 function zle-keymap-select {
-  if [[ ${KEYMAP} == vicmd ]] ||
-     [[ $1 = 'block' ]]; then
-    echo -ne '\e[1 q'
-
-  elif [[ ${KEYMAP} == main ]] ||
-       [[ ${KEYMAP} == viins ]] ||
-       [[ ${KEYMAP} = '' ]] ||
-       [[ $1 = 'beam' ]]; then
-    echo -ne '\e[5 q'
-  fi
+  case "$KEYMAP" in
+    vicmd|prompt_vicmd|*block)  # any “command‑mode” maps
+      echo -ne '\e[1 q'          # block cursor
+      ;;
+    main|viins|prompt_viins|''|*beam)  # any “insert‑mode” maps
+      echo -ne '\e[5 q'          # beam cursor
+      ;;
+  esac
 }
 zle -N zle-keymap-select
 
@@ -115,10 +113,65 @@ make_beam
 
 # And at the start of each prompt
 autoload -U add-zsh-hook
-add-zsh-hook preexec make_beam
+add-zsh-hook precmd make_beam
+
 
 bindkey -M viins ${terminfo[kdch1]} delete-char	# Del key
-bindkey "^?" backward-delete-char
+
+# === BEGIN: Natural‑language prompt → tool, with Vim‑mode support ===
+
+# 1) Create & clone two new keymaps for prompt mode (vi‑insert & vi‑command)
+bindkey -N prompt_viins viins
+bindkey -N prompt_vicmd vicmd
+
+# 2) ESC in prompt insert → switch to prompt_vicmd
+prompt_to_vicmd() { zle -K prompt_vicmd }
+zle -N prompt_to_vicmd
+bindkey -M prompt_viins '^[' prompt_to_vicmd
+
+# 3) i/a/o/etc in prompt command → switch back to prompt_viins
+prompt_to_viins() {
+  zle vi-insert         # do the normal Vi work
+  zle -K prompt_viins   # and force the keymap we really want
+}
+zle -N prompt_to_viins
+for key in i I a A o O; do        # bound in prompt_vicmd
+  bindkey -M prompt_vicmd "$key" prompt_to_viins
+done
+
+# 4) Ctrl‑o – start the prompt buffer **and switch to the prompt map**
+insert_tool_prompt() {
+  typeset -g _INSERT_TOOL_SAVED_BUFFER=$BUFFER   # remember what was on the line
+  BUFFER='|> '
+  CURSOR=${#BUFFER}
+
+  _INSERT_TOOL_PREV_KEYMAP=$KEYMAP      # remember where we were
+  zle -K prompt_viins                   # go to the prompt keymap
+  zle redisplay
+}
+zle -N insert_tool_prompt
+bindkey -M viins '^o' insert_tool_prompt
+
+# 5) Enter – run llm, replace buffer, **go back to the saved map**
+confirm_tool_prompt() {
+  local arg=${BUFFER#'|> '}                      # text after "|> "
+  [[ $arg == \"*\" && $arg == *\" ]] &&          # strip outer quotes if present
+      arg=${arg#\"} arg=${arg%\"}
+
+  local result
+  result=$(llm -s "Return only the command to be executed as a raw string, no string delimiters wrapping it, no yapping, no markdown, no fenced code blocks, what you return will be passed to subprocess.check_output() directly. For example, if the user asks: undo last git commit You return only: git reset --soft HEAD~1" -m "gpt-4.1-nano" "$arg")
+
+  BUFFER="${_INSERT_TOOL_SAVED_BUFFER}${result}" # prepend saved line
+  CURSOR=${#BUFFER}
+
+  zle -K "${_INSERT_TOOL_PREV_KEYMAP:-viins}"   # restore viins / vicmd
+  zle redisplay
+}
+zle -N confirm_tool_prompt
+bindkey -M prompt_viins '^M' confirm_tool_prompt
+bindkey -M prompt_vicmd '^M' confirm_tool_prompt
+
+# # === END: Natural‑language prompt → tool, with Vim‑mode support ===
 
 if [[ -f $HOME/.config/theme.yml ]]; then
     export THEME=$(cat $HOME/.config/theme.yml)
@@ -377,10 +430,4 @@ fi
 
 if [ -f "$HOME/.bash_profile" ]; then 
   source ~/.bash_profile
-fi
-
-if [ -d "$HOME/.nvm" ]; then
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 fi

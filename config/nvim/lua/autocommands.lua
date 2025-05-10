@@ -5,7 +5,6 @@ local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
 local cpp = augroup("cpp", { clear = true })
-local codecompanion = augroup("CodeCompanionHooks", {})
 
 -- {{{ general
 -- autocmd({ "BufLeave" }, { pattern = "*", command = "call CleanNoNameEmptyBuffers()" })
@@ -46,7 +45,7 @@ autocmd(
 -- {{{ filetype
 autocmd({ "FileType" }, {
   pattern = { "markdown", "text", "rst" },
-  command = "setlocal spell textwidth=100",
+  command = "setlocal spell",
 })
 autocmd({ "FileType" }, {
   pattern = { "todo" },
@@ -56,18 +55,4 @@ autocmd(
   { "FileType" },
   { group = cpp, pattern = "cpp", command = "setlocal commentstring=//\\ %s" }
 )
--- }}}
-
--- {{{ codecompanion
--- vim.api.nvim_create_autocmd({ "User" }, {
---   pattern = "CodeCompanionRequest*",
---   group = codecompanion,
---   callback = function(request)
---     if request.match == "CodeCompanionRequestStarted" then
---       vim.g.codecompanion_processing = true
---     elseif request.match == "CodeCompanionRequestFinished" then
---       vim.g.codecompanion_processing = false
---     end
---   end,
--- })
 -- }}}

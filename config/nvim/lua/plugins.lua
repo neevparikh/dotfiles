@@ -202,7 +202,32 @@ return {
       extensions = {},
     },
   },
-  { "chrisbra/Colorizer" },
+  {
+    "norcalli/nvim-colorizer.lua",
+    config = function()
+      require("colorizer").setup({ "*" }, {
+        RGB = true, -- #RGB hex codes
+        RRGGBB = true, -- #RRGGBB hex codes
+        names = true, -- "Name" codes like Blue
+        RRGGBBAA = false, -- #RRGGBBAA hex codes
+        rgb_fn = false, -- CSS rgb() and rgba() functions
+        hsl_fn = false, -- CSS hsl() and hsla() functions
+        css = false, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+        css_fn = false, -- Enable all CSS *functions*: rgb_fn, hsl_fn
+        mode = "background", -- Set the display mode. Available modes: foreground, background
+      })
+    end,
+  },
+  {
+    "stevearc/resession.nvim",
+    config = function()
+      local resession = require("resession")
+      resession.setup()
+      vim.keymap.set("n", "<leader>ss", resession.save)
+      vim.keymap.set("n", "<leader>sl", resession.load)
+      vim.keymap.set("n", "<leader>sd", resession.delete)
+    end,
+  },
   {
     "kndndrj/nvim-dbee",
     dependencies = {
@@ -308,7 +333,7 @@ return {
 
         highlight = {
           enable = true,
-          disable = {},
+          disable = { "jinja" },
           additional_vim_regex_highlighting = false,
         },
         matchup = {
@@ -537,6 +562,7 @@ return {
         json = { "prettierd" },
         jsonc = { "prettierd" },
         graphql = { "prettierd" },
+        toml = { "pyproject-fmt" },
         go = { "goimports", "gofmt" },
         lua = { "stylua" },
         python = { "ruff_format" },
@@ -594,7 +620,7 @@ return {
   },
   { "mfussenegger/nvim-lint" },
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     opts = {
       ui = {
         icons = {
@@ -611,126 +637,7 @@ return {
       },
     },
   },
-
-  {
-    "williamboman/mason-lspconfig.nvim",
-    dependencies = {
-      "williamboman/mason.nvim",
-    },
-  },
-  { -- nvim lspconfig
-    "neovim/nvim-lspconfig",
-    lazy = false,
-    dependencies = {
-      "williamboman/mason-lspconfig.nvim",
-    },
-    config = function()
-      require("mason-lspconfig").setup({
-        ensure_installed = {
-          "bashls",
-          "clangd",
-          "jsonls",
-          "lua_ls",
-          "pyright",
-          "ts_ls",
-        },
-        handlers = {
-          lua_ls = function()
-            local runtime_path = vim.split(package.path, ";")
-            table.insert(runtime_path, "lua/?.lua")
-            table.insert(runtime_path, "lua/?/init.lua")
-
-            require("lspconfig").lua_ls.setup({
-              settings = {
-                Lua = {
-                  -- Disable telemetry
-                  telemetry = { enable = false },
-                  runtime = {
-                    -- Tell the language server which version of Lua you're using
-                    -- (most likely LuaJIT in the case of Neovim)
-                    version = "LuaJIT",
-                    path = runtime_path,
-                  },
-                  diagnostics = {
-                    -- Get the language server to recognize the `vim` global
-                    globals = { "vim" },
-                  },
-                  workspace = {
-                    checkThirdParty = false,
-                    library = {
-                      -- Make the server aware of Neovim runtime files
-                      vim.env.VIMRUNTIME,
-                      "${3rd}/luv/library",
-                    },
-                  },
-                },
-              },
-            })
-          end,
-          pyright = function()
-            require("lspconfig").pyright.setup({
-              settings = {
-                pyright = { venvPath = "~/.venvs/" },
-              },
-            })
-          end,
-          ts_ls = function()
-            require("lspconfig").ts_ls.setup({})
-          end,
-          clangd = function()
-            require("lspconfig").clangd.setup({
-              settings = {
-                clangd = {
-                  arguments = {
-                    "--header-insertion=never",
-                    "--query-driver=**",
-                  },
-                },
-              },
-            })
-          end,
-        },
-      })
-      require("lspconfig").rust_analyzer.setup({})
-    end,
-    init = function()
-      vim.keymap.set("n", "<leader>d", vim.lsp.buf.definition, { noremap = true, silent = true })
-      vim.keymap.set("n", "<leader>D", vim.lsp.buf.declaration, { noremap = true, silent = true })
-      vim.keymap.set(
-        "n",
-        "<leader>i",
-        vim.lsp.buf.implementation,
-        { noremap = true, silent = true }
-      )
-      vim.keymap.set(
-        "n",
-        "<leader>t",
-        vim.lsp.buf.type_definition,
-        { noremap = true, silent = true }
-      )
-      vim.keymap.set("n", "<leader>u", vim.lsp.buf.references, { noremap = true, silent = true })
-      vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { noremap = true, silent = true })
-      vim.keymap.set(
-        { "n", "x" },
-        "<leader>C",
-        vim.lsp.buf.code_action,
-        { noremap = true, silent = true }
-      )
-      vim.keymap.set(
-        "n",
-        "<leader>K",
-        vim.lsp.buf.signature_help,
-        { noremap = true, silent = true }
-      )
-      vim.keymap.set("n", "<leader>N", vim.diagnostic.open_float, { noremap = true, silent = true })
-      vim.keymap.set("n", "<leader>p", function()
-        vim.diagnostic.jump({ count = -1, float = true })
-      end, { noremap = true, silent = true })
-      vim.keymap.set("n", "<leader>n", function()
-        vim.diagnostic.jump({ count = 1, float = true })
-      end, { noremap = true, silent = true })
-    end,
-  },
+  { "neovim/nvim-lspconfig", lazy = false },
   {
     "L3MON4D3/LuaSnip",
     dependencies = { "rafamadriz/friendly-snippets", "honza/vim-snippets" },
@@ -890,6 +797,8 @@ return {
         auto_set_keymaps = true,
         auto_apply_diff_after_generation = false,
         support_paste_from_clipboard = true,
+        minimize_diff = true,
+        enable_token_counting = true,
       },
       mappings = {
         diff = {
@@ -918,8 +827,14 @@ return {
         sidebar = {
           apply_all = "A",
           apply_cursor = "a",
+          retry_user_request = "r",
+          edit_user_request = "e",
           switch_windows = "<Tab>",
           reverse_switch_windows = "<S-Tab>",
+          remove_file = "d",
+          add_file = "@",
+          close = { "<Esc>", "q" },
+          close_from_input = nil,
         },
       },
       hints = { enabled = false },
@@ -1032,6 +947,71 @@ return {
     end,
   },
   {
+    "GCBallesteros/NotebookNavigator.nvim",
+    keys = {
+      {
+        "]h",
+        function()
+          require("notebook-navigator").move_cell("d")
+        end,
+      },
+      {
+        "[h",
+        function()
+          require("notebook-navigator").move_cell("u")
+        end,
+      },
+      { "<leader>X", "<cmd>lua require('notebook-navigator').run_cell()<cr>" },
+      { "<leader>x", "<cmd>lua require('notebook-navigator').run_and_move()<cr>" },
+    },
+    dependencies = {
+      "echasnovski/mini.comment",
+      -- "hkupty/iron.nvim", -- repl provider
+      -- "akinsho/toggleterm.nvim", -- alternative repl provider
+      "benlubas/molten-nvim", -- alternative repl provider
+      "nvimtools/hydra.nvim",
+    },
+    event = "VeryLazy",
+    opts = {},
+  },
+  {
+    "benlubas/molten-nvim",
+    version = "^1.0.0", -- use version <2.0.0 to avoid breaking changes
+    build = ":UpdateRemotePlugins",
+    dependencies = { "3rd/image.nvim" },
+    init = function()
+      -- these are examples, not defaults. Please see the readme
+      vim.g.molten_image_provider = "image.nvim"
+      vim.g.molten_output_win_max_height = 20
+    end,
+  },
+  {
+    -- see the image.nvim readme for more information about configuring this plugin
+    "3rd/image.nvim",
+    opts = {
+      backend = "kitty", -- whatever backend you would like to use
+      max_width = 100,
+      max_height = 12,
+      max_height_window_percentage = math.huge,
+      max_width_window_percentage = math.huge,
+      window_overlap_clear_enabled = true, -- toggles images when windows are overlapped
+      window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "" },
+    },
+  },
+  {
+    "echasnovski/mini.ai",
+    dependencies = { "GCBallesteros/NotebookNavigator.nvim" },
+
+    version = "*",
+    opts = function()
+      return {
+        custom_textobjects = {
+          h = require("notebook-navigator").miniai_spec,
+        },
+      }
+    end,
+  },
+  {
     "echasnovski/mini.diff",
     version = false,
     opts = {
@@ -1080,6 +1060,12 @@ return {
         wrap_goto = false,
       },
     },
+    config = function(_, opts)
+      require("mini.diff").setup(opts)
+      vim.keymap.set("n", "<leader>m", function()
+        require("mini.diff").toggle_overlay()
+      end, { noremap = true, silent = true })
+    end,
   },
   {
     "luckasRanarison/tailwind-tools.nvim",

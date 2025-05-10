@@ -1,6 +1,5 @@
 -- vim:foldmethod=marker:foldlevel=0
 require("helpers")
-
 vim.keymap.set("n", "<C-h>", ":bnext<CR>")
 vim.keymap.set("n", "<C-l>", ":bprev<CR>")
 vim.keymap.set("n", "<M-l>", "<C-w>l")
@@ -53,6 +52,23 @@ MapWinCmd("R", "Rg ", true)
 MapWinCmd("s", "Startify")
 MapWinCmd("d", "e ~/.todo")
 
-vim.keymap.set("n", "<leader>m", function()
-  require("mini.diff").toggle_overlay()
+vim.keymap.set("n", "<leader>d", vim.lsp.buf.definition, { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>D", vim.lsp.buf.declaration, { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>i", vim.lsp.buf.implementation, { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>t", vim.lsp.buf.type_definition, { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>u", vim.lsp.buf.references, { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { noremap = true, silent = true })
+vim.keymap.set(
+  { "n", "x" },
+  "<leader>C",
+  vim.lsp.buf.code_action,
+  { noremap = true, silent = true }
+)
+vim.keymap.set("n", "<leader>K", vim.lsp.buf.signature_help, { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>N", vim.diagnostic.open_float, { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>p", function()
+  vim.diagnostic.jump({ count = -1, float = true })
+end, { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>n", function()
+  vim.diagnostic.jump({ count = 1, float = true })
 end, { noremap = true, silent = true })

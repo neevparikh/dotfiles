@@ -1,6 +1,6 @@
 -- vim: set foldmethod=marker:foldlevel=0
-vim.opt.clipboard = "unnamedplus"
-vim.g.clipboard = "osc52"
+vim.opt.clipboard = vim.g.remote_neovim_host and "" or "unnamedplus"
+-- vim.g.clipboard = "osc52"
 vim.opt.pumblend = 15
 vim.opt.termguicolors = true
 vim.opt.showmode = false
@@ -36,9 +36,13 @@ vim.opt_global.shortmess:remove("F")
 vim.opt.laststatus = 3
 vim.g.mapleader = " "
 
+-- plugins
+vim.g.molten_output_virt_lines = true
+vim.g.molten_output_show_more = true
+--
 -- custom
 vim.g.use_telescope = false
-vim.g.codecompanion_processing = false
+vim.g.codecompanion_processing = false --@deprecated
 
 vim.diagnostic.config({
   underline = true,
