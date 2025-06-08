@@ -1,0 +1,9 @@
+"$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
+
+[user]
+name = "Neev Parikh"
+email = "neev@metr.org"
+
+[ui]
+paginate = "never"
+default-command = "log"

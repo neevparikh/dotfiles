@@ -1,0 +1,6 @@
+#!/bin/bash
+if [[ -z "$NVIM" ]]; then 
+  nvr -s --remote-wait -c "set bufhidden=delete" "$@"
+else
+  nvr -s --remote-wait -cc "lua WindowSizeAwareSplit()" -c "set bufhidden=delete" "$@"
+fi

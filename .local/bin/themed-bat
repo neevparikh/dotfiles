@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+source $HOME/.local/bin/toggle-theme
+
+DARK=$(echo $DARK | sed 's/_/-/g')
+LIGHT=$(echo $LIGHT | sed 's/_/-/g')
+
+while IFS= read -r line; do
+    if [[ $line = "dark" ]] 
+    then
+      bat --theme=$DARK $@
+    elif [[ $line = "light" ]] 
+    then
+      bat --theme=$LIGHT $@
+    fi 
+done < $HOME/.config/theme.yaml

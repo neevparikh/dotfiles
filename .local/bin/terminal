@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+source $HOME/.local/bin/toggle-theme
+
+while IFS= read -r line; do
+    if [[ $line = "dark" ]] 
+    then
+        kitty --override include="~/.config/kitty/themes/$DARK_WITH_CONTRAST.conf" --single-instance -d $HOME
+    elif [[ $line = "light" ]] 
+    then
+        kitty --override include="~/.config/kitty/themes/$LIGHT_WITH_CONTRAST.conf" --single-instance -d $HOME
+    fi 
+done < $HOME/.config/theme.yaml

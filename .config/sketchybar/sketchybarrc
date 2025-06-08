@@ -1,0 +1,298 @@
+#!/usr/bin/env bash
+# vim:fileencoding=utf-8:ft=bash:foldmethod=marker:foldlevel=99:colorcolumn=90
+
+# -- {{{ setup
+source "$HOME/.config/sketchybar/themes/colors.sh"
+
+PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
+
+FONT="FiraCode Nerd Font Mono"
+PADDINGS=2
+
+# Setting up the general bar appearance and default values
+sketchybar --bar height=41                                                                                       \
+                     position=top                                                                                \
+                     sticky=on                                                                                   \
+                     color=$bg0                                                                                  \
+                     border_width=2                                                                              \
+                     border_color=$bg0                                                                           \
+                     y_offset=-2                                                                                 \
+                     margin=-2                                                                                   \
+                     notch_width=215                                                                             \
+           --default updates=when_shown                                                                          \
+                     icon.font="$FONT:Retina:16.0"                                                               \
+                     icon.color=$fg0                                                                             \
+                     icon.padding_left=$PADDINGS                                                                 \
+                     icon.padding_right=$PADDINGS                                                                \
+                     label.font="$FONT:SemiBold:12.0"                                                            \
+                     label.color=$fg0                                                                            \
+                     label.padding_left=$PADDINGS                                                                \
+                     label.padding_right=$PADDINGS                                                               \
+                     padding_right=$PADDINGS                                                                     \
+                     padding_left=$PADDINGS                                                                      \
+                     background.height=32                                                                        \
+                     popup.background.border_width=2                                                             \
+                     popup.background.corner_radius=9                                                            \
+                     popup.background.border_color=$faded_orange                                                 \
+                     popup.background.color=$bg0                                                                 \
+                     popup.background.shadow.drawing=on                                                          \
+           --add event screen_unlock "com.apple.screenIsUnlocked"                                                \
+           --add event refresh_spaces
+
+# -- }}}
+
+# -- {{{ spaces
+NUM_MONITORS=$(aerospace list-monitors --format %{monitor-id} | wc -l | xargs)
+
+MAIN_DISPLAY_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "0")
+SECONDARY_DISPLAY_ICONS=("1̲" "2̲" "3̲" "4̲" "5̲" "6̲" "7̲" "8̲" "9̲" "0̲")
+TERTIARY_DISPLAY_ICONS=("1̪" "2̪" "3̪" "4̪" "5̪" "6̪" "7̪" "8̪" "9̪" "0̪")
+
+if [[ $NUM_MONITORS -gt 2 ]]; then
+  SPACE_ICONS=("${MAIN_DISPLAY_ICONS[@]}" "${SECONDARY_DISPLAY_ICONS[@]}" "${TERTIARY_DISPLAY_ICONS[@]}")
+else
+  SPACE_ICONS=("${MAIN_DISPLAY_ICONS[@]}" "${SECONDARY_DISPLAY_ICONS[@]}")
+fi
+
+for mid in $(aerospace list-monitors --format %{monitor-id}); do
+  for sid in $(aerospace list-workspaces --monitor $mid); do
+    if [[ $sid -gt 20 && $NUM_MONITORS -gt 2 ]]; then
+      display=3
+    elif [[ $sid -le 20 && $sid -gt 10 && $NUM_MONITORS -gt 1 ]]; then
+      display=2
+    else
+      display=1
+    fi
+    sketchybar --add item space.$sid left                                                                        \
+               --set space.$sid update_freq=0                                                                    \
+                                script="$PLUGIN_DIR/space.sh"                                                    \
+                                width=20                                                                         \
+                                align=center                                                                     \
+                                label.padding_left=0                                                             \
+                                label.padding_right=0                                                            \
+                                icon=${SPACE_ICONS[$sid - 1]}                                                    \
+                                icon.width=16                                                                    \
+                                icon.align=center                                                                \
+                                icon.font="$FONT:SemiBold:11.0"                                                  \
+                                icon.color=$fg2                                                                  \
+                                icon.highlight_color=$fg2                                                        \
+                                icon.padding_left=1                                                              \
+                                icon.padding_right=0                                                             \
+                                background.color=$bg1                                                            \
+                                background.corner_radius=5                                                       \
+                                background.height=20                                                             \
+                                background.drawing=off                                                           \
+                                icon.drawing=on                                                                  \
+                                label.drawing=off                                                                \
+                                display=$display                                                                 \
+                                updates=on                                                                       \
+              --subscribe space.$sid mouse.clicked refresh_spaces display_change
+  done
+done
+
+# -- }}}
+# -- {{{ calendar
+sketchybar --add item calendar right                                                                             \
+           --set calendar update_freq=21                                                                         \
+                       icon="󰥔"                                                                                  \
+                       icon.font="$FONT:Retina:18.0"                                                             \
+                       icon.padding_right=4                                                                      \
+                       icon.color=$neutral_blue                                                                  \
+                       icon.y_offset=2                                                                           \
+                       label.y_offset=1                                                                          \
+                       label.font="$FONT:SemiBold:12.0"                                                          \
+                       label.color=$neutral_blue                                                                 \
+                       label.padding_right=8                                                                     \
+                       background.color="0xbb${neutral_blue:0-6}"                                                \
+                       background.height=2                                                                       \
+                       background.padding_right=6                                                                \
+                       background.y_offset=-9                                                                    \
+                       script="$PLUGIN_DIR/calendar.sh"                                                          \
+                       icon.padding_left=0                                                                       \
+                       label.padding_right=1                                                                     \
+            --subscribe calendar system_woke screen_unlock 
+# -- }}} 
+# -- {{{ bluetooth battery
+sketchybar --add item bluetooth_battery right                                                                    \
+           --set bluetooth_battery update_freq=60                                                                \
+                       icon.font="$FONT:Retina:12.0"                                                             \
+                       icon.padding_right=0                                                                      \
+                       icon.color=$neutral_yellow                                                                \
+                       icon.y_offset=0                                                                           \
+                       label.y_offset=1                                                                          \
+                       label.font="$FONT:Bold:12"                                                                \
+                       label.color=$neutral_yellow                                                               \
+                       label.padding_left=-1                                                                     \
+                       label.padding_right=3                                                                     \
+                       background.color="0xbb${neutral_yellow:0-6}"                                              \
+                       background.height=2                                                                       \
+                       background.y_offset=-9                                                                    \
+                       background.padding_right=5                                                                \
+                       script="$PLUGIN_DIR/bluetooth_battery.sh"                                                 \
+                       icon.padding_left=0                                                                       \
+                       label.padding_right=0                                                                     \
+           --subscribe bluetooth_battery mouse.clicked system_woke screen_unlock
+# -- }}}
+# -- {{{ battery
+sketchybar --add item battery right                                                                              \
+           --set battery update_freq=60                                                                          \
+                       icon.font="$FONT:Retina:11.5"                                                             \
+                       icon.padding_right=3                                                                      \
+                       icon.color=$neutral_yellow                                                                \
+                       icon.y_offset=2                                                                           \
+                       label.y_offset=1                                                                          \
+                       label.font="$FONT:SemiBold:12.0"                                                          \
+                       label.color=$neutral_yellow                                                               \
+                       label.padding_right=7                                                                     \
+                       background.color="0xbb${neutral_yellow:0-6}"                                              \
+                       background.height=2                                                                       \
+                       background.y_offset=-9                                                                    \
+                       background.padding_right=5                                                                \
+                       script="$PLUGIN_DIR/battery.sh"                                                           \
+                       icon.padding_left=0                                                                       \
+                       label.padding_right=1                                                                     \
+            --subscribe battery system_woke screen_unlock mouse.entered
+# -- }}}
+# -- {{{ wifi
+sketchybar --add item wifi_speed_mbps right                                                                      \
+           --set wifi_speed_mbps                                                                                 \
+                      icon.drawing=off                                                                           \
+                      label.padding_right=6                                                                      \
+                      width=0                                                                                    \
+                      label.y_offset=3                                                                           \
+                      label.font="$FONT:SemiBold:7.0"                                                            \
+                      label.color=$bright_red
+
+sketchybar --add graph wifi_speed right 60                                                                       \
+sketchybar --set wifi_speed update_freq=1                                                                        \
+                            graph.color="0xbb${neutral_red:0-6}"                                                 \
+                            graph.fill_color="0x77${neutral_red:0-6}"                                            \
+                            graph.line_width=0.5                                                                 \
+                            label.drawing=off                                                                    \
+                            icon.drawing=off                                                                     \
+                            background.padding_right=8                                                           \
+                            background.drawing=on                                                                \
+                            background.height=22.5                                                               \
+                            background.padding_left=0                                                            \
+                            background.color=$transparent                                                        \
+                            script="$PLUGIN_DIR/wifi_speed.sh"                                                   \
+            --subscribe wifi_speed mouse.clicked screen_unlock system_woke
+
+sketchybar --add item wifi right                                                                                 \
+           --set wifi icon.font="$FONT:Retina:22.0"                                                              \
+                      icon.padding_right=1                                                                       \
+                      icon.color=$neutral_orange                                                                 \
+                      icon.y_offset=1                                                                            \
+                      label.y_offset=1                                                                           \
+                      label.font="$FONT:SemiBold:12.0"                                                           \
+                      label.color=$neutral_orange                                                                \
+                      background.color="0xbb${neutral_orange:0-6}"                                               \
+                      background.height=2                                                                        \
+                      background.y_offset=-9                                                                     \
+                      background.padding_right=1                                                                 \
+                      script="$PLUGIN_DIR/wifi.sh"                                                               \
+                      icon.padding_left=0                                                                        \
+                      label.padding_right=1                                                                      \
+                      label.padding_left=1                                                                       \
+            --subscribe wifi mouse.clicked 
+# -- }}}
+# -- {{{ vpn
+sketchybar --add item vpn right                                                                                  \
+           --set vpn update_freq=60                                                                              \
+                       icon.font="$FONT:Retina:16.0"                                                             \
+                       icon.padding_right=3                                                                      \
+                       icon.color=$neutral_blue                                                                  \
+                       icon.y_offset=1                                                                           \
+                       label.y_offset=1                                                                          \
+                       label.font="$FONT:Bold:12"                                                                \
+                       label.color=$neutral_blue                                                                 \
+                       label.padding_right=4                                                                     \
+                       background.color=$neutral_blue                                                            \
+                       background.height=2                                                                       \
+                       background.y_offset=-9                                                                    \
+                       background.padding_right=6                                                                \
+                       script="$PLUGIN_DIR/vpn.sh"                                                               \
+                       icon.padding_left=0                                                                       \
+                       label.padding_right=1                                                                     \
+           --subscribe vpn system_woke screen_unlock mouse.entered mouse.clicked
+# # -- }}}
+# -- {{{ bluetooth
+sketchybar --add item bluetooth right                                                                            \
+           --set bluetooth update_freq=60                                                                        \
+                       icon.font="$FONT:Retina:14.0"                                                             \
+                       icon.padding_right=1                                                                      \
+                       icon.padding_left=2                                                                       \
+                       icon.color=$neutral_aqua                                                                  \
+                       icon.y_offset=2                                                                           \
+                       label.y_offset=1                                                                          \
+                       label.font="$FONT:SemiBold:12.0"                                                          \
+                       label.color=$neutral_aqua                                                                 \
+                       label.padding_right=0                                                                     \
+                       label.padding_left=1                                                                      \
+                       background.color="0xbb${neutral_aqua:0-6}"                                                \
+                       background.height=2                                                                       \
+                       background.y_offset=-9                                                                    \
+                       background.padding_right=8                                                                \
+                       script="$PLUGIN_DIR/bluetooth.sh"                                                         \
+            --subscribe bluetooth mouse.clicked
+# -- }}}
+# -- {{{ volume
+sketchybar --add slider volume e                                                                                 \
+           --set volume icon="󰖀"                                                                                 \
+                 icon.drawing=on                                                                                 \
+                 icon.y_offset=1                                                                                 \
+                 icon.font="$FONT:Retina:17.0"                                                                   \
+                 label.drawing=off                                                                               \
+                 slider.background.corner_radius=2                                                               \
+                 slider.background.height=7                                                                      \
+                 slider.background.border_width=2                                                                \
+                 slider.background.y_offset=0                                                                    \
+                 slider.knob="󱋱"                                                                                 \
+                 slider.knob.y_offset=1                                                                          \
+                 slider.knob.font="$FONT:Retina:11.0"                                                            \
+                 slider.width=70                                                                                 \
+                 slider.percentage=40                                                                            \
+                 background.height=2                                                                             \
+                 background.y_offset=-9                                                                          \
+                 background.padding_right=8                                                                      \
+                 background.padding_left=8                                                                       \
+                 icon.color=$fg3                                                                                 \
+                 label.color=$fg3                                                                                \
+                 slider.background.border_color=$bg0                                                             \
+                 slider.background.color=$bg0                                                                    \
+                 slider.highlight_color=$fg3                                                                     \
+                 slider.knob.color=$fg3                                                                          \
+                 background.color=$fg4                                                                           \
+                 script="$PLUGIN_DIR/volume.sh"                                                                  \
+           --subscribe volume volume_change mouse.clicked system_woke screen_unlock
+# -- }}}
+# -- {{{ meetingbar
+sketchybar --add item meetingbar q                                                                               \
+           --set meetingbar update_freq=60                                                                       \
+                       icon.font="$FONT:Retina:16.0"                                                             \
+                       icon.padding_right=3                                                                      \
+                       icon.color=$neutral_red                                                                   \
+                       icon.y_offset=2                                                                           \
+                       label.y_offset=1                                                                          \
+                       label.font="$FONT:Bold:12"                                                                \
+                       label.color=$neutral_red                                                                  \
+                       label.padding_right=4                                                                     \
+                       background.color=$neutral_red                                                             \
+                       background.height=2                                                                       \
+                       background.y_offset=-9                                                                    \
+                       background.padding_right=6                                                                \
+                       script="$PLUGIN_DIR/meetingbar.sh"                                                        \
+                       icon.padding_left=0                                                                       \
+                       label.padding_right=1                                                                     \
+           --subscribe meetingbar mouse.clicked system_woke screen_unlock
+# -- }}}
+
+# -- {{{ cleanup
+sketchybar --hotload true
+# Forcing all item scripts to run (never do this outside of sketchybarrc)
+sketchybar --update
+
+# Force triggers
+sleep 1 && sketchybar --trigger refresh_spaces VISIBLE=$(aerospace list-workspaces --monitor all --visible | tr "\n" ",")
+sleep 1 && sketchybar --trigger refresh_focus
+# -- }}}
