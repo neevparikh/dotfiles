@@ -786,7 +786,7 @@ return {
       provider = "claude",
       auto_suggestions_provider = "claude",
       claude = {
-        endpoint = "https://middleman.internal.metr.org/anthropic",
+        endpoint = GetAnthropicBaseUrl(),
         model = "claude-3-5-sonnet-20241022",
         temperature = 0,
         max_tokens = 8192,
@@ -872,6 +872,13 @@ return {
         list_opener = "copen",
       },
     },
+    config = function(_, opts)
+      if vim.g.is_metr_mac then
+        vim.env.ANTHROPIC_API_KEY =
+          os.execute("cat ~/.config/viv-cli/config.json | jq -r .'evalsToken'")
+      end
+      require("avante").setup(opts)
+    end,
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
     build = "make",
     dependencies = {

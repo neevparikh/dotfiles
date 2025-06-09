@@ -113,8 +113,16 @@ function SortAndReset()
 end
 
 function OpenWithName(name)
-  vim.fn.termopen(vim.opt.shell:get())
+  vim.fn.jobstart(vim.opt.shell:get(), { term = true })
   vim.api.nvim_command("keepalt file " .. vim.fn.expand("%:p") .. "//" .. name)
+end
+
+function GetAnthropicBaseUrl()
+  if vim.g.is_metr_mac then
+    return "https://middleman.internal.metr.org/anthropic"
+  else
+    return "https://api.anthropic.com"
+  end
 end
 
 vim.api.nvim_create_user_command("OpenWithName", function(opts)

@@ -43,6 +43,10 @@ vim.g.molten_output_show_more = true
 -- custom
 vim.g.use_telescope = false
 vim.g.codecompanion_processing = false --@deprecated
+vim.g.is_metr_mac = vim.uv.os_uname().sysname == "Darwin"
+  and vim.uv.fs_stat(vim.fs.abspath("~/repos/metr"))
+vim.g.is_unix = vim.uv.os_uname().sysname == "Linux"
+  and vim.uv.fs_stat(vim.fs.abspath("~/repos/metr"))
 
 vim.diagnostic.config({
   underline = true,
