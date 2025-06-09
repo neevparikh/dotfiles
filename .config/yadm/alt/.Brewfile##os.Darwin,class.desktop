@@ -1,0 +1,143 @@
+tap "felixkratz/formulae"
+tap "homebrew/services"
+tap "koekeishiya/formulae"
+tap "nikitabobko/tap"
+tap "osx-cross/arm"
+tap "osx-cross/avr"
+tap "qmk/qmk"
+tap "withgraphite/tap"
+# Run your GitHub Actions locally
+brew "act"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.13"
+# GNU Binutils for arm-none-eabi cross development
+brew "arm-none-eabi-binutils"
+# GNU compiler collection for arm-none-eabi
+brew "arm-none-eabi-gcc"
+# Official Amazon AWS command-line interface
+brew "awscli"
+# Clone of cat(1) with syntax highlighting and Git integration
+brew "bat"
+# Get/set bluetooth power and discoverable state
+brew "blueutil"
+# Vector graphics library with cross-device output support
+brew "cairo"
+# Object-file caching compiler wrapper
+brew "ccache"
+# Cross-platform make
+brew "cmake"
+# GNU File, Shell, and Text utilities
+brew "coreutils"
+# Secure runtime for JavaScript and TypeScript
+brew "deno"
+# Platform built on V8 to build network applications
+brew "node"
+# Reference implementation for the Development Containers specification
+brew "devcontainer"
+# Git for data science projects
+brew "dvc"
+# Modern, maintained replacement for ls
+brew "eza"
+# Simple, fast and user-friendly alternative to find
+brew "fd"
+# Framework for layout and rendering of i18n text
+brew "pango"
+# Command-line fuzzy finder written in Go
+brew "fzf"
+# GitHub command-line tool
+brew "gh"
+# Perfect hash function generator
+brew "gperf"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.12"
+# Graph visualization software from AT&T and Bell Labs
+brew "graphviz"
+# Improved top (interactive process viewer)
+brew "htop"
+# Tools and libraries to manipulate images in many formats
+brew "imagemagick"
+# Git-compatible distributed version control system
+brew "jj"
+# Add indentation to LaTeX files
+brew "latexindent"
+# Implementation of the file(1) command
+brew "libmagic"
+# Access large language models from the command-line
+brew "llm"
+# Collection of tools that nobody wrote when UNIX was young
+brew "moreutils"
+# Ambitious Vim-fork focused on extensibility and agility
+brew "neovim"
+# Control nvim processes using `nvr` command-line tool
+brew "neovim-remote"
+# Small build system for use with gyp or CMake
+brew "ninja"
+# Port scanning utility for large networks
+brew "nmap"
+# Create, run, and share large language models (LLMs)
+brew "ollama"
+# Swiss-army knife of markup format conversion
+brew "pandoc"
+# CLI for Postgres with auto-completion and syntax highlighting
+brew "pgcli"
+# Execute binaries from Python packages in isolated environments
+brew "pipx"
+# Package compiler and linker metadata toolkit
+brew "pkgconf"
+# Fast, disk space efficient package manager
+brew "pnpm"
+# Python package management tool
+brew "poetry"
+# Object-relational database system
+brew "postgresql@14"
+# Monitor data's progress through a pipe
+brew "pv"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.11"
+# Generic machine emulator and virtualizer
+brew "qemu"
+# Search tool like grep and The Silver Searcher
+brew "ripgrep"
+# Easiest, most secure way to use WireGuard and 2FA
+brew "tailscale"
+# Terminal image and video viewer
+brew "timg"
+# Display directories as trees (with optional color/HTML output)
+brew "tree"
+# Extremely fast Python package installer and resolver, written in Rust
+brew "uv"
+# Executes a program periodically, showing output fullscreen
+brew "watch"
+# Internet file retriever
+brew "wget"
+# Yet Another Dotfiles Manager
+brew "yadm"
+# UNIX shell (command interpreter)
+brew "zsh"
+# Fish-like fast/unobtrusive autosuggestions for zsh
+brew "zsh-autosuggestions"
+# Custom macOS statusbar with shell plugin, interaction and graph support
+brew "felixkratz/formulae/sketchybar", args: ["HEAD"]
+# GNU compiler collection for AVR 8-bit and 32-bit Microcontrollers
+brew "osx-cross/avr/avr-gcc@9"
+# AeroSpace is an i3-like tiling window manager for macOS
+cask "aerospace"
+# Display management tool
+cask "betterdisplay"
+# Write, edit, and chat about your code with AI
+cask "cursor"
+# UI to create reproducible developer environments based on a devcontainer.json
+cask "devpod"
+cask "font-fira-code-nerd-font"
+cask "font-jetbrains-mono-nerd-font"
+cask "font-roboto"
+# Desktop automation application
+cask "hammerspoon"
+# GPU-based terminal emulator
+cask "kitty"
+# Replacement for Docker Desktop
+cask "orbstack"
+# Open-source code editor
+cask "visual-studio-code"
+vscode "sainnhe.gruvbox-material"
+vscode "vscodevim.vim"
