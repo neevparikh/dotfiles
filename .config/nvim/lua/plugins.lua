@@ -777,12 +777,19 @@ return {
     },
     lazy = false,
   },
+  {
+    "folke/snacks.nvim",
+    opts = {
+      input = {},
+    },
+  },
   { -- avante (AI code assistant)
     "yetone/avante.nvim",
     event = "VeryLazy",
     lazy = false,
     version = false, -- set this if you want to always pull the latest change
     opts = {
+      mode = "legacy",
       provider = "claude",
       auto_suggestions_provider = "claude",
       claude = {
@@ -889,6 +896,7 @@ return {
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
       "stevearc/dressing.nvim",
+      "folke/snacks.nvim",
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
       --- The below dependencies are optional,

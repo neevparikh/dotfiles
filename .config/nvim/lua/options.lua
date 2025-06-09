@@ -1,4 +1,6 @@
 -- vim: set foldmethod=marker:foldlevel=0
+require("io")
+
 vim.opt.clipboard = vim.g.remote_neovim_host and "" or "unnamedplus"
 vim.opt.pumblend = 15
 vim.opt.termguicolors = true
@@ -38,6 +40,15 @@ vim.g.mapleader = " "
 -- plugins
 vim.g.molten_output_virt_lines = true
 vim.g.molten_output_show_more = true
+
+local function exists(path)
+  local file = io.open(path, "r")
+  if file then
+    file:close()
+    return true
+  end
+  return false
+end
 --
 -- custom
 vim.g.use_telescope = false
@@ -45,7 +56,8 @@ vim.g.codecompanion_processing = false --@deprecated
 vim.g.is_metr_mac = vim.uv.os_uname().sysname == "Darwin"
   and vim.uv.fs_stat(vim.fs.abspath("~/repos/metr"))
 vim.g.is_unix = vim.uv.os_uname().sysname == "Linux"
-vim.g.is_remote_server = vim.uv.os_uname().sysname == "Linux" and vim.env.SSH_TTY ~= nil
+vim.g.is_remote_server = vim.uv.os_uname().sysname == "Linux"
+  and (vim.env.SSH_TTY ~= nil or exists("/.dockerenv"))
 
 if vim.g.is_remote_server then
   vim.g.clipboard = "osc52"
