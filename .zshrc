@@ -1,10 +1,16 @@
 # If you come from bash you might have to change your $PATH.
 # VERSION=$(lsb_release -rs)
 # Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
-export PATH=$HOMEBREW_PREFIX/bin:$PATH
+
+SYSTEM_TYPE=$(uname -s)
+
+if [ -d "$HOME/.oh-my-zsh" ]; then
+  export ZSH="$HOME/.oh-my-zsh"
+fi
+if [ -d "$HOMEBREW_PREFIX" ]; then
+  export PATH=$HOMEBREW_PREFIX/bin:$PATH
+fi
 export PATH=$HOME/.local/bin:$PATH
-export PATH="$HOME/Library/Application Support/Coursier/bin":$PATH
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -85,7 +91,6 @@ bindkey -v
 export KEYTIMEOUT=1
 autoload -z edit-command-line
 zle -N edit-command-line
-# bindkey "^E" edit-command-line
 
 function zle-keymap-select {
   case "$KEYMAP" in
@@ -110,8 +115,6 @@ make_beam
 # And at the start of each prompt
 autoload -U add-zsh-hook
 add-zsh-hook precmd make_beam
-
-
 bindkey -M viins ${terminfo[kdch1]} delete-char	# Del key
 
 # === BEGIN: Natural‑language prompt → tool, with Vim‑mode support ===
@@ -180,12 +183,15 @@ fi
 alias la='ls -a'
 alias ll='ls -l'
 alias lla='ls -la'
+alias lsl='ls'
 alias sl='ls'
-alias tlmgr='tllocalmgr'
 alias sv='sudo -e'
 alias vim='nvim'
-alias lgout='i3-msg exit'
 alias py='python3'
+
+if [ "$SYSTEM_TYPE" = "Linux" ]; then
+  alias lgout='swaymsg exit'
+fi
 
 local gprefix
 zstyle -s ':zim:git' aliases-prefix 'gprefix' || gprefix=g
@@ -361,47 +367,41 @@ alias ${gprefix}wX='git rm -rf'
 
 alias ${gprefix}ap='git add --patch'
 
-alias calc='insect'
-alias agi='sudo apt install'
-alias agu='sudo apt upgrade'
-alias agd='sudo apt update'
-alias aga='sudo apt autoremove'
-alias re='reboot'
-alias cnr='./compile.sh && ./run.sh'
-
-# Aliases for cargo 
-alias cgo='cargo'
-alias cgr='cargo run'
-alias cgb='cargo build'
-alias cgc='cargo check'
-
-# App wrappers
-alias -g spo='spotify &!; exit'
-alias -g slk='slack &!; exit'
-alias -g dsc='Discord &!; exit'
+if which command insect &> /dev/null; then
+  alias calc='insect'
+fi
 
 # Changing theme
-alias -g lt="toggle-theme --light"
-alias -g dt="toggle-theme --dark"
+if [ -f "$HOME/.local/bin/toggle-theme" ]; then
+  alias -g lt="toggle-theme --light"
+  alias -g dt="toggle-theme --dark"
+fi
 
-alias lsl='ls'
-alias kssh='kitty +kitten ssh'
-alias cnvim="rm $HOME/.local/state/nvim/swap/%Users%neev%*.swp"
-alias make="make --no-print-directory"
+if [ -d "$HOME/.config/kitty" ]; then
+  alias kssh='kitty +kitten ssh'
+fi
+
+if [ "$SYSTEM_TYPE" = "Darwin" ]; then
+  alias cnvim="rm $HOME/.local/state/nvim/swap/%Users%neev%*.swp"
+fi
+
 if [ -f "$HOME/.local/bin/themed-bat" ]; then
   alias bat='themed-bat'
 fi
-alias td="todui"
 
 local repo_prefix
 repo_prefix=cd
-alias ${repo_prefix}m="cd $HOME/repos/metr/"
-alias ${repo_prefix}t="cd $HOME/repos/metr/mp4-tasks/"
-alias ${repo_prefix}e="cd $HOME/repos/metr/eval-pipeline/"
-alias ${repo_prefix}v="cd $HOME/repos/metr/vivaria/"
-alias ${repo_prefix}p="cd $HOME/repos/metr/poke-tools/"
-alias ${repo_prefix}c="cd $HOME/repos/metr/cot-monitoring/"
-alias timg="timg -p kitty"
+if [ -d "$HOME/repos/metr" ]; then
+  alias ${repo_prefix}m="cd $HOME/repos/metr/"
+  alias ${repo_prefix}t="cd $HOME/repos/metr/mp4-tasks/"
+  alias ${repo_prefix}e="cd $HOME/repos/metr/eval-pipeline/"
+  alias ${repo_prefix}v="cd $HOME/repos/metr/vivaria/"
+  alias ${repo_prefix}p="cd $HOME/repos/metr/poke-tools/"
+  alias ${repo_prefix}c="cd $HOME/repos/metr/cot-monitoring/"
+fi
+if which command timg &> /dev/null; then
+  alias timg="timg -p kitty"
+fi
 
 if which command fzf &> /dev/null; then
   FD_BASE_ARGS='--follow --hidden --exclude .git --no-ignore-vcs --color=always'
