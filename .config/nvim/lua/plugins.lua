@@ -874,8 +874,13 @@ return {
     },
     config = function(_, opts)
       if vim.g.is_metr_mac then
-        vim.env.ANTHROPIC_API_KEY =
-          os.execute("cat ~/.config/viv-cli/config.json | jq -r .'evalsToken'")
+        local file = ReadFile(vim.fn.expand("~/.config/viv-cli/config.json"))
+        if file ~= nil then
+          local token = vim.json.decode(file)["evalsToken"]
+          if token ~= nil then
+            vim.env.ANTHROPIC_API_KEY = token
+          end
+        end
       end
       require("avante").setup(opts)
     end,
