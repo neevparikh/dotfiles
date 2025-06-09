@@ -21,7 +21,8 @@ RUN paru -S --noconfirm \
    neovim-remote \
    tailscale \
    zsh \
-   openssh 
+   openssh \
+   nvidia-open 
 RUN uv tool install llm 
 RUN mkdir -p -m 700 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts 
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended 
