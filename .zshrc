@@ -427,10 +427,6 @@ if [ -d "$HOME/.viv-task-dev" ]; then
   export PATH="${PATH}:${TASK_DEV_HOME}/dev/bin" 
 fi
 
-if [ -f "$HOME/.bash_profile" ]; then 
-  source ~/.bash_profile
-fi
-
 if which command jj &> /dev/null; then
   source <(COMPLETE=zsh jj)
 fi
