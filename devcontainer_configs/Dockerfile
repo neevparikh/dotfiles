@@ -22,7 +22,9 @@ RUN paru -S --noconfirm \
    tailscale \
    zsh \
    openssh \
+   luarocks \
    nvidia-open 
+RUN sudo chsh -s /bin/zsh neev 
 RUN uv tool install llm 
 RUN mkdir -p -m 700 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts 
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended 

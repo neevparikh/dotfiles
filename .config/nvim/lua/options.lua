@@ -1,6 +1,5 @@
 -- vim: set foldmethod=marker:foldlevel=0
 vim.opt.clipboard = vim.g.remote_neovim_host and "" or "unnamedplus"
--- vim.g.clipboard = "osc52"
 vim.opt.pumblend = 15
 vim.opt.termguicolors = true
 vim.opt.showmode = false
@@ -46,7 +45,11 @@ vim.g.codecompanion_processing = false --@deprecated
 vim.g.is_metr_mac = vim.uv.os_uname().sysname == "Darwin"
   and vim.uv.fs_stat(vim.fs.abspath("~/repos/metr"))
 vim.g.is_unix = vim.uv.os_uname().sysname == "Linux"
-  and vim.uv.fs_stat(vim.fs.abspath("~/repos/metr"))
+vim.g.is_remote_server = vim.uv.os_uname().sysname == "Linux" and vim.env.SSH_TTY ~= nil
+
+if vim.g.is_remote_server then
+  vim.g.clipboard = "osc52"
+end
 
 vim.diagnostic.config({
   underline = true,
