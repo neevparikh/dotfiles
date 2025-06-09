@@ -1,0 +1,30 @@
+FROM archlinux:multilib-devel
+RUN pacman -Syu --noconfirm git cargo inetutils
+RUN useradd -m -G wheel -s /bin/bash neev \
+    && echo "neev ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers 
+USER neev
+WORKDIR /home/neev
+RUN cd /tmp \
+   && git clone https://aur.archlinux.org/paru.git \
+   && cd paru \
+   && makepkg -si --noconfirm 
+RUN paru -S --noconfirm \
+   neovim \
+   yadm \
+   fzf \
+   ripgrep \
+   fd \
+   bat \
+   htop \
+   uv \
+   jujutsu \
+   neovim-remote \
+   tailscale \
+   zsh \
+   openssh 
+RUN uv tool install llm 
+RUN mkdir -p -m 700 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts 
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended 
+RUN git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions 
+RUN --mount=type=ssh,uid=1000 yadm clone git@github.com:neevparikh/dotfiles.git && yadm alt && yadm checkout -- ~/ 
+
