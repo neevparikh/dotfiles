@@ -371,10 +371,14 @@ if which command insect &> /dev/null; then
   alias calc='insect'
 fi
 
+alias dvctr="docker run --rm -it --platform linux/amd64 --mount type=bind,src=$SSH_AUTH_SOCK,dst=/agent.sock -e SSH_AUTH_SOCK=/agent.sock --mount type=bind,src=$HOME/,dst=/home/neev/host-dir npx27/dev-prefetched:latest"
+alias dvctruf="docker run --rm -it --platform linux/amd64 --mount type=bind,src=$SSH_AUTH_SOCK,dst=/agent.sock -e SSH_AUTH_SOCK=/agent.sock --mount type=bind,src=$HOME/,dst=/home/neev/host-dir npx27/dev-unfetched:latest"
+
+
 # Changing theme
 if [ -f "$HOME/.local/bin/toggle-theme" ]; then
-  alias -g lt="toggle-theme --light"
-  alias -g dt="toggle-theme --dark"
+  alias lt="toggle-theme --light"
+  alias dt="toggle-theme --dark"
 fi
 
 if [ -d "$HOME/.config/kitty" ]; then

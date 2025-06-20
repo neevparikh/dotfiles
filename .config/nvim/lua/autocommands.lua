@@ -47,6 +47,10 @@ autocmd({ "FileType" }, {
   pattern = { "markdown", "text", "rst" },
   command = "setlocal spell",
 })
+autocmd({ "BufEnter" }, {
+  pattern = { "*/neevparikh.github.io/src/posts/*.md" },
+  command = "setlocal textwidth=170",
+})
 autocmd({ "FileType" }, {
   pattern = { "todo" },
   command = "setlocal wrap linebreak textwidth=100 foldlevel=0",

@@ -250,7 +250,7 @@ return {
             -- action_1 opens a note or executes a helper
             { key = "<CR>", mode = "n", action = "action_1" },
             -- action_2 renames a note or sets the connection as active manually
-            { key = "cw", mode = "n", action = "action_2" },
+            { key = "rn", mode = "n", action = "action_2" },
             -- action_3 deletes a note or connection (removes connection from the file if you configured it like so)
             { key = "dd", mode = "n", action = "action_3" },
             -- these are self-explanatory:
@@ -792,13 +792,18 @@ return {
       mode = "legacy",
       provider = "claude",
       auto_suggestions_provider = "claude",
-      claude = {
-        endpoint = GetAnthropicBaseUrl(),
-        model = "claude-3-5-sonnet-20241022",
-        temperature = 0,
-        max_tokens = 8192,
+      providers = {
+        claude = {
+          endpoint = GetAnthropicBaseUrl(),
+          model = "claude-3-5-sonnet-20241022",
+          extra_request_body = {
+            temperature = 0,
+            max_tokens = 8192,
+          },
+        },
       },
       behaviour = {
+        enable_cursor_planning_mode = true, -- enable cursor planning mode!
         auto_suggestions = false,
         auto_set_highlight_group = true,
         auto_set_keymaps = true,
@@ -920,6 +925,17 @@ return {
         -- Make sure to set this up properly if you have lazy=true
         "MeanderingProgrammer/render-markdown.nvim",
         opts = {
+          win_options = {
+            conceallevel = {
+              default = vim.o.conceallevel,
+              rendered = 3,
+            },
+            concealcursor = {
+              default = vim.o.concealcursor,
+              rendered = "",
+            },
+          },
+          render_modes = { "n", "c", "t", "i" },
           file_types = { "markdown", "Avante" },
         },
         ft = { "markdown", "Avante" },

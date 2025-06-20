@@ -90,6 +90,12 @@ for mid in $(aerospace list-monitors --format %{monitor-id}); do
   done
 done
 
+if [[ $NUM_MONITORS -lt 3 ]]; then
+  for ((i = 21; i < 31; i++)); do
+    sketchybar --drawing off item space.$i
+  done
+fi
+
 # -- }}}
 # -- {{{ calendar
 sketchybar --add item calendar right                                                                             \
