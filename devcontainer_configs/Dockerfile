@@ -32,6 +32,7 @@ RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master
    "" --unattended 
 RUN git clone https://github.com/zsh-users/zsh-autosuggestions \
    ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions 
+RUN paru -S aws-cli-v2 --mflags "--skippgpcheck" 
 COPY <<EOF ./entrypoint.sh
 #!/bin/bash
 

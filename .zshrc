@@ -47,9 +47,9 @@ plugins=(
   colored-man-pages
   extract
 )
-if [ -d "$ZSH_CUSTOM/plugins/fzf-tab" ]; then
-  plugins+=(fzf-tab)
-fi
+# if [ -d "$ZSH_CUSTOM/plugins/fzf-tab" ]; then
+#   plugins+=(fzf-tab)
+# fi
 if [ -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
   plugins+=(zsh-autosuggestions)
 fi
