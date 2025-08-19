@@ -25,14 +25,23 @@ RUN paru -S --noconfirm \
    luarocks \
    nvidia-open \
    gosu \
-   kitty-terminfo 
+   kitty-terminfo \
+   npm 
 RUN uv tool install llm 
 RUN mkdir -p -m 700 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts 
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
    "" --unattended 
 RUN git clone https://github.com/zsh-users/zsh-autosuggestions \
    ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions 
-RUN paru -S aws-cli-v2 --mflags "--skippgpcheck" 
+RUN paru -S --noconfirm aws-cli-v2 --mflags "--skippgpcheck" 
+
+RUN paru -Syu --noconfirm 
+RUN paru -S --noconfirm \
+   jq \
+   git-lfs \
+   github-cli 
+
+
 COPY <<EOF ./entrypoint.sh
 #!/bin/bash
 

@@ -61,9 +61,9 @@ vim.api.nvim_create_user_command("Rg", function(opts)
   else
     if str == "" then
       if root ~= nil then
-        fl.live_grep_glob({ cwd = root })
+        fl.live_grep({ cwd = root })
       else
-        fl.live_grep_glob()
+        fl.live_grep()
       end
     else
       if root ~= nil then

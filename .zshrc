@@ -161,7 +161,7 @@ confirm_tool_prompt() {
       arg=${arg#\"} arg=${arg%\"}
 
   local result
-  result=$(llm -s "Return only the command to be executed as a raw string, no string delimiters wrapping it, no yapping, no markdown, no fenced code blocks, what you return will be passed to subprocess.check_output() directly. For example, if the user asks: undo last git commit You return only: git reset --soft HEAD~1" -m "gpt-4.1-nano" "$arg")
+  result=$(llm -s "Return only the command to be executed as a raw string, no string delimiters wrapping it, no yapping, no markdown, no fenced code blocks, what you return will be passed to subprocess.check_output() directly. For example, if the user asks: undo last git commit You return only: git reset --soft HEAD~1" -m "gpt-4.1" "$arg")
 
   BUFFER="${_INSERT_TOOL_SAVED_BUFFER}${result}" # prepend saved line
   CURSOR=${#BUFFER}
@@ -371,9 +371,7 @@ if which command insect &> /dev/null; then
   alias calc='insect'
 fi
 
-alias dvctr="docker run --rm -it --platform linux/amd64 --mount type=bind,src=$SSH_AUTH_SOCK,dst=/agent.sock -e SSH_AUTH_SOCK=/agent.sock --mount type=bind,src=$HOME/,dst=/home/neev/host-dir npx27/dev-prefetched:latest"
-alias dvctruf="docker run --rm -it --platform linux/amd64 --mount type=bind,src=$SSH_AUTH_SOCK,dst=/agent.sock -e SSH_AUTH_SOCK=/agent.sock --mount type=bind,src=$HOME/,dst=/home/neev/host-dir npx27/dev-unfetched:latest"
-
+alias dvctr="docker run --rm -it --platform linux/amd64 -p 7575:7575 --mount type=bind,src=/tmp,dst=/tmp -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK -e TERM=$TERM -e SHELL=/bin/zsh --mount type=bind,src=$HOME/,dst=/home/neev/host-dir npx27/dev-prefetched:latest"
 
 # Changing theme
 if [ -f "$HOME/.local/bin/toggle-theme" ]; then

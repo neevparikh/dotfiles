@@ -795,7 +795,7 @@ return {
       providers = {
         claude = {
           endpoint = GetAnthropicBaseUrl(),
-          model = "claude-3-5-sonnet-20241022",
+          model = "claude-sonnet-4-20250514",
           extra_request_body = {
             temperature = 0,
             max_tokens = 8192,
@@ -885,15 +885,6 @@ return {
       },
     },
     config = function(_, opts)
-      if vim.g.is_metr_mac then
-        local file = ReadFile(vim.fn.expand("~/.config/viv-cli/config.json"))
-        if file ~= nil then
-          local token = vim.json.decode(file)["evalsToken"]
-          if token ~= nil then
-            vim.env.ANTHROPIC_API_KEY = token
-          end
-        end
-      end
       require("avante").setup(opts)
     end,
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`

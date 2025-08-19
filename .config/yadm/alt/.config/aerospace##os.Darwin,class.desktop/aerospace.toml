@@ -46,7 +46,7 @@ cmd-shift-k = 'move up'
 cmd-shift-l = 'move right'
 
 cmd-m = 'balance-sizes'
-cmd-shift-d = 'balance-sizes'
+cmd-shift-d = "exec-and-forget aerospace list-windows --all --json | jq '.[] | select(.[\"window-title\"] == \"\") | .[\"window-id\"]' | xargs -n 1 aerospace close --window-id"
 
 cmd-1 = 'workspace 1'
 cmd-2 = 'workspace 2'
