@@ -849,8 +849,11 @@ return {
           close_from_input = nil,
         },
       },
-      hints = { enabled = false },
       selector = { provider = "fzf_lua" },
+      selection = {
+        enabled = true,
+        hint_display = "none",
+      },
       windows = {
         position = "smart", -- the position of the sidebar
         wrap = true, -- similar to vim.o.wrap

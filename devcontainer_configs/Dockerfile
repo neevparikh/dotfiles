@@ -23,7 +23,6 @@ RUN paru -S --noconfirm \
    tailscale \
    openssh \
    luarocks \
-   nvidia-open \
    gosu \
    kitty-terminfo \
    npm 
@@ -35,12 +34,14 @@ RUN git clone https://github.com/zsh-users/zsh-autosuggestions \
    ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions 
 RUN paru -S --noconfirm aws-cli-v2 --mflags "--skippgpcheck" 
 
-RUN paru -Syu --noconfirm 
-RUN paru -S --noconfirm \
+RUN paru -Syu --noconfirm && paru -S --noconfirm \
    jq \
    git-lfs \
-   github-cli 
-
+   github-cli \
+   tree \
+   tmux \
+   downgrade \
+   cuda 
 
 COPY <<EOF ./entrypoint.sh
 #!/bin/bash
