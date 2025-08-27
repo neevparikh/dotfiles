@@ -41,7 +41,9 @@ RUN paru -Syu --noconfirm && paru -S --noconfirm \
    tree \
    tmux \
    downgrade \
-   cuda 
+   cuda \
+   nvtop 
+
 
 COPY <<EOF ./entrypoint.sh
 #!/bin/bash
