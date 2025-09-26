@@ -53,7 +53,7 @@ RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master
 
 ADD --link --chown=$username https://github.com/zsh-users/zsh-autosuggestions.git ./.oh-my-zsh/custom/plugins/zsh-autosuggestions
 
-COPY --link <<EOF ./entrypoint.sh
+COPY --link --chown=$username --chmod=755 <<EOF ./entrypoint.sh
 #!/bin/bash
 
 yadm clone --depth 1 git@github.com:neevparikh/dotfiles.git && yadm alt && yadm checkout -- ~/
