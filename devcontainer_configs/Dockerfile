@@ -1,51 +1,59 @@
-FROM archlinux:multilib-devel AS unfetched 
-RUN pacman -Syu --noconfirm git cargo inetutils zsh 
+FROM archlinux:multilib-devel AS unfetched
+RUN --mount=type=cache,target=/var/cache/pacman/pkg/,sharing=private \
+    pacman -Syu --noconfirm git cargo inetutils zsh
+
 ARG username
-RUN useradd -m -G wheel -s /bin/zsh $username \
-    && echo "$username ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers 
+ARG uid
+RUN useradd -m -G wheel -u $uid -s /bin/zsh $username \
+    && echo "$username ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 USER $username
 WORKDIR /home/$username
-RUN cd /tmp \
-   && git clone https://aur.archlinux.org/paru.git \
-   && cd paru \
-   && makepkg -si --noconfirm 
-RUN paru -S --noconfirm \
-   neovim \
-   yadm \
-   fzf \
-   ripgrep \
-   fd \
-   bat \
-   htop \
-   uv \
-   jujutsu \
-   neovim-remote \
-   tailscale \
-   openssh \
-   luarocks \
-   gosu \
-   kitty-terminfo \
-   npm 
-RUN uv tool install llm 
-RUN mkdir -p -m 700 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts 
+
+RUN --mount=type=tmpfs,target=/tmp/ \
+    git clone https://aur.archlinux.org/paru-bin.git /tmp/paru-bin && \
+    cd /tmp/paru-bin && \
+    makepkg -si --noconfirm
+
+RUN --mount=type=cache,target=/home/$username/.cache/,sharing=private,uid=$uid \
+    --mount=type=cache,target=/var/cache/,sharing=private \
+    paru -S --noconfirm \
+       neovim \
+       yadm \
+       fzf \
+       ripgrep \
+       fd \
+       bat \
+       htop \
+       uv \
+       jujutsu \
+       neovim-remote \
+       tailscale \
+       openssh \
+       luarocks \
+       gosu \
+       kitty-terminfo \
+       npm \
+       jq \
+       git-lfs \
+       github-cli \
+       tree \
+       tmux \
+       downgrade \
+       cuda \
+       nvtop \
+       aws-cli-v2
+
+RUN mkdir -p -m 700 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+RUN --mount=type=cache,target=/home/$username/.cache/uv,uid=$uid \
+    uv tool install llm
+
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
-   "" --unattended 
-RUN git clone https://github.com/zsh-users/zsh-autosuggestions \
-   ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions 
-RUN paru -S --noconfirm aws-cli-v2 --mflags "--skippgpcheck" 
+   "" --unattended
 
-RUN paru -Syu --noconfirm && paru -S --noconfirm \
-   jq \
-   git-lfs \
-   github-cli \
-   tree \
-   tmux \
-   downgrade \
-   cuda \
-   nvtop 
+ADD --link --chown=$username https://github.com/zsh-users/zsh-autosuggestions.git ./.oh-my-zsh/custom/plugins/zsh-autosuggestions
 
-
-COPY <<EOF ./entrypoint.sh
+COPY --link <<EOF ./entrypoint.sh
 #!/bin/bash
 
 yadm clone --depth 1 git@github.com:neevparikh/dotfiles.git && yadm alt && yadm checkout -- ~/
@@ -54,7 +62,7 @@ EOF
 ENTRYPOINT ["/bin/bash", "./entrypoint.sh"]
 
 FROM unfetched AS prefetched
-RUN --mount=type=ssh,uid=1000 \
+RUN --mount=type=ssh,uid=$uid \
    yadm clone --depth 1 git@github.com:neevparikh/dotfiles.git \
    && yadm alt \
    && yadm checkout -- ~/ 
