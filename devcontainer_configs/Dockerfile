@@ -16,7 +16,7 @@ RUN --mount=type=tmpfs,target=/tmp/ \
 
 RUN --mount=type=cache,target=/home/$username/.cache/,sharing=private,uid=$uid \
     --mount=type=cache,target=/var/cache/,sharing=private \
-    paru -Syu --noconfirm \
+    paru -S --noconfirm \
        neovim \
        yadm \
        fzf \
@@ -33,15 +33,7 @@ RUN --mount=type=cache,target=/home/$username/.cache/,sharing=private,uid=$uid \
        gosu \
        kitty-terminfo \
        npm \
-       jq \
-       git-lfs \
-       github-cli \
-       tree \
-       tmux \
-       downgrade \
-       cuda \
-       nvtop \
-       aws-cli-v2
+       cuda
 
 RUN mkdir -p -m 700 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
 
@@ -59,6 +51,19 @@ COPY --link --chown=$username --chmod=755 <<EOF ./entrypoint.sh
 yadm clone --depth 1 git@github.com:neevparikh/dotfiles.git && yadm alt && yadm checkout -- ~/
 exec zsh
 EOF
+
+RUN --mount=type=cache,target=/home/$username/.cache/,sharing=private,uid=$uid \
+    --mount=type=cache,target=/var/cache/,sharing=private \
+    paru -Syu --noconfirm \
+       jq \
+       git-lfs \
+       github-cli \
+       tree \
+       tmux \
+       downgrade \
+       nvtop \
+       aws-cli-v2
+
 ENTRYPOINT ["/bin/bash", "./entrypoint.sh"]
 
 FROM unfetched AS prefetched
