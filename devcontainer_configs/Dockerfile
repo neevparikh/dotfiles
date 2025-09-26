@@ -16,7 +16,7 @@ RUN --mount=type=tmpfs,target=/tmp/ \
 
 RUN --mount=type=cache,target=/home/$username/.cache/,sharing=private,uid=$uid \
     --mount=type=cache,target=/var/cache/,sharing=private \
-    paru -S --noconfirm \
+    paru -Syu --noconfirm \
        neovim \
        yadm \
        fzf \
