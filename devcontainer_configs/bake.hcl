@@ -8,6 +8,7 @@ target "unfetched" {
   tags = ["docker.io/npx27/dev-unfetched:latest"]
   args = {
     username = "neev"
+    uid      = "1000"
   } 
   platforms = [ "linux/amd64" ]
   ssh = [ "default" ]
@@ -19,7 +20,8 @@ target "prefetched" {
   tags = ["docker.io/npx27/dev-prefetched:latest"]
   args = {
     username = "neev"
-  } 
+    uid      = "1000"
+  }
   platforms = [ "linux/amd64" ]
   ssh = [ "default" ]
 }
