@@ -1,5 +1,6 @@
 group "default" {
   targets = [ "unfetched", "prefetched" ]
+  max-parallelism = 8
 }
 
 target "unfetched" {
