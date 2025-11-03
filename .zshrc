@@ -10,6 +10,9 @@ fi
 if [ -d "$HOMEBREW_PREFIX" ]; then
   export PATH=$HOMEBREW_PREFIX/bin:$PATH
 fi
+if [ -d "$HOME/.npm/bin" ]; then
+  export PATH=$HOME/.npm/bin:$PATH
+fi
 export PATH=$HOME/.local/bin:$PATH
 
 # Set name of the theme to load --- if set to "random", it will
