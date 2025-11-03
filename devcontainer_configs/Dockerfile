@@ -41,13 +41,13 @@ RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master
 
 ADD --link --chown=$username https://github.com/zsh-users/zsh-autosuggestions.git ./.oh-my-zsh/custom/plugins/zsh-autosuggestions
 
-COPY --link --chown=$username --chmod=755 <<EOF ./entrypoint.sh
+COPY --link --chown=$username --chmod=755 <<EOF ./fetch_entrypoint.sh
 #!/bin/bash
 yadm clone --depth 1 git@github.com:neevparikh/dotfiles.git && yadm alt && yadm checkout -- ~/
 
-ssh-keygen -A 
-curl https://github.com/neevparikh.keys -o /home/neev/.ssh/authorized_keys
-/usr/sbin/sshd -D -E /var/log/sshd.log -o LogLevel=VERBOSE
+sudo ssh-keygen -A 
+curl https://github.com/neevparikh.keys -o /home/$username/.ssh/authorized_keys
+sudo /usr/sbin/sshd -D -E /var/log/sshd.log -o LogLevel=VERBOSE &
 
 exec zsh
 EOF
@@ -64,13 +64,21 @@ RUN --mount=type=cache,target=/home/$username/.cache/,sharing=private,uid=$uid \
        nvtop \
        aws-cli-v2 
 
-ENTRYPOINT ["/bin/bash", "./entrypoint.sh"]
+ENTRYPOINT ["/bin/bash", "./fetch_entrypoint.sh"]
 
 FROM unfetched AS prefetched
 RUN --mount=type=ssh,uid=$uid \
    yadm clone --depth 1 git@github.com:neevparikh/dotfiles.git \
    && yadm alt \
    && yadm checkout -- ~/ 
-RUN ssh-keygen -A 
-RUN curl https://github.com/neevparikh.keys -o /home/neev/.ssh/authorized_keys
-ENTRYPOINT ["/usr/sbin/sshd", "-D", "-E", "/var/log/sshd.log", "-o", "LogLevel=VERBOSE"]
+
+COPY --link --chown=$username --chmod=755 <<EOF ./no_fetch_entrypoint.sh
+#!/bin/bash
+sudo ssh-keygen -A 
+curl https://github.com/neevparikh.keys -o /home/$username/.ssh/authorized_keys
+sudo /usr/sbin/sshd -D -E /var/log/sshd.log -o LogLevel=VERBOSE &
+
+exec zsh
+EOF
+
+ENTRYPOINT ["/bin/bash", "./no_fetch_entrypoint.sh"]

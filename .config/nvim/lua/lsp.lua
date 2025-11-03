@@ -51,12 +51,12 @@ vim.lsp.config("basedpyright", {
   },
 })
 vim.lsp.config("ts_ls", {
-  root_dir = require("lspconfig").util.root_pattern({ "package.json", "tsconfig.json" }),
+  root_dir = RootPattern({ "package.json", "tsconfig.json" }),
   single_file_support = false,
   settings = {},
 })
 vim.lsp.config("denols", {
-  root_dir = require("lspconfig").util.root_pattern({ "deno.json", "deno.jsonc" }),
+  root_dir = RootPattern({ "deno.json", "deno.jsonc" }),
   single_file_support = false,
   settings = {},
 })

@@ -228,3 +228,53 @@ end
 function PrintPath()
   vim.print(vim.fn.expand("%:p"))
 end
+
+function TblFlatten(t)
+  return vim.iter(t):flatten(math.huge):totable()
+end
+
+function EscapeWildcards(path)
+  return path:gsub("([%[%]%?%*])", "\\%1")
+end
+
+function SearchAncestors(startpath, func)
+  if func(startpath) then
+    return startpath
+  end
+  local guard = 100
+  for path in vim.fs.parents(startpath) do
+    -- Prevent infinite recursion if our algorithm breaks
+    guard = guard - 1
+    if guard == 0 then
+      return
+    end
+
+    if func(path) then
+      return path
+    end
+  end
+end
+
+function RootPattern(...)
+  local patterns = TblFlatten({ ... })
+  return function(startpath)
+    startpath = vim.fn.substitute(startpath, "zipfile://\\(.\\{-}\\)::[^\\\\].*$", "\\1", "")
+    startpath = vim.fn.substitute(startpath, "tarfile:\\(.\\{-}\\)::.*$", "\\1", "")
+    for _, pattern in ipairs(patterns) do
+      local match = SearchAncestors(startpath, function(path)
+        for _, p in
+          ipairs(vim.fn.glob(table.concat({ EscapeWildcards(path), pattern }, "/"), true, true))
+        do
+          if vim.uv.fs_stat(p) then
+            return path
+          end
+        end
+      end)
+
+      if match ~= nil then
+        local real = vim.uv.fs_realpath(match)
+        return real or match -- fallback to original if realpath fails
+      end
+    end
+  end
+end

@@ -397,9 +397,10 @@ if [ -d "$HOME/repos/metr" ]; then
   alias ${repo_prefix}m="cd $HOME/repos/metr/"
   alias ${repo_prefix}t="cd $HOME/repos/metr/mp4-tasks/"
   alias ${repo_prefix}e="cd $HOME/repos/metr/eval-pipeline/"
-  alias ${repo_prefix}v="cd $HOME/repos/metr/vivaria/"
   alias ${repo_prefix}p="cd $HOME/repos/metr/poke-tools/"
-  alias ${repo_prefix}c="cd $HOME/repos/metr/cot-monitoring/"
+  alias ${repo_prefix}h="cd $HOME/repos/metr/monitoring-horizons/"
+  alias ${repo_prefix}s="cd $HOME/repos/metr/sandbagging-evals/"
+  alias ${repo_prefix}i="cd $HOME/repos/metr/modelscan-inspect/"
 fi
 if which command timg &> /dev/null; then
   alias timg="timg -p kitty"
