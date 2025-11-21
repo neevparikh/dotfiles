@@ -449,7 +449,7 @@ return {
         ["--height"] = "100%",
         ["--layout"] = "reverse",
         ["--border"] = "none",
-        ["--highlight-line"] = false,
+        ["--highlight-line"] = true,
       },
       fzf_colors = {
         ["bg+"] = { "bg", "FzfLuaCursorLine" },
