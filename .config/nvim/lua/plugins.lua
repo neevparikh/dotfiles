@@ -65,6 +65,9 @@ return {
         ["@diff.minus.diff"] = { fg = colors.red },
         ["@diff.plus.diff"] = { fg = colors.green },
 
+        ["@markup.link.url.markdown_inline"] = { fg = colors.bg4 },
+        ["@markup.link.markdown_inline"] = { fg = colors.bg4 },
+
         FloatBorder = { link = "GruvboxBg2" },
 
         TelescopeBorder = { link = "GruvboxBg2" },

@@ -49,7 +49,7 @@ autocmd({ "FileType" }, {
 })
 autocmd({ "BufEnter" }, {
   pattern = { "*/neevparikh.github.io/src/posts/*.md" },
-  command = "setlocal textwidth=170",
+  command = "setlocal wrap",
 })
 autocmd({ "FileType" }, {
   pattern = { "todo" },

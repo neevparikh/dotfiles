@@ -12,7 +12,7 @@ update_display() {
   fi
   sketchybar -m --set $NAME display=$display
 
-  if [[ $NAME -eq "space.20" ]]; then
+  if [[ $NAME == "space.20" ]]; then
     if [[ $NUM_MONITORS -gt 2 ]]; then
       sketchybar --reorder space.1 space.2 space.3 space.4 space.5 space.6 space.7 space.8 space.9 space.10 \
         space.11 space.12 space.13 space.14 space.15 space.16 space.17 space.18 space.19 space.20
@@ -26,9 +26,10 @@ update_display() {
 update() {
   args=()
 
+  echo $VISIBLE
   is_in=false
   for sid in $(echo $VISIBLE | tr "," " "); do
-    if [ "space.$sid" = "$NAME" ]; then
+    if [ "space.$sid" == "$NAME" ]; then
       is_in=true
     fi
   done

@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(uv run:*)",
+      "Bash(mkdir:*)",
+      "Bash(uv run basedpyright:*)",
+      "Bash(uv run ruff check:*)",
+      "Bash(ls:*)",
+      "Bash(git:*)",
+      "Bash(mv:*)",
+      "Bash(echo:*)",
+      "Bash(sed:*)",
+      "Bash(source:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(touch:*)",
+      "Bash(grep:*)",
+      "Bash(curl:*)",
+      "Bash(rg:*)",
+      "Bash(chmod:*)",
+      "Bash(lsof:*)",
+      "Bash(make:*)",
+      "Bash(PORT=:*)",
+      "Bash(find:*)",
+      "Bash(docker:*)",
+      "Write(*)",
+      "Edit(**/*)"
+    ],
+    "defaultMode": "acceptEdits"
+  },
+  "model": "opus",
+  "alwaysThinkingEnabled": true
+}
