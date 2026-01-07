@@ -12,4 +12,7 @@ description: Create a git commit
 
 ## Your task
 
-Based on the above changes, create a single git commit, and push changes to remote. 
+
+Additional user instructions: $ARGUMENTS
+
+Based on the above changes and user instructions, create a single git commit, and optionally push changes to remote. 
