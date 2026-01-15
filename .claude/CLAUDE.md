@@ -18,3 +18,22 @@
 - Use pattern matching to extract attributes directly in case clauses (e.g., `case ChatMessageTool(tool_call_id=id, function=fn):`)
 - Extract shared logic into helper functions when match cases have common operations
 - **Fail loudly on missing keys**: Almost never use `.get(key, "")` or `.get(key, default)` for dict access. If a key is expected to be present, use `dict[key]` directly so missing keys cause an immediate crash. Only use `.get()` with a fallback when the key is genuinely optional. Silent fallbacks hide bugs.
+
+### Test Style
+-   **Use `mocker.patch` over `monkeypatch`**: Prefer `mocker: MockerFixture` with `mocker.patch()` for cleaner mocking syntax.
+-   **Use `side_effect` for sequences**: Instead of `nonlocal` counters, use `side_effect=[val1, val2, ...]` for sequential return values or `side_effect=Exception(...)` for consistent failures.
+-   **Use real classes over MagicMock**: When a class is simple (e.g., `Target`, `ChatCompletion`), use the real class instead of mocking it. For OpenAI types, use `openai.types.chat.ChatCompletion`, `CompletionUsage`, `CompletionTokensDetails`, etc.
+-   **Use type assertions over `# type: ignore`**: Prefer `assert x is not None` before accessing `x.attr` instead of `x.attr  # type: ignore`.
+-   **Parameterize similar tests**: Use `@pytest.mark.parametrize` with `pytest.param(..., id="descriptive_name")` instead of writing multiple near-identical test functions.
+-   **Avoid redundant test cases**: Don't add tests that don't increase coverage (e.g., testing 10 items when 3 items already tests the same logic).
+-   **Keep comments current**: Remove stale comments (e.g., "will fail due to bug" after the bug is fixed).
+
+-   Secrets: load API keys via `.env` per `README.md`; never commit secrets or local configs (e.g., `~/.dvc/config.local`).
+-   DVC controls large artifacts; commit `.dvc` metadata but avoid adding raw data directly to git. Check `dvc status` before PRs if data changed.
+
+
+## Commit & Pull Request Guidelines
+
+-   Commit messages mirror history: short and imperative, optionally prefixed (`feat:`) and often referencing the PR number `(#NNN)`.
+-   PRs should list scope, linked issue/PR, data or regenerated artifacts, commands run (tests, `dvc repro`), and screenshots/plots when visuals change.
+-   Call out monitor spec/parameter changes and whether downstream data or plots were refreshed.

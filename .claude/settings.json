@@ -7,6 +7,8 @@
       "Bash(uv run ruff check:*)",
       "Bash(ls:*)",
       "Bash(git:*)",
+      "Bash(gh pr:*)",
+      "Bash(gh api:*)",
       "Bash(mv:*)",
       "Bash(echo:*)",
       "Bash(sed:*)",
@@ -29,5 +31,12 @@
     "defaultMode": "acceptEdits"
   },
   "model": "opus",
+  "enabledPlugins": {
+    "github@claude-plugins-official": true,
+    "code-review@claude-plugins-official": true,
+    "commit-commands@claude-plugins-official": true,
+    "linear@claude-plugins-official": true,
+    "slack@claude-plugins-official": true
+  },
   "alwaysThinkingEnabled": true
 }
