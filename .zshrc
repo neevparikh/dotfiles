@@ -376,6 +376,8 @@ fi
 
 alias dvctr="docker run --rm -it --platform linux/amd64 -p 7575:7575 --mount type=bind,src=/tmp,dst=/tmp -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK -e TERM=$TERM -e SHELL=/bin/zsh --mount type=bind,src=$HOME/,dst=/home/neev/host-dir npx27/dev-prefetched:latest"
 
+alias cdsp="claude --dangerously-skip-permissions"
+
 # Changing theme
 if [ -f "$HOME/.local/bin/toggle-theme" ]; then
   alias lt="toggle-theme --light"

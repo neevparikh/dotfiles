@@ -1,5 +1,5 @@
 ---
-description: "Run type-checker, bug-finder, and code-simplifier on recent changes"
+description: "Run type-checker, bug-finder, compare-instructions, and code-simplifier on recent changes"
 ---
 
 Analyze the code in my current working copy changes.
@@ -12,11 +12,12 @@ Analyze the code in my current working copy changes.
 1. **type-checker** - Improve type safety, replace Any types, add proper annotations
 2. **bug-finder** - Find subtle bugs, edge cases, and potential failure modes
 3. **code-simplifier** - Check for unnecessary complexity and simplification opportunities
+4. compare-instructions - Check for issues against coding styles and previous PR comments
 
 **3. After all three complete, provide a unified summary:**
 
 Categorize findings by severity:
-- **Critical:** Must fix before shipping — bugs, security issues, type errors that cause runtime failures
+- **Critical:** Must fix before shipping — bugs, issues, type errors that cause runtime failures
 - **High:** Should fix — subtle bugs, missing edge cases, unsafe type casts
 - **Medium:** Consider fixing — type improvements, simplifications that improve clarity
 - **Low:** Optional — style improvements, minor suggestions

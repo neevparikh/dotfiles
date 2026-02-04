@@ -8,8 +8,8 @@ USER $username
 WORKDIR /home/$username
 
 RUN --mount=type=tmpfs,target=/tmp/ \
-    git clone https://aur.archlinux.org/paru-bin.git /tmp/paru-bin && \
-    cd /tmp/paru-bin && \
+    git clone https://aur.archlinux.org/paru.git /tmp/paru && \
+    cd /tmp/paru && \
     makepkg -si --noconfirm 
 
 RUN --mount=type=cache,target=/home/$username/.cache/,sharing=private,uid=$uid \
@@ -62,6 +62,8 @@ RUN --mount=type=cache,target=/home/$username/.cache/,sharing=private,uid=$uid \
        tmux \
        downgrade \
        nvtop \
+       less \
+       mosh \
        aws-cli-v2 
 
 ENTRYPOINT ["/bin/bash", "./fetch_entrypoint.sh"]

@@ -5,6 +5,8 @@ args: "[pr_number_or_url]"
 
 Fetch all review comments on a pull request and create an action plan.
 
+> **jj workspace note:** You may be in a non-default jj workspace with no `.git` directory. If `gh` commands fail, set `GIT_DIR` to point to the default workspace: `GIT_DIR=/path/to/default/.git gh pr view ...`
+
 **1. Find the PR:**
 - If argument provided, use that PR number/URL
 - Otherwise, find the PR for the current branch: `gh pr view`

@@ -37,7 +37,12 @@ sketchybar --bar height=41                                                      
                      popup.background.color=$bg0                                                                 \
                      popup.background.shadow.drawing=on                                                          \
            --add event screen_unlock "com.apple.screenIsUnlocked"                                                \
-           --add event refresh_spaces
+           --add event refresh_spaces                                                                           \
+           # --add item trigger_refresh left                                                                      \
+           # --set trigger_refresh drawing=off                                                                    \
+           #                       updates=on                                                                     \
+           #                       script="$PLUGIN_DIR/screen_unlock.sh"                                          \
+           --subscribe trigger_refresh screen_unlock                                                                           \
 
 # -- }}}
 
@@ -299,6 +304,5 @@ sketchybar --hotload true
 sketchybar --update
 
 # Force triggers
-sleep 1 && sketchybar --trigger refresh_spaces VISIBLE=$(aerospace list-workspaces --monitor all --visible | tr "\n" ",")
-sleep 1 && sketchybar --trigger refresh_focus
+sleep 1 && sketchybar --trigger refresh_spaces VISIBLE=$(aerospace list-workspaces --monitor all --visible | tr "\n" ",") refresh_focus
 # -- }}}
