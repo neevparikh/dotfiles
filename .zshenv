@@ -1,6 +1,6 @@
 if [ -d "$HOME/.cargo/env" ]; then
-  fi
-. "$HOME/.cargo/env"
+  . "$HOME/.cargo/env"
+fi
 # zerobrew
 export ZEROBREW_DIR=/Users/neev/.zerobrew
 export ZEROBREW_BIN=/Users/neev/.local/bin
