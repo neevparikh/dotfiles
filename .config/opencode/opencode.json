@@ -1,0 +1,20 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "anthropic/claude-opus-4-6",
+  "small_model": "anthropic/claude-3-5-haiku-20241022",
+  "provider": {
+    "anthropic": {
+      "options": {
+        "baseURL": "https://middleman.internal.metr.org/anthropic/v1"
+      }
+    },
+    "openai": {
+      "options": {
+        "baseURL": "https://middleman.internal.metr.org/openai/v1/"
+      }
+    }
+  },
+  "plugin": [
+    "oh-my-opencode@latest"
+  ]
+}
