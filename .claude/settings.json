@@ -1,4 +1,5 @@
 {
+  "cleanupPeriodDays": 36500,
   "permissions": {
     "allow": [
       "Bash(uv run:*)",
@@ -43,7 +44,9 @@
     "linear@claude-plugins-official": true,
     "slack@claude-plugins-official": false,
     "superpowers@claude-plugins-official": true,
-    "compound-engineering@every-marketplace": true
+    "compound-engineering@every-marketplace": true,
+    "sjawhar@sjawhar": true
   },
-  "alwaysThinkingEnabled": true
+  "alwaysThinkingEnabled": true,
+  "fastMode": true
 }
