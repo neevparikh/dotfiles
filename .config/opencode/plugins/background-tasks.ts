@@ -111,7 +111,7 @@ interface ConcurrencyQueueEntry {
   settled: boolean
 }
 
-export class ConcurrencyManager {
+class ConcurrencyManager {
   private config: BackgroundTaskConfig
   private counts: Map<string, number> = new Map()
   private queues: Map<string, ConcurrencyQueueEntry[]> = new Map()
@@ -220,7 +220,7 @@ interface TaskHistoryEntry {
   completedAt?: Date
 }
 
-export class TaskHistory {
+class TaskHistory {
   private entries: Map<string, TaskHistoryEntry[]> = new Map()
 
   record(parentSessionID: string | undefined, entry: TaskHistoryEntry): void {
@@ -407,7 +407,7 @@ interface Todo {
   id: string
 }
 
-export class BackgroundManager {
+class BackgroundManager {
   private tasks: Map<string, BackgroundTask> = new Map()
   private notifications: Map<string, BackgroundTask[]> = new Map()
   private pendingByParent: Map<string, Set<string>> = new Map()
@@ -1932,7 +1932,7 @@ Status: ${task.status}`
 // Plugin entry point
 // ═══════════════════════════════════════════════════════════════════════════════
 
-const BackgroundTasksPlugin: Plugin = async (
+export const BackgroundTasksPlugin: Plugin = async (
   input: PluginInput,
 ): Promise<Hooks> => {
   const { client, directory } = input
@@ -1957,5 +1957,3 @@ const BackgroundTasksPlugin: Plugin = async (
     },
   }
 }
-
-export default BackgroundTasksPlugin
