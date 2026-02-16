@@ -438,3 +438,10 @@ fi
 if which command jj &> /dev/null; then
   source <(COMPLETE=zsh jj)
 fi
+
+# bun completions
+[ -s "/home/neev/.bun/_bun" ] && source "/home/neev/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

@@ -40,13 +40,12 @@
   "enabledPlugins": {
     "github@claude-plugins-official": false,
     "code-review@claude-plugins-official": true,
-    "commit-commands@claude-plugins-official": false,
     "linear@claude-plugins-official": true,
-    "slack@claude-plugins-official": false,
     "superpowers@claude-plugins-official": true,
     "compound-engineering@every-marketplace": true,
     "sjawhar@sjawhar": true
   },
   "alwaysThinkingEnabled": true,
-  "fastMode": true
+  "fastMode": true,
+  "skipDangerousModePermissionPrompt": true
 }
