@@ -1,0 +1,12 @@
+{
+  "providers": {
+    "anthropic": {
+      "baseUrl": "https://middleman.internal.metr.org/anthropic/",
+      "apiKey": "!~/.pi/agent/hawk-access-token-cached.sh"
+    },
+    "openai": {
+      "baseUrl": "https://middleman.internal.metr.org/openai/v1/",
+      "apiKey": "!~/.pi/agent/hawk-access-token-cached.sh"
+    }
+  }
+}

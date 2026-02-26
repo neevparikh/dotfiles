@@ -1,0 +1,11 @@
+{
+  "lastChangelogVersion": "0.55.1",
+  "theme": "softstack",
+  "extensions": ["extensions/modal-editor.ts", "extensions/subagent"],
+  "editorPaddingX": 1,
+  "defaultProvider": "openai",
+  "defaultModel": "gpt-5.3-codex",
+  "hideThinkingBlock": false,
+  "defaultThinkingLevel": "high"
+}
+
