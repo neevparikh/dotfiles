@@ -400,6 +400,7 @@ local repo_prefix
 repo_prefix=cd
 if [ -d "$HOME/repos/metr" ]; then
   alias ${repo_prefix}m="cd $HOME/repos/metr/"
+  alias ${repo_prefix}w="cd $HOME/repos/worktrees/"
   alias ${repo_prefix}t="cd $HOME/repos/metr/mp4-tasks/"
   alias ${repo_prefix}e="cd $HOME/repos/metr/eval-pipeline/"
   alias ${repo_prefix}p="cd $HOME/repos/metr/poke-tools/"

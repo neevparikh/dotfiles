@@ -4,7 +4,7 @@ set -euo pipefail
 CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/pi-agent"
 CACHE_FILE="$CACHE_DIR/hawk-access-token"
 LOCK_FILE="$CACHE_DIR/hawk-access-token.lock"
-TTL_SECONDS=$((16 * 60 * 60))
+TTL_SECONDS=$((4 * 60 * 60))
 
 mkdir -p "$CACHE_DIR"
 

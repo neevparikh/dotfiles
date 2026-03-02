@@ -1,11 +1,15 @@
 {
-  "lastChangelogVersion": "0.55.1",
+  "lastChangelogVersion": "0.55.3",
   "theme": "softstack",
-  "extensions": ["extensions/modal-editor.ts", "extensions/subagent"],
+  "extensions": [
+    "extensions/subagent"
+  ],
   "editorPaddingX": 1,
   "defaultProvider": "openai",
   "defaultModel": "gpt-5.3-codex",
   "hideThinkingBlock": false,
-  "defaultThinkingLevel": "high"
+  "defaultThinkingLevel": "high",
+  "packages": [
+    "git:github.com/neevparikh/pi-vim@main"
+  ]
 }
-
