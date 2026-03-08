@@ -8,6 +8,7 @@ description: Create a git commit and optionally push to remote and optionally ma
 - Current git diff (staged and unstaged changes): !`git diff HEAD`
 - Current branch: !`git branch --show-current`
 - Recent commits: !`git log --oneline -10`
+- Additional user instructions if provided: $@
 
 ## Your task
 

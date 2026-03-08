@@ -43,7 +43,8 @@
     "linear@claude-plugins-official": true,
     "superpowers@claude-plugins-official": true,
     "compound-engineering@every-marketplace": true,
-    "sjawhar@sjawhar": true
+    "sjawhar@sjawhar": true,
+    "warehouse-query@metr-eval-execution": true
   },
   "alwaysThinkingEnabled": true,
   "skipDangerousModePermissionPrompt": true

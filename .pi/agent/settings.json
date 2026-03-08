@@ -1,15 +1,25 @@
 {
-  "lastChangelogVersion": "0.55.3",
+  "lastChangelogVersion": "0.57.0",
   "theme": "softstack",
   "extensions": [
     "extensions/subagent"
   ],
   "editorPaddingX": 1,
-  "defaultProvider": "openai",
+  "defaultProvider": "hawk",
   "defaultModel": "gpt-5.3-codex",
   "hideThinkingBlock": false,
   "defaultThinkingLevel": "high",
   "packages": [
-    "git:github.com/neevparikh/pi-vim@main"
+    "git:github.com/neevparikh/pi-hawk-provider",
+    "git:github.com/neevparikh/pi-vim"
+  ],
+  "skills": [
+    "~/.claude/skills",
+    "~/.claude/plugins/marketplaces/metr-eval-execution/plugins/warehouse-query/skills/warehouse-query"
+  ],
+  "enableSkillCommands": true,
+  "enabledModels": [
+    "hawk/gpt-5.3-codex",
+    "hawk/claude-opus-4-6"
   ]
 }
