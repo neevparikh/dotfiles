@@ -406,7 +406,7 @@ if [ -d "$HOME/repos/metr" ]; then
   alias ${repo_prefix}p="cd $HOME/repos/metr/poke-tools/"
   alias ${repo_prefix}h="cd $HOME/repos/metr/monitoring-horizons/"
   alias ${repo_prefix}s="cd $HOME/repos/metr/sandbagging-evals/"
-  alias ${repo_prefix}i="cd $HOME/repos/metr/modelscan-inspect/"
+  alias ${repo_prefix}3="cd $HOME/repos/metr/3pra/"
 fi
 if which command timg &> /dev/null; then
   alias timg="timg -p kitty"
@@ -440,9 +440,18 @@ if which command jj &> /dev/null; then
   source <(COMPLETE=zsh jj)
 fi
 
+alias piupdate="npm install -g @mariozechner/pi-coding-agent"
+alias antc="uv run --env-file .env python -c \"from anthropic import Anthropic; client = Anthropic(); request = {'model': 'claude-haiku-4-5-20251001', 'messages': [ { 'role': 'user', 'content': 'What is the capital of France?', } ], 'max_tokens': 50}; print(client.messages.create(**request).model_dump_json())\" | jq ."
+alias oaic="uv run --env-file .env python -c 'from openai import OpenAI; client = OpenAI(); print(client.responses.create(model=\"gpt-4.1-mini\", input=\"Say hello in one short sentence.\").model_dump_json())' | jq ."
+alias uve="uv run --env-file .env"
+
+
 # bun completions
 [ -s "/home/neev/.bun/_bun" ] && source "/home/neev/.bun/_bun"
+
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+export AWS_PROFILE=production
+export DYLD_FALLBACK_LIBRARY_PATH="/opt/homebrew/lib"
