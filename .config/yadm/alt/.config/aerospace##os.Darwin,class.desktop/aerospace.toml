@@ -45,7 +45,7 @@ cmd-shift-j = 'move down'
 cmd-shift-k = 'move up'
 cmd-shift-l = 'move right'
 
-cmd-m = 'balance-sizes'
+cmd-m = 'exec-and-forget sketchybar --reload'
 cmd-shift-d = "exec-and-forget aerospace list-windows --all --json | jq '.[] | select(.[\"window-title\"] == \"\") | .[\"window-id\"]' | xargs -n 1 aerospace close --window-id"
 
 cmd-1 = 'workspace 1'
