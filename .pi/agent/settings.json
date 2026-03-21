@@ -1,17 +1,18 @@
 {
-  "lastChangelogVersion": "0.57.0",
+  "lastChangelogVersion": "0.61.1",
   "theme": "softstack",
   "extensions": [
     "extensions/subagent"
   ],
   "editorPaddingX": 1,
   "defaultProvider": "hawk",
-  "defaultModel": "gpt-5.3-codex",
+  "defaultModel": "gpt-5.4",
   "hideThinkingBlock": false,
-  "defaultThinkingLevel": "high",
+  "defaultThinkingLevel": "xhigh",
   "packages": [
     "git:github.com/neevparikh/pi-hawk-provider",
-    "git:github.com/neevparikh/pi-vim"
+    "git:github.com/neevparikh/pi-vim",
+    "https://github.com/tbroadley/pi-btw"
   ],
   "skills": [
     "~/.claude/skills",
@@ -19,7 +20,8 @@
   ],
   "enableSkillCommands": true,
   "enabledModels": [
-    "hawk/gpt-5.3-codex",
-    "hawk/claude-opus-4-6"
+    "hawk/gpt-5.4",
+    "hawk/claude-opus-4-6",
+    "hawk/claude-opus-4-6-fast"
   ]
 }

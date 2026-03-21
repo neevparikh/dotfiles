@@ -9,7 +9,8 @@ Additional context if provided: $@
 
 **1. Gather changes:**
 - Run `git diff` to see what has changed
-- If there are no changes, report that and stop, or if requested review the current codebase as a whole.
+- If there are no changes, then see if you're on a feature branch, if so, check the diff to origin/main.
+- If there are still no changes, report that and stop, or if requested review the current codebase as a whole.
 
 **2. Launch review:*
 Pass the diff to the reviewer agent and report the results.
