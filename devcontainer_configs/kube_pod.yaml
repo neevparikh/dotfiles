@@ -1,0 +1,116 @@
+# =============================================================================dl
+# RESEARCHER DEVPOD TEMPLATE
+# ==============================================================================
+#
+# QUICK START:
+# 1. Save this file: YOUR_NAME-devpod.yaml
+# 2. Replace YOUR_NAME with your username (e.g., "paarth")
+# 3. Add your SSH public key (line 18)
+# 4. Choose GPU settings (see options below)
+# 5. Apply: kubectl apply -f YOUR_NAME-devpod.yaml
+# 6. Get pod IP: kubectl get pod -n researcher YOUR_NAME-devpod -o wide
+# 7. Connect:
+#   a. kubectl exec -it YOUR_NAME-devpod -c devpod -- bash
+#   b. ssh root@$(kubectl get pod paarth-devpod -n researcher --template '{{.status.podIP}}')
+# 8. When you're done: kubectl delete -f YOUR_NAME-devpod.yaml
+#
+# ==============================================================================
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: neev-ssh-keys
+  namespace: researcher
+data:
+  authorized_keys: |
+    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM5eh7hw6HNqN6hT7T+oYUS4GLZ4Y0N39WpoLVjGFL+z neev@Neev-Parikh-MacBook-Pro-14-inch-Nov-2023-
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: neev-devpod
+  annotations:
+    karpenter.sh/do-not-disrupt: "true"
+  namespace: researcher
+  labels:
+    app: neev-devpod   
+spec:
+  priorityClassName: researcher-devpod
+
+  # =============================================================================
+  # GPU CONFIGURATION - Choose one option:
+  # =============================================================================
+
+  # OPTION 1: H100 GPU (uncomment the affinity section below)
+  # affinity:
+  #   nodeAffinity:
+  #     requiredDuringSchedulingIgnoredDuringExecution:
+  #       nodeSelectorTerms:
+  #       - matchExpressions:
+  #         - key: nvidia.com/gpu.product
+  #           operator: In
+  #           values:
+  #           - NVIDIA-H100-80GB-HBM3
+
+  # OPTION 2: Any GPU (uncomment the affinity section below)
+  # affinity:
+  #   nodeAffinity:
+  #     requiredDuringSchedulingIgnoredDuringExecution:
+  #       nodeSelectorTerms:
+  #       - matchExpressions:
+  #         - key: nvidia.com/gpu.present
+  #           operator: In
+  #           values:
+  #           - "true"
+
+  # OPTION 3: No GPU preference (leave affinity commented out)
+
+  containers:
+  - name: devpod
+    # image is based on FROM ghcr.io/astral-sh/uv:python3.13-trixie
+    # please feel free to use your own, but minimal support will be offered by engineering
+    # Also feel free to request new images based on your needs/specific base images
+    # image: 328726945407.dkr.ecr.us-west-1.amazonaws.com/production/researcher-devpod:uv-python3.13-trixie
+    image: npx27/dev-unfetched:latest
+    command: ["/bin/sh", "-c"]
+    args:
+    - |
+      yadm clone --depth 1 https://github.com/neevparikh/dotfiles.git && yadm alt && yadm checkout -- ~/
+      sudo ssh-keygen -A 
+      curl https://github.com/neevparikh.keys -o /home/neev/.ssh/authorized_keys
+      echo "starting ssh server"
+      exec sudo /usr/sbin/sshd -D -e -o LogLevel=VERBOSE
+    imagePullPolicy: Always
+    stdin: true
+    tty: true
+    resources:
+      limits:
+        memory: 64Gi
+        cpu: 24
+        ephemeral-storage: 100Gi
+    ports:
+      - name: ssh
+        containerPort: 22
+        protocol: TCP
+    env:
+      - { name: TERM, value: "xterm-kitty" }
+      - { name: SHELL, value: "/bin/zsh" }
+    volumeMounts:
+      # - name: home-dir
+      #   mountPath: /home/neev/host-dir
+      - name: ssh-keys
+        mountPath: /ssh-keys
+        readOnly: true
+  volumes:
+    - name: ssh-keys
+      configMap:
+        name: neev-ssh-keys
+        defaultMode: 0600
+    # - name: home-dir
+    #   hostPath:
+    #     path: /home/neev/host-dir
+    #     type: Directory
+
+  restartPolicy: Never

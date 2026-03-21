@@ -1,5 +1,6 @@
 FROM archlinux:multilib-devel AS unfetched
-RUN --mount=type=cache,target=/var/cache/pacman/pkg/,sharing=private pacman -Syu --noconfirm git cargo inetutils zsh 
+RUN --mount=type=cache,target=/var/cache/pacman/pkg/,sharing=private \
+    sh -c "echo 'DisableSandbox' >> /etc/pacman.conf && pacman -Syu --noconfirm git cargo inetutils zsh" 
 
 ARG username 
 ARG uid 
@@ -64,6 +65,9 @@ RUN --mount=type=cache,target=/home/$username/.cache/,sharing=private,uid=$uid \
        nvtop \
        less \
        mosh \
+       pi-coding-agent \
+       claude-code \
+       openai-codex-bin \
        aws-cli-v2 
 
 ENTRYPOINT ["/bin/bash", "./fetch_entrypoint.sh"]
